@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0093FF</color>
+    <color name="colorPrimaryDark">#0093FF</color>
+    <color name="colorAccent">#0093FF</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#0093FF</color>
+    <color name="blue_dark">#1666AD</color>
+    <color name="gray">#999999</color>
+    <color name="yellow">#FFED75</color>
+    <color name="yellow_fcce06">#FCCE06</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#FF5564</color>
+    <color name="orange">#FA7528</color>
+
+
+
+    <color name="color_F5F5F5">#F5F5F5</color>
+    <color name="color_40A1EE">#40A1EE</color>
+    <color name="color_248EEE">#248EEE</color>
+    <color name="color_ebebeb">#EBEBEB</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_cccccc">#CCCCCC</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_0A93FC">#0A93FC</color>
+    <color name="color_B9B9B9">#B9B9B9</color>
+    <color name="color_D9D9DA">#D9D9DA</color>
+    <color name="color_EAEEF7">#EAEEF7</color>
+    <color name="color_16AFFF">#16AFFF</color>
+    <color name="color_F4F4F4">#F4F4F4</color>
+    <color name="color_F2F2F2">#F2F2F2</color>
+    <color name="color_C8EAFF">#C8EAFF</color>
+    <color name="color_F2F9FF">#F2F9FF</color>
+    <color name="color_D6F0FF">#D6F0FF</color>
+    <color name="color_F2F7FA">#F2F7FA</color>
+    <color name="color_DDDDDD">#DDDDDD</color>
+    <color name="color_FAB843">#FAB843</color>
+    <color name="color_40A0FF">#40A0FF</color>
+    <color name="color_ED7D31">#ED7D31</color>
+    <color name="color_E9F3FA">#E9F3FA</color>
+    <color name="color_34CA00">#34CA00</color>
+    <color name="color_F19F10">#F19F10</color>
+    <color name="color_FF6167">#FF6167</color>
+    <color name="color_F1F5F8">#F1F5F8</color>
+    <color name="color_666EE8">#666EE8</color>
+    <color name="color_FFF4D2">#FFF4D2</color>
+    <color name="color_28D4C1">#28D4C1</color>
+    <color name="color_CBCCCE">#CBCCCE</color>
+    <color name="color_F1F5F7">#F1F5F7</color>
+    <color name="color_5DE941">#5DE941</color>
+    <color name="color_FFAD35">#FFAD35</color>
+
+
+    <color name="color_shadow_start">#E5E9EC</color>
+    <color name="color_shadow_end">#F2F4F5</color>
+
+    <!--表单填充颜色-->
+    <color name="color_chart_004EB8">#004EB8</color>
+    <color name="color_chart_00CECB">#00CECB</color>
+    <color name="color_chart_0072CD">#0072CD</color>
+    <color name="color_chart_0093FF">#0093FF</color>
+    <color name="color_chart_58CB74">#58CB74</color>
+    <color name="color_chart_FCD44B">#FCD44B</color>
+    <color name="color_chart_F4667C">#F4667C</color>
+    <color name="color_chart_FFED75">#FFED75</color>
+    <color name="color_chart_FA7528">#FA7528</color>
+    <color name="color_chart_990033">#990033</color>
+    <color name="color_chart_9020C6">#9020C6</color>
+    <color name="color_chart_000033">#000033</color>
+    <color name="color_chart_663366">#663366</color>
+    <color name="color_chart_663300">#663300</color>
+    <color name="color_chart_FF5564">#FF5564</color>
+    <color name="color_chart_FCCE06">#FCCE06</color>
+    <color name="color_chart_FF0000">#FF0000</color>
+    <color name="color_chart_669900">#669900</color>
+    <color name="color_chart_F19F10">#F19F10</color>
+    <color name="color_chart_63C234">#63C234</color>
+    <color name="color_chart_F47949">#F47949</color>
+    <color name="color_FF4F4F">#FF4F4F</color>
+    <color name="color_ededed">#ededed</color>
+    <color name="translucent_white">#61FFFFFF</color>
+    <color name="color_A4A8AB">#A4A8AB</color>
+    <color name="color_d8d8d8">#d8d8d8</color>
+
+</resources>

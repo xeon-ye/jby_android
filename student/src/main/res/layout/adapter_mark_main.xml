@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:layout_marginBottom="@dimen/dimen_5"
+    android:paddingLeft="@dimen/dimen_15"
+    android:paddingRight="@dimen/dimen_15"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@mipmap/home_icon_blue"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_classes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/middle_black_style"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="班级"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/small_gray_style"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:text="2019/05/09 10:19"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/small_gray_style"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:visibility="gone"
+                android:text="|"/>
+
+            <TextView
+                android:id="@+id/tv_markingProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/small_gray_style"
+                android:layout_gravity="bottom"
+                android:visibility="gone"
+                android:text="已批阅：0%"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/tv_score"
+        android:text="0分"
+        android:enabled="false"
+        style="@style/common_tv_custom1_eaeef7"
+        android:layout_gravity="center_vertical"/>
+</LinearLayout>

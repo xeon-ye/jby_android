@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/middle_black_style"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="@dimen/dimen_20"
+        android:text="姓名" />
+
+    <TextView
+        android:id="@+id/tv_studentId"
+        style="@style/middle_black_style"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="学号" />
+
+    <TextView
+        android:id="@+id/tv_mobile"
+        style="@style/middle_black_style"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="联系方式" />
+
+</LinearLayout>

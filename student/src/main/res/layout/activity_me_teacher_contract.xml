@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F5F5"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_title_with_5dp_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:paddingLeft="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_5"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            style="@style/middle_gray_style"
+            android:paddingLeft="@dimen/dimen_20"
+            android:text="姓名"
+            android:gravity="left|center_vertical"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            style="@style/middle_gray_style"
+            android:text="班级"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            style="@style/middle_gray_style"
+            android:text="学科"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            style="@style/middle_gray_style"
+            android:text="联系方式"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <View
+        style="@style/common_line_horizontal"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_data"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

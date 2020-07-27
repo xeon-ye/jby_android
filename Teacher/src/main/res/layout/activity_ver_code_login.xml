@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10"
+    android:background="@color/white"
+    tools:context="com.jkrm.education.ui.activity.login.PswLoginActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/register_logo" />
+
+        <TextView
+            android:id="@+id/tv_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:text="密码登录" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_50"
+        android:text="欢迎登录新教育"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="@string/phone_num_register_hint"
+        android:visibility="gone"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dimen_20"
+
+            >
+
+            <TextView
+                android:id="@+id/cb_see_psw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/aw_bg_gray_f4f4f4_radius4"
+                android:text="+86"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/dimen_10"
+                android:paddingRight="@dimen/dimen_10"
+                />
+            <EditText
+                android:id="@+id/et_phone_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:background="@null"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_ededed"
+            android:layout_marginTop="@dimen/dimen_20"
+            ></View>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        >
+        <EditText
+            android:id="@+id/tv_input_code"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:hint="请输入验证码"
+            android:background="@null"
+            android:layout_weight="1"
+            />
+        <TextView
+            android:id="@+id/tv_ver_time_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"
+            android:textColor="@color/colorPrimary"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_ededed"
+        android:layout_marginTop="@dimen/dimen_10"
+        ></View>
+
+    <Button
+        android:id="@+id/btn_ver_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@drawable/selector_btn_blue_with_ededed_radius5"
+        android:text="登录"
+        android:enabled="false"
+        android:textColor="@color/aw_btn_selector_color"
+
+        />
+
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:text="注册账号"
+        android:textColor="@color/colorPrimary"
+        />
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_bottom"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center" android:padding="@dimen/dimen_5">
+
+
+        <TextView
+            android:id="@+id/tv_out"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:text="导出"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/aw_bg_blue_radius_30"
+
+            />
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_30"
+      android:background="@drawable/aw_bg_blue_radius_30"
+        android:text="错题在线练"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/dimen_10"
+        />
+
+
+</LinearLayout>

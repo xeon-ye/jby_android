@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="111"
+        android:textColor="@color/aw_default_black_chose_blue_color"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="@dimen/dimen_8"
+        android:paddingBottom="@dimen/dimen_8"
+        />
+</LinearLayout>

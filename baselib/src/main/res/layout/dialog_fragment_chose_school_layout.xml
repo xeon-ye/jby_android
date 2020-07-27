@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"  android:orientation="vertical" android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请选择就读学校"
+            android:padding="@dimen/dimen_10"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            />
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/close_icon"
+            android:padding="@dimen/dimen_10"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:id="@+id/ll_of_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/dimen_10"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="没有我的学校"
+                    />
+                <EditText
+                    android:id="@+id/et_input_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="点击输入"
+                    android:background="@drawable/aw_bg_gray_radius_5"
+                    android:padding="@dimen/dimen_5"
+                    android:gravity="center"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    />
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@drawable/selector_btn_blue_with_ededed_radius5"
+                android:text="确定"
+                android:textColor="@color/aw_btn_selector_color"
+                android:enabled="false"
+                />
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_10"
+            android:layout_above="@id/ll_of_school"
+            ></android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

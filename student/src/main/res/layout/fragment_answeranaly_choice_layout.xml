@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/dimen_10">
+
+    <include layout="@layout/collect_bottom_layout"
+        android:id="@+id/ll_of_collect"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"></include>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_of_collect"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                auto:engine="MathJax"
+                ></io.github.kexanie.library.MathView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></android.support.v7.widget.RecyclerView>
+            <TextView
+                android:id="@+id/tv_answer_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="回答正确"
+                android:layout_marginTop="@dimen/dimen_10"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="答案"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_analysis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="解析"
+                android:layout_marginTop="@dimen/dimen_10"
+
+                />
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="答案"
+                android:layout_marginTop="@dimen/dimen_10"
+
+                auto:engine="MathJax"
+                />
+            <include
+                android:id="@+id/ll_of_analytic_expansion"
+                android:visibility="gone"
+                layout="@layout/include_analytic_expansion_layout"></include>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

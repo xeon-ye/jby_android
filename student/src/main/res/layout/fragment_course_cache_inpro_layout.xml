@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_mana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:background="@drawable/aw_bg_gray_f2f2f2"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingTop="@dimen/dimen_5"
+            android:paddingRight="@dimen/dimen_15"
+            android:paddingBottom="@dimen/dimen_5"
+            android:text="管理"
+            android:textColor="@color/color_999999" />
+
+        <TextView
+            android:id="@+id/tv_pause_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:background="@drawable/aw_bg_gray_f2f2f2"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingTop="@dimen/dimen_5"
+            android:paddingRight="@dimen/dimen_15"
+            android:paddingBottom="@dimen/dimen_5"
+            android:text="全部暂停"
+            android:textColor="@color/color_999999" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_15">
+
+        <LinearLayout
+            android:id="@+id/ll_of_setting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/border_set"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    style="@style/style_checkbox"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全选" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_EAEEF7"></View>
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@drawable/border_set"
+                android:text="确定删除"
+                android:textColor="@color/color_28D4C1" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ll_of_setting"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"></android.support.v7.widget.RecyclerView>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/ll_of_setting"
+            android:background="@color/color_cccccc"
+            android:visibility="gone"></View>
+    </RelativeLayout>
+
+
+</LinearLayout>

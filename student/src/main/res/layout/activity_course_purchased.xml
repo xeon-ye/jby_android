@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jkrm.education.ui.activity.CoursePurchasedActivity">
+
+
+
+    <include layout="@layout/start_now_layout"
+        android:id="@+id/ll_of_start_now"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        ></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_of_start_now"
+        android:paddingTop="@dimen/dimen_20"
+        android:orientation="vertical">
+
+        <include layout="@layout/common_title_no_line" />
+
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="fitXY"
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@color/colorAccent"></android.support.design.widget.TabLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20">
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nsv_mulv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_20"
+                        android:text="目录"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <com.hzw.baselib.widgets.SuperExpandableListView
+                        android:id="@+id/epv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        android:groupIndicator="@null"
+                        ></com.hzw.baselib.widgets.SuperExpandableListView>
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nsv_jieshao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_20"
+                        android:text="课程介绍"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/iv_intro"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        />
+                    <io.github.kexanie.library.MathView
+                        android:id="@+id/math_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        app:engine="MathJax"
+                        ></io.github.kexanie.library.MathView>
+                </LinearLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpageer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"></android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
+</RelativeLayout>

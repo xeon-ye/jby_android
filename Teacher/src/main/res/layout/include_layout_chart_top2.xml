@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dimen_10"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:drawableLeft="@mipmap/tongji_icon_tuli3"
+        android:drawablePadding="@dimen/dimen_5"
+        style="@style/small_black_style"
+        android:text="班级均差"/>
+    <TextView
+        android:id="@+id/tv_gradeAverage"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_30"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:drawablePadding="@dimen/dimen_5"
+        android:drawableLeft="@mipmap/tongji_icon_tuli2"
+        style="@style/small_black_style"
+        android:text="年级均分"/>
+</LinearLayout>

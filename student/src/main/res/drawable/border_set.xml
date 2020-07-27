@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    &lt;!&ndash; 连框颜色值 &ndash;&gt;
+    <item>
+        <shape >
+            <solid android:color="@color/color_999999" />
+        </shape>
+    </item>
+    &lt;!&ndash; 主体背景颜色值 &ndash;&gt;
+    <item android:top="1dp">   &lt;!&ndash;设置只有底部有边框&ndash;&gt;
+        <shape>
+            <solid android:color="#ffffff" />
+        </shape>
+    </item>
+</layer-list>-->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- This is the main color -->
+<item>
+    <shape>
+        <solid android:color="@color/color_EAEEF7" />
+    </shape>
+</item>
+<!-- This is the line -->
+<item android:top="1dp">
+    <shape>
+        <solid android:color="#ffffff" />
+    </shape>
+</item>
+</layer-list>

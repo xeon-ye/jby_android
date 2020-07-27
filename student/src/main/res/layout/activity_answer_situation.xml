@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jkrm.education.ui.activity.AnswerSituationActivity">
+
+    <include layout="@layout/common_title_with_5dp_line"></include>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="5"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="答题情况"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/dimen_12"
+                        android:layout_height="@dimen/dimen_12"
+                        android:background="@mipmap/choise_green"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正确"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        />
+                    <ImageView
+                        android:layout_width="@dimen/dimen_12"
+                        android:layout_height="@dimen/dimen_12"
+                        android:background="@mipmap/choise_yellow"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="半对"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:textSize="12sp"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_12"
+                        android:layout_height="@dimen/dimen_12"
+                        android:background="@mipmap/choise_red"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="错误"
+                        android:textSize="12sp"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        />
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dimen_8"
+                    android:paddingRight="@dimen/dimen_8"
+                    android:paddingTop="@dimen/dimen_5"
+                    android:paddingBottom="@dimen/dimen_5"
+                    android:drawablePadding="5dp"
+                    android:background="@drawable/aw_bg_blue_radius_30"
+                    android:drawableLeft="@mipmap/situation_error"
+                    android:text="错题本"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            <Button
+                android:id="@+id/btn_check_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/common_btn_blue"
+                android:text="查看全部答案解析"
+                android:layout_marginTop="@dimen/dimen_10"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

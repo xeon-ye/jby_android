@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10"
+    android:background="@color/white"
+    tools:context="com.jkrm.education.ui.activity.login.PswLoginActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/register_logo" />
+
+        <TextView
+            android:id="@+id/tv_ver_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:text="短信验证码登录" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_50"
+        android:text="欢迎登录新教育"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_input_acc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入用户名/手机号"
+        android:layout_marginTop="38dp"
+        android:maxLines="1"
+        android:background="@null"
+        android:padding="@dimen/dimen_10"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_ededed"
+        ></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_input_psw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:padding="@dimen/dimen_10"
+            android:paddingRight="@dimen/dimen_20"
+            android:background="@null"
+            android:gravity="center_vertical"
+
+            />
+
+        <CheckBox
+            android:id="@+id/cb_see_psw"
+            style="@style/psw_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_ededed"
+        ></View>
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@drawable/selector_btn_blue_with_ededed_radius5"
+        android:text="登录"
+        android:enabled="false"
+        android:textColor="@color/aw_btn_selector_color"
+         />
+
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:textColor="@color/colorPrimary"
+        android:text="注册账号"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+
+
+</LinearLayout>

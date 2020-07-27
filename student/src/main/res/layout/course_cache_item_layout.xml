@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_10"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <CheckBox
+        android:id="@+id/cb_chose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/style_checkbox"
+
+        />
+    <android.support.v7.widget.CardView
+        android:layout_width="@dimen/dimen_140"
+        android:layout_height="@dimen/dimen_90"
+        app:cardCornerRadius="15dp"
+        android:layout_marginLeft="@dimen/dimen_15"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+
+            <ImageView
+                android:id="@+id/iv_img_center"
+                android:layout_width="@dimen/dimen_40"
+                android:layout_height="@dimen/dimen_40"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/course_cache_inpro_pause"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/ll_of_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/dimen_20"
+        >
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="111"
+            android:textStyle="bold"
+            android:maxLines="2"
+            />
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="共28节"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            >
+            <TextView
+                android:id="@+id/tv_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="58"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

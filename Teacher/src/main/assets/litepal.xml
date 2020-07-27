@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="teacherdb"/>
+    <version value="1" ></version>
+
+    <list>
+        <mapping class="com.jkrm.education.db.db.MenuTab"></mapping>
+        <mapping class="com.jkrm.education.db.db.NavigationTab"></mapping>
+        <mapping class="com.jkrm.education.db.db.EYearTab"></mapping>
+        <mapping class="com.jkrm.education.db.db.UserTab"></mapping>
+        <mapping class="com.jkrm.education.db.db.EScoreTab"></mapping>
+        <mapping class="com.jkrm.education.db.db.EBoardTab"></mapping>
+    </list>
+</litepal>
+
+    <!--<dbname>是数据库的名字-->
+    <!--<version>是数据库的版本号-->
+    <!--<list>是数据库的映射模型（数据库表）-->
+    <!--<mapping>是数据库的映射模型的地址（数据库表结构）-->
+
+    <!--添加用户默认设置课程内容-->

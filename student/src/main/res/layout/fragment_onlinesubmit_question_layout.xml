@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:padding="@dimen/dimen_5">
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="提交"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/aw_bg_blue_radius_30"
+            android:layout_alignParentBottom="true"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tv_submit"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:descendantFocusability="afterDescendants"
+            ></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+</LinearLayout>

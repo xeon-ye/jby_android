@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_10">
+
+            <Button
+                android:id="@+id/btn_homeworkRecordNeedCorrection"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个作业某个班级当前需要批阅的答题记录" />
+
+            <Button
+                android:id="@+id/btn_homeworkStudentMistakeList"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个学生的错题列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkGradingAnswerSheets"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某次作业某个班级下的需要批改的答题卡列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkQuestionNums"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某次作业的题号列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkQuestionCorrectionDetailList"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某次作业某个班级的题目批改详情列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkQuestionRecordAllList"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个答题卡的全部答题记录" />
+
+            <Button
+                android:id="@+id/btn_homeworkQuestionList"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某次作业的题目列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkListWithStudent"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个学生用户的作业列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkQuestionRecord"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个答题记录" />
+
+            <Button
+                android:id="@+id/btn_homeworkListWithTeacher"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个教师用户的作业列表" />
+
+            <Button
+                android:id="@+id/btn_homeworkRecordCorrection"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="批改某个答题记录" />
+
+            <Button
+                android:id="@+id/btn_homeworkRawScanImg"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某个答题卡的原始扫描图片" />
+
+            <Button
+                android:id="@+id/btn_homeworkReportForm"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取某次作业某个班级的统计报表" />
+
+            <TextView
+                style="@style/middle_red_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dimen_10"
+                android:paddingRight="@dimen/dimen_10"
+                android:paddingTop="@dimen/dimen_10"
+                android:text="返回结果" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dimen_10"
+                android:background="@drawable/aw_bg_white_with_stroke_blue"
+                android:padding="@dimen/dimen_10" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

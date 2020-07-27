@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.king.zxing.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cornerColor="@color/colorPrimary"
+        app:frameColor="@color/colorPrimary"
+        app:labelText="@string/scan_qrcode_hint"
+        app:labelTextLocation="bottom"
+        app:labelTextSize="@dimen/dimen_middle"
+        app:laserColor="@color/colorAccent"
+        app:resultPointColor="@color/colorAccent"/>
+
+</merge>

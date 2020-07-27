@@ -1,0 +1,77 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+
+buildscript {
+    //ext.kotlin_version = '1.1.51'
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven{
+            url "https://plugins.gradle.org/m2/"
+        }
+        jcenter()
+        google()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'
+       // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+       // classpath 'com.gradle:build-scan-plugin:1.8'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
+        jcenter()
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    // 最低支持Android版本
+    minSdkVersion = 19
+    // 目标版本
+    targetSdkVersion = 28
+    // 用于编译的SDK版本
+    compileSdkVersion = 28
+    // 用于Gradle编译项目的工具版本
+    buildToolsVersion = '28.0.3'
+    //Dependencies
+    supportLibraryVersion = '27.1.1'
+
+    // 设置是否使用混淆
+    MINIFY_ENABLED = true
+    MINIFY_DISABLED = false
+
+    // 应用程序包名
+    applicationId_teacher = "com.jkrm.education.teacher"
+    applicationId_student = "com.jkrm.education.student"
+}
+
+/*
+apply plugin: 'com.gradle.build-scan'
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+}*/

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dimen_20"
+    tools:context="com.jkrm.education.ui.activity.CourseCacheSuccessActivity">
+    <include layout="@layout/common_title"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/fl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_alignParentBottom="true"
+            >
+            <include layout="@layout/course_setting_layout" android:id="@+id/ll_of_setting"
+                android:layout_height="wrap_content" android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                ></include>
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/border_set"
+                android:textColor="@color/colorPrimary"
+                android:text="下载更多"
+                android:gravity="center"
+                ></TextView>
+        </FrameLayout>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/fl"
+            android:padding="@dimen/dimen_10"
+            ></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</LinearLayout>

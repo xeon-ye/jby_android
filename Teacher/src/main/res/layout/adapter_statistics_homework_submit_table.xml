@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_45"
+    android:orientation="horizontal">
+
+    <!--作业-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/common_line_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_homeworkName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="作业"/>
+        <View
+            style="@style/common_line_vertical"/>
+    </LinearLayout>
+    <!--班级-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/common_line_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_className"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="班级"/>
+        <View
+            style="@style/common_line_vertical"/>
+    </LinearLayout>
+    <!--未交-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/common_line_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_submitNotCount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="未交"/>
+        <View
+            style="@style/common_line_vertical"/>
+    </LinearLayout>
+    <!--名单-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/common_line_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_studentNames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dimen_3"
+            android:paddingRight="@dimen/dimen_3"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="名单"/>
+        <View
+            style="@style/common_line_vertical"/>
+    </LinearLayout>
+</LinearLayout>

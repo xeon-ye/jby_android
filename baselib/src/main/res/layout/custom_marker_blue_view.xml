@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.hzw.baselib.mpchart.ArrowTextView
+        android:id="@+id/custom_marker_view_arrowtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/dimen_5"
+        android:paddingRight="@dimen/dimen_5"
+        android:paddingBottom="@dimen/dimen_8"
+        android:text=""
+        style="@style/small_white_style"
+        app:bg="@color/colorPrimary"
+        app:radius="5px" />
+</LinearLayout>

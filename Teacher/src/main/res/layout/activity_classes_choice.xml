@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_title_with_5dp_line"/>
+
+    <LinearLayout
+        android:id="@+id/ll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="@dimen/dimen_15"
+        android:orientation="horizontal">
+        
+        <ImageView
+            android:id="@+id/iv_selectAll"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:background="@drawable/selector_switch"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_15"
+            style="@style/middle_black_style"
+            android:text="全选"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/common_line_horizontal"
+        android:layout_marginLeft="50dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

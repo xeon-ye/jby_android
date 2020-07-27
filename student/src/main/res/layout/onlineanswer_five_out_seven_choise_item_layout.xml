@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginBottom="@dimen/dimen_20">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dimen_40"
+        android:layout_height="@dimen/dimen_40"
+
+        >
+        <ImageView
+            android:id="@+id/iv_choice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/choice_choice"
+            />
+        <TextView
+            android:id="@+id/tv_choice"
+            android:layout_width="@dimen/dimen_40"
+            android:layout_height="@dimen/dimen_40"
+            android:text="A"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@drawable/online_answer_text_selector"
+            android:layout_marginLeft="@dimen/dimen_10"
+            />
+    </RelativeLayout>
+
+
+    <io.github.kexanie.library.MathView
+        android:id="@+id/math_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+
+        auto:engine="MathJax"
+
+        ></io.github.kexanie.library.MathView>
+
+</LinearLayout>

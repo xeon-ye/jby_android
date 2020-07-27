@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/common_title_with_5dp_line" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sfl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <com.bin.david.form.core.SmartTable
+                android:id="@+id/smartTableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@color/white"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_drawerlayout_mark_detail_student_choice_question_see" />
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

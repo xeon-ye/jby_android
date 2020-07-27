@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F5F5"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_title_no_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dimen_5"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:paddingTop="@dimen/dimen_5">
+
+            <TextView
+                android:id="@+id/tv_classes"
+                style="@style/small_black_style2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="高一1班语文" />
+
+
+            <TextView
+                android:id="@+id/tv_currentStudent"
+                style="@style/small_blue_style2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:gravity="right"
+                android:text="取消挂接" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout_studentSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/splash_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.shizhefei.view.indicator.FixedIndicatorView
+                android:id="@+id/splash_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="20dp" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_drawerlayout_mark_detail_student_switch" />
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>

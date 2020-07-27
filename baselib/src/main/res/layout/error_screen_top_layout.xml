@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_pro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:gravity="center"
+        android:text="0-60%"
+        android:textColor="@color/colorPrimary" />
+
+    <com.hzw.baselib.widgets.BidirectionalSeekBar
+        android:id="@+id/bid_seekbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        app:ball_left_drawable="@drawable/seekbar_ball"
+        app:ball_right_drawable="@drawable/seekbar_ball"
+        app:pb_height="8dp"
+        app:pb_within_color="@color/colorPrimary"
+        app:pb_without_color="@color/color_ededed" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_5">
+
+        <TextView
+            android:id="@+id/tv_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn_blue_with_ededed_radius5"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="重置"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_40"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_weight="3"
+            android:background="@drawable/selector_btn_blue_with_ededed_radius5"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

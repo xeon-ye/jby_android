@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F5F5"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_no_line_blue" />
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sfl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_5">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <include
+                layout="@layout/include_drawerlayout_mark_choice"/>
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+
+
+</LinearLayout>
+
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_48"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dimen_10"
+        style="@style/middle_black_style"
+        android:text="第六题【15分】"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/color_F2F9FF">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            style="@style/middle_black_style"
+            android:text="学号"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            style="@style/middle_black_style"
+            android:text="姓名"/>
+
+        <TextView
+            android:id="@+id/tv_studentResult"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            style="@style/middle_black_style"
+            android:text="得分"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_dataStudentAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

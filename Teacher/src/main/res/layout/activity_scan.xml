@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_title"/>
+
+    <include
+        android:id="@+id/ic_noData"
+        layout="@layout/view_no_data"/>
+
+    <FrameLayout
+        android:id="@+id/fl_scanIng"
+        android:layout_width="121dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="75dp"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/home_pic_saomiaoxinxi1"/>
+
+        <ImageView
+            android:id="@+id/iv_scanLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/home_pic_saomiaoxinxi2"/>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_scanComplete"
+        android:layout_width="121dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="75dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/home_pic_saomiaoxinxi3"/>
+
+    <TextView
+        android:id="@+id/tv_scanInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="扫描信息"
+        android:gravity="center_horizontal"
+        style="@style/middle_black_style"
+        android:lineSpacingExtra="@dimen/dimen_34"
+        android:layout_marginTop="@dimen/dimen_45"/>
+
+    <TextView
+        android:id="@+id/tv_scanInfoSecond"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/middle_black_style"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dimen_34"
+        android:text="扫描信息第二行"/>
+
+    <Button
+        android:id="@+id/btn_toNext"
+        style="@style/common_btn_single_shadow_white"
+        android:layout_marginTop="@dimen/dimen_45"
+        android:text="返 回"/>
+</LinearLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/dimen_30"
+    android:paddingRight="@dimen/dimen_30"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="71dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/login_pic_logo"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_45"
+        android:layout_marginTop="62dp"
+        android:drawableLeft="@mipmap/login_icon_username"
+        android:drawablePadding="@dimen/dimen_7"
+        android:hint="请输入用户名"
+        android:gravity="center_vertical"
+        android:background="@null"
+        android:maxLines="1"
+        android:singleLine="true"
+        style="@style/middle_black_style"/>
+
+    <View
+        style="@style/common_line_horizontal"/>
+
+    <EditText
+        android:id="@+id/et_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_45"
+        android:drawableLeft="@mipmap/login_icon_password"
+        android:drawablePadding="@dimen/dimen_7"
+        android:hint="请输入密码"
+        android:textColorHint="@color/color_D9D9DA"
+        android:background="@null"
+        android:inputType="textPassword"
+        android:gravity="center_vertical"
+        style="@style/middle_black_style"/>
+
+    <View
+        style="@style/common_line_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10"
+        >
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/tv_privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我接受用户协议和隐私政策"
+            style="@style/middle_gray_style"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            ></View>
+        <TextView
+            android:id="@+id/tv_forgetPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/middle_gray_style"
+            android:gravity="right"
+            android:text="忘记密码"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_marginTop="23dp"
+        android:text="登 录"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        style="@style/common_btn_single_shadow_blue"/>
+</LinearLayout>

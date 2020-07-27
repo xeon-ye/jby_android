@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="选集缓存"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/color_EAEEF7"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <ExpandableListView
+            android:id="@+id/elv"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_above="@id/ll_of_setting"
+            android:divider="@null"
+            android:groupIndicator="@null"
+            ></ExpandableListView>
+        <include
+            android:id="@+id/ll_of_setting"
+            layout="@layout/course_setting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"></include>
+    </LinearLayout>
+ <!--   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <include
+            android:id="@+id/ll_of_setting"
+            layout="@layout/course_setting_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"></include>
+
+        <ExpandableListView
+            android:id="@+id/elv"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_above="@id/ll_of_setting"
+            android:divider="@null"
+            android:groupIndicator="@null"
+            ></ExpandableListView>
+    </RelativeLayout>-->
+</LinearLayout>

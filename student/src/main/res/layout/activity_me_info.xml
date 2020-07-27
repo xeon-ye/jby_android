@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_title_with_5dp_line"/>
+
+    <!--头像-->
+    <LinearLayout
+        android:id="@+id/ll_avatar"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:background="@color/white"
+        android:layout_height="76dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:visibility="gone"
+            android:text="头像"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_avatarNext"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"/>
+
+            <com.hzw.baselib.widgets.AwViewCircleImage
+                android:id="@+id/civ_avatar"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                app:border_color="@color/white"
+                app:border_width="1dp"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_launcher"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="修改头像"
+                android:layout_toLeftOf="@id/iv_avatarNext"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="@dimen/dimen_15"
+        style="@style/common_line_horizontal"/>
+
+    <!--姓名-->
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:text="姓名"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_nameNext"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"
+                android:visibility="invisible"
+                />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toLeftOf="@id/iv_nameNext"
+                style="@style/middle_black_style"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="教师"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_marginLeft="@dimen/dimen_15"
+        style="@style/common_line_horizontal"/>
+
+    <!--登录账号-->
+    <LinearLayout
+        android:id="@+id/ll_acc"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:text="登录账号"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="invisible"
+                android:src="@mipmap/global_icon_nest" />
+
+            <TextView
+                android:id="@+id/tv_acc"
+                style="@style/middle_black_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toStartOf="@+id/iv_acc"
+                android:layout_toLeftOf="@id/iv_acc"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                 />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="@dimen/dimen_15"
+        style="@style/common_line_horizontal"/>
+
+    <!--手机号-->
+    <LinearLayout
+        android:id="@+id/ll_mobile"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:text="手机号"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_mobileNext"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"/>
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toLeftOf="@id/iv_mobileNext"
+                style="@style/middle_black_style"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="139********"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <!--修改密码-->
+    <LinearLayout
+        android:id="@+id/ll_change_psw"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:text="修改密码"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_change_psw"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"/>
+
+            <TextView
+                android:id="@+id/tv_change_psw"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toLeftOf="@id/iv_change_psw"
+                style="@style/middle_black_style"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:text="139********"/>
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <!--我的学校-->
+    <LinearLayout
+        android:id="@+id/ll_school"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:visibility="gone"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:text="我的学校"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_school"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"/>
+
+            <TextView
+                android:id="@+id/tv_school"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toLeftOf="@id/iv_school"
+                style="@style/middle_black_style"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text=""/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_marginLeft="@dimen/dimen_15"
+        style="@style/common_line_horizontal"/>
+
+    <!--任教科目-->
+    <LinearLayout
+        android:id="@+id/ll_course"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:text="我的年级"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:paddingRight="@dimen/dimen_15">
+
+            <ImageView
+                android:id="@+id/iv_course"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"
+                 />
+
+            <TextView
+                android:id="@+id/tv_course"
+                style="@style/middle_black_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toLeftOf="@id/iv_course"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="@dimen/dimen_15"
+        style="@style/common_line_horizontal"/>
+
+    <!--任教科目-->
+    <LinearLayout
+        android:id="@+id/ll_classes"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:layout_height="55dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            style="@style/middle_black_style"
+            android:visibility="gone"
+            android:text="我的班级"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dimen_15"
+            android:visibility="gone"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/iv_classess"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/global_icon_nest"/>
+
+            <TextView
+                android:id="@+id/tv_classes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_toLeftOf="@id/iv_classess"
+                style="@style/middle_black_style"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text=""/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="@dimen/dimen_15"
+        style="@style/common_line_horizontal"/>
+
+</LinearLayout>

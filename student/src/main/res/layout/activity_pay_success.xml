@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dimen_20"
+    tools:context="com.jkrm.education.ui.activity.PaySuccessActivity">
+
+    <include layout="@layout/common_title_no_line"></include>
+    <ImageView
+        android:layout_width="@dimen/dimen_80"
+        android:layout_height="@dimen/dimen_80"
+        android:src="@mipmap/pay_success"
+        android:layout_marginTop="@dimen/dimen_50"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付成功"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pay_success_hint"
+        android:layout_marginTop="@dimen/dimen_80"
+        android:textColor="@color/color_999999"
+        />
+    <Button
+        android:id="@+id/btn_view_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="查看订单"
+        android:background="@drawable/aw_bg_blue_radius_30"
+        android:textColor="@color/white"
+        />
+    <Button
+        android:id="@+id/btn_start_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:text="立即学习"
+        android:textColor="@color/colorAccent"
+        android:background="@drawable/aw_bg_white_with_stroke_blue_30"
+      />
+
+
+
+
+</LinearLayout>

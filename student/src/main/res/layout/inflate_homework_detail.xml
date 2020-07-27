@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            style="@style/middle_black_style"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@color/color_F5F5F5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:drawableLeft="@mipmap/icon_biaolan"
+            android:drawablePadding="@dimen/dimen_10"
+            android:text="班级成绩分布" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="我所在的区域"
+            android:gravity="center_vertical|right"
+            style="@style/middle_black_style"
+            android:paddingRight="@dimen/dimen_10"
+            android:paddingLeft="@dimen/dimen_15"
+            android:drawableRight="@mipmap/icon_biaohuang"
+            android:drawablePadding="@dimen/dimen_10"
+
+            />
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragmentClassScore"
+        android:name="com.jkrm.education.ui.fragment.ChartClassesScoreStautsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <TextView
+        style="@style/middle_black_style"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/color_F5F5F5"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:drawableLeft="@mipmap/icon_biaolan"
+        android:drawablePadding="@dimen/dimen_10"
+        android:text="得分差对比（提示:得分差=本人得分-班级均分）" />
+
+    <fragment
+        android:id="@+id/fragmentAverageRatio"
+        android:name="com.jkrm.education.ui.fragment.HomeworkDetailNavRatioFragment"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <com.shizhefei.view.indicator.FixedIndicatorView
+            android:id="@+id/scroll_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <View
+            style="@style/common_line_horizontal"
+            android:layout_marginTop="-1dp" />
+
+        <com.shizhefei.view.viewpager.SViewPager
+            android:id="@+id/scroll_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</LinearLayout>

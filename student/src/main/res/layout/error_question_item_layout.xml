@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:padding="@dimen/dimen_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <CheckBox
+            android:id="@+id/cb_chose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dimen_5"
+            style="@style/CustomCheckBoxTheme"
+            android:layout_marginTop="@dimen/dimen_30"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/ll_of_layout"
+            >
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                auto:engine="MathJax"
+                android:scrollbars="none"
+                ></io.github.kexanie.library.MathView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                >
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    ></android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                auto:engine="MathJax"
+                android:scrollbars="none"
+
+                ></io.github.kexanie.library.MathView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_10"
+                >
+                    <TextView
+                        android:id="@+id/tv_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/aw_bg_gray_radius_5"
+                        android:textColor="@color/colorPrimary"
+                        android:padding="@dimen/dimen_2"
+                        android:textSize="8sp"
+
+                        />
+                <TextView
+                    android:id="@+id/tv_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/aw_bg_gray_radius_5"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/dimen_2"
+                    android:visibility="gone"
+                    android:text="视频"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:textSize="8sp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_similar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/aw_bg_gray_radius_5"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/dimen_2"
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:text="类题"
+                    android:textSize="8sp"
+
+                    />
+                <TextView
+                    android:id="@+id/tv_subquestions_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:textSize="8sp"
+
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    ></View>
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12:00"
+                    android:textSize="10sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

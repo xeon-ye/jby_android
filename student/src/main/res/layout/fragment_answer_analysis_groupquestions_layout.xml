@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:auto="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/collect_bottom_layout"
+        android:id="@+id/ll_of_collect"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"></include>
+
+    <com.hzw.baselib.widgets.SplitView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_of_collect"
+        >
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null">
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                auto:engine="MathJax"
+                ></io.github.kexanie.library.MathView>
+        </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@id/handler"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray"
+                android:src="@mipmap/handler" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/handler"
+                android:background="@android:color/darker_gray" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_5">
+
+                <TextView
+                    android:id="@+id/tv_question_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="组题主观题"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></View>
+
+                <TextView
+                    android:id="@+id/tv_ans_cur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpageer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+    </com.hzw.baselib.widgets.SplitView>
+
+
+
+
+
+</RelativeLayout>

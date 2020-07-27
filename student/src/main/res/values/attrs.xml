@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ArrowTextView">
+        <attr name="radius" format="dimension" />
+        <attr name="arrowWidth" format="dimension" />
+        <attr name="arrowHeight" format="dimension" />
+        <attr name="bg" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="BGAProgressBar">
+        <!-- 进度条样式，默认值为 system -->
+        <attr name="bga_pb_mode" format="enum">
+            <!-- 系统自带样式 -->
+            <enum name="system" value="0"/>
+            <!-- 水平进度条 -->
+            <enum name="horizontal" value="1"/>
+            <!-- 圆形进度条 -->
+            <enum name="circle" value="2"/>
+            <!-- 彗星进度条 -->
+            <enum name="comet" value="3"/>
+            <!-- 水波纹进度条 -->
+            <enum name="wave" value="4"/>
+        </attr>
+        <!-- 文字颜色，默认值为 #70A800 -->
+        <attr name="bga_pb_textColor" format="reference|color"/>
+        <!-- 文字大小，默认值为 10sp -->
+        <attr name="bga_pb_textSize" format="dimension"/>
+        <!-- 文字和进度条之间的间距，默认值为 4dp -->
+        <attr name="bga_pb_textMargin" format="dimension"/>
+        <!-- 已完成进度的颜色，默认值为 #70A800 -->
+        <attr name="bga_pb_reachedColor" format="reference|color"/>
+        <!-- 已完成进度的高度，默认值为 2dp -->
+        <attr name="bga_pb_reachedHeight" format="dimension"/>
+        <!-- 未完成进度的颜色，默认值为 #CCCCCC -->
+        <attr name="bga_pb_unReachedColor" format="reference|color"/>
+        <!-- 未完成进度的高度，默认值为 1dp -->
+        <attr name="bga_pb_unReachedHeight" format="dimension"/>
+        <!-- 是否为圆角，默认值为 false -->
+        <attr name="bga_pb_isCapRounded" format="boolean"/>
+        <!-- 是否隐藏文字，默认值为 false -->
+        <attr name="bga_pb_isHiddenText" format="boolean"/>
+        <!-- 圆形进度条半径，默认值为 16dp -->
+        <attr name="bga_pb_radius" format="dimension"/>
+    </declare-styleable>
+
+    <!--流量的圆环-->
+    <declare-styleable name="ProgressBar">
+        <!--进度条显示模式 percentCover（默认）：按百分比上层覆盖下层模式，percentSplice：按百分比色块接拼组合模式-->
+        <attr name="showPattern" format="enum">
+            <enum name="percentCover" value="0"/>
+            <enum name="percentSplice" value="1"/>
+        </attr>
+
+        <!--公共属性-->
+        <!--进度宽度-->
+        <attr name="progress_width" format="dimension" />
+        <!--起始角度-->
+        <attr name="start_angle" format="integer" />
+
+        <!--percentCover 模式特有属性-->
+        <!--进度起始色-->
+        <attr name="cover_start_color" format="color" />
+        <!--进度中间色-->
+        <attr name="cover_mid_color" format="color" />
+        <!--进度结束色-->
+        <attr name="cover_end_color" format="color" />
+        <!--背景起始色-->
+        <attr name="cover_bg_start_color" format="color" />
+        <!--背景中间色-->
+        <attr name="cover_bg_mid_color" format="color" />
+        <!--背景结束色-->
+        <attr name="cover_bg_end_color" format="color" />
+        <!--进度值 介于0-1-->
+        <attr name="cover_percent" format="float" />
+        <!--扫过的角度-->
+        <attr name="cover_sweep_angle" format="integer" />
+        <!--是否圆帽显示-->
+        <attr name="cover_stroke_cap" format="boolean"/>
+
+        <!--percentSplice 模式特有属性-->
+        <!--暂无-->
+
+    </declare-styleable>
+
+
+</resources>

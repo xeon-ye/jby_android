@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10"
+    tools:context="com.jkrm.education.ui.activity.ExerciseReportActivity">
+    <include layout="@layout/common_title_with_5dp_line"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="练习报告"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dimen_10"
+        />
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10"
+        >
+       <ImageView
+           android:layout_width="@dimen/dimen_8"
+           android:layout_height="@dimen/dimen_8"
+           android:background="@mipmap/choise_green"
+           android:layout_marginLeft="@dimen/dimen_10"
+           android:layout_gravity="center"
+           />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正确"
+            android:textSize="10sp"
+            android:layout_marginLeft="@dimen/dimen_10"
+            />
+        <ImageView
+            android:layout_width="@dimen/dimen_8"
+            android:layout_height="@dimen/dimen_8"
+            android:background="@mipmap/choise_yellow"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="半对"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:textSize="10sp"
+
+            />
+
+        <ImageView
+            android:layout_width="@dimen/dimen_8"
+            android:layout_height="@dimen/dimen_8"
+            android:background="@mipmap/choise_red"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="错误"
+            android:textSize="10sp"
+            android:layout_marginLeft="@dimen/dimen_10"
+            />
+
+        <ImageView
+              android:layout_width="@dimen/dimen_8"
+            android:layout_height="@dimen/dimen_8"
+            android:background="@mipmap/choice_gray"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未批阅"
+            android:textSize="10sp"
+            android:layout_marginLeft="@dimen/dimen_10"
+            />
+        <ImageView
+            android:layout_width="@dimen/dimen_8"
+            android:layout_height="@dimen/dimen_8"
+            android:background="@mipmap/choice_normal"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未答"
+            android:textSize="10sp"
+            android:layout_marginLeft="@dimen/dimen_10"
+            />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_data"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/btn_doagain"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_30"
+                android:background="@drawable/aw_bg_blue_radius_30"
+                android:text="再做一次"
+                style="@style/common_btn_blue"
+                android:layout_marginTop="@dimen/dimen_20"
+                />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

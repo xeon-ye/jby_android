@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jkrm.education">
+    <!-- 网络 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 在SDCard中创建与删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 往SDCard写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 在SDCard读取数据的权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".base.MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/student"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/student"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.activity.me.MeClassesActivity"></activity>
+        <activity android:name=".ui.activity.login.RegisterActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            />
+        <activity android:name=".ui.activity.login.InputPswActivity" />
+        <activity android:name=".ui.activity.login.ChoiceClassesActivity" />
+        <activity android:name=".ui.activity.login.ChoiceSchoolActivity" />
+        <activity android:name=".ui.activity.login.ChoiceLearningSectionActivity" />
+        <activity android:name=".ui.activity.login.VerCodeCheckActivity" />
+        <activity android:name=".ui.activity.login.VerCodeLoginActivity" />
+        <activity android:name=".ui.activity.login.PswLoginActivity" />
+        <activity android:name=".ui.activity.ErrorQuestionNewActivity" />
+        <activity android:name=".ui.activity.AnswerSituationActivity" />
+        <activity android:name=".ui.activity.AnswerSheetActivity" />
+        <activity android:name=".ui.activity.ErrorQuestionClassifyActivity" />
+        <activity android:name=".ui.activity.ErrorQuestionActivity" />
+        <activity android:name=".ui.activity.AnswerRecordActivity" />
+        <activity
+            android:name=".ui.activity.AnswerAnalysisActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.ExerciseReportActivity" />
+        <activity android:name=".ui.activity.OnlineGroupObjectiveQuestionsActivity" />
+        <activity android:name=".ui.activity.OnlineSubjectiveQuestionsOfGroupQuestionsActivity" /> <!-- 组题 主观题 -->
+        <activity android:name=".ui.activity.OnlineNonGroupSubjectiveQuestionsActivity" /> <!-- 非组题 主观题 -->
+        <activity android:name=".ui.activity.me.PrivacyActivity" /> <!-- 隐私协议 -->
+        <activity android:name=".ui.activity.OnlineNonMultipleChoiceActivity" /> <!-- 非选择题 -->
+        <activity android:name=".ui.activity.OnlineMultipleChoiceActivity" /> <!-- 多选选择题 -->
+        <activity android:name=".ui.activity.OnlineAnswerActivity" /> <!-- 在线答题单选 -->
+        <activity android:name=".ui.activity.OriginPaperActivity" /> <!-- 查看原卷 -->
+        <activity
+            android:name=".ui.activity.StudyCourseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 本地缓存学习界面 -->
+        <activity android:name=".ui.activity.RepaidBalanceActivity" /> <!-- 充值界面 -->
+        <activity android:name=".ui.activity.CourseCacheInProActivity" /> <!-- 缓存中 -->
+        <activity android:name=".ui.activity.CourseCacheSuccessActivity" /> <!-- 缓存完成 -->
+        <activity android:name=".ui.activity.CourseCacheActivity" /> <!-- 缓存课程页面 -->
+        <activity android:name=".ui.activity.PayFailActivity" /> <!-- 支付失败 -->
+        <activity android:name=".ui.activity.PaySuccessActivity" /> <!-- 支付成功 -->
+        <activity android:name=".ui.activity.ConfirmAnOrderActivity" /> <!-- 确认订单 -->
+        <activity
+            android:name=".ui.activity.CourseBroadcastActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 播放课程界面 -->
+        <activity android:name=".ui.activity.CoursePurchasedActivity" /> <!-- 已购课程 -->
+        <activity android:name=".ui.activity.CourseNotpurchasedActivity" /> <!-- 未购买课程 -->
+        <activity android:name=".ui.activity.QuestionBasketActivity" /> <!-- 适配华为（huawei）刘海屏 ImmersionBar -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 ImmersionBar -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" /> <!-- 欢迎页 -->
+        <activity
+            android:name=".ui.activity.login.WelcomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- 引导页 -->
+        <activity
+            android:name=".ui.activity.login.GuideActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 登录页面 -->
+        <activity
+            android:name=".ui.activity.login.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 主页 -->
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 找回密码 -->
+        <activity
+            android:name=".ui.activity.login.FindPwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 重置密码 -->
+        <activity
+            android:name=".ui.activity.login.ResetPwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 作业详情 -->
+        <activity
+            android:name=".ui.activity.homework.HomeworkDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 查看答案 -->
+        <activity
+            android:name=".ui.activity.SeeTargetQuestionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 类题拓展(类题加练) -->
+        <activity
+            android:name=".ui.activity.QuestionExpandActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 名师讲题 -->
+        <activity
+            android:name=".ui.activity.FamousTeacherLectureActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape" /> <!-- 对点微课 -->
+        <activity
+            android:name=".ui.activity.VideoPointActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 我的 修改手机号步骤1 -->
+        <activity
+            android:name=".ui.activity.me.MeModifyMobileStep1Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 我的 修改手机号步骤2 -->
+        <activity
+            android:name=".ui.activity.me.MeModifyMobileStep2Activity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 图片浏览可缩放页面 -->
+        <activity
+            android:name=".ui.activity.ImgActivity"
+            android:theme="@style/BaseDialog" /> <!-- 扫一扫 -->
+        <activity
+            android:name=".ui.activity.ScanQrcodeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 任课教师 -->
+        <activity
+            android:name=".ui.activity.me.MeTeacherContractActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 用户协议 -->
+        <activity
+            android:name=".ui.activity.me.MeAgreementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 修改昵称 -->
+        <activity
+            android:name=".ui.activity.me.MeModifyNameActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 我的信息 -->
+        <activity
+            android:name=".ui.activity.me.MeInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 修改密码 -->
+        <activity
+            android:name=".ui.activity.me.MeModifyPwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" /> <!-- 错题统计 -->
+        <activity
+            android:name=".ui.activity.ErrorQuestionStatisticsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".student.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+
+        <service android:name=".download.DownLoadService" />
+
+        <activity
+            android:name=".student.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+
+</manifest>

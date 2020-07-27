@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0093FF</color>
+    <color name="colorPrimaryDark">#0093FF</color>
+    <color name="colorAccent">#0093FF</color>
+
+    <color name="description">#686868</color>
+    <color name="linefill">#DEEFE4</color>
+    <color name="bg_blue_6_color">#1ba3bd</color>
+    <color name="bg_green_1_color">#13909f</color>
+
+    <color name="color_homework_submit_no">#4CCCCB</color>
+    <color name="color_homework_all">#40A0FF</color>
+    <color name="color_homework_correct_yes">#93D1FE</color>
+    <color name="color_homework_correct_no">#C3EAFF</color>
+
+    <color name="color_40A0FF">#40A0FF</color>
+    <color name="color_4CCCCB">#4CCCCB</color>
+    <color name="color_FAB843">#FAB843</color>
+    <color name="color_0093FF">#0093FF</color>
+    <color name="color_806E6E6E">#806E6E6E</color>
+
+    <!--替换智齿状态栏 color-->
+    <color name="sobot_status_bar_color">#0093FF</color>
+</resources>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/middle_black_style"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/color_F2F7FA"
+            android:drawableLeft="@mipmap/icon_biaolan"
+            android:drawablePadding="@dimen/dimen_10"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:text="统计范围" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15">
+
+            <TextView
+                android:id="@+id/tv_classes"
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:background="@null"
+                android:drawableRight="@mipmap/global_icon_nest"
+                android:gravity="center_vertical"
+                android:text="班级" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/middle_black_style"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/color_F5F5F5"
+            android:drawableLeft="@mipmap/icon_biaolan"
+            android:drawablePadding="@dimen/dimen_10"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:text="错题知识点" />
+
+        <com.github.mikephil.charting.charts.CombinedChart
+            android:id="@+id/combinedChart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/white"/>
+
+        <TextView
+            style="@style/middle_black_style"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/color_F2F7FA"
+            android:drawableLeft="@mipmap/icon_biaolan"
+            android:drawablePadding="@dimen/dimen_10"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:text="作业提交统计" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:orientation="vertical">
+
+            <View
+                style="@style/common_line_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_45"
+                android:orientation="horizontal">
+
+                <!--作业-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        style="@style/common_line_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="作业"/>
+                    <View
+                        style="@style/common_line_vertical"/>
+                </LinearLayout>
+                <!--班级-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        style="@style/common_line_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="班级"/>
+                    <View
+                        style="@style/common_line_vertical"/>
+                </LinearLayout>
+                <!--未交-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        style="@style/common_line_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="未交"/>
+                    <View
+                        style="@style/common_line_vertical"/>
+                </LinearLayout>
+                <!--名单-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        style="@style/common_line_vertical"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="名单"/>
+                    <View
+                        style="@style/common_line_vertical"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                style="@style/common_line_horizontal"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

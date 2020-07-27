@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_10">
+
+            <Button
+                android:id="@+id/btn_highStudScore"
+                style="@style/common_btn_single_red"
+                android:text="获取成绩分布" />
+
+            <Button
+                android:id="@+id/btn_highStudScoreContract"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取小题对比" />
+
+            <Button
+                android:id="@+id/btn_paperAnalysis"
+                style="@style/common_btn_single_red"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="获取答题" />
+
+            <TextView
+                style="@style/middle_red_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dimen_10"
+                android:paddingRight="@dimen/dimen_10"
+                android:paddingTop="@dimen/dimen_10"
+                android:text="返回结果" />
+
+            <TextView
+                android:id="@+id/tv_result"
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dimen_10"
+                android:background="@drawable/aw_bg_white_with_stroke_blue"
+                android:padding="@dimen/dimen_10" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

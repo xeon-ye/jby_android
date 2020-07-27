@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/dimen_10">
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第一题"
+        android:textColor="@color/black"
+        />
+    <io.github.kexanie.library.MathView
+        android:id="@+id/tv_question_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下列命题正确的是"
+        android:layout_marginTop="@dimen/dimen_10"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcv_chose_data"
+        android:layout_marginTop="@dimen/dimen_10"
+        ></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dimen_10"
+
+        >
+        <TextView
+            android:id="@+id/tv_aver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="班级得分率:553%"
+            android:textColor="@color/gray"
+            />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            ></View>
+
+        <TextView
+            android:id="@+id/tv_analyse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据分析"
+            android:textColor="@color/colorPrimary"
+            android:drawableRight="@mipmap/sniper_normal"
+            android:paddingRight="5dp"
+            android:drawablePadding="10dp"
+            android:layout_marginRight="@dimen/dimen_10"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_join"
+            android:layout_width="@dimen/dimen_72"
+            android:layout_height="30dp"
+            android:text="加入题篮"
+            android:background="@drawable/aw_bg_blue_radius_30"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barchart"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="@dimen/dimen_20"
+        ></com.github.mikephil.charting.charts.BarChart>
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:visibility="gone"
+        ></com.github.mikephil.charting.charts.PieChart>
+</LinearLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_space"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/color_F2F7FA"/>
+
+    <TextView
+        android:id="@+id/tv_subTitle"
+        style="@style/middle_black_style"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/color_F2F7FA"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/icon_biaolan"
+        android:drawablePadding="@dimen/dimen_10"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:text="选择题" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15">
+
+        <Button
+            android:id="@+id/btn_markNextOperate"
+            android:text="查阅"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            style="@style/common_btn_custom1_eaeef7"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/btn_markNextOperate"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_questionNum"
+                style="@style/middle_black_style2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="第1题" />
+
+            <TextView
+                android:id="@+id/tv_markedCount"
+                style="@style/middle_gray_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:text="已批阅：46份" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View style="@style/common_line_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/ll_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:gravity="center_vertical">
+
+        <ProgressBar
+            android:id="@+id/pb_progressBar"
+            android:layout_width="match_parent"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress_bar_blue"
+            android:layout_height="10dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

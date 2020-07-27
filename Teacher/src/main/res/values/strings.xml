@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">新教育教师端</string>
+
+
+    <string name="scan_info_ing">平台收到%1$s扫描件，识别中</string>
+    <!--<string name="scan_info_ing_second"><Data><![CDATA[已收到扫描文件 <font color="#0093FF"><b>%1$d</b></font> 页，已识别 <font color="#0093FF"><b>%2$d</b></font> 页]]></Data></string>-->
+    <string name="scan_info_ing_second"><Data><![CDATA[已识别 <font color="#0093FF"><b>%2$d</b></font> 页]]></Data></string>
+    <string name="scan_info_complete">平台收到%1$s扫描件，识别完成\n请至作业列表查阅</string>
+    <string name="scan_info_complete_new">平台收到扫描件已全部识别完成\n请至作业列表查阅</string>
+
+    <string name="format_homework_detail_submit_status">共%1$s人，提交%2$s份</string>
+</resources>
+
+

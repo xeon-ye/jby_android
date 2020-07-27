@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10"
+    tools:context="com.jkrm.education.ui.activity.login.PswLoginActivity">
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20">
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="@dimen/dimen_20"
+                    android:layout_height="@dimen/dimen_20"
+                    android:src="@mipmap/close_icon" />
+
+                <TextView
+                    android:id="@+id/tv_skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="跳过"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_50"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请先加入班级"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:text="入学年份" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"></android.support.v7.widget.RecyclerView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:text="所在班级" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_classes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"></android.support.v7.widget.RecyclerView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="没有我的班级"
+                    />
+                <EditText
+                    android:id="@+id/et_input_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="点击输入"
+                    android:background="@drawable/aw_bg_gray_radius_5"
+                    android:padding="@dimen/dimen_5"
+                    android:gravity="center"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    />
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@drawable/selector_btn_blue_with_ededed_radius5"
+                android:text="确定"
+                android:textColor="@color/aw_btn_selector_color"
+                android:enabled="false"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F5F5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_45"
+        android:background="@color/colorPrimary"
+        >
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="1111111112"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_15"
+            />
+        <TextView
+            android:id="@+id/tv_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:text="筛选"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            />
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tv_screen"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:padding="0dp"
+            >
+            <ImageView
+                android:id="@+id/img_question_basket"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="wrap_content"
+
+                android:src="@mipmap/img_question_basket"
+                android:visibility="gone"
+                />
+            <TextView
+                android:id="@+id/tv_question_basket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="题篮"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:padding="0dp"
+                />
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="@dimen/dimen_13"
+                android:layout_height="@dimen/dimen_13"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/white"
+                android:text="0"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/question_num_shape"
+                />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sfl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_5">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_45"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:id="@+id/tv_sec_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_15"
+                        tools:text="第二课时 平面支教坐标系"
+                        android:maxLength="13"
+                        />
+                    <TextView
+                        android:id="@+id/tv_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_15"
+                        android:text="切换课时"
+                        android:textColor="@color/white"
+                        android:background="@drawable/corner_view"
+                        />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        ></View>
+                    <TextView
+                        android:id="@+id/tv_videoPoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:enabled="false"
+                        android:text="暂无对点微课"/>
+                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dimen_5" />
+            </LinearLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_drawerlayout_book_exercises_main_choice" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:background="@color/white"
+            android:clickable="true"
+            android:orientation="vertical">
+        <ExpandableListView
+            android:id="@+id/elv_book_exercises"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:groupIndicator="@drawable/expand_selector"
+            android:divider="@null"
+            android:childDivider="@null"
+            android:paddingLeft="@dimen/dimen_5"
+            ></ExpandableListView>
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+
+
+</LinearLayout>

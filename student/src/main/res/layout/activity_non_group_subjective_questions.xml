@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jkrm.education.ui.activity.OnlineNonGroupSubjectiveQuestionsActivity">
+    <include layout="@layout/common_title_with_5dp_line"></include>
+    <include layout="@layout/online_answer_title_layout"></include>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpageer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+    </android.support.v4.view.ViewPager>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_5"
+        android:background="@null"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                app:engine="MathJax"
+                >
+
+            </io.github.kexanie.library.MathView>
+            <com.hzw.baselib.widgets.MyGridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"
+                android:verticalSpacing="@dimen/dimen_8"
+                android:horizontalSpacing="@dimen/dimen_5"
+                ></com.hzw.baselib.widgets.MyGridView>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

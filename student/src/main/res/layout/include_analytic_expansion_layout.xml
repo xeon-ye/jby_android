@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_of_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频讲题"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dimen_10"
+            />
+
+        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+            android:id="@+id/video_player"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            ></com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_of_expand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="类题加练" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_10"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_child_data"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dimen_10"
+
+                ></android.support.v7.widget.RecyclerView>
+
+
+            <Button
+                android:id="@+id/btn_start"
+                style="@style/common_btn_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:text="开始练习"
+                />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

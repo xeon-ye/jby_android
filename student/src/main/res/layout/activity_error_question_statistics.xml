@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_F5F5F5">
+
+    <include
+        layout="@layout/common_title_no_line"/>
+
+    <include
+        android:id="@+id/view_noData"
+        android:visibility="gone"
+        layout="@layout/view_no_data"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:gravity="center_vertical|right"
+        style="@style/small_gray_style"
+        android:text="加入错题本"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:background="@color/white"/>
+</LinearLayout>

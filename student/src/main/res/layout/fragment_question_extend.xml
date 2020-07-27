@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_F5F5F5">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:layout_marginRight="@dimen/dimen_15">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/aw_bg_white"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_15"
+        android:paddingBottom="@dimen/dimen_15"
+        android:orientation="vertical">
+
+        <io.github.kexanie.library.MathView
+            android:id="@+id/mv_questionTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            auto:engine="MathJax"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_open"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="@dimen/dimen_12"
+            android:layout_marginTop="@dimen/dimen_12"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/piyue_btn_yuanti_zhankai"/>
+
+        <LinearLayout
+            android:id="@+id/ll_bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/middle_black_style3"
+                android:drawableLeft="@mipmap/icon_biaolan"
+                android:drawablePadding="@dimen/dimen_10"
+                android:text="题目答案"/>
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/mv_answerContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginBottom="@dimen/dimen_15"
+                auto:engine="MathJax"/>
+
+            <View
+            style="@style/common_line_horizontal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/middle_black_style3"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:drawablePadding="@dimen/dimen_10"
+                android:drawableLeft="@mipmap/icon_biaolan"
+                android:text="题目解析"/>
+
+            <io.github.kexanie.library.MathView
+                android:id="@+id/mv_resolveContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginBottom="@dimen/dimen_15"
+                auto:engine="MathJax"/>
+
+            <ImageView
+                android:id="@+id/iv_shrink"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="@dimen/dimen_6"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/piyue_btn_yuanti_shouqi"/>
+        </LinearLayout>
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

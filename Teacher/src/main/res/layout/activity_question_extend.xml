@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_title_no_line"/>
+
+    <include
+        android:id="@+id/ic_noData"
+        layout="@layout/view_no_data"/>
+
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/scroll_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <View
+        style="@style/common_line_horizontal"
+        android:layout_marginTop="-1dp" />
+
+    <com.shizhefei.view.viewpager.SViewPager
+        android:id="@+id/scroll_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

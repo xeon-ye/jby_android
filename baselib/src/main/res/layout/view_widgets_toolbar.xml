@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/toolbar_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="左侧文本"
+        android:gravity="center"
+        android:drawablePadding="@dimen/dimen_5"
+        android:padding="5dp"
+        style="@style/middle_black_style" />
+
+    <ImageView
+        android:id="@+id/iv_leftImg2"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@mipmap/icon_scan"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:singleLine="true"
+        style="@style/middle_black_style2"
+        android:text="标题"
+        android:textSize="15sp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/toolbar_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="@dimen/dimen_40"
+        android:layout_gravity="right"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_15"
+        android:visibility="visible"
+        android:text="右侧文本"
+        android:drawablePadding="@dimen/dimen_5"
+        style="@style/middle_black_style" />
+
+
+
+
+</android.support.v7.widget.Toolbar>

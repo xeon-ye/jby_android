@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/common_title_no_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dimen_5"
+                android:paddingLeft="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_15"
+                android:paddingTop="@dimen/dimen_5">
+
+                <TextView
+                    android:id="@+id/tv_classes"
+                    style="@style/small_black_style2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="高一1班语文" />
+
+                <TextView
+                    android:id="@+id/tv_homeworkSubmitResult"
+                    style="@style/small_black_style2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="共55人，提交44份" />
+
+                <TextView
+                    android:id="@+id/tv_currentStudent"
+                    style="@style/small_blue_style2"
+                    android:drawableRight="@mipmap/icon_sanjiao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="李大海" />
+            </LinearLayout>
+
+            <android.support.v4.widget.DrawerLayout
+                android:id="@+id/drawerLayout_studentSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/rl_layoutBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/ll_bottomBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="right"
+                        android:orientation="vertical">
+
+                        <View style="@style/common_line_horizontal" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:paddingBottom="@dimen/dimen_12"
+                            android:paddingTop="@dimen/dimen_12">
+
+                            <Button
+                                android:id="@+id/btn_seeScore"
+                                style="@style/common_btn_blue"
+                                android:layout_width="90dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="@dimen/dimen_15"
+                                android:text="查看成绩" />
+
+                            <Button
+                                android:id="@+id/btn_seeOriginal"
+                                style="@style/common_btn_blue"
+                                android:layout_width="90dp"
+                                android:layout_height="35dp"
+                                android:layout_toLeftOf="@id/btn_seeScore"
+                                android:text="查看原卷" />
+
+                            <Button
+                                android:id="@+id/btn_reMark"
+                                style="@style/common_btn_custom1_eaeef7"
+                                android:layout_width="90dp"
+                                android:layout_height="35dp"
+                                android:layout_marginRight="@dimen/dimen_10"
+                                android:layout_toLeftOf="@id/btn_seeOriginal"
+                                android:text="回评" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <android.support.v4.widget.SwipeRefreshLayout
+                        android:id="@+id/sfl_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@id/ll_bottomBtn">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rcv_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/color_F2F7FA" />
+                    </android.support.v4.widget.SwipeRefreshLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:background="@color/white"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/include_drawerlayout_mark_detail_student_switch" />
+                </LinearLayout>
+            </android.support.v4.widget.DrawerLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@color/white"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_drawerlayout_mark_detail_student" />
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>

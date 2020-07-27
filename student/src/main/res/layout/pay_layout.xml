@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:text="200.00" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></View>
+
+        <TextView
+            android:id="@+id/tv_now_buy"
+            android:layout_width="@dimen/dimen_120"
+            android:layout_height="@dimen/dimen_40"
+            android:background="@drawable/aw_bg_blue_radius_30"
+            android:text="立即购买"
+            android:textColor="@drawable/aw_selector_text_default_white_with_black"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            />
+    </LinearLayout>
+</LinearLayout>

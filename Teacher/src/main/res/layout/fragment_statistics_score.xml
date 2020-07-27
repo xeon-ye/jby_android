@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_courseChoice"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dimen_15">
+
+                <TextView
+                    android:id="@+id/tv_nameLeft"
+                    style="@style/middle_black_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="作业选择" />
+
+                <TextView
+                    android:id="@+id/tv_courseName"
+                    style="@style/middle_gray_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:background="@null"
+                    android:drawablePadding="@dimen/dimen_5"
+                    android:drawableRight="@mipmap/global_icon_nest"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|right"
+                    android:singleLine="true"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_F2F7FA"
+                android:drawableLeft="@mipmap/icon_biaolan"
+                android:drawablePadding="@dimen/dimen_10"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_15"
+                android:text="均分年级对比" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barchart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white" />
+
+            <TextView
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_F5F5F5"
+                android:drawableLeft="@mipmap/icon_biaolan"
+                android:drawablePadding="@dimen/dimen_10"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_15"
+                android:text="离差年级对比" />
+
+            <include
+                android:id="@+id/ic_legendAverage"
+                layout="@layout/include_layout_chart_top2" />
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/combinedChartAverageDev"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white" />
+
+            <TextView
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_F2F7FA"
+                android:drawableLeft="@mipmap/icon_biaolan"
+                android:drawablePadding="@dimen/dimen_10"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_15"
+                android:text="分数段年级对比" />
+
+            <include
+                android:id="@+id/ic_legendScore"
+                layout="@layout/include_layout_chart_top1" />
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/combinedChartScore"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white" />
+
+            <!--分数段筛选-->
+
+            <View style="@style/common_line_horizontal" />
+
+            <RadioGroup
+                android:id="@+id/rg_score"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rBtn_socre1"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="100-80" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_socre2"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="79-60" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_socre3"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="59-40" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_socre4"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="39-20" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_socre5"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="19-0" />
+            </RadioGroup>
+
+            <View style="@style/common_line_horizontal" />
+
+            <!--分数段筛选结束-->
+
+            <TextView
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/color_F2F7FA"
+                android:drawableLeft="@mipmap/icon_biaolan"
+                android:drawablePadding="@dimen/dimen_10"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_15"
+                android:text="名次段年级对比" />
+
+            <include
+                android:id="@+id/ic_legendRank"
+                layout="@layout/include_layout_chart_top1" />
+
+            <com.github.mikephil.charting.charts.CombinedChart
+                android:id="@+id/combinedChartRank"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/white" />
+
+            <!--名次段筛选-->
+
+            <View style="@style/common_line_horizontal" />
+
+            <RadioGroup
+                android:id="@+id/rg_rank"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rBtn_rank1"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="1-10" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_rank2"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="11-50" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_rank3"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="51-100" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_rank4"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="101-200" />
+
+                <View style="@style/common_line_vertical" />
+
+                <RadioButton
+                    android:id="@+id/rBtn_rank5"
+                    style="@style/small_black_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_switch_color_rect"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="201-300" />
+            </RadioGroup>
+
+            <View style="@style/common_line_horizontal" />
+
+            <!--名次段筛选结束-->
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ValidationCode">
+        <attr name="CodeCount" format="integer" />
+        <attr name="PointNumber" format="integer" />
+        <attr name="LineNumber" format="integer" />
+        <attr name="CodeTextSize" format="dimension" />
+        <attr name="BackGround" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="AwViewCircleImage">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ArrowTextView">
+        <attr name="radius" format="dimension" />
+        <attr name="arrowWidth" format="dimension" />
+        <attr name="arrowHeight" format="dimension" />
+        <attr name="bg" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="roundColor" format="color" />
+        <attr name="roundProgressColor" format="color" />
+        <attr name="roundWidth" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="max" format="integer" />
+        <attr name="textIsDisplayable" format="boolean" />
+        <attr name="style">
+            <enum name="STROKE" value="0" />
+            <enum name="FILL" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Panel">
+        <!-- Defines panel animation duration in ms. -->
+        <attr name="animationDuration" format="integer" />
+        <!-- Defines panel position on the screen. -->
+        -
+        <attr name="position">
+            <!-- Panel placed at top of the screen. -->
+            <enum name="top" value="0" />
+            <!-- Panel placed at bottom of the screen. -->
+            <enum name="bottom" value="1" />
+            <!-- Panel placed at left of the screen. -->
+            <enum name="left" value="2" />
+            <!-- Panel placed at right of the screen. -->
+            <enum name="right" value="3" />
+        </attr>
+        <!-- Identifier for the child that represents the panel's handle. -->
+        <attr name="handle" format="reference" />
+        <!-- Identifier for the child that represents the panel's content. -->
+        <attr name="content" format="reference" />
+        <!-- Defines if flying gesture forces linear interpolator in animation. -->
+        <attr name="linearFlying" format="boolean" />
+        <!-- Defines size relative to parent (must be in form: nn%p). -->
+        <attr name="weight" format="fraction" />
+        <!-- Defines opened handle (drawable/color). -->
+        <attr name="openedHandle" format="reference|color" />
+        <!-- Defines closed handle (drawable/color). -->
+        <attr name="closedHandle" format="reference|color" />
+
+    </declare-styleable>
+    <declare-styleable name="SplitView">
+        <attr name="splitRatio" format="float"/>
+        <attr name="minSplitTop" format="dimension"/>
+        <attr name="minSplitBottom" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="BidirectionalSeekBar">
+        <attr name="pb_within_color" format="color" />
+        <attr name="pb_without_color" format="color" />
+        <attr name="pb_height" format="dimension" />
+        <attr name="ball_left_solid_color" format="color" />
+        <attr name="ball_right_solid_color" format="color" />
+        <attr name="ball_left_stroke_color" format="color" />
+        <attr name="ball_right_stroke_color" format="color" />
+        <attr name="ball_radius_size" format="dimension" />
+        <attr name="ball_stroke_size" format="dimension" />
+        <attr name="text_left_num" format="integer"/>
+        <attr name="text_right_num" format="integer"/>
+        <attr name="text_min_unit" format="integer"/>
+        <attr name="text_units" format="string"/>
+        <attr name="ball_left_drawable" format="reference"/>
+        <attr name="ball_right_drawable" format="reference"/>
+    </declare-styleable>
+</resources>

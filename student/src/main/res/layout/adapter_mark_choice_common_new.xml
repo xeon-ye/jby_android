@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:paddingLeft="@dimen/dimen_10"
+    android:paddingRight="@dimen/dimen_10"
+    android:gravity="center"
+    android:id="@+id/tv_name"
+    android:maxLines="2"
+    android:background="@drawable/selector_btn_blue_with_gray_radius10"
+    style="@style/small_black_style2"
+    android:textColor="@drawable/aw_selector_text_default_gray_with_blue_no_press"/>

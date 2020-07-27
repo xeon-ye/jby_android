@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/middle_black_style"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/color_F5F5F5"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15"
+        android:drawableLeft="@mipmap/icon_biaolan"
+        android:drawablePadding="@dimen/dimen_10"
+        android:text="一周练习题数统计" />
+
+    <fragment
+        android:id="@+id/fragmentTest"
+        android:name="com.jkrm.education.ui.fragment.ChartPracticeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"/>
+
+</LinearLayout>

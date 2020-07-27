@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/dimen_20"
+    android:paddingRight="8dp"
+    android:paddingLeft="8dp">
+
+    <!--分类-->
+    <LinearLayout
+        android:id="@+id/ll_kinds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/small_gray_style2"
+            android:text="分类"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_dataKinds"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_45"/>
+    </LinearLayout>
+
+
+    <!--扫描时间-->
+    <LinearLayout
+        android:id="@+id/ll_scanDate"
+        android:layout_below="@id/ll_kinds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/small_gray_style2"
+            android:text="扫描时间"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_startDate"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/aw_bg_gray_f4f4f4"
+                style="@style/small_black_style2"
+                android:hint="开始时间"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:background="@color/color_ebebeb"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_endDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="center"
+                android:background="@drawable/aw_bg_gray_f4f4f4"
+                style="@style/small_black_style2"
+                android:hint="结束时间"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--年级-->
+    <LinearLayout
+        android:id="@+id/ll_phase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_below="@id/ll_scanDate"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/small_gray_style2"
+            android:text="年级"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_dataPhase"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_45"/>
+    </LinearLayout>
+
+    <!--学科-->
+    <LinearLayout
+        android:id="@+id/ll_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_below="@id/ll_phase"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/small_gray_style2"
+            android:text="学科"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_dataCourese"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_45"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:gravity="right"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="87dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:background="@drawable/aw_bg_blue_radius_left"
+            android:textColor="@drawable/aw_selector_text_default_white_with_black"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textSize="@dimen/dimen_middle"
+            android:text="重置"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="87dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:background="@drawable/aw_bg_blue_radius_right"
+            android:textColor="@drawable/aw_selector_text_default_white_with_black"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textSize="@dimen/dimen_middle"
+            android:text="确定"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center" android:padding="@dimen/dimen_5">
+
+
+        <CheckBox
+            android:id="@+id/cb_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收藏"
+            android:textSize="10sp"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/collect_checkbox_selector"
+            />
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/aw_bg_blue_radius_30"
+        android:text="下一题"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/dimen_10"
+        />
+
+
+</LinearLayout>

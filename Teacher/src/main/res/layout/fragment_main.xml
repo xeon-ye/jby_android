@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sfl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F5F5F5"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nsv_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="118dp"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/dimen_15"
+                    app:layout_collapseMode="parallax">
+
+                    <com.hzw.baselib.widgets.AwViewCircleImage
+                        android:id="@+id/civ_avatar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/ic_launcher"
+                        app:border_color="@color/white"
+                        app:border_width="1dp" />
+
+                    <!--TODO 隐藏与显示扫描作业入口时 width也要变化-->
+                    <RelativeLayout
+                        android:id="@+id/rl_scan"
+                        android:layout_width="70dp"
+                        android:layout_height="27dp"
+                        android:layout_alignParentRight="true">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_scanHomework"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/dimen_10">
+
+                            <ImageView
+                                android:id="@+id/iv_scan"
+                                android:layout_width="@dimen/dimen_25"
+                                android:layout_height="@dimen/dimen_25"
+                                android:layout_alignParentLeft="true"
+                                android:src="@mipmap/home_btn_scanner" />
+
+                            <ImageView
+                                android:id="@+id/iv_scanPoint"
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:src="@mipmap/icon_scan_point"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_scanQrCode"
+                            android:layout_width="@dimen/dimen_24"
+                            android:layout_height="@dimen/dimen_24"
+                            android:layout_toLeftOf="@id/rl_scanHomework"
+                            android:padding="@dimen/dimen_1"
+                            android:src="@mipmap/icon_scan" />
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        style="@style/middle_white_style2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/civ_avatar"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_toLeftOf="@id/rl_scan"
+                        android:layout_toRightOf="@id/civ_avatar"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="张老师"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_todoTxt"
+                        style="@style/small_white_style2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/civ_avatar"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_toLeftOf="@id/rl_scan"
+                        android:layout_toRightOf="@id/civ_avatar"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="" />
+                </RelativeLayout>
+
+                <!--待办事项-->
+                <RelativeLayout
+                    android:id="@+id/rl_todoHasData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:layout_marginRight="@dimen/dimen_15"
+                    android:layout_marginTop="-43dp"
+                    android:background="@drawable/aw_bg_white_radius_8"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rcv_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/dimen_15" />
+                </RelativeLayout>
+
+                <!--待办事项无数据-->
+                <RelativeLayout
+                    android:id="@+id/rl_todoNoData"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:layout_marginRight="@dimen/dimen_15"
+                    android:layout_marginTop="-43dp"
+                    android:background="@drawable/aw_bg_white_radius_8"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_img"
+                        android:layout_width="61dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/home_icon_nodate" />
+                </RelativeLayout>
+
+                <!--20190923需求隐藏知识点模块-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dimen_15"
+                    android:paddingRight="@dimen/dimen_15"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/line_blue" />
+
+                    <TextView
+                        style="@style/middle_black_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:gravity="center_vertical"
+                        android:text="近7天作业知识点统计" />
+
+                </LinearLayout>
+
+                <!--20190923需求隐藏知识点模块-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:background="@color/white"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barchart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:visibility="gone" />
+
+                    <com.github.mikephil.charting.charts.CombinedChart
+                        android:id="@+id/combinedChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <!--正常标题-->
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48"
+            android:background="@color/colorPrimary"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15">
+
+            <TextView
+                android:id="@+id/tv_titleNormal"
+                style="@style/middle_white_style2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="新教育" />
+
+            <!--TODO 隐藏与显示扫描作业入口时 width也要变化-->
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="27dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <RelativeLayout
+                    android:id="@+id/rl_scanHomeworkNormal"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dimen_10">
+
+                    <ImageView
+                        android:id="@+id/iv_scanNormal"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"
+                        android:layout_alignParentLeft="true"
+                        android:src="@mipmap/home_btn_scanner" />
+
+                    <ImageView
+                        android:id="@+id/iv_scanPointNormal"
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@mipmap/icon_scan_point"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_scanQrCodeNormal"
+                    android:layout_width="@dimen/dimen_24"
+                    android:layout_height="@dimen/dimen_24"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/rl_scanHomeworkNormal"
+                    android:padding="@dimen/dimen_1"
+                    android:src="@mipmap/icon_scan" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

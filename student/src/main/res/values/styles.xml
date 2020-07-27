@@ -1,0 +1,44 @@
+<resources>
+
+    <style name="style_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:layout_height">355dp</item>
+    </style>
+
+    <style name="style_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- CustomCheckBox theme -->
+    <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/error_question_check_box_style</item>
+    </style>
+
+    <style name="CustomDialogFragmentStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/color_806E6E6E</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/video_popup_toast_anim</item>
+    </style>
+
+    <style name="answer_tv_style" >
+        <item name="android:layout_width">@dimen/dimen_30</item>
+        <item name="android:layout_height">@dimen/dimen_30</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/online_answer_text_selector</item>
+        <item name="android:background">@drawable/online_answer_choice_selector</item>
+        <item name="android:layout_marginLeft">@dimen/dimen_10</item>
+    </style>
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jkrm.education.ui.activity.OnlineGroupObjectiveQuestionsActivity">
+    <include layout="@layout/common_title_with_5dp_line"></include>
+    <include layout="@layout/online_answer_title_layout"></include>
+
+    <com.hzw.baselib.widgets.SplitView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            >
+            <io.github.kexanie.library.MathView
+                android:id="@+id/math_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                app:engine="MathJax"
+                ></io.github.kexanie.library.MathView>
+        </android.support.v4.widget.NestedScrollView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@id/handler"
+                android:layout_width="80dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorPrimary"
+                android:src="@color/colorPrimary"
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/handler"
+                android:background="@android:color/darker_gray"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_5"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="阅读理解题目"
+                    android:textColor="@color/black"
+                    />
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    ></View>
+                <TextView
+                    android:id="@+id/tv_ans_cur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0/5"
+                    />
+            </LinearLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpageer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                ></android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+    </com.hzw.baselib.widgets.SplitView>
+
+</LinearLayout>

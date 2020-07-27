@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 小字体 -->
+    <style name="small_size_style">
+        <item name="android:textSize">@dimen/dimen_small</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="small_white_style" parent="@style/small_size_style">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="small_black_style" parent="@style/small_size_style">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="small_blue_style" parent="@style/small_size_style">
+        <item name="android:textColor">@color/color_248EEE</item>
+    </style>
+
+    <style name="small_gray_style" parent="@style/small_size_style">
+        <item name="android:textColor">@color/color_B9B9B9</item>
+    </style>
+
+    <style name="small_gray_ccc_style" parent="@style/small_size_style">
+        <item name="android:textColor">@color/color_cccccc</item>
+    </style>
+
+    <style name="small_red_style" parent="@style/small_size_style">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <!-- 小字体 -->
+    <style name="small_size_style2">
+        <item name="android:textSize">@dimen/dimen_small2</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="small_white_style2" parent="@style/small_size_style2">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="small_black_style2" parent="@style/small_size_style2">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="small_blue_style2" parent="@style/small_size_style2">
+        <item name="android:textColor">@color/color_248EEE</item>
+    </style>
+
+    <style name="small_gray_style2" parent="@style/small_size_style2">
+        <item name="android:textColor">@color/color_B9B9B9</item>
+    </style>
+
+    <style name="small_gray_ccc_style2" parent="@style/small_size_style2">
+        <item name="android:textColor">@color/color_cccccc</item>
+    </style>
+
+    <style name="small_red_style2" parent="@style/small_size_style2">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <!-- 中字体 -->
+    <style name="middle_size_style">
+        <item name="android:textSize">@dimen/dimen_middle</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="middle_white_style" parent="@style/middle_size_style">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    
+    <style name="middle_black_style" parent="@style/middle_size_style">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="middle_blue_style" parent="@style/middle_size_style">
+        <item name="android:textColor">@color/color_248EEE</item>
+    </style>
+
+    <style name="middle_gray_style" parent="@style/middle_size_style">
+        <item name="android:textColor">@color/color_B9B9B9</item>
+    </style>
+
+    <style name="middle_gray_ccc_style" parent="@style/middle_size_style">
+        <item name="android:textColor">@color/color_cccccc</item>
+    </style>
+
+    <style name="middle_red_style" parent="@style/middle_size_style">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <!-- 中字体2 -->
+    <style name="middle_size_style2">
+        <item name="android:textSize">@dimen/dimen_middle2</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="middle_white_style2" parent="@style/middle_size_style2">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="middle_black_style2" parent="@style/middle_size_style2">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="middle_blue_style2" parent="@style/middle_size_style2">
+        <item name="android:textColor">@color/color_248EEE</item>
+    </style>
+
+    <style name="middle_gray_style2" parent="@style/middle_size_style2">
+        <item name="android:textColor">@color/color_B9B9B9</item>
+    </style>
+
+    <style name="middle_gray_ccc_style2" parent="@style/middle_gray_style2">
+        <item name="android:textColor">@color/color_cccccc</item>
+    </style>
+
+    <!-- 中字体3 -->
+    <style name="middle_size_style3">
+        <item name="android:textSize">@dimen/dimen_middle3</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="middle_white_style3" parent="@style/middle_size_style3">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="middle_black_style3" parent="@style/middle_size_style3">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="middle_blue_style3" parent="@style/middle_size_style3">
+        <item name="android:textColor">@color/color_248EEE</item>
+    </style>
+
+    <style name="middle_gray_style3" parent="@style/middle_size_style3">
+        <item name="android:textColor">@color/color_B9B9B9</item>
+    </style>
+
+    <style name="middle_gray_ccc_style3" parent="@style/middle_size_style3">
+        <item name="android:textColor">@color/color_cccccc</item>
+    </style>
+
+    <!-- 大字体 -->
+    <style name="big_size_style">
+        <item name="android:textSize">@dimen/dimen_big</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="big_white_style" parent="@style/big_size_style">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+     <style name="big_black_style" parent="@style/big_size_style">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="big_blue_style" parent="@style/big_size_style">
+        <item name="android:textColor">@color/color_248EEE</item>
+    </style>
+
+    <style name="big_gray_style" parent="@style/big_size_style">
+        <item name="android:textColor">@color/color_B9B9B9</item>
+    </style>
+
+    <!-- 标题字体 -->
+    <style name="title_size_style">
+        <item name="android:textSize">@dimen/dimen_title</item>
+        <item name="android:textColorHint">@color/color_D9D9DA</item>
+    </style>
+
+    <style name="title_color_white_style" parent="@style/title_size_style">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="title_color_primary_style" parent="@style/title_size_style">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+</resources>
