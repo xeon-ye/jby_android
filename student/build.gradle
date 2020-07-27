@@ -125,7 +125,7 @@ dependencies {
     implementation 'com.umeng.umsdk:share-wx:6.9.6'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-    implementation project(path: ':magicindicator')
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 
 
 }
