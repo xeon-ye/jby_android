@@ -53,13 +53,16 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
                 .setText(R.id.tv_questionScore, "【" + MyDateUtil.replace(bean.getMaxScore()) + "分】")
                 .setText(R.id.tv_scoreRate, "得分率：" + AwConvertUtil.double2String(Double.parseDouble(bean.getRatio() == null ? "0" : bean.getRatio()) * 100, 2) + "%")
                 .setText(R.id.tv_subTitle, AwDataUtil.isEmpty(bean.getTypeName()) ? "未知题型" : bean.getTypeName())
+                .setText(R.id.tv_exPlat,bean.getExPlat()+"人需要讲解")
+                .setGone(R.id.tv_exPlat,!"0".equals(bean.getExPlat()))
                 .addOnClickListener(R.id.btn_studentAnswer)
                 .addOnClickListener(R.id.btn_seeSpecial)
                 .addOnClickListener(R.id.btn_questionExpand)
                 .addOnClickListener(R.id.btn_famousTeacherLecture)
                 .setTypeface(R.id.tv_questionNum,CustomFontStyleUtil.getNewRomenType())
                 .setTypeface(R.id.tv_questionScore,CustomFontStyleUtil.getNewRomenType())
-                .addOnClickListener(R.id.rl_questionTitle);
+                .addOnClickListener(R.id.rl_questionTitle)
+                .addOnClickListener(R.id.tv_exPlat);
 
         //典型题判断
         Button btn_seeSpecial = helper.getView(R.id.btn_seeSpecial);

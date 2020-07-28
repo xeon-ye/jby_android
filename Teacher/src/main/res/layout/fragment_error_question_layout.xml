@@ -66,7 +66,6 @@
                     android:layout_weight="1"
                     android:drawableLeft="@mipmap/error_book"
                     android:gravity="center_vertical"
-                    android:text="第几课时"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -203,15 +202,16 @@
                         android:id="@+id/tv_normal"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:gravity="center_vertical"
+                        android:gravity="center_vertical|right"
+
                         android:text="按题号排序"></TextView>
 
                     <TextView
                         android:id="@+id/tv_inverted"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:gravity="center_vertical"
-                        android:text="按得分率倒叙排序"></TextView>
+                        android:gravity="center_vertical|right"
+                        android:text="按得分率倒序排序"></TextView>
                 </LinearLayout>
 
             </RelativeLayout>

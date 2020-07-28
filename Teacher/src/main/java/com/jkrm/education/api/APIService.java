@@ -19,6 +19,7 @@ import com.jkrm.education.bean.result.AnswerSheetProgressResultBean;
 import com.jkrm.education.bean.result.ClassStudentBean;
 import com.jkrm.education.bean.result.ErrorChoiceStatisticsBean;
 import com.jkrm.education.bean.result.ErrorSubStatisticsBean;
+import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkStudentAnswerWithSingleQuestionResultBean;
 import com.jkrm.education.bean.result.MaxScoreResultBean;
@@ -685,4 +686,21 @@ public interface APIService {
     @POST(UrlConstant.GET_ERROR_SUB_STATISTICS)
     Observable<ResponseBean<List<ErrorSubStatisticsBean>>> getErrorSubStatistics(@Path("questionId") String questionId, @Query("homeworkIds") String homeworkIds, @Query("classIds") String classIds);
 
+    /**
+     * 获取需讲解学生信息
+     * @param homeworkId
+     * @param questionId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXPLAIN_STUDENT)
+    Observable<ResponseBean<List<ExplainStudentBean>>>  getExplainStudent(@Query("homeworkId") String homeworkId, @Query("questionId") String questionId);
+
+    /**
+     * 获取班级
+     * @param teacherId
+     * @param homeworkId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXPLAIN_CLASSES)
+    Observable<ResponseBean<List<String>>>  getExplainClasses(@Path("teacherId") String teacherId,@Path("homeworkId") String homeworkId);
 }

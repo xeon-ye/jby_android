@@ -865,7 +865,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     AwLog.d("MarkActivity 下一人切换学生之前 index: " + currentStudentIndex + " ,总人数: " + mCurrentStudentListByQuestion.size());
                     if (currentStudentIndex == mCurrentStudentListByQuestion.size() - 1) {
                         if(isSelectReMark) {
-                            showDialog("没有更多学生了");
+                            showDialogToFinish("现有题卡已全部批阅完成，请点击确定按钮返回");
                         } else {
                             if("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
                                 showDialogWithCancelDismiss("未批阅数据已全部批阅完成, 是否切换到该题全部学生数据查看?", new View.OnClickListener() {
@@ -975,7 +975,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     AwLog.d("MarkActivity 上一人切换学生之前 index: " + currentStudentIndex + " ,总人数: " + mCurrentStudentListByQuestion.size());
                     if (currentStudentIndex == 0) {
                         if(isSelectReMark) {
-                            showDialog("没有更多学生了");
+                            showDialogToFinish("现有题卡已全部批阅完成，请点击确定按钮返回");
                         } else {
                             if("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
                                 showDialogWithCancelDismiss("未批阅数据已全部批阅完成, 是否切换到该题全部学生数据查看?", new View.OnClickListener() {
@@ -1172,7 +1172,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     @Override
     public void getAllStudentListByQuestionSuccess(List<AnswerSheetProgressResultBean> list) {
         if(AwDataUtil.isEmpty(list)) {
-            showMsg("获取学生列表失败");
+            showDialogToFinish("“现有题卡已全部批阅完成，请点击确定按钮返回");
             return;
         }
         currentMarkCount = 0;//重置已批阅的学生数
@@ -1221,7 +1221,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     @Override
     public void getAllStudentListByQuestionFail(String msg) {
-        showMsg("获取学生列表失败");
+        showDialogToFinish("“现有题卡已全部批阅完成，请点击确定按钮返回");
     }
 
     /**

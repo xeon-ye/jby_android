@@ -35,6 +35,10 @@ import com.jkrm.education.ui.activity.ErrorQuestionActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -105,7 +109,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     private List<ErrorHomeWork> mErrorHomeWorkList = new ArrayList<>();
     private List<ErrorClassesBean> mErrorClassesList = new ArrayList<>();
     private List<MistakeBean> mMistakeList = new ArrayList<>();
-    private int mLeftVaule = 0, mRightValue = 100;
+    private double mLeftVaule = 0, mRightValue = 1.0;
     public static String mStrClassIds = "", mStrtempIds = "";
 
     @Override
@@ -131,6 +135,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
         AwRecyclerViewUtil.setRecyclerViewFlowLayout(getActivity(), mRcvClasses, mErrorClassesAdapter, 4);
         mErrorMistakeAdapter = new ErrorMistakeAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(), mRcvData, mErrorMistakeAdapter, false);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -226,14 +231,20 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
         mBidSeekbar.setOnSeekBarChangeListener(new BidirectionalSeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(int leftProgress, int rightProgress) {
-                mLeftVaule = (int) ((int) Math.round((leftProgress + 5)/ 10.0) * 10.0);
-                mRightValue = (int) ((int) Math.round((rightProgress)/ 10.0) * 10.0);
+                mLeftVaule = (int) ((int) Math.round((leftProgress + 5) / 10.0) * 10.0);
+                mRightValue = (int) ((int) Math.round((rightProgress) / 10.0) * 10.0);
              /*   mLeftVaule = leftProgress;
                 mRightValue = rightProgress;*/
+                if (leftProgress == 0) {
+                    mLeftVaule = 0;
+                }
+                if (rightProgress == 100) {
+                    mRightValue = 100;
+                }
                 if (leftProgress == 0 && rightProgress == 100) {
                     mTvPro.setText("不限");
                 } else {
-                    mTvPro.setText(leftProgress + "-" + rightProgress + "%");
+                    mTvPro.setText(mLeftVaule + "-" + mRightValue + "%");
                 }
             }
         });
@@ -274,9 +285,11 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 break;
             case R.id.tv_score:
                 showView(mLlOfSetting, true);
+                showView(llOfSort, false);
                 break;
             case R.id.tv_sort:
                 showView(llOfSort, true);
+                showView(mLlOfSetting, false);
                 break;
             case R.id.tv_reset:
                 mLlOfSeekbar.removeView(mBidSeekbar);
@@ -288,11 +301,11 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
             case R.id.tv_sure:
                 showView(mLlOfSetting, false);
                 mTvScore.setText("得分率：" + mLeftVaule + "-" + mRightValue + "%");
-                mPresenter.getErrorMistakeList(mStrClassIds, mStrtempIds, mRightValue + "", mLeftVaule + "");
+                mPresenter.getErrorMistakeList(mStrClassIds, mStrtempIds, mRightValue / 100 + "", mLeftVaule / 100 + "");
                 break;
             case R.id.btn_sure:
                 mDrawerLayout.closeDrawers();
-                mPresenter.getErrorMistakeList(mStrClassIds, mStrtempIds, mRightValue + "", mLeftVaule + "");
+                mPresenter.getErrorMistakeList(mStrClassIds, mStrtempIds, mRightValue / 100 + "", mLeftVaule / 100 + "");
                 break;
             case R.id.iv_error:
                 toClass(ErrorQuestionActivity.class, false);
@@ -305,7 +318,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
             case R.id.tv_inverted:
                 showView(llOfSort, false);
                 setData(1);
-                mTvSort.setText("按得分率倒叙排序");
+                mTvSort.setText("按得分率倒序排序");
                 break;
         }
     }
@@ -396,7 +409,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
 
     @Override
     public void addErrorBasketSuccess(String data) {
-        showMsg("加入题蓝成功");
+        showMsg("加入题篮成功");
         mPresenter.getErrorBasket(UserUtil.getTeacherId());
     }
 
@@ -417,7 +430,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
 
     @Override
     public void deleteErrorBasketSuccess(String data) {
-        showMsg("移除题蓝成功");
+        showMsg("移除题篮成功");
         mPresenter.getErrorBasket(UserUtil.getTeacherId());
     }
 
@@ -445,5 +458,29 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
         }
         mErrorMistakeAdapter.notifyDataSetChanged();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ErrorBasketBean errorBasketBean) {
+        for (int i = 0; i < mMistakeList.size(); i++) {
+            if (mMistakeList.get(i).getId().equals(errorBasketBean.getId())) {
+                mMistakeList.get(i).setIsBasket("0");
+            }
+        }
+        mErrorMistakeAdapter.notifyDataSetChanged();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPresenter.getErrorBasket(UserUtil.getTeacherId());
+            }
+        }, 100);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 
 }

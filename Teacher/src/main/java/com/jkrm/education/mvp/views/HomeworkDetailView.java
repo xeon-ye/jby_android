@@ -3,6 +3,7 @@ package com.jkrm.education.mvp.views;
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
 import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
+import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkStudentAnswerWithSingleQuestionResultBean;
 import com.jkrm.education.bean.result.MaxScoreResultBean;
@@ -28,6 +29,8 @@ public interface HomeworkDetailView extends AwBaseView {
         void getQuestionSpecial(String homeworkId, String questionId);
         void getVideoPointList(String homework_id);
         void getVideoPointListNew(String homework_id);
+        void getExplainClasses(String teacherId,String homeworkId);
+        void getExplainStudent(String homeworkId,String questionId);
     }
 
     interface View extends AwBaseView {
@@ -51,6 +54,12 @@ public interface HomeworkDetailView extends AwBaseView {
 
         void getVideoPointListNewSuccess(List<VideoPointResultBean> list);
         void getVideoPointListNewFail(String msg);
+
+        void getExplainClassesSuccess(List<String> data);
+        void getExplainClassesFail(String msg);
+
+        void getExplainStudentSuccess(List<ExplainStudentBean> data);
+        void getExplainStudentFail(String msg);
     }
 
 }

@@ -109,12 +109,12 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
         mathView.setText(item.getContent());
         AwMathViewUtil.setImgScan(mathView);
         if("1".equals(item.getIsBasket())){
-            tv_join.setText("移除题蓝");
+            tv_join.setText("移除题篮");
             Drawable drawable = mContext.getResources().getDrawable(R.drawable.aw_bg_gray_radius_30);
             tv_join.setBackground(drawable);
             tv_join.setTextColor(Color.BLACK);
         }else{
-            tv_join.setText("加入题蓝");
+            tv_join.setText("加入题篮");
             Drawable drawable = mContext.getResources().getDrawable(R.drawable.aw_bg_blue_radius_30);
             tv_join.setBackground(drawable);
             tv_join.setTextColor(Color.WHITE);

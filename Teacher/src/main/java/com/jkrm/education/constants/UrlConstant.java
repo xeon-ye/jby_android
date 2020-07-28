@@ -270,5 +270,13 @@ public class UrlConstant {
     /**
      * //导出题篮
      */
-    public static final String QUESTION_BASKET_EXPORT_CUSTOM = "api/v2/product_server/questions/exportQuestions";
+    public static final String QUESTION_BASKET_EXPORT_CUSTOM = MOCK_API_PREFIX+COMMON_URL_PREFIX+"product_server/questions/exportQuestions";
+    /**
+     * 获取需讲解学生信息
+     */
+    public static final String GET_EXPLAIN_STUDENT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"mark_server/homework/explain/students";
+    /**
+     * 获取班级
+     */
+    public static final String GET_EXPLAIN_CLASSES=MOCK_API_PREFIX+COMMON_URL_PREFIX+"report_server/teacher/{teacherId}/homework/{homeworkId}/classes";
 }

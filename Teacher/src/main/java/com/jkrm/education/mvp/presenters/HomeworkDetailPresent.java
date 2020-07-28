@@ -9,6 +9,7 @@ import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
+import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkStudentAnswerWithSingleQuestionResultBean;
 import com.jkrm.education.bean.result.MaxScoreResultBean;
@@ -279,6 +280,64 @@ public class HomeworkDetailPresent extends AwCommonPresenter implements Homework
 
             @Override
             public void onCompleted() {
+            }
+        }));
+    }
+
+    @Override
+    public void getExplainClasses(String teacherId, String homeworkId) {
+        Observable<ResponseBean<List<String>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getExplainClasses(teacherId,homeworkId);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<String>>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(List<String> data) {
+                mView.getExplainClassesSuccess(data);
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+               mView.getExplainClassesFail(msg);
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
+    @Override
+    public void getExplainStudent(String homeworkId, String questionId) {
+        Observable<ResponseBean<List<ExplainStudentBean>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getExplainStudent(homeworkId,questionId);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExplainStudentBean>>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(List<ExplainStudentBean> data) {
+                mView.getExplainStudentSuccess(data);
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.getExplainStudentFail(msg);
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
             }
         }));
     }

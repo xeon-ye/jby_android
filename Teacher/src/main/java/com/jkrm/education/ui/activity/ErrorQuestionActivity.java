@@ -128,11 +128,12 @@ public class ErrorQuestionActivity extends AwMvpActivity<ErrorQuestionPresent> i
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 mErrorBasket = (ErrorBasketBean) adapter.getData().get(position);
                 mPresenter.deleteErrorBasket(RequestUtil.deleteErrorBasket(UserUtil.getTeacherId(), mErrorBasket.getId()));
+                EventBus.getDefault().post(mErrorBasket);
             }
         });
     }
 
-    @OnClick({R.id.tv_clear,R.id.btn_out})
+    @OnClick({R.id.tv_clear,R.id.btn_out,R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.tv_clear:
@@ -157,6 +158,9 @@ public class ErrorQuestionActivity extends AwMvpActivity<ErrorQuestionPresent> i
                     }
 
                 });
+                break;
+            case R.id.iv_back:
+                finish();
                 break;
         }
     }
@@ -203,6 +207,9 @@ public class ErrorQuestionActivity extends AwMvpActivity<ErrorQuestionPresent> i
 
     @Override
     public void clearErrorBasketSuccess(String data) {
+        for (ErrorBasketBean errorBasketBean : mList) {
+            EventBus.getDefault().post(errorBasketBean);
+        }
         mList.clear();
         mErrorBasketAdapter.notifyDataSetChanged();
     }

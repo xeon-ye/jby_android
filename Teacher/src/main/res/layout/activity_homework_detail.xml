@@ -33,16 +33,19 @@
                     <TextView
                         android:id="@+id/tv_classes"
                         style="@style/small_black_style2"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:drawableRight="@mipmap/sniper_normal"
+                        android:drawablePadding="@dimen/dimen_5"
+                        android:textColor="@color/colorPrimary"
                         android:text="高一1班语文" />
 
                     <TextView
                         android:id="@+id/tv_homeworkSubmitResult"
                         style="@style/small_black_style2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="共55人，提交44份" />
                 </LinearLayout>
 

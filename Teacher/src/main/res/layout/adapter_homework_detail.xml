@@ -55,7 +55,7 @@
                 style="@style/middle_gray_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_3"
                 android:gravity="center_vertical"
                 android:text="【3】" />
 
@@ -64,17 +64,30 @@
                 style="@style/middle_gray_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginLeft="@dimen/dimen_3"
                 android:gravity="center_vertical"
+                android:textSize="10sp"
                 android:text="正确答案：" />
             <TextView
                 android:id="@+id/tv_ProdAnswer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 style="@style/middle_gray_style"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="C"
+                android:textSize="10sp"
+
+                />
+            <TextView
+                android:id="@+id/tv_exPlat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/middle_gray_style"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="@dimen/dimen_3"
+                android:textSize="10sp"
+
                 />
 
         </LinearLayout>

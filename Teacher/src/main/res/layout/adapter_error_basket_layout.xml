@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -23,13 +24,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_10"
-            android:textColor="@color/color_d8d8d8"
+            android:textColor="@color/color_A4A8AB"
             android:textSize="12sp" />
     </LinearLayout>
     <io.github.kexanie.library.MathView
         android:id="@+id/tv_question_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></io.github.kexanie.library.MathView>
+        android:layout_height="wrap_content"
+        auto:engine="MathJax"
+
+        ></io.github.kexanie.library.MathView>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_chose_data"
         android:layout_width="match_parent"

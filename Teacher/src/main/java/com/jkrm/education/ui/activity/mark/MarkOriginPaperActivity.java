@@ -54,7 +54,7 @@ import butterknife.BindView;
  * Created by hzw on 2019/5/22.
  */
 
-public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPresent> implements SeeOriginalPagerView.View{
+public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPresent> implements SeeOriginalPagerView.View {
 
     @BindView(R.id.tv_classes)
     TextView mTvClasses;
@@ -95,7 +95,7 @@ public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPrese
         super.initView();
         setStatusTxtDark();
         setToolbarWithBackImgAndRightView("查看原卷", "", () -> {
-            if(AwDataUtil.isEmpty(mStudentList)) {
+            if (AwDataUtil.isEmpty(mStudentList)) {
                 showDialog("获取学生列表失败");
                 return;
             }
@@ -118,17 +118,17 @@ public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPrese
         super.initData();
         mRowsHomeworkBean = (RowsHomeworkBean) getIntent().getSerializableExtra(Extras.KEY_BEAN_ROWS_HOMEWORK);
         mCurrentStudentBean = (AnswerSheetProgressResultBean) getIntent().getSerializableExtra(Extras.KEY_BEAN_ANSWER_SHEET_PROGRESS);
-        if(mRowsHomeworkBean != null) {
-           //setText(mTvClasses, mRowsHomeworkBean.getClasses().getName());
+        if (mRowsHomeworkBean != null) {
+            //setText(mTvClasses, mRowsHomeworkBean.getClasses().getName());
             homeworkId = mRowsHomeworkBean.getId();
             classId = mRowsHomeworkBean.getClasses().getId();
         }
-        if(AwDataUtil.isEmpty(homeworkId) || mCurrentStudentBean == null) {
+        if (AwDataUtil.isEmpty(homeworkId) || mCurrentStudentBean == null) {
             showDialogToFinish("获取数据失败, 无法查看原卷");
             return;
         }
         try {
-            setText(mTvClasses, "扫描日期："+AwDateUtils.dealDate(mCurrentStudentBean.getCreateTime()) +" 识别学号:"+mCurrentStudentBean.getStudCode());
+            setText(mTvClasses, "扫描日期：" + AwDateUtils.dealDate(mCurrentStudentBean.getCreateTime()) + " 识别学号:" + mCurrentStudentBean.getStudCode());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -166,7 +166,7 @@ public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPrese
         mStudentSwitchAdapter.setOnItemClickListener((adapter, view, position) -> {
             mDrawerLayoutStudentSwitch.closeDrawers();
             mCurrentStudentBean = (AnswerSheetProgressResultBean) adapter.getItem(position);
-           // setText(mTvCurrentStudent, mCurrentStudentBean.getStudentName());
+            // setText(mTvCurrentStudent, mCurrentStudentBean.getStudentName());
             mToolbar.setRightText(mCurrentStudentBean.getStudentName());
             mPresenter.getStudentOriginalQuestionAnswer(homeworkId, mCurrentStudentBean.getStudentId());
         });
@@ -202,14 +202,14 @@ public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPrese
 
         @Override
         public int getCount() {
-            return mOriginalPagerResultBeanList.size();
+            return null != mOriginalPagerResultBeanList ? mOriginalPagerResultBeanList.size() : 0;
         }
     };
 
     @Override
     public void answerSheetProgressSuccess(List<AnswerSheetProgressResultBean> list) {
         mStudentList = list;
-        if(AwDataUtil.isEmpty(list)) {
+        if (AwDataUtil.isEmpty(list)) {
             mStudentSwitchAdapter.clearData();
             mRcvDataStudentSwitch.removeAllViews();
             mStudentSwitchAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, MyConstant.ViewConstant.VIEW_EMPTY_COMMON, -1));
@@ -223,9 +223,8 @@ public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPrese
 
     @Override
     public void getStudentOriginalQuestionAnswerSuccess(OriginalPagerResultBean bean) {
-        if(bean != null) {
+        if (bean != null) {
             mOriginalPagerResultBeanList = bean.getRawScan();
-            AwLog.d("getStudentOriginalQuestionAnswerSuccess list size: " + mOriginalPagerResultBeanList.size());
             indicatorViewPager.notifyDataSetChanged();
             mSplashViewPager.setCurrentItem(0);
         } else {
@@ -235,7 +234,7 @@ public class MarkOriginPaperActivity extends AwMvpActivity<SeeOriginalPagerPrese
 
     @Override
     public void unConnectSuccess(NormalBean normalBean) {
-        NormalBean normalBean1=normalBean;
+        NormalBean normalBean1 = normalBean;
         showMsg("取消挂接成功");
         EventBus.getDefault().post(new RxUnConnectType());
         finish();

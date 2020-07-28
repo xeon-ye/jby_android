@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/dimen_10">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:auto="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10">
 
     <TextView
         android:id="@+id/tv_num"
@@ -15,6 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="下列命题正确的是"
+        auto:engine="MathJax"
+
         android:layout_marginTop="@dimen/dimen_10"
         />
     <android.support.v7.widget.RecyclerView

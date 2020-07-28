@@ -1,5 +1,6 @@
 package com.jkrm.education.ui.activity.homework;
 
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +24,12 @@ import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.util.MyDateUtil;
+import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.HomeworkDetailViewPagerAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailStudentAnswerAdapter;
+import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean.GradQusetionBean;
 import com.jkrm.education.bean.result.HomeworkStudentAnswerWithSingleQuestionResultBean;
@@ -51,6 +54,8 @@ import com.jkrm.education.ui.activity.achievement.SeeAchievementActivity;
 import com.jkrm.education.ui.activity.mark.MarkDetailActivity;
 import com.jkrm.education.util.CustomFontStyleUtil;
 import com.jkrm.education.util.TestDataUtil;
+import com.jkrm.education.util.UserUtil;
+import com.jkrm.education.widget.StudentListDialogFrament;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -146,7 +151,13 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     protected void initView() {
         super.initView();
         setStatusTxtDark();
-        setToolbarWithBackImgAndRightView("作业详情", "题号", () -> {
+        setToolbar("作业详情", new AwViewCustomToolbar.OnLeftClickListener() {
+            @Override
+            public void onLeftTextClick() {
+                finish();
+            }
+        });
+       /* setToolbarWithBackImgAndRightView("作业详情", "题号", () -> {
             showView(mViewAlpha, true);
             AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), mToolbar,
                     () -> showView(mViewAlpha, false)
@@ -169,7 +180,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 //                        }
                     });
 
-        });
+        });*/
         mToolbar.setRTextColor(R.color.blue);
         mToolbar.setRightImgWithTxt(R.mipmap.icon_sanjiao);
         // 禁止手势滑动
@@ -207,12 +218,15 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mStudentAnswerAdapter = new MarkHomeworkDetailStudentAnswerAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvDataStudentAnswer, mStudentAnswerAdapter, false);
 
+        mPresenter.getExplainClasses(UserUtil.getTeacherId(),homeworkId);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshByBus(RxRefreshHomeworkDetailType type) {
-        if (type == null)
+        if (type == null){
             return;
+        }
         refreshData();
     }
 
@@ -279,6 +293,9 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     break;
                 case R.id.btn_famousTeacherLecture:
                     mPresenter.getVideos(bean.getQuestionId());
+                    break;
+                case R.id.tv_exPlat:
+                    mPresenter.getExplainStudent(bean.getHomeworkId(),bean.getQuestionId());
                     break;
             }
         });
@@ -550,6 +567,30 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         showView(mBtnVideoPoint,false);
 
     }
+
+    @Override
+    public void getExplainClassesSuccess(List<String> data) {
+
+    }
+
+    @Override
+    public void getExplainClassesFail(String msg) {
+
+    }
+
+    @Override
+    public void getExplainStudentSuccess(List<ExplainStudentBean> data) {
+        StudentListDialogFrament studentListDialogFrament=new StudentListDialogFrament();
+        studentListDialogFrament.show(getSupportFragmentManager(),"");
+    }
+
+
+
+    @Override
+    public void getExplainStudentFail(String msg) {
+        showMsg(msg);
+    }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

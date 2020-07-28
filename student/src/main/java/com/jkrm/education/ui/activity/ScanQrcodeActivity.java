@@ -191,6 +191,8 @@ public class ScanQrcodeActivity extends CaptureActivity {
     @Override
     public void onResult(Result result) {
         //        super.onResult(result);
+        String stuid=UserUtil.getStudId();
+        String s=result.getText();
 //        AwToastUtil.showShort(mActivity, "扫描结果: " + result.getText());
         if (result != null && !AwDataUtil.isEmpty(result.getText())) {
             getVideoPointListByTemplate(result.getText().trim());
