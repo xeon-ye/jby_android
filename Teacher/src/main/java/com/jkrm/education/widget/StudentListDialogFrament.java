@@ -25,7 +25,7 @@ public class StudentListDialogFrament extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_student_list_layout, null);
         init(view);
-        final Dialog dialog = new Dialog(getActivity(), com.hzw.baselib.R.style.video_style_dialog_progress);
+        final Dialog dialog = new Dialog(getActivity(), com.hzw.baselib.R.style.dialog_fragment_style);
         dialog.setContentView(view);
         dialog.show();
 
