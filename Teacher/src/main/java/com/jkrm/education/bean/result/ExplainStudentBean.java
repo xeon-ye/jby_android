@@ -1,5 +1,6 @@
 package com.jkrm.education.bean.result;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @CreateDate: 2020/7/28 17:48
  */
 
-public class ExplainStudentBean {
+public class ExplainStudentBean implements Serializable {
 
     /**
      * code : 200

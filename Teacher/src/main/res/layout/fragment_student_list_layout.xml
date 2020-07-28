@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/aw_bg_white_radius_30"
     android:orientation="vertical"
+    android:layout_margin="@dimen/dimen_5"
     android:padding="@dimen/dimen_10">
 
     <RelativeLayout

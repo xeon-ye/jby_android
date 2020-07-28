@@ -7,6 +7,7 @@ import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwLog;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.bean.ClassesBean;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
 import com.jkrm.education.bean.result.ExplainStudentBean;
@@ -286,17 +287,17 @@ public class HomeworkDetailPresent extends AwCommonPresenter implements Homework
 
     @Override
     public void getExplainClasses(String teacherId, String homeworkId) {
-        Observable<ResponseBean<List<String>>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<List<ClassesBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getExplainClasses(teacherId,homeworkId);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<String>>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ClassesBean>>() {
             @Override
             public void onStart() {
                 mView.showLoadingDialog();
             }
 
             @Override
-            public void onSuccess(List<String> data) {
+            public void onSuccess(List<ClassesBean> data) {
                 mView.getExplainClassesSuccess(data);
             }
 
