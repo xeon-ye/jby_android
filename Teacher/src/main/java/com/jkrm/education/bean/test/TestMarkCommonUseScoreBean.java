@@ -1,10 +1,12 @@
 package com.jkrm.education.bean.test;
 
+import java.io.Serializable;
+
 /**
  * Created by hzw on 2019/5/22.
  */
 
-public class TestMarkCommonUseScoreBean {
+public class TestMarkCommonUseScoreBean implements Serializable {
 
     private String score;
     private boolean isHandleModify;

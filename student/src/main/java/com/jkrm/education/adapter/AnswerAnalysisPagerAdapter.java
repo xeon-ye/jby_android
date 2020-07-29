@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
+import com.hzw.baselib.util.AwDataUtil;
 import com.jkrm.education.bean.BatchBean;
 import com.jkrm.education.bean.BatchQuestionBean;
 import com.jkrm.education.bean.result.SimilarResultBean;
@@ -70,7 +71,7 @@ public class AnswerAnalysisPagerAdapter extends FragmentPagerAdapter {
             fragment=new  AnswerAnalyQuestionsOfGroupQuestionsFragment();
         }else{
             //非组题 选择题
-            if("2".equals(batchBean.getIsOption())||"2".equals(batchBean.getType().getIsOption())){
+            if(!AwDataUtil.isEmpty(batchBean.getType())&&!AwDataUtil.isEmpty(batchBean.getType().getIsOption())&& "2".equals(batchBean.getIsOption())&&"2".equals(batchBean.getType().getIsOption())){
                 fragment=new AnswerAnalyChoiceFragment();
             }else{
                 //非组题 非选择题

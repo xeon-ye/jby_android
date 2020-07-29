@@ -1,5 +1,6 @@
 package com.jkrm.education.mvp.presenters;
 
+import com.hzw.baselib.bean.ClassesResponseBean;
 import com.hzw.baselib.interfaces.AwApiCallback;
 import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.presenters.AwCommonPresenter;
@@ -287,17 +288,17 @@ public class HomeworkDetailPresent extends AwCommonPresenter implements Homework
 
     @Override
     public void getExplainClasses(String teacherId, String homeworkId) {
-        Observable<ResponseBean<List<ClassesBean>>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<List<ClassesResponseBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getExplainClasses(teacherId,homeworkId);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ClassesBean>>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ClassesResponseBean>>() {
             @Override
             public void onStart() {
                 mView.showLoadingDialog();
             }
 
             @Override
-            public void onSuccess(List<ClassesBean> data) {
+            public void onSuccess(List<ClassesResponseBean> data) {
                 mView.getExplainClassesSuccess(data);
             }
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.constants.AwBaseConstant;
 import com.hzw.baselib.interfaces.IPermissionListener;
@@ -72,12 +74,14 @@ import com.jkrm.education.util.DataUtil;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.TestDataUtil;
 import com.jkrm.education.widget.CanvasImageViewWithScale;
+import com.jkrm.education.widget.IncommonUseDialogFrament;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -97,19 +101,19 @@ import static com.hzw.baselib.util.AwImgUtil.drawableToBitmap;
  * 入口页面数据说明
  * 批阅详情入口 --- 含RowsHomeworkBean
  * 按题批阅时 --- 含题目id, 不含studentId, 获取该题所有学生批阅状态列表数据
- *                  --- 全部已批阅, 从该题第一个学生开始批阅
- *                  --- 部分已批阅, 从该题第一个未批阅的学生开始批阅
+ * --- 全部已批阅, 从该题第一个学生开始批阅
+ * --- 部分已批阅, 从该题第一个未批阅的学生开始批阅
  * 按人批阅时 --- 含题目id, 含studentId, 从该题该学生位置按人批阅, 获取该学生所有题目批阅状态
- *                  --- 该学生所有题目已批阅, 从第一题开始批阅
- *                  --- 该学生部分题目已批阅. 前后题切换未批阅题目
+ * --- 该学生所有题目已批阅, 从第一题开始批阅
+ * --- 该学生部分题目已批阅. 前后题切换未批阅题目
  * ===================================================================================================
- *api调用
+ * api调用
  * 按题批阅
  * 1) 获取所有学生该题批阅状态列表
- *      --- 切换到按人批阅, 获取该学生所有题目答题状态列表, 替换掉按人批阅之前的list数据
+ * --- 切换到按人批阅, 获取该学生所有题目答题状态列表, 替换掉按人批阅之前的list数据
  * 按人批阅
  * 1) 获取该学生所有题目答题状态列表
- *      --- 切换到按题批阅, 获取所有学生该题批阅状态列表
+ * --- 切换到按题批阅, 获取所有学生该题批阅状态列表
  * 根据当前批阅模式, 分别根据学生id和题目id, 获取该学生的答题内容
  * ===================================================================================================
  * 批阅调用
@@ -252,7 +256,9 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
      * 进入页面是否回评(回评展示所有批阅数据, 反之仅展示未批阅的学生或题目列表数据)
      */
     private boolean isSelectReMark;
-    /**是否需要清空评分, 防止已批阅已绘制分数的答卷重复导致绘制分数与实际分数不符*/
+    /**
+     * 是否需要清空评分, 防止已批阅已绘制分数的答卷重复导致绘制分数与实际分数不符
+     */
     private boolean needResetScore = true;
     private String questionName = "测试题目";
     private String questionId = "";
@@ -260,10 +266,10 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     private String classId = "";
     private String studentId = "";
     private MarkCommonUseScoreAdapter mCommonUseScoreAdapter;
-    ArrayList<MarkBean> mMarkByQuestionList=new ArrayList<>();
-    ArrayList<MarkBean> mHandleSwitchList=new ArrayList<>();
+    ArrayList<MarkBean> mMarkByQuestionList = new ArrayList<>();
+    ArrayList<MarkBean> mHandleSwitchList = new ArrayList<>();
     private List<GradQusetionBean> mQuestionList = new ArrayList<>();//题目
-    private List<AnswerSheetProgressResultBean> mStudentList=new ArrayList<>();//学生
+    private List<AnswerSheetProgressResultBean> mStudentList = new ArrayList<>();//学生
 
     @Override
     protected MarkPresent createPresenter() {
@@ -295,7 +301,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
             @Override
             public void run() {
                 DisplayCutout displayCutout = decorView.getRootWindowInsets().getDisplayCutout();
-                if(null == displayCutout) {
+                if (null == displayCutout) {
                     return;
                 }
                 AwLog.d("TAG", "安全区域距离屏幕左边的距离 SafeInsetLeft:" + displayCutout.getSafeInsetLeft());
@@ -313,7 +319,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     }
                 }
 
-                mFlImgFlLayout.setPadding(displayCutout.getSafeInsetLeft(),0,0,0);
+                mFlImgFlLayout.setPadding(displayCutout.getSafeInsetLeft(), 0, 0, 0);
 //                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                layoutParams.setMargins(displayCutout.getSafeInsetLeft(),0,0,0);//4个参数按顺序分别是左上右下
 //                mFlImgFlLayout.setLayoutParams(layoutParams);
@@ -325,20 +331,20 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     protected void initData() {
         super.initData();
         mCommonUseScoreAdapter = new MarkCommonUseScoreAdapter();
-        mMarkByQuestionList.add(new MarkBean(true,"按题批阅"));
-        mMarkByQuestionList.add(new MarkBean(false,"按人批阅"));
-        mHandleSwitchList.add(new MarkBean(true,"分步赋分"));
-        mHandleSwitchList.add(new MarkBean(false,"一键赋分"));
-        mQuestionList= (List<GradQusetionBean>) getIntent().getSerializableExtra(Extras.KEY_BEAN_GRADQUESTIONLIST);
-        if(mQuestionList.isEmpty()){
+        mMarkByQuestionList.add(new MarkBean(true, "按题批阅"));
+        mMarkByQuestionList.add(new MarkBean(false, "按人批阅"));
+        mHandleSwitchList.add(new MarkBean(true, "分步赋分"));
+        mHandleSwitchList.add(new MarkBean(false, "一键赋分"));
+        mQuestionList = (List<GradQusetionBean>) getIntent().getSerializableExtra(Extras.KEY_BEAN_GRADQUESTIONLIST);
+        if (mQuestionList.isEmpty()) {
             showDialogToFinish("获取题目列表错误");
-        }else{
+        } else {
             mQuestionList.remove(0);//第一题为选择题  移除
         }
-        mStudentList= (List<AnswerSheetProgressResultBean>) getIntent().getSerializableExtra(Extras.KEY_BEAN_GRADQUESTION_WITH_STUDENT_LIST);
-        List<AnswerSheetProgressResultBean> state=new ArrayList();
+        mStudentList = (List<AnswerSheetProgressResultBean>) getIntent().getSerializableExtra(Extras.KEY_BEAN_GRADQUESTION_WITH_STUDENT_LIST);
+        List<AnswerSheetProgressResultBean> state = new ArrayList();
         for (int i = 0; i < mStudentList.size(); i++) {
-            if("1".equals(mStudentList.get(i).getStatus())){
+            if ("1".equals(mStudentList.get(i).getStatus())) {
                 state.add(mStudentList.get(i));
             }
         }
@@ -356,7 +362,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     //定位到哪题(批阅详情按题和按人批阅入口进入), 作业列表进入该字段为空, 获取列表后默认定位到第一个非选择题
                     questionId = mGradQusetionBean.getQuestionId();
                 }
-                if(mCurrentStudentBean != null) {
+                if (mCurrentStudentBean != null) {
                     //定位到哪个学生(批阅详情按人批阅入口进入), 作业列表进入该字段为空, 获取列表后默认定位到第一个学生
                     studentId = mCurrentStudentBean.getStudentId();
                 }
@@ -371,14 +377,14 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 //                    AwLog.d(TAG +"提交数处理后: " + mRowsHomeworkBean.getStatistics().getSubmitted() + " ,总人数处理后: " + mRowsHomeworkBean.getClasses().getPopulation());
 //                    setText(mTvTotalMarkPercent, "总批阅进度：" + AwConvertUtil.double2String(Double.parseDouble(String.valueOf((float) currentMarkCount / totalMarkCount * 100)), 2) + "%");
                     //开始api调用, 获取题目列表
-                    if(isMarkByQuestion) {
+                    if (isMarkByQuestion) {
                         //获取该题所有学生答题批阅状态列表
                         mPresenter.getAllStudentListByQuestion(homeworkId, classId, questionId);
-                        mAllQusetionListByPerson=mQuestionList;
+                        mAllQusetionListByPerson = mQuestionList;
                     } else {
                         //获取该学生所有题目批阅状态列表
                         mPresenter.getAllQuestionListByPerson(homeworkId, mCurrentStudentBean.getStudentId());
-                        mAllStudentListByQuestion=mStudentList;
+                        mAllStudentListByQuestion = mStudentList;
                     }
 
                 } else {
@@ -411,11 +417,11 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     public void refreshByBus(RxMarkImgOperateType type) {
         if (type == null)
             return;
-        if(type.isClick()) {
-            if(!isMarked) {
-                AwLog.d("onTouchEvent refreshByBus mIvQuestionImg.setOnClickListener isMarked false , 长/宽: " + origintImgHeight/origintImgWidth);
-                if(mCurrentStudentSingleQuestionAnswerResultBean != null) {
-                 //   toClass(ImgActivity.class, false, Extras.IMG_URL, currentImgUrl, Extras.IMG_HEIGHT, "0.9", Extras.IMG_NEED_PORTRAIT, origintImgHeight/origintImgWidth >= 2);
+        if (type.isClick()) {
+            if (!isMarked) {
+                AwLog.d("onTouchEvent refreshByBus mIvQuestionImg.setOnClickListener isMarked false , 长/宽: " + origintImgHeight / origintImgWidth);
+                if (mCurrentStudentSingleQuestionAnswerResultBean != null) {
+                    //   toClass(ImgActivity.class, false, Extras.IMG_URL, currentImgUrl, Extras.IMG_HEIGHT, "0.9", Extras.IMG_NEED_PORTRAIT, origintImgHeight/origintImgWidth >= 2);
                 }
             } else {
                 AwLog.d("onTouchEvent refreshByBus mIvQuestionImg.setOnClickListener isMarked true");
@@ -439,7 +445,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                         //分步判分时上传批阅图片到后台.
                         dismissLoadingDialog();
                         toClass(ImgActivity.class, false, Extras.IMG_URL, s,
-                                Extras.IMG_HEIGHT, "0.9", Extras.IMG_NEED_PORTRAIT, origintImgHeight/origintImgWidth >= 2);
+                                Extras.IMG_HEIGHT, "0.9", Extras.IMG_NEED_PORTRAIT, origintImgHeight / origintImgWidth >= 2);
 
                     }
                 });
@@ -451,7 +457,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
         isMarked = type.isMark();
         totalMarkScore = type.getTotalMarkScore();
         setQuestionInfo(false);
-        AwLog.d("MarkActivity refreshByBus isMark: " + isMarked +  ",totalMarkScore: " + totalMarkScore);
+        AwLog.d("MarkActivity refreshByBus isMark: " + isMarked + ",totalMarkScore: " + totalMarkScore);
     }
 
     @Override
@@ -481,7 +487,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
         mCommonUseScoreAdapter.setOnItemClickListener((adapter, view, position) -> {
             TestMarkCommonUseScoreBean bean = (TestMarkCommonUseScoreBean) adapter.getItem(position);
             if (isEditCommonUse) {
-                //常用编辑状态下才允许更换顺序
+             /*   //常用编辑状态下才允许更换顺序
                 mCommonUseScoreList.remove(bean);
                 if (bean.isHandleModify()) {
                     bean.setHandleModify(false);
@@ -514,16 +520,16 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     }
                     return 0;
                 });
-                mCommonUseScoreAdapter.notifyDataSetChanged();
+                mCommonUseScoreAdapter.notifyDataSetChanged();*/
             } else {
-                if(needResetScore) {
+                if (needResetScore) {
                     showDialog("该题已线上批阅过，再次赋分前请先清空评分");
                     return;
                 }
                 mIvQuestionImg.setStuatus(CanvasImageViewWithScale.STUATUS_NORMAL);
                 //给题目赋值分数....
                 if (isHandleSwitch) {
-                    if(bean.isSelect()) {
+                    if (bean.isSelect()) {
                         bean.setSelect(false);
                         mIvQuestionImg.setScore(CanvasImageViewWithScale.DEFAULT_INVALID_SCORE, maxScore);
                     } else {
@@ -540,7 +546,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     mIvQuestionImg.drawAutoMarkResult(getCanvasImgCenterXY());
                     //这里延时下操作, 给予图片绘制时间(时间可调试更改)
                     new Handler().postDelayed(() -> toSaveImg(true, totalMarkScore), 300);
-                        //直接判分, 不用上传图片
+                    //直接判分, 不用上传图片
 //                        mPresenter.markQuestion(true, mCurrentStudentSingleQuestionAnswerResultBean.getId(), RequestUtil.getMarkQuestionRequest("", totalMarkScore, "1"));
 
                 }
@@ -548,13 +554,13 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
         });
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_commonUse, R.id.tv_markByQuestion, R.id.tv_handleSwitch, R.id.btn_seeOriginalQuestion, R.id.btn_resetScore, R.id.btn_addSpecial, R.id.iv_lastQuestion, R.id.iv_nextQuestion,R.id.iv_commonUse})
+    @OnClick({R.id.iv_back, R.id.tv_commonUse, R.id.tv_markByQuestion, R.id.tv_handleSwitch, R.id.btn_seeOriginalQuestion, R.id.btn_resetScore, R.id.btn_addSpecial, R.id.iv_lastQuestion, R.id.iv_nextQuestion, R.id.iv_commonUse})
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.iv_back:
-                if(isMarkedSomeOne) {
+                if (isMarkedSomeOne) {
                     EventBus.getDefault().postSticky(new RxRefreshMarkDetailType()); //刷新批阅详情
                     EventBus.getDefault().postSticky(new RxRefreshHomeworkListType()); //刷新作业列表
                 }
@@ -562,6 +568,69 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 break;
             case R.id.tv_commonUse:
             case R.id.iv_commonUse:
+                IncommonUseDialogFrament incommonUseDialogFrament = new IncommonUseDialogFrament();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Extras.KEY_SCORE_LIST, (Serializable) mCommonUseScoreList);
+                incommonUseDialogFrament.setArguments(bundle);
+                incommonUseDialogFrament.show(getMyFragmentManager(), null);
+                incommonUseDialogFrament.setOnSureChickListener(new IncommonUseDialogFrament.onSureChickListener() {
+                    @Override
+                    public void onSureChick() {
+                        mCommonUseScoreAdapter.notifyDataSetChanged();
+                        mIvQuestionImg.setEnableTouch(true);
+                        isEditCommonUse = false;
+                        showView(mVieAlpha, false);
+                    }
+
+                    @Override
+                    public void onCancelChick() {
+                        mIvQuestionImg.setEnableTouch(true);
+                        isEditCommonUse = false;
+                        showView(mVieAlpha, false);
+                    }
+                });
+                incommonUseDialogFrament.setOnItemClickListener(new IncommonUseDialogFrament.OnItemClickListener() {
+                    @Override
+                    public void onItemChick(BaseQuickAdapter adapter, int position) {
+                        TestMarkCommonUseScoreBean bean = (TestMarkCommonUseScoreBean) adapter.getItem(position);
+                        if (isEditCommonUse) {
+                            //常用编辑状态下才允许更换顺序
+                            mCommonUseScoreList.remove(bean);
+                            if (bean.isHandleModify()) {
+                                bean.setHandleModify(false);
+                                mCommonUseScoreList.add(mCommonUseScoreList.size() - 1, bean);
+                            } else {
+                                bean.setHandleModify(true);
+                                mCommonUseScoreList.add(0, bean);
+                            }
+
+                            //排序常用分数
+                            Collections.sort(mCommonUseScoreList, (o1, o2) -> {
+                                if (o1.isHandleModify() && o2.isHandleModify()) {
+                                    if (Float.parseFloat(o1.getScore()) >= Float.parseFloat(o2.getScore())) {
+                                        return 1;
+                                    } else {
+                                        return -1;
+                                    }
+                                }
+                                return 0;
+                            });
+
+                            //排序常规分数
+                            Collections.sort(mCommonUseScoreList, (o1, o2) -> {
+                                if (!o1.isHandleModify() && !o2.isHandleModify()) {
+                                    if (Float.parseFloat(o1.getScore()) >= Float.parseFloat(o2.getScore())) {
+                                        return 1;
+                                    } else {
+                                        return -1;
+                                    }
+                                }
+                                return 0;
+                            });
+                            //  mCommonUseScoreAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
                 if (isEditCommonUse) {
                     mIvQuestionImg.setEnableTouch(true);
                     isEditCommonUse = false;
@@ -577,8 +646,8 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                         }
                     }
                     List<DaoMarkCommonScoreUseBean> list = DaoScoreCommonUseUtil.getInstance().queryBeanByQueryBuilderOfName("");
-                    if(!AwDataUtil.isEmpty(list)) {
-                        for(DaoMarkCommonScoreUseBean temp : list) {
+                    if (!AwDataUtil.isEmpty(list)) {
+                        for (DaoMarkCommonScoreUseBean temp : list) {
                             DaoScoreCommonUseUtil.getInstance().deleteBean(temp);
                         }
                     }
@@ -587,8 +656,8 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     mIvQuestionImg.setEnableTouch(false);
                     isEditCommonUse = true;
                     showView(mVieAlpha, true);
-                   // setText(mTvCommonUse, "完成");
-                    mIvCommonUse.setImageResource(R.mipmap.common_finish);
+                    // setText(mTvCommonUse, "完成");
+                    // mIvCommonUse.setImageResource(R.mipmap.common_finish);
 
                 }
                 break;
@@ -596,12 +665,12 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 if (isEditCommonUse) {
                     return;
                 }
-                AwPopupwindowUtil.showCommonPopupWindowWithParent(mActivity,mMarkByQuestionList, mTvMarkByQuestion, new AwCommonBottomListPopupWindow.OnItemClickListener() {
+                AwPopupwindowUtil.showCommonPopupWindowWithParent(mActivity, mMarkByQuestionList, mTvMarkByQuestion, new AwCommonBottomListPopupWindow.OnItemClickListener() {
                     @Override
                     public void onClick(Object bean) {
-                        if("按题批阅".equals(((MarkBean) bean).getTitle())){
+                        if ("按题批阅".equals(((MarkBean) bean).getTitle())) {
                             mTvMarkByQuestion.setSelected(false);
-                        }else if("按人批阅".equals(((MarkBean) bean).getTitle())){
+                        } else if ("按人批阅".equals(((MarkBean) bean).getTitle())) {
                             mTvMarkByQuestion.setSelected(true);
                         }
                         switchMarkModel(false);
@@ -615,9 +684,9 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 AwPopupwindowUtil.showCommonPopupWindowWithParent(mActivity, mHandleSwitchList, mTvHandleSwitch, new AwCommonBottomListPopupWindow.OnItemClickListener() {
                     @Override
                     public void onClick(Object bean) {
-                        if("一键赋分".equals(bean)){
+                        if ("一键赋分".equals(bean)) {
                             mTvHandleSwitch.setSelected(true);
-                        }else if("分步赋分".equals(bean)){
+                        } else if ("分步赋分".equals(bean)) {
                             mTvHandleSwitch.setSelected(false);
                         }
                         if (mTvHandleSwitch.isSelected()) {
@@ -678,7 +747,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 if (isEditCommonUse) {
                     return;
                 }
-                if("添加典型".equals(mBtnAddSpecial.getText().toString())) {
+                if ("添加典型".equals(mBtnAddSpecial.getText().toString())) {
                     mPresenter.addSpecial(RequestUtil.getAddSpecialRequest(homeworkId, questionId, classId, MyApp.getInstance().getAppUser().getTeacherId(), "",
                             questionUrl, mCurrentStudentBean.getStudCode()));
                 } else {
@@ -712,27 +781,28 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     /**
      * 展示总批阅进度(区分按题批阅和按人批阅)
-      */
+     */
     private void setTotalMarkPercent(boolean isInit) {
-        if(isMarkByQuestion) {
+        if (isMarkByQuestion) {
             //如果是按题批阅, 每成功批阅一个未批阅的学生, 更新下总批阅进度
-            if(!isInit && currentMarkCount < mAllStudentListByQuestion.size() && "0".equals(mCurrentStudentSingleQuestionAnswerResultBean.getStatus())) {
+            if (!isInit && currentMarkCount < mAllStudentListByQuestion.size() && "0".equals(mCurrentStudentSingleQuestionAnswerResultBean.getStatus())) {
                 currentMarkCount++;
             }
             //setText(mTvTotalMarkPercent, "总批阅进度：" + AwConvertUtil.double2String(Double.parseDouble(String.valueOf((float) currentMarkCount / mAllStudentListByQuestion.size() * 100)), 2) + "%");
-            setText(mTvTotalMarkPercent, "总批阅进度：" +currentMarkCount +"/"+ mAllStudentListByQuestion.size() + "");//批阅进度由 % 显示为  8/10
+            setText(mTvTotalMarkPercent, "总批阅进度：" + currentMarkCount + "/" + mAllStudentListByQuestion.size() + "");//批阅进度由 % 显示为  8/10
         } else {
             //如果是按人批阅, 每成功批阅一道未批阅的题目, 更新下总批阅进度
-            if(!isInit && currentMarkCount < mAllQusetionListByPerson.size() && "0".equals(mCurrentStudentSingleQuestionAnswerResultBean.getStatus())) {
+            if (!isInit && currentMarkCount < mAllQusetionListByPerson.size() && "0".equals(mCurrentStudentSingleQuestionAnswerResultBean.getStatus())) {
                 currentMarkCount++;
             }
             //setText(mTvTotalMarkPercent, "总批阅进度：" + AwConvertUtil.double2String(Double.parseDouble(String.valueOf((float) currentMarkCount / mAllQusetionListByPerson.size() * 100)), 2) + "%");
-            setText(mTvTotalMarkPercent, "总批阅进度：" +currentMarkCount  +"/"+ mAllQusetionListByPerson.size() + "");//批阅进度由 % 显示为  8/10
+            setText(mTvTotalMarkPercent, "总批阅进度：" + currentMarkCount + "/" + mAllQusetionListByPerson.size() + "");//批阅进度由 % 显示为  8/10
         }
     }
 
     /**
      * 设置按题批阅/按人批阅按钮状态(初始时和点击后的切换)
+     *
      * @param isInit
      */
     private void switchMarkModel(boolean isInit) {
@@ -742,25 +812,25 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
             setText(mTvMarkByQuestion, isMarkByQuestion ? "按题批阅" : "按人批阅");
         } else {
             if (mTvMarkByQuestion.isSelected()) {
-                if(null == mCurrentStudentBean) {
+                if (null == mCurrentStudentBean) {
                     showMsg("当前学生用户不存在，无法按人批阅");
                     return;
                 }
                 mTvMarkByQuestion.setSelected(false);
                 isMarkByQuestion = false;
                 setText(mTvMarkByQuestion, "按人批阅");
-               // AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mTvMarkByQuestion, true);
+                // AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mTvMarkByQuestion, true);
                 //获取该学生所有题目批阅状态列表
                 mPresenter.getAllQuestionListByPerson(homeworkId, mCurrentStudentBean.getStudentId());
             } else {
-                if(AwDataUtil.isEmpty(questionId)) {
+                if (AwDataUtil.isEmpty(questionId)) {
                     showMsg("当前题目不存在，无法按题批阅");
                     return;
                 }
                 mTvMarkByQuestion.setSelected(true);
                 isMarkByQuestion = true;
                 setText(mTvMarkByQuestion, "按题批阅");
-               // AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mTvMarkByQuestion, false);
+                // AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mTvMarkByQuestion, false);
                 //获取该题所有学生答题批阅状态列表
                 mPresenter.getAllStudentListByQuestion(homeworkId, classId, questionId);
             }
@@ -769,6 +839,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     /**
      * 分步批阅图片保存本地, 保存成功后上传该张图片, 上传成功后调用批阅接口.
+     *
      * @param isNext
      * @param score
      */
@@ -798,11 +869,11 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
             @Override
             public void onNext(String s) {
-                    //分步判分时上传批阅图片到后台.
-                    dismissLoadingDialog();
-                    currentUploadOssFilePath = s;
-                    AwLog.d("imageSave onNext path: " + s);
-                    mPresenter.uploadOss(isNext, "mark_server", s);
+                //分步判分时上传批阅图片到后台.
+                dismissLoadingDialog();
+                currentUploadOssFilePath = s;
+                AwLog.d("imageSave onNext path: " + s);
+                mPresenter.uploadOss(isNext, "mark_server", s);
 
             }
         });
@@ -850,6 +921,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     /**
      * 未批阅或批阅后. 无论成功与否进行下一步的操作判断
+     *
      * @param isNext
      * @return
      */
@@ -864,10 +936,10 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 if (!isMarked) {
                     AwLog.d("MarkActivity 下一人切换学生之前 index: " + currentStudentIndex + " ,总人数: " + mCurrentStudentListByQuestion.size());
                     if (currentStudentIndex == mCurrentStudentListByQuestion.size() - 1) {
-                        if(isSelectReMark) {
+                        if (isSelectReMark) {
                             showDialogToFinish("现有题卡已全部批阅完成，请点击确定按钮返回");
                         } else {
-                            if("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
+                            if ("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
                                 showDialogWithCancelDismiss("未批阅数据已全部批阅完成, 是否切换到该题全部学生数据查看?", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -889,12 +961,12 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                                         dismissDialog();
                                         // TODO: 2020/5/22  循环
                                         //当前题目所有 学生    批完后切换下一题
-                                        if(currentQuestionIndex<mQuestionList.size()-1){
+                                        if (currentQuestionIndex < mQuestionList.size() - 1) {
                                             currentQuestionIndex++;//下一题
                                             mGradQusetionBean = mQuestionList.get(currentQuestionIndex);
                                             questionId = mGradQusetionBean.getQuestionId();
-                                            mPresenter.getAllStudentListByQuestion(homeworkId, classId,questionId);
-                                        }else{
+                                            mPresenter.getAllStudentListByQuestion(homeworkId, classId, questionId);
+                                        } else {
                                             showDialog("翻阅完毕");
                                         }
                                     }
@@ -903,7 +975,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                             }
                         }
                     } else {
-                        if(currentStudentIndex<mAllStudentListByQuestion.size()-1){
+                        if (currentStudentIndex < mAllStudentListByQuestion.size() - 1) {
                             currentStudentIndex++;
                         }
                         AwLog.d("MarkActivity 下一人切换学生之后 index: " + currentStudentIndex + " ,总人数: " + mCurrentStudentListByQuestion.size());
@@ -920,10 +992,10 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 if (!isMarked) {
                     AwLog.d("MarkActivity 下一题切换题目之前 index: " + currentQuestionIndex + " ,总题数: " + mCurrentQuestionListByPerson.size());
                     if (currentQuestionIndex == mCurrentQuestionListByPerson.size() - 1) {
-                        if(isSelectReMark) {
+                        if (isSelectReMark) {
                             showDialog("没有更多题目了");
                         } else {
-                            if("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
+                            if ("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
                                 showDialogWithCancelDismiss("未批阅数据已全部批阅完成, 是否切换到该学生全部非选择题题目数据查看?", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -944,12 +1016,12 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                                         dismissDialog();
                                         // TODO: 2020/5/22  循环
                                         //当前学生所有题目    批完后切换下一学生
-                                        if(currentStudentIndex<mStudentList.size()-1){
+                                        if (currentStudentIndex < mStudentList.size() - 1) {
                                             currentStudentIndex++;// 下一学生
                                             mCurrentStudentBean = mStudentList.get(currentStudentIndex);
                                             studentId = mCurrentStudentBean.getId();
                                             mPresenter.getAllQuestionListByPerson(homeworkId, mCurrentStudentBean.getStudentId());
-                                        }else{
+                                        } else {
                                             showDialog("翻阅完毕");
                                         }
                                     }
@@ -974,10 +1046,10 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     }
                     AwLog.d("MarkActivity 上一人切换学生之前 index: " + currentStudentIndex + " ,总人数: " + mCurrentStudentListByQuestion.size());
                     if (currentStudentIndex == 0) {
-                        if(isSelectReMark) {
+                        if (isSelectReMark) {
                             showDialogToFinish("现有题卡已全部批阅完成，请点击确定按钮返回");
                         } else {
-                            if("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
+                            if ("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
                                 showDialogWithCancelDismiss("未批阅数据已全部批阅完成, 是否切换到该题全部学生数据查看?", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -997,12 +1069,12 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                                     public void onClick(View view) {
                                         dismissDialog();
                                         // TODO: 2020/5/22  循环
-                                        if(currentQuestionIndex>0){
+                                        if (currentQuestionIndex > 0) {
                                             currentQuestionIndex--;//上一题
                                             mGradQusetionBean = mQuestionList.get(currentQuestionIndex);
                                             questionId = mGradQusetionBean.getQuestionId();
-                                            mPresenter.getAllStudentListByQuestion(homeworkId, classId,questionId);
-                                        }else{
+                                            mPresenter.getAllStudentListByQuestion(homeworkId, classId, questionId);
+                                        } else {
                                             showDialog("翻阅完毕");
                                         }
                                     }
@@ -1027,10 +1099,10 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 if (!isMarked) {
                     AwLog.d("MarkActivity 上一题切换题目之前 index: " + currentQuestionIndex + " ,总题数: " + mCurrentQuestionListByPerson.size());
                     if (currentQuestionIndex == 0) {
-                        if(isSelectReMark) {
+                        if (isSelectReMark) {
                             showDialog("没有更多题目了");
                         } else {
-                            if("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
+                            if ("总批阅进度：100.00%".equals(mTvTotalMarkPercent.getText().toString())) {
 
                                 showDialogWithCancelDismiss("未批阅数据已全部批阅完成, 是否切换到该学生全部非选择题题目数据查看?", new View.OnClickListener() {
                                     @Override
@@ -1072,18 +1144,18 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                                     public void onClick(View view) {
                                         dismissDialog();
                                         //上一学生
-                                        if(currentStudentIndex>0){
+                                        if (currentStudentIndex > 0) {
                                             currentStudentIndex--;// 下一学生
                                             mCurrentStudentBean = mStudentList.get(currentStudentIndex);
                                             studentId = mCurrentStudentBean.getId();
                                             mPresenter.getAllQuestionListByPerson(homeworkId, mCurrentStudentBean.getStudentId());
-                                        }else{
+                                        } else {
                                             showDialog("翻阅完毕");
                                         }
                                     }
                                 });
 
-                               // showDialog("该学生前面没有更多待批阅的题目了，请往后翻阅");
+                                // showDialog("该学生前面没有更多待批阅的题目了，请往后翻阅");
                             }
                         }
                     } else {
@@ -1119,13 +1191,14 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     /**
      * 重置批阅状态
+     *
      * @param needClearImg false 清空评分保留图片, true 切换题目或学生时, 清除图片等
      */
     private void resetScoreImg(boolean needClearImg) {
         mIvQuestionImg.setScore(-1, maxScore);
         mIvQuestionImg.clearAllScore();
         isMarked = false;
-        if(needClearImg) {
+        if (needClearImg) {
             mIvQuestionImg.setImageDrawable(null);
             //重置状态
             mIvQuestionImg.setFristLoad(true);
@@ -1136,21 +1209,22 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     /**
      * title 中间题目信息(判分时动态展示当前总分, 清空评分或切换题/人时, 展示默认数值)
+     *
      * @param isReset
      */
     private void setQuestionInfo(boolean isReset) {
         String currentShowMarkScore = "未批阅";
-        if(isReset) {
+        if (isReset) {
             currentShowMarkScore = MyDateUtil.replace(mCurrentStudentSingleQuestionAnswerResultBean.getScore());
         } else {
             currentShowMarkScore = String.valueOf(totalMarkScore);
 
         }
-        if(TextUtils.isEmpty(currentShowMarkScore)){
-            currentShowMarkScore="0";
+        if (TextUtils.isEmpty(currentShowMarkScore)) {
+            currentShowMarkScore = "0";
         }
         setText(mTvQuestionInfo, "【" + mCurrentStudentSingleQuestionAnswerResultBean.getQuestionNum() + "】得分：" + currentShowMarkScore + "/" + MyDateUtil.replace(mCurrentStudentSingleQuestionAnswerResultBean.getMaxScore()));
-        if(!isReset) {
+        if (!isReset) {
             setScoreStyle();
         }
     }
@@ -1171,7 +1245,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     @Override
     public void getAllStudentListByQuestionSuccess(List<AnswerSheetProgressResultBean> list) {
-        if(AwDataUtil.isEmpty(list)) {
+        if (AwDataUtil.isEmpty(list)) {
             showDialogToFinish("“现有题卡已全部批阅完成，请点击确定按钮返回");
             return;
         }
@@ -1180,8 +1254,8 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
         sortStudent(mAllStudentListByQuestion);
         mCurrentStudentListByQuestion = new ArrayList<>();
         //筛选未批阅的学生列表
-        for(AnswerSheetProgressResultBean temp : mAllStudentListByQuestion) {
-            if("1".equals(temp.getStatus())) {
+        for (AnswerSheetProgressResultBean temp : mAllStudentListByQuestion) {
+            if ("1".equals(temp.getStatus())) {
                 //已批阅人数++
                 currentMarkCount++;
             } else {
@@ -1192,7 +1266,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 //            isSelectReMark = true;
 //        }
         //如果是回评, 则展示所有待批阅的数据
-        if(isSelectReMark) {
+        if (isSelectReMark) {
             mCurrentStudentListByQuestion = mAllStudentListByQuestion;
         }
         AwLog.d("mCurrentStudentListByQuestion sizw: " + mCurrentStudentListByQuestion.size());
@@ -1215,7 +1289,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 }
             }
         }
-        currentStudentIndex=0;
+        currentStudentIndex = 0;
         getSingleStudentQuestionAnswer();
     }
 
@@ -1226,11 +1300,12 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 
     /**
      * 按人批阅, 获取该学生所有题目批阅结果列表
+     *
      * @param list
      */
     @Override
     public void getAllQuestionListByPersonSuccess(List<GradQusetionBean> list) {
-        if(AwDataUtil.isEmpty(list)) {
+        if (AwDataUtil.isEmpty(list)) {
             showMsg("获取学生题目列表失败");
             return;
         }
@@ -1244,8 +1319,8 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
             }
         }
         mCurrentQuestionListByPerson = new ArrayList<>();
-        for(GradQusetionBean temp : mAllQusetionListByPerson) {
-            if("1".equals(temp.getStatus())) {
+        for (GradQusetionBean temp : mAllQusetionListByPerson) {
+            if ("1".equals(temp.getStatus())) {
                 currentMarkCount++;
             } else {
                 mCurrentQuestionListByPerson.add(temp);
@@ -1256,7 +1331,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
 //        }
         setTotalMarkPercent(true);
         //如果是回评, 则展示所有批阅数据
-        if(isSelectReMark) {
+        if (isSelectReMark) {
             mCurrentQuestionListByPerson = mAllQusetionListByPerson;
         }
         AwLog.d("mCurrentQuestionListByPerson size: " + mCurrentQuestionListByPerson.size());
@@ -1274,15 +1349,15 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                     break;//只要第一条筛选到, 直接退出循环
                 }
             }
-            if(!isExist) {
+            if (!isExist) {
                 mCurrentQuestionListByPerson.add(mGradQusetionBean);
                 Collections.sort(mCurrentQuestionListByPerson, (o1, o2) -> {
                     String questionNum1 = o1.getQuestionNum();
                     String questionNum2 = o2.getQuestionNum();
-                    if(AwDataUtil.isEmpty(questionNum1)) {
+                    if (AwDataUtil.isEmpty(questionNum1)) {
                         questionNum1 = AwBaseConstant.COMMON_INVALID_VALUE;
                     }
-                    if(AwDataUtil.isEmpty(questionNum2)) {
+                    if (AwDataUtil.isEmpty(questionNum2)) {
                         questionNum2 = AwBaseConstant.COMMON_INVALID_VALUE;
                     }
                     if (Float.parseFloat(questionNum1) >= Float.parseFloat(questionNum2)) {
@@ -1300,7 +1375,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
                 }
             }
         }
-        currentQuestionIndex=0;
+        currentQuestionIndex = 0;
         getSingleStudentQuestionAnswer();
     }
 
@@ -1319,14 +1394,14 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
             return;
         }
         questionUrl = AwDataUtil.isEmpty(bean.getGradedScan()) ? bean.getRawScan() : bean.getGradedScan();
-        if(AwDataUtil.isEmpty(bean.getTypical()) || "0".equals(bean.getTypical())) {
+        if (AwDataUtil.isEmpty(bean.getTypical()) || "0".equals(bean.getTypical())) {
             setText(mBtnAddSpecial, "添加典型");
         } else {
             setText(mBtnAddSpecial, "移除典型");
         }
         AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mBtnAddSpecial, "添加典型".equals(mBtnAddSpecial.getText().toString()));
         //判断是否线上批阅过, 如已线上批阅过, 则需先进行重置操作
-        if(AwDataUtil.isEmpty(bean.getGradedScan())) {
+        if (AwDataUtil.isEmpty(bean.getGradedScan())) {
             needResetScore = false;
         } else {
             needResetScore = true;
@@ -1365,21 +1440,21 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
         //设置常用分数, 最大分数不存在, 取消展示常用分数
         maxScore = Float.parseFloat(MyDateUtil.replace(AwDataUtil.isEmpty(bean.getMaxScore()) ? "0" : (bean.getMaxScore())));
         //2020/04/16 新增返回批阅分数
-        if(!TextUtils.isEmpty(bean.getScores())&&!"-1".equals(bean.getScores())){
+        if (!TextUtils.isEmpty(bean.getScores()) && !"-1".equals(bean.getScores())) {
             List<DaoMarkCommonScoreUseBean> list = DaoScoreCommonUseUtil.getInstance().queryBeanByQueryBuilderOfName("");
-            if (AwDataUtil.isEmpty(list)||TextUtils.isEmpty(list.get(0).getList().get(0))) {
+            if (AwDataUtil.isEmpty(list) || TextUtils.isEmpty(list.get(0).getList().get(0))) {
                 AwLog.d("常用分数不存在");
-                mCommonUseScoreList = TestDataUtil.createMarkCommonUseScoreBeanByList(bean.getScores(),null);
+                mCommonUseScoreList = TestDataUtil.createMarkCommonUseScoreBeanByList(bean.getScores(), null);
             } else {
                 AwLog.d("常用分数列表" + list.get(0).toString());
                 mCommonUseScoreList = TestDataUtil.createMarkCommonUseScoreBeanByList(bean.getScores(), list.get(0).getList());
             }
             setCommonUseScoreData();
 
-        }else{
+        } else {
             if (maxScore != 0 && !AwDataUtil.isEmpty(questionId)) {
                 List<DaoMarkCommonScoreUseBean> list = DaoScoreCommonUseUtil.getInstance().queryBeanByQueryBuilderOfName("");
-                if (AwDataUtil.isEmpty(list)||TextUtils.isEmpty(list.get(0).getList().get(0))) {
+                if (AwDataUtil.isEmpty(list) || TextUtils.isEmpty(list.get(0).getList().get(0))) {
                     AwLog.d("常用分数不存在");
                     mCommonUseScoreList = TestDataUtil.createkMarkCommonUseScoreBeanList(maxScore, null);
                 } else {
@@ -1469,7 +1544,6 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     }
 
 
-
     private void setImgSize() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(400,
                 400);//两个400分别为添加图片的大小
@@ -1479,23 +1553,23 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     private float[] getCanvasImgCenterXY() {
         int x = mIvQuestionImg.getWidth() / 2;
         int y = mIvQuestionImg.getHeight() / 2;
-        return new float[] {x, y};
+        return new float[]{x, y};
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(isMarkedSomeOne) {
+        if (isMarkedSomeOne) {
             EventBus.getDefault().postSticky(new RxRefreshMarkDetailType()); //刷新批阅详情
             EventBus.getDefault().postSticky(new RxRefreshHomeworkListType()); //刷新作业列表
         }
     }
 
-    private void sortStudent(List<AnswerSheetProgressResultBean> list){
+    private void sortStudent(List<AnswerSheetProgressResultBean> list) {
         Collections.sort(list, new Comparator<AnswerSheetProgressResultBean>() {
             @Override
             public int compare(AnswerSheetProgressResultBean answerSheetProgressResultBean, AnswerSheetProgressResultBean t1) {
-                if(answerSheetProgressResultBean.getStudCode().compareToIgnoreCase(t1.getStudCode())>0){
+                if (answerSheetProgressResultBean.getStudCode().compareToIgnoreCase(t1.getStudCode()) > 0) {
                     return 1;
                 }
                 return 0;

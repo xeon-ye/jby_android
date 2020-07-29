@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.hzw.baselib.adapter.AddressAdapter;
 import com.hzw.baselib.bean.AddressBean;
@@ -73,6 +74,8 @@ public class StudentListDialogFrament extends DialogFragment {
                 dismiss();
             }
         });
+        TextView tv_num = view.findViewById(R.id.tv_num);
+        tv_num.setText("学生名单("+mList.size()+")人");
         RecyclerView rcv_data = view.findViewById(R.id.rcv_data);
         AwRecyclerViewUtil.setRecyclerViewFlowLayout(getActivity(),rcv_data,mStudentAdapter,5);
         mStudentAdapter.addAllData(mList);

@@ -3,6 +3,7 @@ package com.jkrm.education.api;
 
 import com.hzw.baselib.bean.AddressBean;
 import com.hzw.baselib.bean.AwResponseListBean;
+import com.hzw.baselib.bean.ClassesResponseBean;
 import com.hzw.baselib.bean.SchoolBean;
 import com.hzw.baselib.project.student.bean.AnswerSheetAllDataResultBean;
 import com.jkrm.education.bean.ClassesBean;
@@ -703,5 +704,5 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_EXPLAIN_CLASSES)
-    Observable<ResponseBean<List<ClassesBean>>>  getExplainClasses(@Path("teacherId") String teacherId, @Path("homeworkId") String homeworkId);
+    Observable<ResponseBean<List<ClassesResponseBean>>>  getExplainClasses(@Path("teacherId") String teacherId, @Path("homeworkId") String homeworkId);
 }

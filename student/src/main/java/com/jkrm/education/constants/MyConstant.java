@@ -57,9 +57,9 @@ public class MyConstant {
     public static class ServerConstant {
 //        public final static String API_BASE_URL = "http://103.91.208.29:9000/app/";
 //        public final static String API_BASE_URL = "https://mockapi.eolinker.com/";
-            public final static String API_BASE_URL = "https://test.api.xinjiaoyu.com/"; //测试接口url(扫描清数据使用) http://39.106.225.181:9000/
+//            public final static String API_BASE_URL = "https://test.api.xinjiaoyu.com/"; //测试接口url(扫描清数据使用) http://39.106.225.181:9000/
 //        public final static String API_BASE_URL = "http://39.97.238.219:9000/";//日常接口url(供开发调试等)
-//          public final static String API_BASE_URL = "https://api.xinjiaoyu.com/";//正式接口url http://39.97.244.35:9000/
+          public final static String API_BASE_URL = "https://api.xinjiaoyu.com/";//正式接口url http://39.97.244.35:9000/
 
 //        public final static String BUGLY_APPID = "8dc29fbdc4"; //bugly dev环境
         public final static String BUGLY_APPID = "970ed7b634"; //bugly prod环境

@@ -267,7 +267,7 @@ public class ScanQrcodeActivity extends CaptureActivity {
 
                     @Override
                     public void onFailure(int code, String msg) {
-                        showDialogWithCancelFinish("获取微课视频失败，扫描结果：" + template_id + "，是否继续扫码？", v -> {
+                        showDialogWithCancelFinish(msg+ template_id + "，是否继续扫码？", v -> {
                             dismissDialog();
                             restartPreviewAndDecode();
                         });

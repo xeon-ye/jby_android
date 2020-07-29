@@ -101,7 +101,7 @@
                     android:paddingBottom="@dimen/dimen_5"
                     android:drawablePadding="5dp"
                     android:background="@drawable/aw_bg_blue_radius_30"
-                    android:drawableLeft="@mipmap/situation_error"
+                    android:drawableLeft="@mipmap/student_book"
                     android:text="错题本"
                     android:layout_gravity="center"
                     android:textColor="@color/white"

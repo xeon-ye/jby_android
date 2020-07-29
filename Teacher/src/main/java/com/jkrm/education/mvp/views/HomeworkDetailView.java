@@ -2,18 +2,15 @@ package com.jkrm.education.mvp.views;
 
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
-import com.jkrm.education.bean.ClassesBean;
+import com.hzw.baselib.bean.ClassesResponseBean;
 import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkStudentAnswerWithSingleQuestionResultBean;
-import com.jkrm.education.bean.result.MaxScoreResultBean;
 import com.jkrm.education.bean.result.QuestionSpecialResultBean;
 import com.jkrm.education.bean.result.VideoPointResultBean;
 import com.jkrm.education.bean.result.VideoResultBean;
 
 import java.util.List;
-
-import retrofit2.http.Path;
 
 
 /**
@@ -55,7 +52,7 @@ public interface HomeworkDetailView extends AwBaseView {
         void getVideoPointListNewSuccess(List<VideoPointResultBean> list);
         void getVideoPointListNewFail(String msg);
 
-        void getExplainClassesSuccess(List<ClassesBean> data);
+        void getExplainClassesSuccess(List<ClassesResponseBean> data);
         void getExplainClassesFail(String msg);
 
         void getExplainStudentSuccess(List<ExplainStudentBean> data);

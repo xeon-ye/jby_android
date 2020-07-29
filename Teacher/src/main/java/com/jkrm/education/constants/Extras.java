@@ -42,6 +42,7 @@ public class Extras {
     public final static String KEY_IS_VER_LOGIN="key_vercode_login";
 
     public final static String KEY_STUDENT_LIST="key_student_list";
+    public final static String KEY_SCORE_LIST="key_score_list";
 
 
 }

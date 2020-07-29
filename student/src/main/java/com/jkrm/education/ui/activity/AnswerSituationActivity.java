@@ -58,6 +58,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
     private String mStrTemplateId;
     List<AnswerSheetBean.QuestionsBean.SubQuestionsBean> mList = new ArrayList<>();
     List<BatchBean> mBatBeanList = new ArrayList<>();
+    AnswerSheetBean mSaveSheetBeans=new AnswerSheetBean();
 
     @Override
     protected int getLayoutId() {
@@ -70,6 +71,9 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
         setStatusBlue();
 
         mAnswerSheetBeansnswerSheetBeans = (AnswerSheetBean) getIntent().getSerializableExtra(Extras.KEY_ANSWERSHEET);
+
+        Gson gson = new Gson();
+        mSaveSheetBeans = gson.fromJson(gson.toJson(mAnswerSheetBeansnswerSheetBeans), AnswerSheetBean.class);
         mStrTemplateId = getIntent().getStringExtra(Extras.KEY_TEMPLATE_ID);
         setToolbar(mAnswerSheetBeansnswerSheetBeans.getTemplateName(), new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
@@ -111,6 +115,9 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
                         subQuestionsBean.setAnswer(insideSubquestions.get(k).getAnswer());
                         subQuestionsBean.setOptions(insideSubquestions.get(k).getOptions());
                         subQuestionsBean.setQuestionNum(insideSubquestions.get(k).getQuestionNum());
+                        AnswerSheetBean.QuestionsBean.SubQuestionsBean.StudentAnswer studentAnswer = new AnswerSheetBean.QuestionsBean.SubQuestionsBean.StudentAnswer();
+                        studentAnswer.setAnswer(insideSubquestions.get(k).getStudentAnswer().getAnswer());
+                        subQuestionsBean.setStudentAnswer(studentAnswer);
                         subQuestions.add(subQuestionsBean);
                     }
                 }
@@ -228,7 +235,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
         mList.clear();
         mBatBeanList.clear();
         Gson answerSheetGson = new Gson();
-        AnswerSheetBean mSplicSheetBeans = answerSheetGson.fromJson(answerSheetGson.toJson(mAnswerSheetBeansnswerSheetBeans), AnswerSheetBean.class);
+        AnswerSheetBean mSplicSheetBeans = answerSheetGson.fromJson(answerSheetGson.toJson(mSaveSheetBeans), AnswerSheetBean.class);
         List<AnswerSheetBean.QuestionsBean> questions = mSplicSheetBeans.getQuestions();
         //已经拆分组题数据
         List<AnswerSheetBean.QuestionsBean> question2 = mAnswerSheetBeansnswerSheetBeans.getQuestions();
@@ -254,13 +261,16 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
                             questionSubQuestion.setStudentAnswer(studentAnswer);
                         }
                         List<com.jkrm.education.bean.SubQuestionsBean> subQuestionsBeans = questionSubQuestion.getSubQuestions();
-                        for (SubQuestionsBean subQuestionsBean : subQuestionsBeans) {
-                            if (subQuestion.getId().equals(subQuestionsBean.getId())) {
-                                SubQuestionsBean.StudentAnswer studentAnswer = new SubQuestionsBean.StudentAnswer();
-                                studentAnswer.setAnswer(subQuestion.getStuAnswer());
-                                subQuestionsBean.setStudentAnswer(studentAnswer);
+                        if(null!=subQuestionsBeans){
+                            for (SubQuestionsBean subQuestionsBean : subQuestionsBeans) {
+                                if (subQuestion.getId().equals(subQuestionsBean.getId())) {
+                                    SubQuestionsBean.StudentAnswer studentAnswer = new SubQuestionsBean.StudentAnswer();
+                                    studentAnswer.setAnswer(subQuestion.getStuAnswer());
+                                    subQuestionsBean.setStudentAnswer(studentAnswer);
+                                }
                             }
                         }
+
                     }
                 }
             }
@@ -279,15 +289,18 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
             if (!AwDataUtil.isEmpty(subQuestionsBean.getImageList())) {
                 batchBean.setStudAnswer(AwArraysUtil.splitList(subQuestionsBean.getImageList()));
             }
-            for (BatchBean.SubQuestionsBean subQuestion : batchBean.getSubQuestions()) {
-                for (AnswerSheetBean.QuestionsBean question : question2) {
-                    for (AnswerSheetBean.QuestionsBean.SubQuestionsBean questionSubQuestion : question.getSubQuestions()) {
-                        if (subQuestion.getId().equals(questionSubQuestion.getId())) {
-                            subQuestion.setStudAnswer(questionSubQuestion.getStudentAnswer().getAnswer());
+            if(!AwDataUtil.isEmpty(batchBean.getSubQuestions())){
+                for (BatchBean.SubQuestionsBean subQuestion : batchBean.getSubQuestions()) {
+                    for (AnswerSheetBean.QuestionsBean question : question2) {
+                        for (AnswerSheetBean.QuestionsBean.SubQuestionsBean questionSubQuestion : question.getSubQuestions()) {
+                            if (subQuestion.getId().equals(questionSubQuestion.getId())) {
+                                subQuestion.setStudAnswer(questionSubQuestion.getStudentAnswer().getAnswer());
+                            }
                         }
                     }
                 }
             }
+
             batchBean.setAnswerSituation(true);
             mBatBeanList.add(batchBean);
         }

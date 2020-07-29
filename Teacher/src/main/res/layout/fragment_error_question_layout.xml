@@ -204,7 +204,7 @@
                         android:layout_height="30dp"
                         android:gravity="center_vertical|right"
 
-                        android:text="按题号排序"></TextView>
+                        android:text="按题号正序排序"></TextView>
 
                     <TextView
                         android:id="@+id/tv_inverted"

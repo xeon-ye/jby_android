@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/tv_explain"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dimen_8"
                 android:paddingRight="@dimen/dimen_8"

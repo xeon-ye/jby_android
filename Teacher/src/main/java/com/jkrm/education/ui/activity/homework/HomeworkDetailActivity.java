@@ -1,6 +1,5 @@
 package com.jkrm.education.ui.activity.homework;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -13,14 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.bean.ClassesResponseBean;
 import com.hzw.baselib.constants.AwBaseConstant;
 import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwDisplayUtil;
-import com.hzw.baselib.util.AwEffectiveRequestViewUtil;
 import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
@@ -30,7 +28,6 @@ import com.jkrm.education.R;
 import com.jkrm.education.adapter.HomeworkDetailViewPagerAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailStudentAnswerAdapter;
-import com.jkrm.education.bean.ClassesBean;
 import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean.GradQusetionBean;
@@ -42,7 +39,6 @@ import com.jkrm.education.bean.result.VideoResultBean;
 import com.jkrm.education.bean.rx.RxHomeworkDetailDurationType;
 import com.jkrm.education.bean.rx.RxHomeworkDetailRatioType;
 import com.jkrm.education.bean.rx.RxRefreshHomeworkDetailType;
-import com.jkrm.education.bean.rx.RxRefreshMarkDetailType;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.HomeworkDetailPresent;
@@ -75,6 +71,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by hzw on 2019/5/14.
@@ -110,6 +107,11 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private static final int TAG_SORT_QUESTION_NUM = 0;
     private static final int TAG_SORT_QUESTION_RATIO_INCREASE = 1;
     private static final int TAG_SORT_QUESTION_RATIO_REDUCE = 2;
+    private static final int TAG_SORT_QUESTION_EXPLAIN=3;
+    @BindView(R.id.tv_subTitle)
+    TextView mTvSubTitle;
+    @BindView(R.id.tv_sort)
+    TextView mTvSort;
     private IndicatorViewPager indicatorViewPager;
     private HomeworkDetailViewPagerAdapter mViewPagerAdapter;
 
@@ -138,7 +140,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private int mExtraPro;
     private View mHeaderView;
     private GradQusetionBean mGradQusetionBean;
-    private List<ClassesBean> classesBeanList=new ArrayList<>();
+    private List<ClassesResponseBean> mClassesResponseBeanList = new ArrayList<>();
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -221,13 +223,41 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mStudentAnswerAdapter = new MarkHomeworkDetailStudentAnswerAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvDataStudentAnswer, mStudentAnswerAdapter, false);
 
-        mPresenter.getExplainClasses(UserUtil.getTeacherId(),homeworkId);
+        mPresenter.getExplainClasses(UserUtil.getTeacherId(), homeworkId);
+        mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
+            @Override
+            public void onSortChick(View view,TextView textView) {
+                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), view,
+                        () -> showView(mViewAlpha, false)
+                        , bean -> {
+                            showView(mViewAlpha, false);
+                            if (!AwDataUtil.isEmpty(mToolbar.getRightText()) && mToolbar.getRightText().equals(bean)
+                                    || null == mHomeworkDetailResultBean
+                                    || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
+                                return;
+                            }
 
+                            if ("按题号正序".equals(bean)) {
+                                textView.setText("按题号正序");
+                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
+                            } else if ("按得分率倒序".equals(bean)) {
+                                textView.setText("按得分率倒序");
+                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+                            }else if("按需讲解人数倒序".equals(bean)){
+                                textView.setText("按需讲解人数倒序");
+                                setData(mHomeworkDetailResultBean,TAG_SORT_QUESTION_EXPLAIN);
+                            }
+//                        else if("得分率降序".equals(bean)) {
+//                            setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+//                        }
+                        });
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshByBus(RxRefreshHomeworkDetailType type) {
-        if (type == null){
+        if (type == null) {
             return;
         }
         refreshData();
@@ -237,8 +267,8 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mRowsHomeworkBean = mRowsHomeworkBeans.get(mExtraPro);
         setText(mTvClasses, mRowsHomeworkBean.getClasses().getName());
         setText(mTvHomeworkSubmitResult, String.format(getString(R.string.format_homework_detail_submit_status), mRowsHomeworkBean.getClasses().getPopulation(), mRowsHomeworkBean.getStatistics().getSubmitted()));
-        homeworkId = mRowsHomeworkBean.getId();
-        classid = mRowsHomeworkBean.getClasses().getId();
+       /* homeworkId = mRowsHomeworkBean.getId();
+        classid = mRowsHomeworkBean.getClasses().getId();*/
         mPresenter.getHomeworkDetail(homeworkId, classid);
 //        mPresenter.getVideoPointList(homeworkId);
         mPresenter.getVideoPointListNew(homeworkId);
@@ -298,7 +328,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     mPresenter.getVideos(bean.getQuestionId());
                     break;
                 case R.id.tv_exPlat:
-                    mPresenter.getExplainStudent(bean.getHomeworkId(),bean.getQuestionId());
+                    mPresenter.getExplainStudent(bean.getHomeworkId(), bean.getQuestionId());
                     break;
             }
         });
@@ -306,7 +336,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HomeworkStudentAnswerWithSingleQuestionResultBean resultBean = (HomeworkStudentAnswerWithSingleQuestionResultBean) adapter.getItem(position);
-                if (!resultBean.isChoiceQuestion()&&!"2".equals(mGradQusetionBean.getIsOption())) {
+                if (!resultBean.isChoiceQuestion() && !"2".equals(mGradQusetionBean.getIsOption())) {
                     toClass(ImgActivity.class, false, Extras.IMG_URL, resultBean.getRowScan());
                 }
             }
@@ -314,7 +344,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mTvClasses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity,classesBeanList, mTvClasses,
+                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, mClassesResponseBeanList, mTvClasses,
                         () -> showView(mViewAlpha, false)
                         , bean -> {
                             showView(mViewAlpha, false);
@@ -323,21 +353,50 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                                     || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
                                 return;
                             }
-                            ClassesBean classesBean= (ClassesBean) bean;
-                            String classId = classesBean.getClassId();
-                            showDialog(classId);
-                            if ("按题号排序".equals(bean)) {
+                            ClassesResponseBean classesResponseBean = (ClassesResponseBean) bean;
+                            homeworkId = classesResponseBean.getHomeId();
+                            classid = classesResponseBean.getClassId();
+                            mPresenter.getHomeworkDetail(homeworkId, classid);
+//        mPresenter.getVideoPointList(homeworkId);
+                            mPresenter.getVideoPointListNew(homeworkId);
+                           /* if ("按题号排序".equals(bean)) {
                                 mToolbar.setRightTextWithImg("题号");
                                 setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
                             } else if ("得分率排序".equals(bean)) {
                                 mToolbar.setRightTextWithImg("得分率");
+                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_INCREASE);
+                            }*/
+//                        else if("得分率降序".equals(bean)) {
+//                            setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+//                        }
+                        });
+
+            }
+        });
+        mTvSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), mTvClasses,
+                        () -> showView(mViewAlpha, false)
+                        , bean -> {
+                            showView(mViewAlpha, false);
+                            if (!AwDataUtil.isEmpty(mToolbar.getRightText()) && mToolbar.getRightText().equals(bean)
+                                    || null == mHomeworkDetailResultBean
+                                    || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
+                                return;
+                            }
+
+                            if ("按题号排序".equals(bean)) {
+                                mTvSort.setText("题号");
+                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
+                            } else if ("得分率排序".equals(bean)) {
+                                mTvSort.setText("得分率");
                                 setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_INCREASE);
                             }
 //                        else if("得分率降序".equals(bean)) {
 //                            setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
 //                        }
                         });
-
             }
         });
 
@@ -357,7 +416,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     }
 
     private void setData(HomeworkDetailResultBean bean, int sortTag) {
-        List<HomeworkDetailResultBean.GradQusetionBean> list = bean.getGradQusetion();
+        List<GradQusetionBean> list = bean.getGradQusetion();
         if (AwDataUtil.isEmpty(list)) {
             mDetailAdapter.clearData();
             mRcvData.removeAllViews();
@@ -419,6 +478,14 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         }
                     });
                     break;
+                case TAG_SORT_QUESTION_EXPLAIN:
+                    Collections.sort(list, new Comparator<GradQusetionBean>() {
+                        @Override
+                        public int compare(GradQusetionBean gradQusetionBean, GradQusetionBean t1) {
+                            return new Double(t1.getExPlat()).compareTo(new Double(gradQusetionBean.getExPlat()));
+                        }
+                    });
+                    break;
             }
             mDetailAdapter.addAllData(list);
             mDetailAdapter.loadMoreComplete();
@@ -473,7 +540,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         if (AwDataUtil.isEmpty(ratio2)) {
                             ratio2 = AwBaseConstant.COMMON_INVALID_VALUE;
                         }
-                        if (Float.parseFloat(ratio2) >= Float.parseFloat(ratio1)) {
+                        if (Float.parseFloat(ratio2) <= Float.parseFloat(ratio1)) {
                             return 1;
                         } else {
                             return -1;
@@ -571,15 +638,15 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     public void getVideoPointListSuccess(List<VideoPointResultBean> list) {
         mVideoPointResultBeanList = list;
         if (AwDataUtil.isEmpty(list)) {
-           // AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
-            showView(mBtnVideoPoint,false);
+            // AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
+            showView(mBtnVideoPoint, false);
         }
     }
 
     @Override
     public void getVideoPointListFail(String msg) {
-       // AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
-        showView(mBtnVideoPoint,false);
+        // AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
+        showView(mBtnVideoPoint, false);
 
     }
 
@@ -587,41 +654,43 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     public void getVideoPointListNewSuccess(List<VideoPointResultBean> list) {
         mVideoPointResultBeanList = list;
         if (AwDataUtil.isEmpty(list)) {
-          //  AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
-            showView(mBtnVideoPoint,false);
+            //  AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
+            showView(mBtnVideoPoint, false);
 
         }
     }
 
     @Override
     public void getVideoPointListNewFail(String msg) {
-       // AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
-        showView(mBtnVideoPoint,false);
+        // AwEffectiveRequestViewUtil.setButtonEnableBlue(mActivity, mBtnVideoPoint, false);
+        showView(mBtnVideoPoint, false);
 
     }
 
     @Override
-    public void getExplainClassesSuccess(List<ClassesBean> data) {
-        classesBeanList = data;
-
+    public void getExplainClassesSuccess(List<ClassesResponseBean> data) {
+        mClassesResponseBeanList = data;
+        if (!AwDataUtil.isEmpty(mClassesResponseBeanList)) {
+            homeworkId = mClassesResponseBeanList.get(0).getHomeId();
+            classid = mClassesResponseBeanList.get(0).getClassId();
+            refreshData();
+        }
     }
-
 
 
     @Override
     public void getExplainClassesFail(String msg) {
-
+        showMsg(msg);
     }
 
     @Override
     public void getExplainStudentSuccess(List<ExplainStudentBean> data) {
-        StudentListDialogFrament studentListDialogFrament=new StudentListDialogFrament();
+        StudentListDialogFrament studentListDialogFrament = new StudentListDialogFrament();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Extras.KEY_STUDENT_LIST,(Serializable) data);
+        bundle.putSerializable(Extras.KEY_STUDENT_LIST, (Serializable) data);
         studentListDialogFrament.setArguments(bundle);
-        studentListDialogFrament.show(getSupportFragmentManager(),"");
+        studentListDialogFrament.show(getSupportFragmentManager(), "");
     }
-
 
 
     @Override
@@ -644,7 +713,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             //当手指离开的时候
             x2 = event.getX();
             y2 = event.getY();
-            if (x1 - x2 > 100 && Math.abs(y2 - y1)< 40) {
+            if (x1 - x2 > 100 && Math.abs(y2 - y1) < 40) {
                 if (mExtraPro < mRowsHomeworkBeans.size() - 1) {
                     mExtraPro++;
                     refreshData();
@@ -652,7 +721,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     showMsg("已是最后一份作业");
                 }
                 Log.e(TAG, "左滑");
-            } else if (x2 - x1 > 100 && Math.abs(y2 - y1)< 40) {
+            } else if (x2 - x1 > 100 && Math.abs(y2 - y1) < 40) {
                 if (mExtraPro > 0) {
                     mExtraPro--;
                     refreshData();
@@ -662,7 +731,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                 AwLog.e(TAG, "右滑");
             }
         }
-        AwLog.e(TAG,x1+"---"+x2+"---"+y1+"---"+y2+"---");
+        AwLog.e(TAG, x1 + "---" + x2 + "---" + y1 + "---" + y2 + "---");
         return super.dispatchTouchEvent(event);
     }
 
@@ -694,4 +763,6 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 
         return false;
     }
+
+
 }

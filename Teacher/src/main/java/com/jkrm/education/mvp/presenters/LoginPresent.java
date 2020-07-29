@@ -62,7 +62,7 @@ public class LoginPresent extends AwCommonPresenter implements LoginView.Present
     public void getVersionInfo() {
         Observable<ResponseBean<VersionResultBean>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
-                .getVersionInfo(AwBaseConstant.VERSION_SYSTEMTYPE_ANDROID, AwBaseConstant.VERSION_ORGTYPE_STUDENT, MyConstant.ServerConstant.getVersionEnvType());
+                .getVersionInfo(AwBaseConstant.VERSION_SYSTEMTYPE_ANDROID, AwBaseConstant.VERSION_ORGTYPE_TEACHER, MyConstant.ServerConstant.getVersionEnvType());
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<VersionResultBean>() {
             @Override
             public void onStart() {

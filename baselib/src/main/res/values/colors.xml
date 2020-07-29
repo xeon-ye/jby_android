@@ -84,5 +84,7 @@
     <color name="translucent_white">#61FFFFFF</color>
     <color name="color_A4A8AB">#A4A8AB</color>
     <color name="color_d8d8d8">#d8d8d8</color>
+    <color name="color_DCF1FF">#DCF1FF</color>
+    <color name="color_FFF0E5">#FFF0E5</color>
 
 </resources>

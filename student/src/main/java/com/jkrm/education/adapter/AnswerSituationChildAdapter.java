@@ -42,33 +42,33 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
 
     @Override
     protected void convert(BaseViewHolder helper, AnswerSheetBean.QuestionsBean.SubQuestionsBean item) {
-        helper.setText(R.id.tv_num, item.getQuestionNum()+"")
+        helper.setText(R.id.tv_num, item.getQuestionNum() + "")
                 .addOnClickListener(R.id.tv_explain)
                 .addOnClickListener(R.id.tv_join_error);
         RecyclerView rcv_data_child = helper.getView(R.id.rcv_data_child);
-        if(AwDataUtil.isEmpty(item.getStudentAnswer())){
+        if (AwDataUtil.isEmpty(item.getStudentAnswer())) {
             AnswerSheetBean.QuestionsBean.SubQuestionsBean.StudentAnswer studentAnswer = new AnswerSheetBean.QuestionsBean.SubQuestionsBean.StudentAnswer();
             studentAnswer.setExplain("0");
             studentAnswer.setMistake("0");
             item.setStudentAnswer(studentAnswer);
         }
-            item.setStuAnswer(item.getStudentAnswer().getAnswer());
+        item.setStuAnswer(item.getStudentAnswer().getAnswer());
         //选择题
         TextView tv_answer = helper.getView(R.id.tv_answer);
         if ("2".equals(item.getIsOption())) {
             helper.setGone(R.id.tv_join_error, false);
-            if(!AwDataUtil.isEmpty(item.getStudentAnswer().getAnswer())){
+            if (!AwDataUtil.isEmpty(item.getStudentAnswer().getAnswer())) {
                 helper.setText(R.id.tv_answer, item.getStudentAnswer().getAnswer());
             }
             if (!AwDataUtil.isEmpty(item.getType()) && !AwDataUtil.isEmpty(item.getType().getTotalId()) && "2".equals(item.getType().getTotalId())) {
                 //未作答
                 helper.setText(R.id.tv_right_answer, Html.fromHtml(item.getAnswer()).toString());
 
-                if (AwDataUtil.isEmpty(item.getStuAnswer())&&AwDataUtil.isEmpty(item.getStudentAnswer().getAnswer())) {
+                if (AwDataUtil.isEmpty(item.getStuAnswer()) && AwDataUtil.isEmpty(item.getStudentAnswer().getAnswer())) {
                     helper.setTextColor(R.id.tv_answer, Color.RED);
                     helper.setText(R.id.tv_answer, "未作答");
                 } else {
-                    if(!AwDataUtil.isEmpty(item.getStuAnswer())){
+                    if (!AwDataUtil.isEmpty(item.getStuAnswer())) {
                         helper.setText(R.id.tv_answer, item.getStuAnswer());
                     }
 
@@ -88,7 +88,7 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
             } else {
                 helper.setText(R.id.tv_right_answer, Html.fromHtml(item.getAnswer()).toString());
                 //未作答
-                if (AwDataUtil.isEmpty(item.getStuAnswer())&&AwDataUtil.isEmpty(item.getStudentAnswer().getAnswer())) {
+                if (AwDataUtil.isEmpty(item.getStuAnswer()) && AwDataUtil.isEmpty(item.getStudentAnswer().getAnswer())) {
                     helper.setTextColor(R.id.tv_answer, Color.RED);
                     helper.setText(R.id.tv_answer, "未作答");
                 } else {
@@ -96,7 +96,7 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
                     helper.setText(R.id.tv_answer, item.getStuAnswer());
 
                     //回答正确
-                    if (!AwDataUtil.isEmpty(item.getStuAnswer())&&item.getStuAnswer().equals(Html.fromHtml(item.getAnswer()).toString())) {
+                    if (!AwDataUtil.isEmpty(item.getStuAnswer()) && item.getStuAnswer().equals(Html.fromHtml(item.getAnswer()).toString())) {
                         helper.setBackgroundRes(R.id.tv_answer, R.mipmap.choise_green);
                     } else {
                         //回答错误
@@ -106,13 +106,19 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
             }
         } else {
             helper.setGone(R.id.tv_answer, false).setGone(R.id.tv_right_answer, false);
-            if (AwDataUtil.isEmpty(item.getImageList())) {
+            if (AwDataUtil.isEmpty(item.getImageList())&&AwDataUtil.isEmpty(item.getStudentAnswer())) {
                 helper.setTextColor(R.id.tv_hint_answer, Color.RED);
                 helper.setText(R.id.tv_hint_answer, "未作答");
             } else {
                 helper.setText(R.id.tv_hint_answer, "我的作答");
                 AnswerAnalyImgAdapter answerAnalyImgAdapter = new AnswerAnalyImgAdapter();
-                answerAnalyImgAdapter.addAllData(item.getImageList());
+                if(!AwDataUtil.isEmpty(item.getStudentAnswer().getRawScan())){
+                    ArrayList<String> arrayList = new ArrayList<>();
+                    arrayList.add(item.getStudentAnswer().getRawScan());
+                    answerAnalyImgAdapter.addAllData(arrayList);
+                }else if(!AwDataUtil.isEmpty(item.getImageList())){
+                    answerAnalyImgAdapter.addAllData(item.getImageList());
+                }
                 AwRecyclerViewUtil.setRecyclerViewGridlayout((Activity) mContext, rcv_data_child, answerAnalyImgAdapter, 3);
                 answerAnalyImgAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
                     @Override
@@ -134,13 +140,16 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
             drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                     drawable.getMinimumHeight());
             tv_explain.setCompoundDrawables(drawable, null, null, null);
-            tv_explain.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_blue_radius_30));
-            tv_explain.setTextColor(Color.WHITE);
+            tv_explain.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_dcf1ff_radius_30));
+            tv_explain.setTextColor(Color.parseColor("#2995E0"));
         } else {
-            helper.setText(R.id.tv_explain, " 移除讲解 ");
-            tv_explain.setCompoundDrawables(null, null, null, null);
-            tv_explain.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_gray_radius_30));
-            tv_explain.setTextColor(Color.GRAY);
+            helper.setText(R.id.tv_explain, "不讲解 ");
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.situation_unexplain);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tv_explain.setCompoundDrawables(drawable, null, null, null);
+            tv_explain.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_fff0e5_radius_30));
+            tv_explain.setTextColor(Color.parseColor("#E49555"));
 
         }
         TextView tv_join_error = helper.getView(R.id.tv_join_error);
@@ -151,12 +160,18 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
             drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                     drawable.getMinimumHeight());
             tv_join_error.setCompoundDrawables(drawable, null, null, null);
-            tv_join_error.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_blue_radius_30));
+            tv_join_error.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_dcf1ff_radius_30));
+            tv_join_error.setTextColor(Color.parseColor("#2995E0"));
+
         } else {
-            helper.setText(R.id.tv_join_error, "  移出错题本  ");
+            helper.setText(R.id.tv_join_error, "  移除错题本  ");
             tv_join_error.setTextColor(Color.GRAY);
-            tv_join_error.setCompoundDrawables(null, null, null, null);
-            tv_join_error.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_gray_radius_30));
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.situation_unerror);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            tv_join_error.setCompoundDrawables(drawable, null, null, null);
+            tv_join_error.setBackground(mContext.getResources().getDrawable(R.drawable.aw_bg_fff0e5_radius_30));
+            tv_join_error.setTextColor(Color.parseColor("#E49555"));
 
         }
     }

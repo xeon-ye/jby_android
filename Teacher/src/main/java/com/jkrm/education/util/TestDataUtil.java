@@ -275,10 +275,12 @@ public class TestDataUtil {
 
     public static List<String> createHomeworkDetailType() {
         List<String> list = new ArrayList<>();
-        list.add("按题号排序");
-        list.add("得分率排序");
+        list.add("按题号正序");
+        list.add("按得分率倒序");
+        list.add("按需讲解人数倒序");
         return list;
     }
+
 
     public static List<MarkBean> createMarkByQuestion(){
         List<MarkBean> list = new ArrayList<>();

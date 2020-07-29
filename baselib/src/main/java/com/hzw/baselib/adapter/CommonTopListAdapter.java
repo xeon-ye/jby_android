@@ -3,7 +3,7 @@ package com.hzw.baselib.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hzw.baselib.R;
-import com.hzw.baselib.bean.ClassesBean;
+import com.hzw.baselib.bean.ClassesResponseBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,8 @@ public class CommonTopListAdapter extends BaseQuickAdapter<Object, BaseViewHolde
             return;
         if(bean instanceof String) {
             helper.setText(R.id.tv_name, (String) bean);
-        }else if(bean instanceof ClassesBean){
-            String s=((ClassesBean) bean).getClassName();
-            helper.setText(R.id.tv_name,((ClassesBean) bean).getClassName());
+        }else if(bean instanceof ClassesResponseBean){
+            helper.setText(R.id.tv_name,((ClassesResponseBean) bean).getClassName());
         }
     }
 

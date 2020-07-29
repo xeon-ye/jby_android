@@ -41,6 +41,23 @@ import java.util.Map;
 public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean, BaseViewHolder> {
 
     private List<GradQusetionBean> mList = new ArrayList<>();
+    private onSortChickLister mOnSortChickLister;
+
+    public List<GradQusetionBean> getList() {
+        return mList;
+    }
+
+    public void setList(List<GradQusetionBean> list) {
+        mList = list;
+    }
+
+    public onSortChickLister getOnSortChickLister() {
+        return mOnSortChickLister;
+    }
+
+    public void setOnSortChickLister(onSortChickLister onSortChickLister) {
+        mOnSortChickLister = onSortChickLister;
+    }
 
     public MarkHomeworkDetailAdapter() {
         super(R.layout.adapter_homework_detail);
@@ -96,16 +113,29 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
         }
 
         TextView tv_subTitle = helper.getView(R.id.tv_subTitle);
+        TextView tv_sort = helper.getView(R.id.tv_sort);
+
         //添加了headerview. 注意position位置处理
         if(helper.getPosition() != 0 && helper.getPosition() != 1) {
             if(bean.getTypeName().equals(mList.get(helper.getPosition() - 2).getTypeName())) {
                 tv_subTitle.setVisibility(View.GONE);
+                tv_sort.setVisibility(View.GONE);
             } else {
-                tv_subTitle.setVisibility(View.VISIBLE);
+                tv_subTitle.setVisibility(View.GONE);
+                tv_sort.setVisibility(View.GONE);
             }
         } else {
             tv_subTitle.setVisibility(View.VISIBLE);
+            tv_sort.setVisibility(View.VISIBLE);
         }
+        tv_sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(null!=mOnSortChickLister){
+                    mOnSortChickLister.onSortChick(view,tv_sort);
+                }
+            }
+        });
 
         BarChart barchart = helper.getView(R.id.barchart);
         PieChart piechart = helper.getView(R.id.piechart);
@@ -192,5 +222,9 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
                 notifyItemRangeRemoved(startPosition, preSize);
             }
         }
+    }
+
+    public interface onSortChickLister{
+        void onSortChick(View view,TextView textView);
     }
 }
