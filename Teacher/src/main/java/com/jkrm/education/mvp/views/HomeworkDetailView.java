@@ -2,7 +2,7 @@ package com.jkrm.education.mvp.views;
 
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
-import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
+import com.jkrm.education.bean.ClassesBean;
 import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkStudentAnswerWithSingleQuestionResultBean;
@@ -55,7 +55,7 @@ public interface HomeworkDetailView extends AwBaseView {
         void getVideoPointListNewSuccess(List<VideoPointResultBean> list);
         void getVideoPointListNewFail(String msg);
 
-        void getExplainClassesSuccess(List<String> data);
+        void getExplainClassesSuccess(List<ClassesBean> data);
         void getExplainClassesFail(String msg);
 
         void getExplainStudentSuccess(List<ExplainStudentBean> data);

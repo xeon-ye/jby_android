@@ -1,3 +1,8 @@
 <resources>
-
+    <style name="dialog_fragment_style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/video_popup_toast_anim</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

@@ -75,6 +75,15 @@ public class HomeworkDetailResultBean implements Serializable{
         private String similar; //类题加练1存在0不存在
         private String isOption; //2是选择题 否则非选择题
         private String exPlat;//需讲解人数
+        private String title;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
         public String getExPlat() {
             return exPlat;

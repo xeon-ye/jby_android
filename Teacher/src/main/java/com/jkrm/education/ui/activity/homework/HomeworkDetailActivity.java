@@ -1,6 +1,7 @@
 package com.jkrm.education.ui.activity.homework;
 
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.jkrm.education.R;
 import com.jkrm.education.adapter.HomeworkDetailViewPagerAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailStudentAnswerAdapter;
+import com.jkrm.education.bean.ClassesBean;
 import com.jkrm.education.bean.result.ExplainStudentBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean.GradQusetionBean;
@@ -136,6 +138,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private int mExtraPro;
     private View mHeaderView;
     private GradQusetionBean mGradQusetionBean;
+    private List<ClassesBean> classesBeanList=new ArrayList<>();
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -306,6 +309,35 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                 if (!resultBean.isChoiceQuestion()&&!"2".equals(mGradQusetionBean.getIsOption())) {
                     toClass(ImgActivity.class, false, Extras.IMG_URL, resultBean.getRowScan());
                 }
+            }
+        });
+        mTvClasses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity,classesBeanList, mTvClasses,
+                        () -> showView(mViewAlpha, false)
+                        , bean -> {
+                            showView(mViewAlpha, false);
+                            if (!AwDataUtil.isEmpty(mToolbar.getRightText()) && mToolbar.getRightText().equals(bean)
+                                    || null == mHomeworkDetailResultBean
+                                    || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
+                                return;
+                            }
+                            ClassesBean classesBean= (ClassesBean) bean;
+                            String classId = classesBean.getClassId();
+                            showDialog(classId);
+                            if ("按题号排序".equals(bean)) {
+                                mToolbar.setRightTextWithImg("题号");
+                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
+                            } else if ("得分率排序".equals(bean)) {
+                                mToolbar.setRightTextWithImg("得分率");
+                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_INCREASE);
+                            }
+//                        else if("得分率降序".equals(bean)) {
+//                            setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+//                        }
+                        });
+
             }
         });
 
@@ -569,9 +601,12 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     }
 
     @Override
-    public void getExplainClassesSuccess(List<String> data) {
+    public void getExplainClassesSuccess(List<ClassesBean> data) {
+        classesBeanList = data;
 
     }
+
+
 
     @Override
     public void getExplainClassesFail(String msg) {
@@ -581,6 +616,9 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     @Override
     public void getExplainStudentSuccess(List<ExplainStudentBean> data) {
         StudentListDialogFrament studentListDialogFrament=new StudentListDialogFrament();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Extras.KEY_STUDENT_LIST,(Serializable) data);
+        studentListDialogFrament.setArguments(bundle);
         studentListDialogFrament.show(getSupportFragmentManager(),"");
     }
 
