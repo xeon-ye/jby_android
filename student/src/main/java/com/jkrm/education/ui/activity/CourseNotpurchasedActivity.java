@@ -1,6 +1,8 @@
 package com.jkrm.education.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,7 +14,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hzw.baselib.base.AwMvpActivity;
@@ -29,12 +30,16 @@ import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.ShareSDKUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.editorpage.ShareActivity;
-import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,6 +80,7 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
     MathView mMathView;
     @BindView(R.id.ll_of_pay)
     LinearLayout mLlOfPay;
+
     private MicroLessonResultBean mMicroLessonResultBean;
     private List<CoursePlayResultBean> mGroupValues = new ArrayList<>();
     private List<List<CoursePlayResultBean.VideoListBean>> mChildValues = new ArrayList<>();
@@ -113,9 +119,10 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
         mTabLayout.addTab(mTabLayout.newTab().setText("课程目录"));
         mTabLayout.addTab(mTabLayout.newTab().setText("课程介绍"));
         mTabLayout.setupWithViewPager(mViewpageer);
-        if("0".equals(mMicroLessonResultBean.getWhetherFree())){
+        if ("0".equals(mMicroLessonResultBean.getWhetherFree())) {
             mLlOfPay.setVisibility(View.GONE);
         }
+
 
     }
 
@@ -125,13 +132,13 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         if (share_media == SHARE_MEDIA.WEIXIN) {
-                            ShareSDKUtils.shareWX(mActivity, UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
-                        }else if(share_media==SHARE_MEDIA.QQ){
-                            ShareSDKUtils.shareQQ(mActivity,UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
-                        }else if(share_media==SHARE_MEDIA.WEIXIN_CIRCLE){
-                            ShareSDKUtils.shareWXC(mActivity,UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
-                        }else if(share_media==SHARE_MEDIA.QZONE){
-                            ShareSDKUtils.shareQQZone(mActivity,UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
+                            ShareSDKUtils.shareWX(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
+                        } else if (share_media == SHARE_MEDIA.QQ) {
+                            ShareSDKUtils.shareQQ(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
+                        } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                            ShareSDKUtils.shareWXC(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
+                        } else if (share_media == SHARE_MEDIA.QZONE) {
+                            ShareSDKUtils.shareQQZone(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
                         }
                     }
                 }).open();
@@ -235,10 +242,10 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(0==tab.getPosition()){
+                if (0 == tab.getPosition()) {
                     mNsvMulv.setVisibility(View.VISIBLE);
                     mNsvJieshao.setVisibility(View.GONE);
-                }else{
+                } else {
                     mNsvMulv.setVisibility(View.GONE);
                     mNsvJieshao.setVisibility(View.VISIBLE);
                 }
@@ -316,6 +323,7 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
         //友盟分享内存泄漏解决方案
         UMShareAPI.get(this).release();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

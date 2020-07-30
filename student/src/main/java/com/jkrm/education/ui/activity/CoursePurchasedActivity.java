@@ -1,5 +1,7 @@
 package com.jkrm.education.ui.activity;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -27,8 +29,16 @@ import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.ShareSDKUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.IndicatorView;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
+
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -69,6 +79,7 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
     ViewPager mViewpageer;
     @BindView(R.id.math_view)
     MathView mMathView;
+
     private MicroLessonResultBean mMicroLessonResultBean;
     private List<CoursePlayResultBean> mGroupValues = new ArrayList<>();
     private List<List<CoursePlayResultBean.VideoListBean>> mChildValues = new ArrayList<>();
@@ -117,17 +128,18 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         if (share_media == SHARE_MEDIA.WEIXIN) {
-                            ShareSDKUtils.shareWX(mActivity, UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
-                        }else if(share_media==SHARE_MEDIA.QQ){
-                            ShareSDKUtils.shareQQ(mActivity,UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
-                        }else if(share_media==SHARE_MEDIA.WEIXIN_CIRCLE){
-                            ShareSDKUtils.shareWXC(mActivity,UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
-                        }else if(share_media==SHARE_MEDIA.QZONE){
-                            ShareSDKUtils.shareQQZone(mActivity,UrlConstant.COURSE_SHARE_URL,"金榜苑","微课视频");
+                            ShareSDKUtils.shareWX(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
+                        } else if (share_media == SHARE_MEDIA.QQ) {
+                            ShareSDKUtils.shareQQ(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
+                        } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                            ShareSDKUtils.shareWXC(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
+                        } else if (share_media == SHARE_MEDIA.QZONE) {
+                            ShareSDKUtils.shareQQZone(mActivity, UrlConstant.COURSE_SHARE_URL, "金榜苑", "微课视频");
                         }
                     }
                 }).open();
     }
+
     @Override
     protected void initData() {
         super.initData();
@@ -172,12 +184,12 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
         switch (view.getId()) {
             case R.id.start_now:
                 //toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
-                toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean,Extras.VIDEO_GROUP_PRO,0,Extras.VIDEO_CHILD_PRO,0);
+                toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean, Extras.VIDEO_GROUP_PRO, 0, Extras.VIDEO_CHILD_PRO, 0);
 
                 break;
             case R.id.iv_img:
-               // toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
-                toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean,Extras.VIDEO_GROUP_PRO,0,Extras.VIDEO_CHILD_PRO,0);
+                // toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
+                toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean, Extras.VIDEO_GROUP_PRO, 0, Extras.VIDEO_CHILD_PRO, 0);
 
                 break;
         }
@@ -189,10 +201,10 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if(0==tab.getPosition()){
+                if (0 == tab.getPosition()) {
                     mNsvMulv.setVisibility(View.VISIBLE);
                     mNsvJieshao.setVisibility(View.GONE);
-                }else{
+                } else {
                     mNsvMulv.setVisibility(View.GONE);
                     mNsvJieshao.setVisibility(View.VISIBLE);
                 }
@@ -212,7 +224,7 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
         mEpv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean,Extras.VIDEO_GROUP_PRO,i,Extras.VIDEO_CHILD_PRO,i1);
+                toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean, Extras.VIDEO_GROUP_PRO, i, Extras.VIDEO_CHILD_PRO, i1);
 
                 //toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
                 return true;
