@@ -56,7 +56,7 @@ public class AnswerRecordActivity extends AwMvpActivity<AnswerRecordPresent> imp
     RecyclerView mRcvData;
     private String mCourseId = "";
     List<ReinfoRoceCouseBean> mRoceCouseBeanList = new ArrayList<>();
-    private AnswerRecordParentsAdapter mAnswerRecordParentsAdapter=new AnswerRecordParentsAdapter();
+    private AnswerRecordParentsAdapter mAnswerRecordParentsAdapter = new AnswerRecordParentsAdapter();
 
     @Override
     protected AnswerRecordPresent createPresenter() {
@@ -87,13 +87,13 @@ public class AnswerRecordActivity extends AwMvpActivity<AnswerRecordPresent> imp
                         mCourseId = mRoceCouseBeanList.get(pos).getCourseId();
                         mToolbarCustom.setRightText(mRoceCouseBeanList.get(pos).getCourseName());
                         for (int i = 0; i < mRoceCouseBeanList.size(); i++) {
-                            if(mRoceCouseBeanList.get(i).getCourseName().equals(mRoceCouseBeanList.get(pos).getCourseName())){
+                            if (mRoceCouseBeanList.get(i).getCourseName().equals(mRoceCouseBeanList.get(pos).getCourseName())) {
                                 mRoceCouseBeanList.get(i).setSelect(true);
-                            }else{
+                            } else {
                                 mRoceCouseBeanList.get(i).setSelect(false);
                             }
                         }
-                       mAnswerRecordParentsAdapter.notifyDataSetChanged();
+                        mAnswerRecordParentsAdapter.notifyDataSetChanged();
                         getDataList();
                     }
                 });
@@ -101,7 +101,7 @@ public class AnswerRecordActivity extends AwMvpActivity<AnswerRecordPresent> imp
             }
         });
         mToolbarCustom.setRTextColor(R.color.colorAccent);
-        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity,mRcvData,mAnswerRecordParentsAdapter,false);
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mAnswerRecordParentsAdapter, false);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class AnswerRecordActivity extends AwMvpActivity<AnswerRecordPresent> imp
 
     @Override
     public void getReinforceCourseListSucces(List<ReinfoRoceCouseBean> list) {
-        list.add(0, new ReinfoRoceCouseBean("全部科目", "", "全部科目", "",true));
+        list.add(0, new ReinfoRoceCouseBean("全部科目", "", "全部科目", "", true));
         mRoceCouseBeanList = list;
     }
 
@@ -135,21 +135,20 @@ public class AnswerRecordActivity extends AwMvpActivity<AnswerRecordPresent> imp
 
     @Override
     public void getReinforceListSuccess(ReinforBean data) {
-        if(null == data || AwDataUtil.isEmpty(data.getList())) {
+        if (null == data || AwDataUtil.isEmpty(data.getList())) {
             mAnswerRecordParentsAdapter.clearData();
             mRcvData.removeAllViews();
             mAnswerRecordParentsAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, MyConstant.ViewConstant.VIEW_EMPTY_COMMON, -1));
             return;
-        }else{
-            mTvPractNum.setText(data.getStatis().getPractNum()+"\n\n练习次数");
-            mTvPractQuestNum.setText(data.getStatis().getPractQuestNum()+"\n\n练习题数");
-            mTvCorrectRate.setText(RegexUtil.calculatePercentage(data.getStatis().getCorrectRate())+"\n\n正确率");
-            mTvPractTime.setText(AwDateUtils.getDate(Integer.parseInt(data.getStatis().getPractTime()))+"\n\n练习时长");
+        } else {
+            mTvPractNum.setText(data.getStatis().getPractNum() + "\n\n练习次数");
+            mTvPractQuestNum.setText(data.getStatis().getPractQuestNum() + "\n\n练习题数");
+            mTvCorrectRate.setText(RegexUtil.calculatePercentage(data.getStatis().getCorrectRate()) + "\n\n正确率");
+            mTvPractTime.setText(AwDateUtils.getDate(Integer.parseInt(data.getStatis().getPractTime())) + "\n\n练习时长");
         }
 
         mAnswerRecordParentsAdapter.addAllData(data.getList());
     }
-
 
 
     @Override

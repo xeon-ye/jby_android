@@ -331,7 +331,6 @@
                     android:paddingRight="@dimen/dimen_15"
                     android:gravity="center_vertical"
                     style="@style/middle_black_style"
-                    android:visibility="gone"
                     android:drawableRight="@mipmap/global_icon_nest"/>
             </LinearLayout>
 

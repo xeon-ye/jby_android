@@ -60,9 +60,9 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
     LinearLayout mLlTitle;
     private List<BatchBean> mQuestionBeanList = new ArrayList<>();
     private int outSidePos, inSidePos;
-    private String mStrType="", mStrTime="";
+    private String mStrType = "", mStrTime = "";
     private boolean isError;
-    public static String mStrLastQueID="";
+    public static String mStrLastQueID = "";
     private boolean mIsFromSituation;
 
     @Override
@@ -94,7 +94,7 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
             isError = true;
         }
         //答题卡进来的
-        if(mIsFromSituation){
+        if (mIsFromSituation) {
             mLlTitle.setVisibility(View.GONE);
             mTvType.setText("题目详情");
             Drawable drawable = this.getResources().getDrawable(R.mipmap.icon_back);
@@ -117,7 +117,7 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
         outSidePos = AwSpUtil.getInt(Extras.OUTSIDE_POS, Extras.OUTSIDE_POS, 0);
         mViewpageer.setCurrentItem(outSidePos);
         mTvSum.setText("/" + (mQuestionBeanList.size()));
-        mStrLastQueID=mQuestionBeanList.get(mQuestionBeanList.size()-1).getId();
+        mStrLastQueID = mQuestionBeanList.get(mQuestionBeanList.size() - 1).getId();
     }
 
     @Override

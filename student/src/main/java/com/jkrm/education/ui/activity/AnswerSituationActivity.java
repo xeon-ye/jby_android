@@ -58,7 +58,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
     private String mStrTemplateId;
     List<AnswerSheetBean.QuestionsBean.SubQuestionsBean> mList = new ArrayList<>();
     List<BatchBean> mBatBeanList = new ArrayList<>();
-    AnswerSheetBean mSaveSheetBeans=new AnswerSheetBean();
+    AnswerSheetBean mSaveSheetBeans = new AnswerSheetBean();
 
     @Override
     protected int getLayoutId() {
@@ -139,7 +139,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
             Collections.sort(question.getSubQuestions(), new Comparator<AnswerSheetBean.QuestionsBean.SubQuestionsBean>() {
                 @Override
                 public int compare(AnswerSheetBean.QuestionsBean.SubQuestionsBean subQuestionsBean, AnswerSheetBean.QuestionsBean.SubQuestionsBean t1) {
-                    return Integer.parseInt(subQuestionsBean.getQuestionNum())-Integer.parseInt(t1.getQuestionNum());
+                    return Integer.parseInt(subQuestionsBean.getQuestionNum()) - Integer.parseInt(t1.getQuestionNum());
                 }
             });
         }
@@ -261,7 +261,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
                             questionSubQuestion.setStudentAnswer(studentAnswer);
                         }
                         List<com.jkrm.education.bean.SubQuestionsBean> subQuestionsBeans = questionSubQuestion.getSubQuestions();
-                        if(null!=subQuestionsBeans){
+                        if (null != subQuestionsBeans) {
                             for (SubQuestionsBean subQuestionsBean : subQuestionsBeans) {
                                 if (subQuestion.getId().equals(subQuestionsBean.getId())) {
                                     SubQuestionsBean.StudentAnswer studentAnswer = new SubQuestionsBean.StudentAnswer();
@@ -289,7 +289,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
             if (!AwDataUtil.isEmpty(subQuestionsBean.getImageList())) {
                 batchBean.setStudAnswer(AwArraysUtil.splitList(subQuestionsBean.getImageList()));
             }
-            if(!AwDataUtil.isEmpty(batchBean.getSubQuestions())){
+            if (!AwDataUtil.isEmpty(batchBean.getSubQuestions())) {
                 for (BatchBean.SubQuestionsBean subQuestion : batchBean.getSubQuestions()) {
                     for (AnswerSheetBean.QuestionsBean question : question2) {
                         for (AnswerSheetBean.QuestionsBean.SubQuestionsBean questionSubQuestion : question.getSubQuestions()) {
