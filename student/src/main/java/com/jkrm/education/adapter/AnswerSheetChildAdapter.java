@@ -19,6 +19,7 @@ import com.jkrm.education.R;
 import com.jkrm.education.bean.AnswerSheetBean;
 import com.jkrm.education.bean.QuestionOptionBean;
 import com.jkrm.education.bean.rx.RxAnswerSheetType;
+import com.jkrm.education.bean.rx.RxEditType;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.ui.activity.ImgActivity;
 import com.luck.picture.lib.PictureSelector;
@@ -122,8 +123,11 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                             }
                         }
                         onlineAnswerChoiceAdapter.notifyDataSetChanged();
+
                     }
+
                 });
+
             }else{
                 AnswerSheetChoiceAdapter onlineAnswerChoiceAdapter = new AnswerSheetChoiceAdapter();
                 AwRecyclerViewUtil.setRecyclerViewGridlayout((Activity) mContext, recyclerView, onlineAnswerChoiceAdapter, 6);
@@ -209,6 +213,7 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                     if (!AwDataUtil.isEmpty(item.getImageList())) {
                         item.getImageList().remove(postion - 1);
                         notifyDataSetChanged();
+                        EventBus.getDefault().post(new RxAnswerSheetType("",""));
                     }
                 }
             });
@@ -283,8 +288,8 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
      */
     private void setTureOrFalseListData( AnswerSheetChoiceAdapter adapter,RecyclerView rcvData){
         List<QuestionOptionBean> mMQuestionOptionBeanList = new ArrayList<>();
-        mMQuestionOptionBeanList.add(new QuestionOptionBean("T", "T", false));
-        mMQuestionOptionBeanList.add(new QuestionOptionBean("F", "F", false));
+        mMQuestionOptionBeanList.add(new QuestionOptionBean("T", "正确", false));
+        mMQuestionOptionBeanList.add(new QuestionOptionBean("F", "错误", false));
         adapter.addAllData(mMQuestionOptionBeanList);
         adapter.loadMoreComplete();
         adapter.setEnableLoadMore(false);

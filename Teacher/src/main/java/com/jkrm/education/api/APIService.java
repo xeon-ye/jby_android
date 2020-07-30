@@ -685,8 +685,8 @@ public interface APIService {
      * @param classIds
      * @return
      */
-    @POST(UrlConstant.GET_ERROR_SUB_STATISTICS)
-    Observable<ResponseBean<List<ErrorSubStatisticsBean>>> getErrorSubStatistics(@Path("questionId") String questionId, @Query("homeworkIds") String homeworkIds, @Query("classIds") String classIds);
+    @GET(UrlConstant.GET_ERROR_SUB_STATISTICS)
+    Observable<ResponseBean<List<ErrorSubStatisticsBean>>> getErrorSubStatistics(@Path("questionId") String questionId, @Query("templateIds") String homeworkIds, @Query("classIds") String classIds);
 
     /**
      * 获取需讲解学生信息

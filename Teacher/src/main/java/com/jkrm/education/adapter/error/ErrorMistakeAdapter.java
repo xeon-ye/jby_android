@@ -139,10 +139,13 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
         if ("2".equals(item.getType().getIsOption())) {
             RetrofitClient.builderRetrofit()
                     .create(APIService.class)
-                    .getErrorStatistics(RequestUtil.getErrorStatisticsBody(ErrorQuestionFragment.mStrClassIds, item.getHomeworkId(), item.getId()))
+                    .getErrorStatistics(RequestUtil.getErrorStatisticsBody(ErrorQuestionFragment.mStrClassIds, item.getTemplateId(), item.getId()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new AwApiSubscriber(new AwApiCallback<ErrorChoiceStatisticsBean>() {
+                    .subscribe(
+
+
+                            new AwApiSubscriber(new AwApiCallback<ErrorChoiceStatisticsBean>() {
                         @Override
                         public void onStart() {
                         }
@@ -155,10 +158,11 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
                             int correctAnswerIndex = -1;
                             Set<String> keyset = data.getOptionsStatistic().keySet();
                             ArrayList arrayList = new ArrayList<String>(keyset);
+
                             for (int i = 0; i < arrayList.size(); i++) {
-                                if ("unchoose".equals(arrayList.get(i).toString())) {
+                               /* if ("unchoose".equals(arrayList.get(i).toString())) {
                                     continue;
-                                }
+                                }*/
                                 xAxisValues.add(arrayList.get(i).toString());
                                 yAxisValues.add((float) data.getOptionsStatistic().get(arrayList.get(i)).size());
                             }
@@ -177,7 +181,7 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
         } else {
             RetrofitClient.builderRetrofit()
                     .create(APIService.class)
-                    .getErrorSubStatistics(item.getId(), item.getHomeworkId(), ErrorQuestionFragment.mStrClassIds)
+                    .getErrorSubStatistics(item.getId(), item.getTemplateId(), ErrorQuestionFragment.mStrClassIds)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new AwApiSubscriber(new AwApiCallback<List<ErrorSubStatisticsBean>>() {

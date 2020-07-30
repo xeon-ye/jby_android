@@ -81,7 +81,7 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
     public static AnswerSheetBean mAnswerSheetBeans, mSplicSheetBeans = new AnswerSheetBean();
     private AnswerSheetBean.QuestionsBean.SubQuestionsBean mQuestionsBean;
     private String mStrTemplateId = "";
-    private List<AnswerSheetBean.QuestionsBean.SubQuestionsBean> mList=new ArrayList<>();
+    private List<AnswerSheetBean.QuestionsBean.SubQuestionsBean> mList = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -233,7 +233,7 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
             Collections.sort(question.getSubQuestions(), new Comparator<AnswerSheetBean.QuestionsBean.SubQuestionsBean>() {
                 @Override
                 public int compare(AnswerSheetBean.QuestionsBean.SubQuestionsBean subQuestionsBean, AnswerSheetBean.QuestionsBean.SubQuestionsBean t1) {
-                    return Integer.parseInt(subQuestionsBean.getQuestionNum())-Integer.parseInt(t1.getQuestionNum());
+                    return Integer.parseInt(subQuestionsBean.getQuestionNum()) - Integer.parseInt(t1.getQuestionNum());
                 }
             });
         }
@@ -290,4 +290,8 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
         showMsg("上传失败");
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(RxAnswerSheetType rxAnswerSheetType) {
+        mAnswerSheetAdapter.notifyDataSetChanged();
+    }
 }

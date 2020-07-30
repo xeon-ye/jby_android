@@ -19,6 +19,7 @@ import com.jkrm.education.ui.fragment.OnlineMultipleChoiceFragment;
 import com.jkrm.education.ui.fragment.OnlineNonGroupSubjectiveQuestionsFragment;
 import com.jkrm.education.ui.fragment.OnlineSubjectiveQuestionsOfGroupQuestionsFragment;
 import com.jkrm.education.ui.fragment.OnlineSubmitQuestionFragment;
+import com.jkrm.education.ui.fragment.OnlineTrueOrFalseFragment;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -71,8 +72,8 @@ public class OnlineAnswerChoicePagerAdapter extends FragmentStatePagerAdapter {
                 }else if("5".equals(similarResultBean.getType().getTotalid())||"七选五".equals(similarResultBean.getType().getName())){
                     //七选五  (组选中才会出现)
                     //fragment=new OnlineFiveOutOfSevenFragment();
-                }else {
-                    fragment=new OnlineAnswerChoiceFragment();
+                }else if("6".equals(similarResultBean.getType().getTotalid())||"判断题".equals(similarResultBean.getType().getName())){
+                    fragment=new OnlineTrueOrFalseFragment();
                 }
             }
 

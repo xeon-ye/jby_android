@@ -68,6 +68,9 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<AnswerSheetDataD
                 .setTypeface(R.id.tv_scoreRate,CustomFontStyleUtil.getNewRomenType())
                 .setTypeface(R.id.tv_questionNum,CustomFontStyleUtil.getNewRomenType())
                 .setTypeface(R.id.tv_questionScore,CustomFontStyleUtil.getNewRomenType());
+        if("1".equals(bean.getSimilar())||"1".equals(bean.getAnswer())||!AwDataUtil.isEmpty(bean.getQuestionVideoId())){
+            helper.setVisible(R.id.ll_of_setting,true);
+        }
         //类题加练判断
         Button btn_questionExpand = helper.getView(R.id.btn_questionExpand);
        // AwEffectiveRequestViewUtil.setButtonEnableChangeTxtColor(mContext, btn_questionExpand, "1".equals(bean.getSimilar()));
