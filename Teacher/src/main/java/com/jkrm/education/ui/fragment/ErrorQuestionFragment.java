@@ -221,8 +221,10 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 }
                 mStrClassIds = "";
                 for (int i = 0; i < data.size(); i++) {
-                    ErrorClassesBean errorClassesBean = mErrorClassesList.get(position);
-                    mStrClassIds = mStrClassIds + errorClassesBean.getId() + ",";
+                    ErrorClassesBean errorClassesBean = mErrorClassesList.get(i);
+                    if(errorClassesBean.isChecked()){
+                        mStrClassIds = mStrClassIds + errorClassesBean.getId() + ",";
+                    }
                 }
                 mErrorClassesAdapter.notifyDataSetChanged();
             }
@@ -305,7 +307,14 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 break;
             case R.id.btn_sure:
                 mDrawerLayout.closeDrawers();
-                mPresenter.getErrorMistakeList(mStrClassIds, mStrtempIds, mRightValue / 100 + "", mLeftVaule / 100 + "");
+                mStrClassIds = "";
+                for (int i = 0; i < mErrorClassesList.size(); i++) {
+                    ErrorClassesBean errorClassesBean = mErrorClassesList.get(i);
+                    if(errorClassesBean.isChecked()){
+                        mStrClassIds = mStrClassIds + errorClassesBean.getId() + ",";
+                    }
+                }
+                mPresenter.getErrorMistakeList(mStrClassIds, mStrtempIds, mRightValue + "", mLeftVaule / 100 + "");
                 break;
             case R.id.iv_error:
                 toClass(ErrorQuestionActivity.class, false);
@@ -359,7 +368,6 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 @Override
                 public void run() {
                     mRcvHomewok.findViewHolderForAdapterPosition(0).itemView.performClick();
-
                 }
             }, 100);
             //mPresenter.getErrorClassesList(UserUtil.getAppUser().getSchool().getId(), data.get(0).getTemplateId());

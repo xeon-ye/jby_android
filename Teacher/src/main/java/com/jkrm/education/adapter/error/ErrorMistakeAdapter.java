@@ -142,10 +142,7 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
                     .getErrorStatistics(RequestUtil.getErrorStatisticsBody(ErrorQuestionFragment.mStrClassIds, item.getTemplateId(), item.getId()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-
-
-                            new AwApiSubscriber(new AwApiCallback<ErrorChoiceStatisticsBean>() {
+                    .subscribe( new AwApiSubscriber(new AwApiCallback<ErrorChoiceStatisticsBean>() {
                         @Override
                         public void onStart() {
                         }

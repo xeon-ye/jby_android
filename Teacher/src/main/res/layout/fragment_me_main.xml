@@ -85,6 +85,7 @@
                         android:layout_height="22dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:visibility="invisible"
                         android:src="@mipmap/global_icon_nest"/>
 
                     <TextView
@@ -134,6 +135,7 @@
                         android:layout_height="22dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:visibility="invisible"
                         android:src="@mipmap/global_icon_nest"/>
 
                     <TextView
