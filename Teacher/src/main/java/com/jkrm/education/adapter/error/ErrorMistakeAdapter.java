@@ -160,10 +160,11 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
                             ArrayList arrayList = new ArrayList<String>(keyset);
 
                             for (int i = 0; i < arrayList.size(); i++) {
-                               /* if ("unchoose".equals(arrayList.get(i).toString())) {
-                                    continue;
-                                }*/
-                                xAxisValues.add(arrayList.get(i).toString());
+                                if ("unchoose".equals(arrayList.get(i).toString())) {
+                                    xAxisValues.add("未答");
+                                }else{
+                                    xAxisValues.add(arrayList.get(i).toString());
+                                }
                                 yAxisValues.add((float) data.getOptionsStatistic().get(arrayList.get(i)).size());
                             }
                             BarChartCommonSingleYWithDiffColorCorrectAnswerHelper.setBarChartByAnswer(barChart, xAxisValues, yAxisValues, "", 1, 0, "", 0, AwBaseConstant.COMMON_SUFFIX_PERSON, correctAnswerIndex, data.getAnswer());
