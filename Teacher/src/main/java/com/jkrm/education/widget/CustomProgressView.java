@@ -59,6 +59,9 @@ public class CustomProgressView extends LinearLayout {
             }, 300);
             return;
         }
+        if(submitNot==-1){
+            submitNot=0;
+        }
         int total = markYes + markNot + submitNot;
         float weightMarkYes = markYes % total;
         float weightMarkNot = markNot % total;
@@ -69,10 +72,11 @@ public class CustomProgressView extends LinearLayout {
         tv_markNot.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, markNot));
         tv_submitNot.setLayoutParams(new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, submitNot));
         //根据字符宽度设置显示内容
+        int finalSubmitNot = submitNot;
         tv_markYes.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(weightMarkNot == 0 && submitNot == 0) {
+                if(weightMarkNot == 0 && finalSubmitNot == 0) {
                     tv_markYes.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_yes_match));
                 } else {
                     tv_markYes.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_yes));
@@ -83,12 +87,12 @@ public class CustomProgressView extends LinearLayout {
         tv_markNot.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(markYes == 0 && submitNot == 0) {
+                if(markYes == 0 && finalSubmitNot == 0) {
                     tv_markNot.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no_match));
                 } else {
                     if(markYes == 0) {
                         tv_markNot.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no_left));
-                    } else if(submitNot == 0) {
+                    } else if(finalSubmitNot == 0) {
                         tv_markNot.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no_right));
                     } else {
                         tv_markNot.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no));
@@ -105,7 +109,7 @@ public class CustomProgressView extends LinearLayout {
                 } else {
                     tv_submitNot.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_submit_no));
                 }
-                AwTextviewUtil.setTextViewTxt(tv_submitNot, "未提交" + submitNot, String.valueOf(submitNot));
+                AwTextviewUtil.setTextViewTxt(tv_submitNot, "未提交" + finalSubmitNot, String.valueOf(finalSubmitNot));
             }
         }, 300);
     }
