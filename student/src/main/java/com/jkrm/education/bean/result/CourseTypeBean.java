@@ -28,6 +28,15 @@ public class CourseTypeBean {
     private String remark;
     private String updateBy;
     private String updateTime;
+    private boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public String getCreateBy() {
         return createBy;

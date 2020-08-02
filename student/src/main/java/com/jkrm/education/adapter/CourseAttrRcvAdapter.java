@@ -22,18 +22,18 @@ public class CourseAttrRcvAdapter extends BaseQuickAdapter<CourseAttrBean.Value,
     private List<CourseAttrBean.Value> mList = new ArrayList<>();
 
     public CourseAttrRcvAdapter() {
-        super(R.layout.adapter_mark_choice_common);
+        super(R.layout.adapter_microlesson_item_layout);
     }
-
     @Override
     protected void convert(BaseViewHolder helper, CourseAttrBean.Value bean) {
         TextView tv_name = helper.getView(R.id.tv_name);
         if(bean.isChecked()) {
             tv_name.setSelected(true);
-            tv_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.aw_bg_blue_c8eaff_radius4));
+            tv_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.aw_bg_blue_radius_13));
+
         } else {
             tv_name.setSelected(false);
-            tv_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.aw_bg_gray_f4f4f4_radius4));
+            tv_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.aw_bg_gray_f4f4f4_radius_13));
         }
         helper.setText(R.id.tv_name, bean.getValueName())
                 .addOnClickListener(R.id.tv_name);

@@ -67,14 +67,10 @@ public class CourseInProActAdapter extends BaseQuickAdapter<DaoVideoBean, BaseVi
             //holder.main_btn_down.setText("下载");
         } else if (DaoVideoBean.DOWNLOAD_PAUSE.equals(item.getDownloadStatus())) {
             // iv_pause.setImageResource(R.mipmap.down_course);
-            System.out.println("zanting_start");
             helper.setVisible(R.id.iv_down_success, false);
             helper.setVisible(R.id.iv_pause, false);
             helper.setVisible(R.id.rpb, false);
             helper.setVisible(R.id.iv_con, true);
-            System.out.println("zanting_end");
-
-
         } else if (DaoVideoBean.DOWNLOAD_OVER.equals(item.getDownloadStatus())) {
             // holder.main_progress.setProgress(holder.main_progress.getMax());
             helper.setVisible(R.id.iv_pause, false);

@@ -340,7 +340,10 @@ public class CourseBroadcastActivity extends AwMvpActivity<CourseBroadcastPresen
                 tvShow.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 tvShow.setTextColor(getResources().getColor(R.color.white));
             }
-
+            TextView tv_time = view.findViewById(R.id.tv_time);
+            String times = mChildValues.get(i).get(i1).getTimes();
+            String[] split = times.split(":");
+            tv_time.setText(split[0]+"分");
             return view;
         }
 

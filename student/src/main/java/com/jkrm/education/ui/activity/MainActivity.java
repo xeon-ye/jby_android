@@ -104,12 +104,12 @@ public class MainActivity extends AwMvpActivity<MainPresent> implements MainView
         //            }
         //        });
         //后台服务批量下载文件
-    /*    Intent intent= new Intent(this, DownLoadService.class);
+        Intent intent= new Intent(this, DownLoadService.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             getApplicationContext().startForegroundService(intent);
         } else {
             getApplicationContext().startService(intent);
-        }*/
+        }
         if(null== UserUtil.getAppUser().getSchool()|| AwDataUtil.isEmpty(UserUtil.getAppUser().getSchool().getId())){
             toClass(ChoiceLearningSectionActivity.class,true, Extras.KEY_REGISTER_ID,UserUtil.getAppUser().getId());
         }

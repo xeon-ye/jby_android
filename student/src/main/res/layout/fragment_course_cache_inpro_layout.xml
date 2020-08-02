@@ -35,6 +35,8 @@
             android:paddingRight="@dimen/dimen_15"
             android:paddingBottom="@dimen/dimen_5"
             android:text="全部暂停"
+            android:drawableLeft="@mipmap/pause_blue"
+            android:drawablePadding="@dimen/dimen_5"
             android:textColor="@color/color_999999" />
     </LinearLayout>
 

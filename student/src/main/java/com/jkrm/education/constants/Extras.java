@@ -39,7 +39,8 @@ public class Extras {
     /**
      * 下载路径
      */
-    public final static String FILE_PATH = MyApp.getInstance().getExternalCacheDir() + "";
+    //public final static String FILE_PATH = MyApp.getInstance().getExternalCacheDir() + "";
+    public final static String FILE_PATH=Environment.getExternalStorageDirectory().getPath();//获取跟目录
 
     /**
      * 微信支付回调区分

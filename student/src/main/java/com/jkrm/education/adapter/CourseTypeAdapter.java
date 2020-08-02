@@ -6,8 +6,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.jkrm.education.R;
+import com.jkrm.education.bean.result.CourseAttrBean;
 import com.jkrm.education.bean.result.CourseTypeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,39 +21,43 @@ import java.util.List;
  * @CreateDate: 2020/3/13 10:47
  */
 
-public class CourseTypeAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<CourseTypeBean> list;
+public class CourseTypeAdapter extends  BaseQuickAdapter<CourseTypeBean, BaseViewHolder> {
+    private List<CourseTypeBean> mList = new ArrayList<>();
 
-    public CourseTypeAdapter(Context context, List<CourseTypeBean> list) {
-        mContext = context;
-        this.list = list;
+    public CourseTypeAdapter() {
+        super(R.layout.adapter_microlesson_item_layout);
     }
 
 
-    @Override
-    public int getCount() {
-        return null!=list&&list.size()>0?list.size():0;
-    }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    protected void convert(BaseViewHolder helper, CourseTypeBean bean) {
+        TextView tv_name = helper.getView(R.id.tv_name);
+        if(bean.isChecked()) {
+            tv_name.setSelected(true);
+            tv_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.aw_bg_blue_radius_13));
+
+        } else {
+            tv_name.setSelected(false);
+            tv_name.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.aw_bg_gray_f4f4f4_radius_13));
+        }
+        helper.setText(R.id.tv_name, bean.getName())
+                .addOnClickListener(R.id.tv_name);
+    }
+    public void addAllData(List<CourseTypeBean> dataList) {
+        this.mList = dataList;
+        this.setNewData(mList);
+        notifyDataSetChanged();
     }
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        view = View.inflate(mContext, android.R.layout.simple_list_item_1, null);
-        TextView textView = view.findViewById(android.R.id.text1);
-        textView.setMaxLines(1);
-        textView.setTextSize(10);
-        textView.setPadding(5,0,10,0);
-        textView.setText(list.get(i).getName()+"");
-        return view;
+    public void clearData() {
+        if(mList != null) {
+            int startPosition = 0;//hasHeader is 1
+            int preSize = this.mList.size();
+            if(preSize > 0) {
+                this.mList.clear();
+                notifyItemRangeRemoved(startPosition, preSize);
+            }
+        }
     }
 }

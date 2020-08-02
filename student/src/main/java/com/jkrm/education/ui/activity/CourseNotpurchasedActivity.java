@@ -211,6 +211,10 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
             TextView tvName = view.findViewById(R.id.tv_name);
             tvName.setText(mChildValues.get(i).get(i1).getName());
             TextView tvShow = view.findViewById(R.id.tv_show);
+            TextView tv_time = view.findViewById(R.id.tv_time);
+            String times = mChildValues.get(i).get(i1).getTimes();
+            String[] split = times.split(":");
+            tv_time.setText(split[0]+"分");
             if (i1 != 0) {
                 tvShow.setVisibility(View.GONE);
             }

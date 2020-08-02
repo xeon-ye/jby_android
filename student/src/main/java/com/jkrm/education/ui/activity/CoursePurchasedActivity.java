@@ -300,6 +300,10 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
             tvName.setText(mChildValues.get(i).get(i1).getName());
             TextView tvShow = view.findViewById(R.id.tv_show);
             tvShow.setText(mChildValues.get(i).get(i1).getTimes());
+            TextView tv_time = view.findViewById(R.id.tv_time);
+            String times = mChildValues.get(i).get(i1).getTimes();
+            String[] split = times.split(":");
+            tv_time.setText(split[0]+"分");
             return view;
         }
 

@@ -1,14 +1,13 @@
 package com.jkrm.education.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -40,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -62,7 +62,6 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     RecyclerView mRcvXueduan;
     @BindView(R.id.rcv_nianji)
     RecyclerView mRcvNianji;
-    Unbinder unbinder;
     @BindView(R.id.spinner_xueke)
     Spinner mSpinnerXueke;
     @BindView(R.id.spinner_banben)
@@ -73,9 +72,31 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     Spinner mSpinnerZhuanyong;
     @BindView(R.id.drawerLayout)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.toolbar_custom)
+    AwViewCustomToolbar toolbarCustom;
+    @BindView(R.id.ll_title)
+    LinearLayout llTitle;
+    @BindView(R.id.tv_xueke)
+    TextView tvXueke;
+    @BindView(R.id.tv_banben)
+    TextView tvBanben;
+    @BindView(R.id.tv_mokuai)
+    TextView tvMokuai;
+    @BindView(R.id.tv_zhuanyong)
+    TextView tvZhuanyong;
+    @BindView(R.id.rcv_xueke)
+    RecyclerView rcvXueke;
+    @BindView(R.id.rcv_banben)
+    RecyclerView rcvBanben;
+    @BindView(R.id.rcv_mokuai)
+    RecyclerView rcvMokuai;
+    @BindView(R.id.rcv_zhuanyong)
+    RecyclerView rcvZhuanyong;
+    @BindView(R.id.ll_of_setting)
+    LinearLayout mLlOfSetting;
 
 
-    private MicroLessonAdapter mMicroLessonAdapter;
+    private MicroLessonAdapter mMicroLessonAdapter=new MicroLessonAdapter();
     private List<MicroLessonResultBean> mList = new ArrayList<>();
     private List<CourseTypeBean> mTypeBeanList = new ArrayList<>();
     private CourseTypeAdapter mCourseTypeAdapter;
@@ -86,7 +107,6 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     private List<String> mListScreenIDs = new ArrayList<>();
     private String mStrPcvId = "", mStrTypeId = "";
     boolean isAuto = false;//首次进入自动请求 列表 数据
-
 
 
     @Override
@@ -107,23 +127,28 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         mToolbar.hideLeft2ImgView();
         mToolbar.setToolbarTitleColor(R.color.white);
         mToolbar.setLeftTextColor(R.color.white);
-        mToolbar.setLeftText("高一");
     }
 
     @Override
     protected void initData() {
-        mMicroLessonAdapter = new MicroLessonAdapter();
         //主列表
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mMicroLessonAdapter, false);
         //类型
-        mCourseTypeAdapter = new CourseTypeAdapter(getActivity(), mTypeBeanList);
+        mCourseTypeAdapter = new CourseTypeAdapter();
         //学段 年纪
         mXueduanAdapter = new CourseAttrRcvAdapter();
         AwRecyclerViewUtil.setRecyclerViewGridlayout(mActivity, mRcvXueduan, mXueduanAdapter, 4);
         mNianjiAdapter = new CourseAttrRcvAdapter();
         AwRecyclerViewUtil.setRecyclerViewGridlayout(mActivity, mRcvNianji, mNianjiAdapter, 4);
         //最后一个下拉框
-        mSpinnerZhuanyong.setAdapter(mCourseTypeAdapter);
+        //mSpinnerZhuanyong.setAdapter(mCourseTypeAdapter);
+        AwRecyclerViewUtil.setRecyclerViewGridlayout(mActivity, rcvZhuanyong, mCourseTypeAdapter, 4);
+        mXuekeAdapter = new CourseAttrSniAdapter();
+        mBanbenAdapter = new CourseAttrSniAdapter();
+        mMokuaiAdapter = new CourseAttrSniAdapter();
+        AwRecyclerViewUtil.setRecyclerViewGridlayout(mActivity, rcvXueke, mXuekeAdapter, 4);
+        AwRecyclerViewUtil.setRecyclerViewGridlayout(mActivity, rcvBanben, mBanbenAdapter, 4);
+        AwRecyclerViewUtil.setRecyclerViewGridlayout(mActivity, rcvMokuai, mMokuaiAdapter, 4);
         mPresenter.getCourseType(RequestUtil.emptyRequest());//请求微课类型  最右侧下拉选项
         mPresenter.getCourseAttr();
     }
@@ -133,18 +158,19 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         mStrPcvId = "";
         mStrTypeId = "";
         splitPcvId();
-        if (AwDataUtil.isEmpty(mTypeBeanList) || mSpinnerZhuanyong.getCount() == 0||-1==mSpinnerZhuanyong.getSelectedItemPosition()) {
-            return;
+        for (int i = 0; i < mTypeBeanList.size(); i++) {
+            if(mTypeBeanList.get(i).isChecked()){
+                mStrTypeId=mTypeBeanList.get(i).getId();
+            }
         }
-        mStrTypeId = mTypeBeanList.get(mSpinnerZhuanyong.getSelectedItemPosition()).getId();
         mPresenter.getCourseList(RequestUtil.getCourseRequestBody(mStrPcvId, mStrTypeId));
     }
 
     private void splitPcvId() {
         if (mXueduanValues.size() > 0) {
-            for (CourseAttrBean.Value xuekeValue : mXueduanValues) {
-                if (xuekeValue.isChecked()) {
-                    mStrPcvId += xuekeValue.getValueId() + ",";
+            for (CourseAttrBean.Value xueduan : mXueduanValues) {
+                if (xueduan.isChecked()) {
+                    mStrPcvId += xueduan.getValueId() + ",";
                 }
             }
         }
@@ -156,9 +182,9 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
             }
         }
         if (mXuekeValues.size() > 0) {
-            for (CourseAttrBean.Value xueduanValue : mXuekeValues) {
-                if (xueduanValue.isChecked()) {
-                    mStrPcvId += xueduanValue.getValueId() + ",";
+            for (CourseAttrBean.Value xueke : mXuekeValues) {
+                if (xueke.isChecked()) {
+                    mStrPcvId += xueke.getValueId() + ",";
                 }
             }
         }
@@ -169,7 +195,8 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
                 }
             }
         }
-        if (null!=mMokuaiValues&&mMokuaiValues.size() > 0) {
+
+        if (null != mMokuaiValues && mMokuaiValues.size() > 0) {
             for (CourseAttrBean.Value mokuai : mMokuaiValues) {
                 if (mokuai.isChecked()) {
                     mStrPcvId += mokuai.getValueId();
@@ -186,11 +213,8 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         mToolbar.setOnLeftClickListener(new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
             public void onLeftTextClick() {
-                if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                    mDrawerLayout.closeDrawers();
-                } else {
-                    mDrawerLayout.openDrawer(Gravity.LEFT);
-                }
+                hideSettingLayout(0);
+                showView(mLlOfSetting, !(mLlOfSetting.getVisibility() == View.VISIBLE));
             }
         });
         //主页面列表点击
@@ -199,20 +223,20 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 MicroLessonResultBean microLessonResultBean = mList.get(position);
                 //校园通可以看所有
-                if("1".equals(microLessonResultBean.getWhetherBuySch())){
+                if ("1".equals(microLessonResultBean.getWhetherBuySch())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
                 }
                 //vip
-                else if("1".equals(microLessonResultBean.getWhetherVip())){
+                else if ("1".equals(microLessonResultBean.getWhetherVip())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
                 }
                 //未购买
                 else if ("0".equals(microLessonResultBean.getWhetherBuy())) {
                     toClass(CourseNotpurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
-                 //已购买
+                    //已购买
                 } else if ("1".equals(microLessonResultBean.getWhetherBuy())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
-                   //免费
+                    //免费
                 } else if ("0".equals(microLessonResultBean.getWhetherFree())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
                 }
@@ -248,75 +272,79 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
             mNianjiAdapter.notifyDataSetChanged();
             initXuekeChoiseData();
         });
-        mSpinnerXueke.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mXuekeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                for (int i1 = 0; i1 < mXuekeValues.size(); i1++) {
-                    CourseAttrBean.Value value = mXuekeValues.get(i1);
-                    if (i1 == i) {
-                        value.setChecked(true);
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<CourseAttrBean.Value> data = adapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    if (position == i) {
+                        data.get(position).setChecked(true);
+                        tvXueke.setText(data.get(position).getValueName());
                     } else {
-                        value.setChecked(false);
+                        data.get(i).setChecked(false);
                     }
                 }
-                getData();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                mXuekeAdapter.notifyDataSetChanged();
+                initBanBenChoiseData();
+                hideSettingLayout(5);
 
             }
         });
-        mSpinnerBanben.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mBanbenAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                for (int j = 0; j < mBanbenValues.size(); j++) {
-                    CourseAttrBean.Value value = mBanbenValues.get(j);
-                    if (i == j) {
-                        value.setChecked(true);
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<CourseAttrBean.Value> data = adapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    if (position == i) {
+                        data.get(position).setChecked(true);
+                        tvBanben.setText(data.get(position).getValueName());
+
                     } else {
-                        value.setChecked(false);
-                    }
-
-                }
-                getData();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        mSpinnerMokuai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                for (int i1 = 0; i1 < mMokuaiValues.size(); i1++) {
-                    CourseAttrBean.Value value = mMokuaiValues.get(i1);
-                    if (i1 == i) {
-                        value.setChecked(true);
-                    } else {
-                        value.setChecked(false);
+                        data.get(i).setChecked(false);
                     }
                 }
-                getData();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+                mBanbenAdapter.notifyDataSetChanged();
+                initMoKuaiChoiseData();
+                hideSettingLayout(5);
             }
         });
-        mSpinnerZhuanyong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mMokuaiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<CourseAttrBean.Value> data = adapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    if (position == i) {
+                        data.get(position).setChecked(true);
+                        tvMokuai.setText(data.get(position).getValueName());
+                    } else {
+                        data.get(i).setChecked(false);
+                    }
+                }
+                mMokuaiAdapter.notifyDataSetChanged();
+                hideSettingLayout(5);
+
                 getData();
             }
+        });
 
+        mCourseTypeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<CourseTypeBean> data = adapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    if (position == i) {
+                        data.get(position).setChecked(true);
+                        tvZhuanyong.setText(data.get(position).getName());
+                    } else {
+                        data.get(i).setChecked(false);
+                    }
+                }
+                mCourseTypeAdapter.notifyDataSetChanged();
+                hideSettingLayout(5);
+                getData();
             }
         });
+
 
     }
 
@@ -350,43 +378,50 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
             if (value.isChecked()) {
                 mXuekeValues = mCourseAttrValues.get(value.getCascade());
                 mXuekeValues.get(0).setChecked(true);
-
-                //  mXuekeValues.addAll(mCourseAttrValues.get(value.getCascade()));
-                //  mXuekeAdapter.notifyDataSetChanged();
-             /*   if (mXuekeValues != null && mXuekeValues.size() > 0) {
-                    for (CourseAttrBean.Value xueke : mXuekeValues) {
-                        xueke.setChecked(false);
-                    }
-                    initScreenState(mXuekeValues);
-                }*/
-
             }
         }
 
-        mXuekeAdapter = new CourseAttrSniAdapter(getActivity(), mXuekeValues);
-        mSpinnerXueke.setAdapter(mXuekeAdapter);
-        mXuekeAdapter.notifyDataSetChanged();
+
+        mXuekeAdapter.addAllData(mXuekeValues);
         initBanBenChoiseData();
     }
 
     private void initBanBenChoiseData() {
-        CourseAttrBean.Value value = mXuekeValues.get(mSpinnerXueke.getSelectedItemPosition());
-        mBanbenValues = mCourseAttrValues.get(value.getCascade());
-        mBanbenValues.get(0).setChecked(true);
-        mBanbenAdapter = new CourseAttrSniAdapter(getActivity(), mBanbenValues);
-        mSpinnerBanben.setAdapter(mBanbenAdapter);
-        initMoKuaiChoiseData();
+
+        for (int i = 0; i < mXuekeValues.size(); i++) {
+            if (mXuekeValues.get(i).isChecked()) {
+                CourseAttrBean.Value value = mXuekeValues.get(i);
+                tvXueke.setText(value.getValueName());
+                mBanbenValues = mCourseAttrValues.get(value.getCascade());
+                mBanbenValues.get(0).setChecked(true);
+                mBanbenAdapter.addAllData(mBanbenValues);
+                initMoKuaiChoiseData();
+                break;
+            }
+        }
+
     }
 
     private void initMoKuaiChoiseData() {
-        CourseAttrBean.Value value = mBanbenValues.get(mSpinnerBanben.getSelectedItemPosition());
-        mMokuaiValues = mCourseAttrValues.get(value.getCascade());
-        if (null != mMokuaiValues && mMokuaiValues.size() > 0) {
-            mMokuaiValues.get(0).setChecked(true);
+        for (int i = 0; i < mBanbenValues.size(); i++) {
+            if (mBanbenValues.get(i).isChecked()) {
+                CourseAttrBean.Value value = mBanbenValues.get(i);
+                tvBanben.setText(value.getValueName());
+                mMokuaiValues = mCourseAttrValues.get(value.getCascade());
+                if (null != mMokuaiValues && mMokuaiValues.size() > 0) {
+                    mMokuaiValues.get(0).setChecked(true);
+                }
+                mMokuaiAdapter.addAllData(mMokuaiValues);
+                for (CourseAttrBean.Value mMokuaiValue : mMokuaiValues) {
+                    if (mMokuaiValue.isChecked()) {
+                        tvMokuai.setText(mMokuaiValue.getValueName());
+                    }
+                }
+                getData();
+            }
+
         }
-        mMokuaiAdapter = new CourseAttrSniAdapter(getActivity(), mMokuaiValues);
-        mSpinnerMokuai.setAdapter(mMokuaiAdapter);
-        getData();
+
     }
 
 
@@ -397,7 +432,10 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         courseTypeBean.setId("");
         list.add(0, courseTypeBean);
         mTypeBeanList.addAll(list);
-        mCourseTypeAdapter.notifyDataSetChanged();
+        mTypeBeanList.get(0).setChecked(true);
+        tvZhuanyong.setText(mTypeBeanList.get(0).getName());
+        mCourseTypeAdapter.addAllData(mTypeBeanList);
+
     }
 
     @Override
@@ -414,9 +452,6 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     private void initXueDuanChoiceData() {
         mXueduanValues = mCourseAttrValues.get("first");
         mXueduanAdapter.addAllData(mXueduanValues);
-        mXueduanAdapter.loadMoreComplete();
-        mXueduanAdapter.setEnableLoadMore(false);
-        mXueduanAdapter.disableLoadMoreIfNotFullPage(mRcvXueduan);
         initScreenState(mXueduanValues);
         initNianfenChoiceData();
     }
@@ -481,12 +516,11 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     @Override
     public void getCourseListFail(String msg) {
         showMsg(msg);
-        mRcvData.removeAllViews();
         mMicroLessonAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, MyConstant.ViewConstant.VIEW_EMPTY_COMMON, -1));
     }
 
 
-    @OnClick({R.id.btn_reset, R.id.btn_confirm})
+    @OnClick({R.id.btn_reset, R.id.btn_confirm, R.id.tv_xueke, R.id.tv_banben, R.id.tv_mokuai, R.id.tv_zhuanyong})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_reset:
@@ -506,12 +540,74 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
                     mNianjiValues.get(0).setChecked(true);
                 }
                 mNianjiAdapter.notifyDataSetChanged();
+                initNianfenChoiceData();
                 break;
             case R.id.btn_confirm:
-                mDrawerLayout.closeDrawers();
+                hideSettingLayout(0);
+                showView(mLlOfSetting, false);
                 getData();
                 break;
+            case R.id.tv_xueke:
+                hideSettingLayout(1);
+                break;
+            case R.id.tv_banben:
+                hideSettingLayout(2);
+                break;
+            case R.id.tv_mokuai:
+                hideSettingLayout(3);
+                break;
+            case R.id.tv_zhuanyong:
+                hideSettingLayout(4);
+                break;
         }
+    }
+
+    private void hideSettingLayout(int type) {
+        switch (type) {
+            case 0:
+                showView(mLlOfSetting, false);
+                showView(rcvXueke, false);
+                showView(rcvBanben, false);
+                showView(rcvMokuai, false);
+                showView(rcvZhuanyong, false);
+                break;
+            case 1:
+                showView(mLlOfSetting, false);
+                showView(rcvXueke, true);
+                showView(rcvBanben, false);
+                showView(rcvMokuai, false);
+                showView(rcvZhuanyong, false);
+                break;
+            case 2:
+                showView(mLlOfSetting, false);
+                showView(rcvXueke, false);
+                showView(rcvBanben, true);
+                showView(rcvMokuai, false);
+                showView(rcvZhuanyong, false);
+                break;
+            case 3:
+                showView(mLlOfSetting, false);
+                showView(rcvXueke, false);
+                showView(rcvBanben, false);
+                showView(rcvMokuai, true);
+                showView(rcvZhuanyong, false);
+                break;
+            case 4:
+                showView(mLlOfSetting, false);
+                showView(rcvXueke, false);
+                showView(rcvBanben, false);
+                showView(rcvMokuai, false);
+                showView(rcvZhuanyong, true);
+                break;
+            case 5:
+                showView(mLlOfSetting, false);
+                showView(rcvXueke, false);
+                showView(rcvBanben, false);
+                showView(rcvMokuai, false);
+                showView(rcvZhuanyong, false);
+                break;
+        }
+
     }
 
     @Override
@@ -519,4 +615,6 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         super.onResume();
         getData();
     }
+
+
 }

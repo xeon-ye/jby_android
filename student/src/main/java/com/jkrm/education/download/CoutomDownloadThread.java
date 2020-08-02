@@ -58,7 +58,7 @@ public class CoutomDownloadThread extends Thread {
             conn.connect();
             Log.e(TAG, "run: " + conn.getResponseCode() + "");
             //建立连接，状态码206表示请求部分数据成功，此时开始下载任务
-            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK||conn.getResponseCode()==HttpURLConnection.HTTP_PARTIAL) {
                 //三个线程各自创建自己的随机存储文件
                 RandomAccessFile raf = new RandomAccessFile(file, "rwd");
                 //设置数据从哪个位置开始写入数据到临时文件
