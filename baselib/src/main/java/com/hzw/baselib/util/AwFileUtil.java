@@ -523,7 +523,7 @@ public class AwFileUtil {
 	 * @param fileS
 	 * @return
 	 */
-	private static String FormetFileSize(long fileS) {
+	public static String FormetFileSize(long fileS) {
 		DecimalFormat df = new DecimalFormat("#.00");
 		String fileSizeString = "";
 		String wrongSize = "0B";

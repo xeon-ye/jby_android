@@ -31,6 +31,10 @@ public class Extras {
 
     public static final String RESET_PWD = "reset_pwd";//重置密码标志
     public static final String MICROLESS_ID = "microless_id";//课程id
+    /**
+     *课程名称
+     */
+    public static final String MICROLESS_NAME ="microless_name";
     public static final String FILE_NAME = "file_name";
 
     public static final String VIDEO_GROUP_PRO = "video_group_pro";//微课目录位置
@@ -39,8 +43,8 @@ public class Extras {
     /**
      * 下载路径
      */
-    //public final static String FILE_PATH = MyApp.getInstance().getExternalCacheDir() + "";
-    public final static String FILE_PATH=Environment.getExternalStorageDirectory().getPath();//获取跟目录
+    public final static String FILE_PATH = MyApp.getInstance().getExternalCacheDir() + "";
+    //public final static String FILE_PATH=Environment.getExternalStorageDirectory().getPath();//获取跟目录
 
     /**
      * 微信支付回调区分
