@@ -31,6 +31,7 @@ import com.jkrm.education.mvp.presenters.MeMainFragmentPresent;
 import com.jkrm.education.mvp.views.MeMainFragmentView;
 import com.jkrm.education.ui.activity.AnswerRecordActivity;
 import com.jkrm.education.ui.activity.CourseCacheActivity;
+import com.jkrm.education.ui.activity.CourseCacheNewActivity;
 import com.jkrm.education.ui.activity.login.ChoiceClassesActivity;
 import com.jkrm.education.ui.activity.me.MeAgreementActivity;
 import com.jkrm.education.ui.activity.me.MeInfoActivity;
@@ -187,6 +188,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
                 break;
             case R.id.tv_cache:
                 toClass(CourseCacheActivity.class, false);
+                //toClass(CourseCacheNewActivity.class,false);
                 break;
             case R.id.tv_answer_answerrecord:
                 toClass(AnswerRecordActivity.class, false);

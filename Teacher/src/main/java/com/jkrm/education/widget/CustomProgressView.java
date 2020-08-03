@@ -186,17 +186,17 @@ public class CustomProgressView extends LinearLayout {
         tv_markIng.postDelayed(new Runnable() {
             @Override
             public void run() {
-               /* if(markYes == 0 && weightMarkIng == 0) {
+                if(markYes == 0 && weightMarkIng == 0) {
                     tv_markIng.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no_match));
                 } else {
                     if(markYes == 0) {
                         tv_markIng.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no_left));
                     } else if(markIng == 0) {
                         tv_markIng.setBackground(mContext.getResources().getDrawable(R.drawable.todo_progress_mark_no_right));
-                    } else {*/
+                    } else {
                         tv_markIng.setBackground(mContext.getResources().getDrawable(R.drawable.todo_condprogress_mark_no));
-                /*    }
-                }*/
+                   }
+                }
                 AwTextviewUtil.setTextViewTxt(tv_markIng, "批阅中" + markIng, String.valueOf(markIng));
             }
         },300);
