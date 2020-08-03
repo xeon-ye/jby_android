@@ -21,10 +21,11 @@
         android:roundIcon="@mipmap/student"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.me.MeClassesActivity"></activity>
-        <activity android:name=".ui.activity.login.RegisterActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            />
+        <activity android:name=".ui.activity.CourseCacheNewActivity"></activity>
+        <activity android:name=".ui.activity.me.MeClassesActivity" />
+        <activity
+            android:name=".ui.activity.login.RegisterActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".ui.activity.login.InputPswActivity" />
         <activity android:name=".ui.activity.login.ChoiceClassesActivity" />
         <activity android:name=".ui.activity.login.ChoiceSchoolActivity" />
