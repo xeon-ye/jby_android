@@ -105,7 +105,7 @@ public class DownloadThreadManager {
     }
     //移除等待下载列表
     public void removeDownList(List<DaoVideoBean> urlList){
-        if(mWaitList.isEmpty()||urlList.isEmpty()){
+        if(mWaitList.isEmpty()&&urlList.isEmpty()){
             return;
         }
         ArrayList<String> arrayList = new ArrayList<>();

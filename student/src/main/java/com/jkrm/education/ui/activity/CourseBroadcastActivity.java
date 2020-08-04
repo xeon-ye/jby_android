@@ -196,7 +196,7 @@ public class CourseBroadcastActivity extends AwMvpActivity<CourseBroadcastPresen
             downUrlList.add(videoListBean.getUrl());
         }
         EventBus.getDefault().post(new RxCostomDownType(daoVideoBeanArrayList));
-        toClass(CourseCacheActivity.class, false);
+        toClass(CourseCacheNewActivity.class, false);
     }
 
     private void saveWatchLog() {

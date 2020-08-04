@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,8 +39,12 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
         helper.setText(R.id.tv_title, item.getMlessonName())
                 .setGone(R.id.cb_chose, isChose);
         ImageView iv_img = helper.getView(R.id.iv_img);
-        Glide.with(mContext).load(item.getMlessonUrl()).into(iv_img);
+        ImageView iv_state = helper.getView(R.id.iv_state);
         CheckBox checkBox = helper.getView(R.id.cb_chose);
+        ProgressBar progress = helper.getView(R.id.progress);
+
+        Glide.with(mContext).load(item.getMlessonUrl()).into(iv_img);
+
         checkBox.setChecked(item.getIsCheck());
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -54,6 +59,8 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
             switch (i) {
                 //下载中
                 case 0:
+                    Glide.with(mContext).load(mContext.getResources().getDrawable(R.mipmap.load_down_white)).into(iv_state);
+
                     break;
                 //下载完成
                 case 1:
@@ -67,6 +74,9 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
                     break;
                 //下载暂停
                 case 2:
+                    Glide.with(mContext).load(mContext.getResources().getDrawable(R.mipmap.load_pause_white)).into(iv_state);
+                    helper.setText(R.id.tv_state,"已暂停");
+                    helper.setText(R.id.tv_pro  ,getDownDownLoadPro(daoVideoBeans,progress));
                     break;
             }
         }
@@ -107,6 +117,11 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
         }
     }
 
+    /**
+     * 判断当前目录下视频状态
+     * @param daoVideoBeans
+     * @return
+     */
     private int checkIsDownLoading(List<DaoVideoBean> daoVideoBeans) {
         int is_all_com = 0;
 
@@ -121,5 +136,22 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
             }
         }
         return is_all_com;
+    }
+
+    /**
+     * 获取当前下载进度
+     * @param daoVideoBeans
+     * @return
+     */
+    public String getDownDownLoadPro(List<DaoVideoBean> daoVideoBeans, ProgressBar progressBar){
+         int pro=0;
+        for (DaoVideoBean daoVideoBean : daoVideoBeans) {
+            if(DaoVideoBean.DOWNLOAD_OVER.equals(daoVideoBean.getDownloadStatus())){
+                pro=pro++;
+            }
+        }
+        progressBar.setMax(daoVideoBeans.size());
+        progressBar.setProgress(pro);
+        return "已下载"+"("+pro+"/"+daoVideoBeans.size()+")";
     }
 }

@@ -26,10 +26,23 @@
                 android:textColor="@color/color_999999" />
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rcv_data"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dimen_20"
-                ></android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <include layout="@layout/course_setting_layout" android:id="@+id/ll_of_setting"
+            android:layout_height="wrap_content" android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            ></include>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_above="@id/ll_of_setting"
+            ></android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+
 </LinearLayout>

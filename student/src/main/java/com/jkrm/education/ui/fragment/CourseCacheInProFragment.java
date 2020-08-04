@@ -334,6 +334,7 @@ public class CourseCacheInProFragment extends AwMvpFragment<CourseCacheInProFrag
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.iv_img:
+
                         toClass(CourseCacheInProActivity.class, false, Extras.MICROLESS_ID, mDaoMicroLessonBeans.get(position).getId());
                         break;
                     case R.id.iv_img_center:

@@ -84,7 +84,7 @@ public class DownLoadService extends Service {
     private void startDownLoad() {
         List<DaoVideoBean> daoVideoBeans = DaoUtil.getInstance().queryNeedDownVideoList();
         for (DaoVideoBean daoVideoBean : daoVideoBeans) {
-            DownloadThreadManager.getInstance().downVideo(daoVideoBean);
+           // DownloadThreadManager.getInstance().downVideo(daoVideoBean);
         }
     }
 
