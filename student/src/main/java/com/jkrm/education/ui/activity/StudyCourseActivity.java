@@ -103,7 +103,7 @@ public class StudyCourseActivity extends AwMvpActivity<StudyCoursePresent> imple
         epv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-               initVideo(Extras.FILE_PATH+mDaoVideoBeans.get(i).get(i1).getFileName(),"");
+               initVideo(mDaoVideoBeans.get(i).get(i1).getFilePath(),"");
                 return true;
             }
         });
@@ -157,8 +157,8 @@ public class StudyCourseActivity extends AwMvpActivity<StudyCoursePresent> imple
 
         @Override
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            view = View.inflate(StudyCourseActivity.this, android.R.layout.simple_list_item_1, null);
-            TextView textView = view.findViewById(android.R.id.text1);
+            view = View.inflate(StudyCourseActivity.this,R.layout.couse_cache_dialog_group_item_layout, null);
+            TextView textView = view.findViewById(R.id.tv_title);
             textView.setText(mGroupValues.get(i).getTitle());
             return view;
         }
@@ -167,9 +167,13 @@ public class StudyCourseActivity extends AwMvpActivity<StudyCoursePresent> imple
         public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
             view = View.inflate(StudyCourseActivity.this, R.layout.course_child_item_layout, null);
             TextView tvName = view.findViewById(R.id.tv_name);
+            TextView tv_time = view.findViewById(R.id.tv_time);
             tvName.setText(mChildValues.get(i).get(i1).getName());
             TextView tvShow = view.findViewById(R.id.tv_show);
-            tvShow.setText(mChildValues.get(i).get(i1).getTimes());
+           // tvShow.setText(mChildValues.get(i).get(i1).getTimes());
+            String times = mChildValues.get(i).get(i1).getTimes();
+            String[] split = times.split(":");
+            tv_time.setText(split[0]+"分");
             return view;
         }
 

@@ -18,13 +18,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hzw.baselib.util.AwDataUtil;
+import com.hzw.baselib.util.FileUtils;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.result.CoursePlayResultBean;
 import com.jkrm.education.bean.result.CourseSuccessBean;
 import com.jkrm.education.constants.Extras;
+import com.jkrm.education.db.DaoVideoBean;
+import com.jkrm.education.db.util.DaoUtil;
 import com.jkrm.education.ui.activity.CourseBroadcastActivity;
 import com.sobot.chat.utils.ToastUtil;
 import com.sobot.chat.widget.kpswitch.view.emoticon.EmoticonPageView;
@@ -56,7 +60,7 @@ public class CourseDialogFramgment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        if (null != arguments&& !AwDataUtil.isEmpty(arguments.getSerializable(Extras.KEY_COURSE_LIST))) {
+        if (null != arguments && !AwDataUtil.isEmpty(arguments.getSerializable(Extras.KEY_COURSE_LIST))) {
             mGroupValues = (List<CoursePlayResultBean>) arguments.getSerializable(Extras.KEY_COURSE_LIST);
             for (int i = 0; i < mGroupValues.size(); i++) {
                 mChildValues.add(mGroupValues.get(i).getVideoList());
@@ -82,8 +86,8 @@ public class CourseDialogFramgment extends DialogFragment {
                         }
                     }
                 }
-                if(list.isEmpty()){
-                    ToastUtil.showLongToast(getActivity(),"请选择课程");
+                if (list.isEmpty()) {
+                    ToastUtil.showLongToast(getActivity(), "请选择课程");
                     return;
                 }
                 confirmListener.onClickComplete(list);
@@ -195,8 +199,9 @@ public class CourseDialogFramgment extends DialogFragment {
 
         @Override
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            view = View.inflate(getActivity(), android.R.layout.simple_list_item_1, null);
-            TextView textView = view.findViewById(android.R.id.text1);
+            view = View.inflate(getActivity(), R.layout.couse_cache_dialog_group_item_layout, null);
+
+            TextView textView = view.findViewById(R.id.tv_title);
             textView.setText(mGroupValues.get(i).getTitle());
             return view;
         }
@@ -205,11 +210,27 @@ public class CourseDialogFramgment extends DialogFragment {
         public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
             view = View.inflate(getActivity(), R.layout.course_cache_dialog_item_layout, null);
             CoursePlayResultBean.VideoListBean videoListBean = mChildValues.get(i).get(i1);
-            TextView tvName = view.findViewById(R.id.tv_name);
-            tvName.setText(videoListBean.getName());
-            TextView tvShow = view.findViewById(R.id.tv_time);
-            tvShow.setText(videoListBean.getTimes());
             CheckBox checkBox = view.findViewById(R.id.cb);
+            ImageView img_down = view.findViewById(R.id.img_down);
+            TextView tvName = view.findViewById(R.id.tv_name);
+            TextView tvShow = view.findViewById(R.id.tv_time);
+            TextView tv_time_and_size = view.findViewById(R.id.tv_time_and_size);
+
+            //数据库查询是否下载过
+            DaoVideoBean daoVideoBean = new DaoVideoBean();
+            daoVideoBean.setId(videoListBean.getId());
+            DaoVideoBean daoVideoBean1 = DaoUtil.getInstance().queryVideoByUrl(daoVideoBean);
+            //时长 大小
+            String times = videoListBean.getTimes();
+            String[] split = times.split(":");
+            tv_time_and_size.setText(split[0] + "分钟  " + FileUtils.getPrintSize(Long.parseLong(videoListBean.getSize())));
+            tvName.setText(videoListBean.getName());
+            if (null != daoVideoBean1) {
+                checkBox.setEnabled(false);
+                checkBox.setVisibility(View.GONE);
+                img_down.setVisibility(View.VISIBLE);
+            }
+            tvShow.setText(videoListBean.getTimes());
             checkBox.setChecked(videoListBean.isChecked());
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

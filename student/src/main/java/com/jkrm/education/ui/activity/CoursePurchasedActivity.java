@@ -287,8 +287,8 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
 
         @Override
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            view = View.inflate(CoursePurchasedActivity.this, android.R.layout.simple_list_item_1, null);
-            TextView textView = view.findViewById(android.R.id.text1);
+            view = View.inflate(CoursePurchasedActivity.this, R.layout.couse_cache_dialog_group_item_layout, null);
+            TextView textView = view.findViewById(R.id.tv_title);
             textView.setText(mGroupValues.get(i).getTitle());
             return view;
         }
@@ -299,7 +299,7 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
             TextView tvName = view.findViewById(R.id.tv_name);
             tvName.setText(mChildValues.get(i).get(i1).getName());
             TextView tvShow = view.findViewById(R.id.tv_show);
-            tvShow.setText(mChildValues.get(i).get(i1).getTimes());
+            //.setText(mChildValues.get(i).get(i1).getTimes());
             TextView tv_time = view.findViewById(R.id.tv_time);
             String times = mChildValues.get(i).get(i1).getTimes();
             String[] split = times.split(":");

@@ -242,4 +242,9 @@ public class UrlConstant {
      * 修改用户真实姓名
      */
     public static final String USER_UPDATE_REALNAME=MOCK_API_PREFIX+COMMON_URL_PREFIX+"user_server/user/update/realname";
+
+    /**
+     * 动态获取系统安全码
+     */
+    public static final String GET_SAFE_CODE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/sys/safe/code";
 }

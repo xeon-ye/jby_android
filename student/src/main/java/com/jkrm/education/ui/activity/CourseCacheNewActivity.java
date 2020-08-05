@@ -2,6 +2,8 @@ package com.jkrm.education.ui.activity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +62,17 @@ public class CourseCacheNewActivity extends AwBaseActivity {
     private List<DaoMicroLessonBean> mDaoMicroLessonBeans = new ArrayList<>();
     private Set<DaoMicroLessonBean> microLessonBeanSet = new HashSet<>();
     private CourseCacheAdapter mCourseCacheAdapter;
+    private Handler mHnadler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 100:
+                    mToolbarCustom.setRightText("当前网速： " + msg.obj.toString());
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected int getLayoutId() {

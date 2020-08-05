@@ -350,8 +350,7 @@ public class DaoUtil {
      * @return
      */
     public DaoVideoBean queryVideoByUrl(DaoVideoBean daoVideoBean){
-        QueryBuilder<DaoVideoBean> where = mDaoManager.getDaoSession().getDaoVideoBeanDao().queryBuilder().where(DaoVideoBeanDao.Properties.Url.eq(daoVideoBean.getUrl()));
-        List<DaoVideoBean> list = where.list();
+        QueryBuilder<DaoVideoBean> where = mDaoManager.getDaoSession().getDaoVideoBeanDao().queryBuilder().where(DaoVideoBeanDao.Properties.Id.eq(daoVideoBean.getId()));
         return where.unique();
     }
 

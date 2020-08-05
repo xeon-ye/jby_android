@@ -199,8 +199,8 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
 
         @Override
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            view = View.inflate(CourseNotpurchasedActivity.this, android.R.layout.simple_list_item_1, null);
-            TextView textView = view.findViewById(android.R.id.text1);
+            view = View.inflate(CourseNotpurchasedActivity.this, R.layout.couse_cache_dialog_group_item_layout, null);
+            TextView textView = view.findViewById(R.id.tv_title);
             textView.setText(mGroupValues.get(i).getTitle());
             return view;
         }

@@ -1,11 +1,15 @@
 package com.jkrm.education.ui.activity.login;
 
+import android.content.Intent;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.hzw.baselib.base.AwBaseActivity;
 import com.hzw.baselib.base.AwBaseApplication;
 import com.hzw.baselib.bean.FirUpdateBean;
 import com.hzw.baselib.bean.UpdateBean;
+import com.hzw.baselib.interfaces.AwApiCallback;
+import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.interfaces.IPermissionListener;
 import com.hzw.baselib.util.AwAPPUtils;
 import com.hzw.baselib.util.AwFileDownloadUtil;
@@ -16,9 +20,21 @@ import com.hzw.baselib.util.AwRxPermissionUtil;
 import com.hzw.baselib.util.AwUpdateUtil;
 import com.hzw.baselib.util.AwVersionUtil;
 import com.jkrm.education.R;
+import com.jkrm.education.api.APIService;
+import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.base.MyApp;
+import com.jkrm.education.bean.AnswerSheetBean;
+import com.jkrm.education.constants.Extras;
+import com.jkrm.education.ui.activity.AnswerSheetActivity;
+import com.jkrm.education.ui.activity.AnswerSituationActivity;
 import com.jkrm.education.ui.activity.MainActivity;
 import com.jkrm.education.ui.activity.ScanQrcodeActivity;
+import com.jkrm.education.util.UserUtil;
+
+import java.io.Serializable;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -44,6 +60,31 @@ public class WelcomeActivity extends AwBaseActivity {
         setStatusTxtDark();
         //toNextStep();
         toNextPage();
+       /* RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getSafeCode(template_id, UserUtil.getAppUser().getStudId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new AwApiSubscriber(new AwApiCallback<String>() {
+                    @Override
+                    public void onStart() {
+                        showLoadingDialog();
+                    }
+
+                    @Override
+                    public void onSuccess(String data) {
+
+                    }
+                    @Override
+                    public void onFailure(int code, String msg) {
+                       showMsg(msg);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        dismissLoadingDialog();
+                    }
+                }));*/
     }
 
 

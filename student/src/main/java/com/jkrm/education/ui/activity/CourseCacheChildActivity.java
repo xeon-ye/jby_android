@@ -2,6 +2,8 @@ package com.jkrm.education.ui.activity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwBaseActivity;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.util.FileUtils;
+import com.hzw.baselib.util.NetWorkSpeedUtils;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.CourseCacheChildAdapter;
@@ -65,9 +68,11 @@ public class CourseCacheChildActivity extends AwBaseActivity {
     protected void initView() {
         super.initView();
         mCourseCacheChildAdapter = new CourseCacheChildAdapter();
+        mCourseCacheChildAdapter.setActivity(CourseCacheChildActivity.this) ;
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mCourseCacheChildAdapter, false);
         MICROLESS_NAME = getIntent().getStringExtra(Extras.MICROLESS_NAME);
         setToolbarWithBackImgAndRightView(MICROLESS_NAME, "编辑", null);
+
     }
 
     @Override

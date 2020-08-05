@@ -189,12 +189,16 @@ public class CourseBroadcastActivity extends AwMvpActivity<CourseBroadcastPresen
             daoVideoBean.setFileName("JBY"+videoListBean.getId()+videoListBean.getUrl().substring(videoListBean.getUrl().lastIndexOf("/")).replace("/","").trim());
             daoVideoBean.setFilePath(Extras.FILE_PATH+"/"+daoVideoBean.getFileName());
             DaoUtil.getInstance().insertVideoBean(daoVideoBean);
-            daoVideoBeanArrayList.add(daoVideoBean);
+            //数据库查询是否下载过
+            DaoVideoBean daoVideoBean1 = DaoUtil.getInstance().queryVideoByUrl(daoVideoBean);
+            if(null!=daoVideoBean1){
+                daoVideoBeanArrayList.add(daoVideoBean);
+            }
         }
-        ArrayList<String> downUrlList = new ArrayList<>();
+       /* ArrayList<String> downUrlList = new ArrayList<>();
         for (CoursePlayResultBean.VideoListBean videoListBean : videoList) {
             downUrlList.add(videoListBean.getUrl());
-        }
+        }*/
         EventBus.getDefault().post(new RxCostomDownType(daoVideoBeanArrayList));
         toClass(CourseCacheNewActivity.class, false);
     }
@@ -309,8 +313,8 @@ public class CourseBroadcastActivity extends AwMvpActivity<CourseBroadcastPresen
 
         @Override
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            view = View.inflate(CourseBroadcastActivity.this, android.R.layout.simple_list_item_1, null);
-            TextView textView = view.findViewById(android.R.id.text1);
+            view = View.inflate(CourseBroadcastActivity.this, R.layout.couse_cache_dialog_group_item_layout, null);
+            TextView textView = view.findViewById(R.id.tv_title);
             textView.setText(mGroupValues.get(i).getTitle());
             return view;
         }
@@ -333,17 +337,18 @@ public class CourseBroadcastActivity extends AwMvpActivity<CourseBroadcastPresen
             }
             if("1".equals(videoListBean.getWatchStatus())){
                 tvShow.setText("已学完");
+                tvShow.setTextColor(getResources().getColor(R.color.color_C8CCD4));
             }
 
             if(videoListBean.isPlaying()){
                 tvShow.setText("播放中");
-                tvShow.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                tvShow.setTextColor(getResources().getColor(R.color.white));
+               // tvShow.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                tvShow.setTextColor(getResources().getColor(R.color.colorPrimary));
             }
             TextView tv_time = view.findViewById(R.id.tv_time);
             String times = mChildValues.get(i).get(i1).getTimes();
             String[] split = times.split(":");
-            tv_time.setText(split[0]+"分");
+            tv_time.setText(split[0]+"分钟");
             return view;
         }
 

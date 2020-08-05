@@ -743,5 +743,14 @@ public interface APIService {
     @PATCH(UrlConstant.USER_UPDATE_REALNAME)
     Observable<ResponseBean<String>> updateUserRealName(@Body RequestBody requestBody);
 
-
+    /**
+     *  动态获取系统安全码
+     * @param clientSessionId
+     * @param t
+     * @param client
+     * @param encrypt
+     * @return
+     */
+    @GET(UrlConstant.GET_SAFE_CODE)
+    Observable<ResponseBean<String>> getSafeCode(@Path("clientSessionId") String clientSessionId,@Path("t") String t,@Path("client") String client,@Path("encrypt") String encrypt);
 }

@@ -60,7 +60,7 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
                 //下载中
                 case 0:
                     Glide.with(mContext).load(mContext.getResources().getDrawable(R.mipmap.load_down_white)).into(iv_state);
-                   
+
                     helper.setText(R.id.tv_pro  ,getDownDownLoadPro(daoVideoBeans,progress));
                     break;
                 //下载完成
