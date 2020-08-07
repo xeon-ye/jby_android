@@ -247,4 +247,9 @@ public class UrlConstant {
      * 动态获取系统安全码
      */
     public static final String GET_SAFE_CODE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/sys/safe/code";
+
+    /**
+     * 获取订单列表
+     */
+    public static final String GET_ORDER_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"user_server/order/list";
 }

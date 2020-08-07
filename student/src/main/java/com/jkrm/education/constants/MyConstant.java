@@ -38,6 +38,8 @@ public class MyConstant {
         public static final String ROLE_ID = "role_id";
         public static final String SCHOOL_ID = "school_id";
         public static final String KEY_ACC = "user_acc";//账号
+        public static final String KEY_SAFE ="safe_code";
+        public static final String CNM="cnm";
 
         /**
          * 临时手机号

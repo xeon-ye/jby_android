@@ -37,6 +37,7 @@ import com.jkrm.education.ui.activity.me.MeAgreementActivity;
 import com.jkrm.education.ui.activity.me.MeInfoActivity;
 import com.jkrm.education.ui.activity.me.MeModifyPwdActivity;
 import com.jkrm.education.ui.activity.me.MeTeacherContractActivity;
+import com.jkrm.education.ui.activity.me.MyOrderActivity;
 import com.jkrm.education.util.ReLoginUtil;
 import com.jkrm.education.util.UserUtil;
 import com.sobot.chat.SobotApi;
@@ -149,7 +150,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
         super.initListener();
     }
 
-    @OnClick({R.id.tv_mobile, R.id.btn_logout, R.id.tv_contract, R.id.tv_modifyPwd, R.id.tv_sobot, R.id.ll_version, R.id.tv_userAggrement, R.id.tv_cache, R.id.tv_answer_answerrecord,R.id.ll_classes})
+    @OnClick({R.id.tv_mobile, R.id.btn_logout, R.id.tv_contract, R.id.tv_modifyPwd, R.id.tv_sobot, R.id.ll_version, R.id.tv_userAggrement, R.id.tv_cache, R.id.tv_answer_answerrecord,R.id.ll_classes,R.id.ll_myorder})
     @Override
     public void onClick(View v) {
         if (AwBtnClickUtil.isFastDoubleClick(v.getId())) {
@@ -195,6 +196,9 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
                 break;
             case R.id.ll_classes:
                 toClass(ChoiceClassesActivity.class,false);
+                break;
+            case R.id.ll_myorder:
+                toClass(MyOrderActivity.class,false);
                 break;
         }
     }

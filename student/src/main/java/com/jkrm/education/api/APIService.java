@@ -15,6 +15,7 @@ import com.jkrm.education.bean.ErrorQuestionBean;
 import com.jkrm.education.bean.ErrorQuestionDetailBean;
 import com.jkrm.education.bean.ErrorQuestionTimeBean;
 import com.jkrm.education.bean.ErrorQuestionTimePagedBean;
+import com.jkrm.education.bean.OrderBean;
 import com.jkrm.education.bean.OriginalPagerResultBean;
 import com.jkrm.education.bean.PeriodCourseBean;
 import com.jkrm.education.bean.RegisterBean;
@@ -752,5 +753,14 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_SAFE_CODE)
-    Observable<ResponseBean<String>> getSafeCode(@Path("clientSessionId") String clientSessionId,@Path("t") String t,@Path("client") String client,@Path("encrypt") String encrypt);
+    Observable<ResponseBean<String>> getSafeCode(@Query("clientSessionId") String clientSessionId,@Query("t") String t,@Query("client") String client,@Query("encrypt") String encrypt);
+
+    /**
+     * 获取订单列表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.GET_ORDER_LIST)
+    Observable<OrderBean>  getOrderList(@Body RequestBody requestBody);
+
 }

@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/student"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.CourseCacheChildActivity"></activity>
+        <activity android:name=".ui.activity.me.MyOrderActivity"></activity>
+        <activity android:name=".ui.activity.CourseCacheChildActivity" />
         <activity android:name=".ui.activity.CourseCacheNewActivity" />
         <activity android:name=".ui.activity.me.MeClassesActivity" />
         <activity

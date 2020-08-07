@@ -104,6 +104,9 @@ public class MyApp extends AwBaseApplication {
     public void saveAcc(String acc){
         AwSpUtil.saveString(MyConstant.SPConstant.XML_USER_INFO,MyConstant.SPConstant.KEY_ACC,acc);
     }
+    public void saveSafeCode(String safe){
+        AwSpUtil.saveString(MyConstant.SPConstant.XML_USER_INFO,MyConstant.SPConstant.KEY_SAFE,safe);
+    }
 
     /**
      * 清除用户信息

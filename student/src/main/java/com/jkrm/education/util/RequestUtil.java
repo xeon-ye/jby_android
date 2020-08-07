@@ -772,5 +772,20 @@ public class RequestUtil {
         return getBody(hashMap);
     }
 
+    /**
+     * 获取订单列表
+     * @param current
+     * @param size
+     * @param step
+     * @return
+     */
+    public static RequestBody getOrderListBody(String current,String size,String step){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("current", current);
+        hashMap.put("size", size);
+        hashMap.put("step",step);
+        return getBody(hashMap);
+    }
+
 
 }

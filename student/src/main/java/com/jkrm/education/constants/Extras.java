@@ -85,5 +85,7 @@ public class Extras {
 
     public final static String KEY_REGISTER_ID="key_register_id";
     public final static String KEY_IS_VER_LOGIN="key_vercode_login";
+
+    public final static String KEY_STEP="key_step";
 }
 

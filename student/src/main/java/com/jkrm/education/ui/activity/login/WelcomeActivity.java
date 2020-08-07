@@ -1,7 +1,10 @@
 package com.jkrm.education.ui.activity.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.hzw.baselib.base.AwBaseActivity;
@@ -15,23 +18,29 @@ import com.hzw.baselib.util.AwAPPUtils;
 import com.hzw.baselib.util.AwFileDownloadUtil;
 import com.hzw.baselib.util.AwFirUtil;
 import com.hzw.baselib.util.AwLog;
+import com.hzw.baselib.util.AwMd5Util;
 import com.hzw.baselib.util.AwNetWatchdog;
 import com.hzw.baselib.util.AwRxPermissionUtil;
+import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.util.AwUpdateUtil;
 import com.hzw.baselib.util.AwVersionUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.api.UrlInterceptor;
 import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.AnswerSheetBean;
 import com.jkrm.education.constants.Extras;
+import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.ui.activity.AnswerSheetActivity;
 import com.jkrm.education.ui.activity.AnswerSituationActivity;
 import com.jkrm.education.ui.activity.MainActivity;
 import com.jkrm.education.ui.activity.ScanQrcodeActivity;
 import com.jkrm.education.util.UserUtil;
+import com.sobot.chat.utils.MD5Util;
 
 import java.io.Serializable;
+import java.net.URLConnection;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -60,20 +69,25 @@ public class WelcomeActivity extends AwBaseActivity {
         setStatusTxtDark();
         //toNextStep();
         toNextPage();
-       /* RetrofitClient.builderRetrofit()
+        String cli = UrlInterceptor.getCli();
+        String t = UrlInterceptor.getT();
+        RetrofitClient.builderRetrofit()
                 .create(APIService.class)
-                .getSafeCode(template_id, UserUtil.getAppUser().getStudId())
+                .getSafeCode(cli, t,"android",AwMd5Util.md5("android"+cli+ t))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new AwApiSubscriber(new AwApiCallback<String>() {
                     @Override
                     public void onStart() {
-                        showLoadingDialog();
                     }
 
                     @Override
                     public void onSuccess(String data) {
-
+                      //  MyApp.getInstance().saveSafeCode(data);
+                        SharedPreferences sharedPreferences=mActivity.getSharedPreferences(MyConstant.SPConstant.KEY_SAFE, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor edit = sharedPreferences.edit();
+                        edit.putString( MyConstant.SPConstant.KEY_SAFE,data);
+                        edit.commit();
                     }
                     @Override
                     public void onFailure(int code, String msg) {
@@ -82,9 +96,8 @@ public class WelcomeActivity extends AwBaseActivity {
 
                     @Override
                     public void onCompleted() {
-                        dismissLoadingDialog();
                     }
-                }));*/
+                }));
     }
 
 
