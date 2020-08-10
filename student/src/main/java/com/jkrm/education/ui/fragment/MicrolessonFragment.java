@@ -107,6 +107,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     private List<String> mListScreenIDs = new ArrayList<>();
     private String mStrPcvId = "", mStrTypeId = "";
     boolean isAuto = false;//首次进入自动请求 列表 数据
+    public static String mStrCourseId,mStrCourseName;
 
 
     @Override
@@ -185,6 +186,8 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
             for (CourseAttrBean.Value xueke : mXuekeValues) {
                 if (xueke.isChecked()) {
                     mStrPcvId += xueke.getValueId() + ",";
+                    mStrCourseId=xueke.getId();
+                    mStrCourseName=xueke.getName();
                 }
             }
         }
@@ -284,6 +287,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
                         data.get(i).setChecked(false);
                     }
                 }
+
                 mXuekeAdapter.notifyDataSetChanged();
                 initBanBenChoiseData();
                 hideSettingLayout(5);

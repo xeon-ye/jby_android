@@ -10,25 +10,67 @@
     >
 
     <include layout="@layout/common_title_with_5dp_line"></include>
-    <TextView
-        android:id="@+id/tv_num"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_20"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        tools:text="10"
-        />
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dimen_13"
+        >
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="10"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="新教育币"
+            android:layout_marginLeft="@dimen/dimen_10"
+            />
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_15"
+        android:text="充值"
+        android:textColor="@color/black"
         android:layout_marginTop="@dimen/dimen_10"
-        android:layout_gravity="center"
-        android:text="新教育币"
+        android:layout_marginBottom="@dimen/dimen_10"
         />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_data"
         android:layout_width="match_parent"
         android:layout_height="300dp"></android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btn_pay"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@drawable/aw_bg_blue_c8eaff_radius4"
+        android:text="确认支付"
+        android:textColor="@color/white"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_15"
+        android:text="1.新教育币可用于直接购买App内课程:"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_15"
+        android:text="2.新教育币为虚拟币,充值后的新教育币不会过期,但无法提现或 转赠他人.:"
+        />
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

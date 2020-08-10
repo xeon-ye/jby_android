@@ -21,7 +21,11 @@
         android:roundIcon="@mipmap/student"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.me.MyOrderActivity"></activity>
+        <activity android:name=".ui.activity.order.InvestMoneyActivity"></activity>
+        <activity android:name=".ui.activity.order.CanceledOrderActivity" />
+        <activity android:name=".ui.activity.order.PaidOrderActivity" />
+        <activity android:name=".ui.activity.order.ToBePaidOrderActivity" />
+        <activity android:name=".ui.activity.me.MyOrderActivity" />
         <activity android:name=".ui.activity.CourseCacheChildActivity" />
         <activity android:name=".ui.activity.CourseCacheNewActivity" />
         <activity android:name=".ui.activity.me.MeClassesActivity" />

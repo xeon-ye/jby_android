@@ -54,6 +54,7 @@ public class MyOrderActivity extends AwBaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        setStatusTransparent();
         setToolbarWithBackImg("我的订单", new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
             public void onLeftTextClick() {

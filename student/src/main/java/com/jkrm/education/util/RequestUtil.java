@@ -378,7 +378,7 @@ public class RequestUtil {
      * @param goodsDetaiList
      * @return
      */
-    public static RequestBody getCreateOrderBody(String orderName, String goodsPrice, String orderType, String goodsNum, List<GoodsDetai> goodsDetaiList) {
+    public static RequestBody getCreateOrderBody(String orderName, String goodsPrice, String orderType, String goodsNum, List<GoodsDetai> goodsDetaiList,String course_id,String course_name) {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("userId", UserUtil.getUserId());
         hashMap.put("orderName", orderName);
@@ -389,6 +389,8 @@ public class RequestUtil {
         hashMap.put("orderType", orderType);
         hashMap.put("goodsNum", goodsNum);
         hashMap.put("detaiList", goodsDetaiList);
+        hashMap.put("course_id",course_id);
+        hashMap.put("course_name",course_name);
         return getBody(hashMap);
     }
 

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/ll_of_pay"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:orientation="vertical">
     <TextView
         android:id="@+id/tv_num"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="50新教育比\n50"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="@dimen/dimen_10"
-        android:paddingBottom="@dimen/dimen_15"
-        android:paddingTop="@dimen/dimen_15"
+        android:textSize="12sp"
+        android:padding="@dimen/dimen_10"
+        android:layout_gravity="center"
+
+        />
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        android:textSize="10sp"
+        android:layout_gravity="center"
         />
 
-</RelativeLayout>
+</LinearLayout>

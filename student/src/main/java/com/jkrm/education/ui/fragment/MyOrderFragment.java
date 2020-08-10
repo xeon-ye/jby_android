@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpFragment;
 import com.hzw.baselib.base.AwMvpLazyFragment;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
@@ -15,6 +16,9 @@ import com.jkrm.education.bean.OrderBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MyOrderFramgmentPresent;
 import com.jkrm.education.mvp.views.MyOrderFragmentView;
+import com.jkrm.education.ui.activity.order.CanceledOrderActivity;
+import com.jkrm.education.ui.activity.order.PaidOrderActivity;
+import com.jkrm.education.ui.activity.order.ToBePaidOrderActivity;
 import com.jkrm.education.util.RequestUtil;
 
 import butterknife.BindView;
@@ -60,6 +64,42 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
         mPresenter.getOrderList(RequestUtil.getOrderListBody(current+"", size+"", mStep));
     }
 
+    @Override
+    protected void initListener() {
+        super.initListener();
+        mOrderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()){
+                    case R.id.tv_pay:
+                        showDialogCustomLeftAndRight("确认支付", "取消", "确认", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dismissDialog();
+                            }
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                showMsg("支付");
+                            }
+                        });
+                        break;
+                    default:
+                        OrderBean.RowsBean data = (OrderBean.RowsBean) adapter.getData().get(position);
+                        if("1".equals(data.getStep())){
+                            toClass(ToBePaidOrderActivity.class,false,Extras.KEY_ORDER,data);
+                        }else if("2".equals(data.getStep())){
+                            toClass(PaidOrderActivity.class,false,Extras.KEY_ORDER,data);
+                        }else if("3".equals(data.getStep())){
+                            toClass(CanceledOrderActivity.class,false,Extras.KEY_ORDER,data);
+                        }
+                        break;
+                }
+
+            }
+        });
+
+    }
 
     @Override
     public void getOrderListSuccess(OrderBean data) {

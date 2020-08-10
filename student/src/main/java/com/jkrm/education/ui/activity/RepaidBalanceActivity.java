@@ -34,6 +34,7 @@ import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.RepaidBalancePresent;
 import com.jkrm.education.mvp.views.RepaidBalanceView;
 import com.jkrm.education.student.wxapi.alipay.PayResult;
+import com.jkrm.education.ui.fragment.MicrolessonFragment;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -53,7 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * c充值页面
+ * c充值页面  --- 我的账户
  */
 
 public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> implements RepaidBalanceView.View {
@@ -126,7 +127,7 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
     @Override
     protected void initView() {
         super.initView();
-        setToolbarWithBackImg("充值", new AwViewCustomToolbar.OnLeftClickListener() {
+        setToolbarWithBackImg("我的账户", new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
             public void onLeftTextClick() {
                 finish();
@@ -294,7 +295,7 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
                 goodsDetais.add(new GoodsDetai(datum.getId(), datum.getMsg(), datum.getPrice(), "1", "recharge", ""));
             }
         }
-        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mInvestResultBean.getMsg(),mInvestResultBean.getPrice(),"1","1",goodsDetais));
+        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mInvestResultBean.getMsg(),mInvestResultBean.getPrice(),"1","1",goodsDetais, MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
     }
 
     private void alertDialog(CreateOrderResultBean resultBean){

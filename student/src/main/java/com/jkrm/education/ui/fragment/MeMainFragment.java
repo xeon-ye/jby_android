@@ -30,8 +30,8 @@ import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.MeMainFragmentPresent;
 import com.jkrm.education.mvp.views.MeMainFragmentView;
 import com.jkrm.education.ui.activity.AnswerRecordActivity;
-import com.jkrm.education.ui.activity.CourseCacheActivity;
 import com.jkrm.education.ui.activity.CourseCacheNewActivity;
+import com.jkrm.education.ui.activity.RepaidBalanceActivity;
 import com.jkrm.education.ui.activity.login.ChoiceClassesActivity;
 import com.jkrm.education.ui.activity.me.MeAgreementActivity;
 import com.jkrm.education.ui.activity.me.MeInfoActivity;
@@ -106,6 +106,18 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
     TextView mTvUserAggrement;
     @BindView(R.id.btn_logout)
     Button mBtnLogout;
+    @BindView(R.id.iv_acc)
+    ImageView mIvAcc;
+    @BindView(R.id.tv_acc)
+    TextView mTvAcc;
+    @BindView(R.id.ll_acc)
+    LinearLayout mLlAcc;
+    @BindView(R.id.iv_myorder)
+    ImageView mIvMyorder;
+    @BindView(R.id.tv_myorder)
+    TextView mTvMyorder;
+    @BindView(R.id.ll_myorder)
+    LinearLayout mLlMyorder;
 
 
     @Override
@@ -150,7 +162,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
         super.initListener();
     }
 
-    @OnClick({R.id.tv_mobile, R.id.btn_logout, R.id.tv_contract, R.id.tv_modifyPwd, R.id.tv_sobot, R.id.ll_version, R.id.tv_userAggrement, R.id.tv_cache, R.id.tv_answer_answerrecord,R.id.ll_classes,R.id.ll_myorder})
+    @OnClick({R.id.tv_mobile, R.id.btn_logout, R.id.tv_contract, R.id.tv_modifyPwd, R.id.tv_sobot, R.id.ll_version, R.id.tv_userAggrement, R.id.tv_cache, R.id.tv_answer_answerrecord, R.id.ll_classes, R.id.ll_myorder,R.id.ll_acc})
     @Override
     public void onClick(View v) {
         if (AwBtnClickUtil.isFastDoubleClick(v.getId())) {
@@ -189,16 +201,19 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
                 break;
             case R.id.tv_cache:
                 //toClass(CourseCacheActivity.class, false);
-                toClass(CourseCacheNewActivity.class,false);
+                toClass(CourseCacheNewActivity.class, false);
                 break;
             case R.id.tv_answer_answerrecord:
                 toClass(AnswerRecordActivity.class, false);
                 break;
             case R.id.ll_classes:
-                toClass(ChoiceClassesActivity.class,false);
+                toClass(ChoiceClassesActivity.class, false);
                 break;
             case R.id.ll_myorder:
-                toClass(MyOrderActivity.class,false);
+                toClass(MyOrderActivity.class, false);
+                break;
+            case R.id.ll_acc:
+                toClass(RepaidBalanceActivity.class, false);
                 break;
         }
     }
@@ -258,7 +273,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
 
     @Override
     public void getClassesByIdSuccess(List<RequestClassesBean> data) {
-        if(null!=data&&data.size()>0&&null!=mTvClasses){
+        if (null != data && data.size() > 0 && null != mTvClasses) {
             mTvClasses.setText(data.get(0).getClassName());
         }
     }
@@ -267,6 +282,5 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
     public void getClassesByIdFail(String msg) {
 
     }
-
 
 }

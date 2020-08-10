@@ -1,5 +1,6 @@
 package com.jkrm.education.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @CreateDate: 2020/8/7 17:58
  */
 
-public class OrderBean {
+public class OrderBean implements Serializable {
 
     /**
      * code : 200
@@ -94,7 +95,7 @@ public class OrderBean {
         this.rows = rows;
     }
 
-    public static class RowsBean {
+    public static class RowsBean implements Serializable{
         /**
          * client : IOS
          * clientName : 未知
@@ -369,7 +370,7 @@ public class OrderBean {
             this.detaiList = detaiList;
         }
 
-        public static class DetaiListBean {
+        public static class DetaiListBean implements Serializable{
             /**
              * catalogId :
              * catalogName :
