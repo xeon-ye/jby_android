@@ -175,6 +175,19 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
                 mAdapter.notifyDataSetChanged();
             }
         });
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                InvestResultBean investResultBean = (InvestResultBean) adapter.getItem(position);
+                for(int i=0; i<adapter.getItemCount(); i++) {
+                    InvestResultBean tempBean = (InvestResultBean) adapter.getItem(i);
+                    tempBean.setSelect(false);
+                }
+                investResultBean.setSelect(true);
+                mTvRepaidBalanceNum.setText(investResultBean.getPrice());
+                mAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -285,7 +298,7 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.tv_now_buy)
+    @OnClick(R.id.btn_pay)
     public void onViewClicked() {
         List<InvestResultBean> data = mAdapter.getData();
         ArrayList<GoodsDetai> goodsDetais = new ArrayList<>();
