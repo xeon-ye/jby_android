@@ -17,6 +17,7 @@ import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
+import com.hzw.baselib.widgets.ChosePayDialogFragment;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.RepaidBalanceAdapter;
 import com.jkrm.education.adapter.VideoPointAdapter;
@@ -308,6 +309,8 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
                 goodsDetais.add(new GoodsDetai(datum.getId(), datum.getMsg(), datum.getPrice(), "1", "recharge", ""));
             }
         }
+        ChosePayDialogFragment chosePayDialogFragment=new ChosePayDialogFragment();
+        chosePayDialogFragment.show(getSupportFragmentManager(),"");
         mPresenter.createOrder(RequestUtil.getCreateOrderBody(mInvestResultBean.getMsg(),mInvestResultBean.getPrice(),"1","1",goodsDetais, MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
     }
 
