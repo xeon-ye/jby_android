@@ -28,6 +28,7 @@ import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
 import com.jkrm.education.bean.result.CreateOrderResultBean;
 import com.jkrm.education.bean.result.CreateWechatPayOrderResultBean;
 import com.jkrm.education.bean.result.InvestResultBean;
+import com.jkrm.education.bean.result.PurseResultBean;
 import com.jkrm.education.bean.rx.RxPayType;
 import com.jkrm.education.bean.type.TypeCourseBean;
 import com.jkrm.education.constants.Extras;
@@ -310,6 +311,16 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
     @Override
     public void createAlipayOrderFail(String msg) {
         showMsg(msg);
+    }
+
+    @Override
+    public void pursePaySuccess(PurseResultBean bean) {
+
+    }
+
+    @Override
+    public void pursePayFail(String msg) {
+
     }
 
     @Override

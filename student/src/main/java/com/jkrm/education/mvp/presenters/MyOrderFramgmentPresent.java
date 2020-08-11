@@ -11,9 +11,13 @@ import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.OrderBean;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.result.AccountBalancesBean;
 import com.jkrm.education.bean.result.CourseAttrBean;
 import com.jkrm.education.bean.result.CourseTypeBean;
+import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
+import com.jkrm.education.bean.result.CreateWechatPayOrderResultBean;
 import com.jkrm.education.bean.result.MicroLessonResultBean;
+import com.jkrm.education.bean.result.PurseResultBean;
 import com.jkrm.education.mvp.views.MicroLessonFragmentView;
 import com.jkrm.education.mvp.views.MyOrderFragmentView;
 
@@ -70,4 +74,133 @@ public class MyOrderFramgmentPresent extends AwCommonPresenter implements MyOrde
             }
         });
     }
+
+    @Override
+    public void createWechatOrder(RequestBody body) {
+        Observable<ResponseBean<CreateWechatPayOrderResultBean>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .createWechatPayOrder(body);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<CreateWechatPayOrderResultBean>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(CreateWechatPayOrderResultBean data) {
+                mView.createWechatOrderSuccess(data);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.createWechatOrderFail(msg);
+            }
+
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
+    @Override
+    public void createAlipayOrder(String orderNo, String amount) {
+        Observable<CreateAliPayOrderResultBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .createAlipayOrder(orderNo,amount);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                String see=e.getMessage();
+                mView.getAccountBalancesFail("请求错误");
+            }
+
+            @Override
+            public void onNext(Object o) {
+                //格式与项目封装不一样单独处理
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                gsonBuilder.setPrettyPrinting();
+                Gson gson = gsonBuilder.create();
+                String s = gson.toJson(o);
+                CreateAliPayOrderResultBean data = new Gson().fromJson(s, CreateAliPayOrderResultBean.class);
+                if("200".equals(data.getCode())){
+                    mView.createAlipayOrderSuccess(data);
+                }else{
+                    mView.createAlipayOrderFail(data.getMsg());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getAccountBalances(String user_id) {
+        //格式不一样单独处理
+        Observable<AccountBalancesBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getAccountBalances(user_id);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                String see=e.getMessage();
+                mView.getAccountBalancesFail("请求错误");
+            }
+
+            @Override
+            public void onNext(Object o) {
+                //格式与项目封装不一样单独处理
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                gsonBuilder.setPrettyPrinting();
+                Gson gson = gsonBuilder.create();
+                String s = gson.toJson(o);
+                AccountBalancesBean data = new Gson().fromJson(s, AccountBalancesBean.class);
+                if("200".equals(data.getCode())){
+                    mView.getAccountBalancesSuccess(data);
+                }else{
+                    mView.getAccountBalancesFail(data.getMsg());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void pursePay(RequestBody body) {
+        Observable<ResponseBean<PurseResultBean>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .pursePay(body);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<PurseResultBean>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(PurseResultBean data) {
+                mView.pursePaySuccess(data);
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.pursePayFail(msg);
+            }
+
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
 }

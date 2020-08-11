@@ -10,6 +10,10 @@ import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.BalanceDetailsAdapter;
 import com.jkrm.education.bean.OrderBean;
+import com.jkrm.education.bean.result.AccountBalancesBean;
+import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
+import com.jkrm.education.bean.result.CreateWechatPayOrderResultBean;
+import com.jkrm.education.bean.result.PurseResultBean;
 import com.jkrm.education.mvp.presenters.MyOrderFramgmentPresent;
 import com.jkrm.education.mvp.views.MyOrderFragmentView;
 import com.jkrm.education.util.RequestUtil;
@@ -69,6 +73,46 @@ public class BalanceDetailsActivity extends AwMvpActivity<MyOrderFramgmentPresen
     @Override
     public void getOrderListFail(String msg) {
         showMsg(msg);
+    }
+
+    @Override
+    public void createWechatOrderSuccess(CreateWechatPayOrderResultBean bean) {
+
+    }
+
+    @Override
+    public void createWechatOrderFail(String msg) {
+
+    }
+
+    @Override
+    public void createAlipayOrderSuccess(CreateAliPayOrderResultBean bean) {
+
+    }
+
+    @Override
+    public void createAlipayOrderFail(String msg) {
+
+    }
+
+    @Override
+    public void getAccountBalancesSuccess(AccountBalancesBean bean) {
+
+    }
+
+    @Override
+    public void getAccountBalancesFail(String msg) {
+
+    }
+
+    @Override
+    public void pursePaySuccess(PurseResultBean bean) {
+
+    }
+
+    @Override
+    public void pursePayFail(String msg) {
+
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
 import com.jkrm.education.bean.result.CreateOrderResultBean;
 import com.jkrm.education.bean.result.CreateWechatPayOrderResultBean;
 import com.jkrm.education.bean.result.InvestResultBean;
+import com.jkrm.education.bean.result.PurseResultBean;
 import com.jkrm.education.mvp.views.QuestionSimilarView;
 import com.jkrm.education.mvp.views.RepaidBalanceView;
 import com.jkrm.education.mvp.views.SeeTargetQuestionView;
@@ -191,5 +192,35 @@ public class RepaidBalancePresent extends AwCommonPresenter implements RepaidBal
                 }
             }
         });
+    }
+
+    @Override
+    public void pursePay(RequestBody body) {
+        Observable<ResponseBean<PurseResultBean>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .pursePay(body);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<PurseResultBean>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(PurseResultBean data) {
+                mView.pursePaySuccess(data);
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.pursePayFail(msg);
+            }
+
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
     }
 }

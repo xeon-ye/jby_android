@@ -7,6 +7,7 @@ import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
 import com.jkrm.education.bean.result.CreateOrderResultBean;
 import com.jkrm.education.bean.result.CreateWechatPayOrderResultBean;
 import com.jkrm.education.bean.result.InvestResultBean;
+import com.jkrm.education.bean.result.PurseResultBean;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public interface RepaidBalanceView extends AwBaseView{
         void createWechatOrder(RequestBody body);
         //创建支付宝支付
         void createAlipayOrder(String orderNo, String amount);
+
+        void pursePay(RequestBody body);
+
     }
 
     interface View extends AwBaseView {
@@ -47,6 +51,11 @@ public interface RepaidBalanceView extends AwBaseView{
 
         void createAlipayOrderSuccess(CreateAliPayOrderResultBean bean);
         void createAlipayOrderFail(String msg);
+
+
+        void pursePaySuccess(PurseResultBean bean);
+        void pursePayFail(String msg);
+
     }
 
 }
