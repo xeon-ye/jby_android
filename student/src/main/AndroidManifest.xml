@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/student"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.order.InvestMoneyActivity"></activity>
+        <activity android:name=".ui.activity.me.BalanceDetailsActivity"></activity>
+        <activity android:name=".ui.activity.order.InvestMoneyActivity" />
         <activity android:name=".ui.activity.order.CanceledOrderActivity" />
         <activity android:name=".ui.activity.order.PaidOrderActivity" />
         <activity android:name=".ui.activity.order.ToBePaidOrderActivity" />

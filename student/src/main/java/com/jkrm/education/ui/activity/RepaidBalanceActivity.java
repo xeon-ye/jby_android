@@ -235,7 +235,27 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
 
     @Override
     public void createOrderSuccess(CreateOrderResultBean resultBean) {
-        alertDialog(resultBean);
+        //alertDialog(resultBean);
+         ChosePayDialogFragment chosePayDialogFragment=new ChosePayDialogFragment();
+        chosePayDialogFragment.show(getSupportFragmentManager(),"");
+        chosePayDialogFragment.setOnChosePayListener(new ChosePayDialogFragment.onChosePayListener() {
+            @Override
+            public void choseWechatPay() {
+                PAY_TYPE=WECHAT_PAY;
+                chosePay(resultBean);
+            }
+
+            @Override
+            public void choseAliPay() {
+                PAY_TYPE=ALI_PAY;
+                chosePay(resultBean);
+            }
+
+            @Override
+            public void chosePursePay() {
+
+            }
+        });
 
     }
 
@@ -309,8 +329,7 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
                 goodsDetais.add(new GoodsDetai(datum.getId(), datum.getMsg(), datum.getPrice(), "1", "recharge", ""));
             }
         }
-        ChosePayDialogFragment chosePayDialogFragment=new ChosePayDialogFragment();
-        chosePayDialogFragment.show(getSupportFragmentManager(),"");
+
         mPresenter.createOrder(RequestUtil.getCreateOrderBody(mInvestResultBean.getMsg(),mInvestResultBean.getPrice(),"1","1",goodsDetais, MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
     }
 
@@ -345,13 +364,10 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
             //微信支付
             case WECHAT_PAY:
                  mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(resultBean.getOrderId(),mInvestResultBean.getPrice(),"1"));
-                //测试金额 0.01
-               // mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(resultBean.getOrderId(), "0.01", "1"));
                 break;
             //支付宝支付
             case ALI_PAY:
                  mPresenter.createAlipayOrder(resultBean.getOrderId(),mInvestResultBean.getPrice());
-                //mPresenter.createAlipayOrder(resultBean.getOrderId(), "0.01");
                 break;
         }
     }

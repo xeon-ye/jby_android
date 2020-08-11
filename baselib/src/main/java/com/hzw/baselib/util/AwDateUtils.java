@@ -51,6 +51,9 @@ public class AwDateUtils {
     public static SimpleDateFormat formatData20 = new SimpleDateFormat("HH时mm分ss秒");
     public static SimpleDateFormat formatData21 = new SimpleDateFormat("mm分ss秒");
     public static SimpleDateFormat formatData22 = new SimpleDateFormat("MM月dd日HH时mm分");
+    public static SimpleDateFormat formatData23= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    public static SimpleDateFormat formatDate24 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     public static String getWeekString(Calendar date) {
         int index = date.get(Calendar.DAY_OF_WEEK);
@@ -397,6 +400,20 @@ public class AwDateUtils {
         return formatDate11.format(new Date(time));
     }
 
+    public static String getyyyyMMddHHmmssWithNo(long time){
+        if (0 == time || AwDataUtil.isEmpty(time)) {
+            return "";
+        }
+        return formatDate24.format(new Date(time));
+    }
+    public static String getyyyyMMddHHmmss(String time){
+        try {
+            return String.valueOf(formatData23.parse(time));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 
 }

@@ -10,13 +10,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hzw.baselib.util.AwDateUtils;
 import com.jkrm.education.R;
 import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.OrderBean;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +56,7 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.RowsBean, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, OrderBean.RowsBean item) {
-
+        helper.setIsRecyclable(false);
         TextView mTv_valid_time = helper.getView(R.id.tv_valid_time);
         if ("1".equals(item.getStep())) {
             helper.setText(R.id.tv_step, "待支付");
@@ -63,7 +66,6 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.RowsBean, BaseViewH
                 @Override
                 public void onTick(long l) {
                     mTv_valid_time.setText(getGapTime(l) + "后自动取消");
-
                 }
 
                 @Override
@@ -76,22 +78,32 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.RowsBean, BaseViewH
             helper.setVisible(R.id.iv_paided, true);
             helper.setGone(R.id.tv_step, false);
             helper.setGone(R.id.ll_of_pay, false);
+            helper.setGone(R.id.tv_valid_time,true);
         } else if ("3".equals(item.getStep())) {
             helper.setText(R.id.tv_step, "已取消");
             helper.setTextColor(R.id.tv_step, mContext.getResources().getColor(R.color.color_999999));
             helper.setGone(R.id.ll_of_pay, false);
+            helper.setGone(R.id.tv_valid_time,true);
         }
-        helper.setText(R.id.tv_time, "下单时间:" + item.getCreateTime())
-                .setText(R.id.tv_price, "￥" + item.getGoodsPrice())
-                .setText(R.id.tv_content, "共" + item.getDetaiList().get(0).getComboNum() + "节课")
-                .setText(R.id.tv_course, item.getDetaiList().get(0).getCourseName())
-                .setText(R.id.tv_title, item.getDetaiList().get(0).getGoodsName())
-                .addOnClickListener(R.id.tv_title)
-                .addOnClickListener(R.id.tv_time)
-                .addOnClickListener(R.id.tv_content)
-                .addOnClickListener(R.id.tv_course)
-                .addOnClickListener(R.id.tv_price)
-                .addOnClickListener(R.id.tv_pay);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            Date parse = simpleDateFormat.parse(item.getCreateTime());
+            helper.setText(R.id.tv_time, "下单时间:" + AwDateUtils.getyyyyMMddHHmmssWithNo(parse.getTime()))
+                    .setText(R.id.tv_price, "￥" + item.getGoodsPrice())
+                    .setText(R.id.tv_content, "共" + item.getDetaiList().get(0).getComboNum() + "节课")
+                    .setText(R.id.tv_course, item.getDetaiList().get(0).getCourseName())
+                    .setText(R.id.tv_title, item.getDetaiList().get(0).getGoodsName())
+                    .addOnClickListener(R.id.tv_title)
+                    .addOnClickListener(R.id.tv_time)
+                    .addOnClickListener(R.id.tv_content)
+                    .addOnClickListener(R.id.tv_course)
+                    .addOnClickListener(R.id.tv_price)
+                    .addOnClickListener(R.id.tv_pay);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public String getGapTime(long time) {

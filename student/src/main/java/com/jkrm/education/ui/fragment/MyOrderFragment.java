@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpFragment;
 import com.hzw.baselib.base.AwMvpLazyFragment;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
+import com.hzw.baselib.widgets.ChosePayDialogFragment;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.OrderAdapter;
 import com.jkrm.education.bean.OrderBean;
@@ -72,6 +73,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()){
                     case R.id.tv_pay:
+
                         showDialogCustomLeftAndRight("确认支付", "取消", "确认", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -80,7 +82,26 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
                         }, new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                showMsg("支付");
+                                dismissDialog();
+                                ChosePayDialogFragment chosePayDialogFragment=new ChosePayDialogFragment();
+                                chosePayDialogFragment.setHasPurse(true);
+                                chosePayDialogFragment.setOnChosePayListener(new ChosePayDialogFragment.onChosePayListener() {
+                                    @Override
+                                    public void choseWechatPay() {
+
+                                    }
+
+                                    @Override
+                                    public void choseAliPay() {
+
+                                    }
+
+                                    @Override
+                                    public void chosePursePay() {
+
+                                    }
+                                });
+                                chosePayDialogFragment.show(getFragmentManager(),"");
                             }
                         });
                         break;

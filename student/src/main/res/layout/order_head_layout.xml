@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -25,11 +26,11 @@
                 android:textSize="@dimen/dimen_16" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_timeing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="111"
+                tools:text="111"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -59,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="111"
+                tools:text="111"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -87,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_15"
-                android:text="111"
+                tools:text="111"
                 android:textColor="#6D7278" />
 
             <LinearLayout
@@ -108,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="222"
+                    tools:text="222"
                     android:textColor="#3B3E42" />
             </LinearLayout>
 
@@ -126,6 +127,20 @@
                 >
 
                 <TextView
+                    android:id="@+id/tv_watch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查看课程"
+                    android:textColor="@color/white"
+                    android:background="@drawable/selector_btn_blue_with_ededed_radius15"
+                    android:paddingLeft="@dimen/dimen_15"
+                    android:paddingRight="@dimen/dimen_15"
+                    android:paddingTop="@dimen/dimen_8"
+                    android:paddingBottom="@dimen/dimen_8"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:visibility="gone"
+                    />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right|center"
@@ -139,7 +154,7 @@
                     android:id="@+id/tv_price_dis"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$300"
+                    tools:text="$300"
                     android:textColor="@color/red"
                     android:layout_marginLeft="@dimen/dimen_15"
                     android:layout_marginRight="@dimen/dimen_15"
