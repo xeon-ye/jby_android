@@ -38,6 +38,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -212,7 +214,7 @@ public class ToBePaidOrderActivity extends AwMvpActivity<RepaidBalancePresent> i
 
     @Override
     public void createWechatOrderFail(String msg) {
-
+        showMsg(msg);
     }
 
     @Override
@@ -298,6 +300,68 @@ public class ToBePaidOrderActivity extends AwMvpActivity<RepaidBalancePresent> i
                 });
                 chosePayDialogFragment.show(getSupportFragmentManager(),"");
                 break;
+        }
+    }
+
+    //支付结果
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshByPayCode(RxPayType type) {
+        switch (type.getPayType()) {
+            //微信支付
+            case RxPayType.WECHAT_PAY:
+                switch (type.getPayCode()) {
+                    case RxPayType.PAY_SUCCESS:
+                        showMsg("微信支付成功");
+                        mBean.setStep("2");
+                        finish();
+                        break;
+                    case RxPayType.PAY_CANCEL:
+                        showMsg("微信支付取消");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                    case RxPayType.PAY_FAIL:
+                        showMsg("微信支付失败");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                }
+                break;
+            //支付宝支付
+            case RxPayType.ALI_PAY:
+                switch (type.getPayCode()) {
+                    case RxPayType.PAY_SUCCESS:
+                        showMsg("支付宝支付成功");
+                        mBean.setStep("2");
+                        finish();
+                        break;
+                    case RxPayType.PAY_CANCEL:
+                        showMsg("支付宝支付取消");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                    case RxPayType.PAY_FAIL:
+                        showMsg("支付宝支付失败");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                }
+                break;
+            //钱包支付
+            case RxPayType.PURSE_PAY:
+                switch (type.getPayCode()) {
+                    case RxPayType.PAY_SUCCESS:
+                        showMsg("钱包支付成功");
+                        mBean.setStep("2");
+                        finish();
+                        break;
+                    case RxPayType.PAY_CANCEL:
+                        showMsg("钱包支付取消");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                    case RxPayType.PAY_FAIL:
+                        showMsg("钱包支付失败");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                }
+                break;
+
         }
     }
 }

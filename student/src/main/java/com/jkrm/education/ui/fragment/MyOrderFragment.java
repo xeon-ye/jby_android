@@ -17,6 +17,7 @@ import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.widgets.ChosePayDialogFragment;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.OrderAdapter;
+import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.OrderBean;
 import com.jkrm.education.bean.result.AccountBalancesBean;
 import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
@@ -27,14 +28,19 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MyOrderFramgmentPresent;
 import com.jkrm.education.mvp.views.MyOrderFragmentView;
 import com.jkrm.education.student.wxapi.alipay.PayResult;
+import com.jkrm.education.ui.activity.PayFailActivity;
+import com.jkrm.education.ui.activity.PaySuccessActivity;
 import com.jkrm.education.ui.activity.order.CanceledOrderActivity;
 import com.jkrm.education.ui.activity.order.PaidOrderActivity;
 import com.jkrm.education.ui.activity.order.ToBePaidOrderActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Map;
 
@@ -88,6 +94,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
             }
         }
     };
+    private OrderBean.RowsBean mBean;
 
     @Override
     protected int getLayoutId() {
@@ -105,6 +112,10 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
         mStep = getArguments().getString(Extras.KEY_STEP);
         mOrderAdapter = new OrderAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(),mRcvData, mOrderAdapter,false);
+        //微信
+        mWxapi = WXAPIFactory.createWXAPI(getActivity(), MyApp.WX_APP_ID);
+        mWxapi.registerApp(MyApp.WX_APP_ID);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -119,7 +130,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
         mOrderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderBean.RowsBean mBean = (OrderBean.RowsBean) adapter.getData().get(position);
+                mBean = (OrderBean.RowsBean) adapter.getData().get(position);
                 switch (view.getId()){
                     case R.id.tv_pay:
 
@@ -135,6 +146,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
                                 ChosePayDialogFragment chosePayDialogFragment=new ChosePayDialogFragment();
                                 chosePayDialogFragment.setHasPurse(true);
                                 chosePayDialogFragment.setOnChosePayListener(new ChosePayDialogFragment.onChosePayListener() {
+                                    @Override
                                     public void choseWechatPay() {
                                         //  mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(),mBean.getGoodsPrice(),"2"));
                                         //测试金额 0.01
@@ -204,7 +216,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
 
     @Override
     public void createWechatOrderFail(String msg) {
-
+        showMsg(msg);
     }
 
     @Override
@@ -232,7 +244,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
 
     @Override
     public void createAlipayOrderFail(String msg) {
-
+        showMsg(msg);
     }
 
     @Override
@@ -257,6 +269,64 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
 
     }
 
+    //支付结果
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshByPayCode(RxPayType type) {
+        switch (type.getPayType()) {
+            //微信支付
+            case RxPayType.WECHAT_PAY:
+                switch (type.getPayCode()) {
+                    case RxPayType.PAY_SUCCESS:
+                        showMsg("微信支付成功");
+                        mBean.setStep("2");
+                        mOrderAdapter.notifyDataSetChanged();
+                        break;
+                    case RxPayType.PAY_CANCEL:
+                        showMsg("微信支付取消");
+                        break;
+                    case RxPayType.PAY_FAIL:
+                        showMsg("微信支付失败");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                }
+                break;
+            //支付宝支付
+            case RxPayType.ALI_PAY:
+                switch (type.getPayCode()) {
+                    case RxPayType.PAY_SUCCESS:
+                        showMsg("支付宝支付成功");
+                        mBean.setStep("2");
+                        mOrderAdapter.notifyDataSetChanged();
+                        break;
+                    case RxPayType.PAY_CANCEL:
+                        showMsg("支付宝支付取消");
+                        break;
+                    case RxPayType.PAY_FAIL:
+                        showMsg("支付宝支付失败");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                }
+                break;
+            //钱包支付
+            case RxPayType.PURSE_PAY:
+                switch (type.getPayCode()) {
+                    case RxPayType.PAY_SUCCESS:
+                        showMsg("钱包支付成功");
+                        mBean.setStep("2");
+                        break;
+                    case RxPayType.PAY_CANCEL:
+                        showMsg("钱包支付取消");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                    case RxPayType.PAY_FAIL:
+                        showMsg("钱包支付失败");
+                        toClass(PayFailActivity.class,false);
+                        break;
+                }
+                break;
+
+        }
+    }
 
 
 
