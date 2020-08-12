@@ -115,7 +115,6 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
         //微信
         mWxapi = WXAPIFactory.createWXAPI(getActivity(), MyApp.WX_APP_ID);
         mWxapi.registerApp(MyApp.WX_APP_ID);
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -210,6 +209,7 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
         request.nonceStr = bean.getNonce_str();
         request.timeStamp = bean.getTimestamp();
         request.sign = bean.getSign();
+        request.extData=Extras.ORDER_PAY;
         //发起请求，调起微信前去支付
         mWxapi.sendReq(request);
     }
@@ -328,6 +328,9 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
         }
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
 }

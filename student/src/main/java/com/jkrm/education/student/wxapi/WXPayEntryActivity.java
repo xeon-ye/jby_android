@@ -4,6 +4,7 @@ package com.jkrm.education.student.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.jkrm.education.base.MyApp;
@@ -19,6 +20,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
+import static com.shuyu.gsyvideoplayer.GSYVideoADManager.TAG;
+
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 	
 
@@ -31,7 +34,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         
     	api = WXAPIFactory.createWXAPI(this, MyApp.WX_APP_ID);
         api.handleIntent(getIntent(), this);
-    }
+	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -48,8 +51,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 	@Override
 	public void onResp(BaseResp resp) {
-		/*Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
-		 */
+		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
 		PayResp res = (PayResp) resp;
 		switch (res.extData){
 			//订单

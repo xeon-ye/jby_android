@@ -45,6 +45,10 @@
             android:text="钱包支付"
             />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_ededed"></View>
     <LinearLayout
         android:id="@+id/ll_of_wechat"
         android:layout_width="match_parent"

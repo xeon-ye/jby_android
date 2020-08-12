@@ -208,6 +208,7 @@ public class ToBePaidOrderActivity extends AwMvpActivity<RepaidBalancePresent> i
         request.nonceStr = bean.getNonce_str();
         request.timeStamp = bean.getTimestamp();
         request.sign = bean.getSign();
+        request.extData=Extras.ORDER_PAY;
         //发起请求，调起微信前去支付
         mWxapi.sendReq(request);
     }

@@ -1,18 +1,31 @@
 package com.jkrm.education.ui.activity.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hzw.baselib.base.AwBaseActivity;
+import com.hzw.baselib.interfaces.AwApiCallback;
+import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.util.AwDateUtils;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.api.APIService;
+import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.bean.AnswerSheetBean;
 import com.jkrm.education.bean.OrderBean;
 import com.jkrm.education.bean.result.MicroLessonResultBean;
 import com.jkrm.education.constants.Extras;
+import com.jkrm.education.ui.activity.AnswerSheetActivity;
+import com.jkrm.education.ui.activity.AnswerSituationActivity;
 import com.jkrm.education.ui.activity.CoursePurchasedActivity;
+import com.jkrm.education.ui.activity.ScanQrcodeActivity;
+import com.jkrm.education.ui.activity.login.ChoiceClassesActivity;
+import com.jkrm.education.util.UserUtil;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +33,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class PaidOrderActivity extends AwBaseActivity {
 
@@ -93,9 +108,31 @@ public class PaidOrderActivity extends AwBaseActivity {
 
     @OnClick(R.id.tv_watch)
     public void onViewClicked() {
-        MicroLessonResultBean microLessonResultBean=new MicroLessonResultBean();
-        microLessonResultBean.setId(mBean.getId());
-        microLessonResultBean.setPcvId(mBean.getPcvId());
-        toClass(CoursePurchasedActivity.class,false,Extras.KEY_COURSE_BEAN,microLessonResultBean);
+        RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getCourseById(mBean.getDetaiList().get(0).getGoodsId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new AwApiSubscriber(new AwApiCallback<MicroLessonResultBean>() {
+                    @Override
+                    public void onStart() {
+                        showLoadingDialog();
+                    }
+
+                    @Override
+                    public void onSuccess(MicroLessonResultBean data) {
+                        toClass(CoursePurchasedActivity.class,false,Extras.KEY_COURSE_BEAN,data);
+                    }
+                    @Override
+                    public void onFailure(int code, String msg) {
+                        showMsg(msg);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        dismissLoadingDialog();
+                    }
+                }));
+
     }
 }

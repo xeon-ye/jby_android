@@ -2,36 +2,38 @@ package com.jkrm.education.ui.activity;
 
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.util.AwDateUtils;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.hzw.baselib.widgets.CustomNestRadioGroup;
 import com.jkrm.education.R;
 import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.GoodsDetai;
 import com.jkrm.education.bean.result.AccountBalancesBean;
-import com.jkrm.education.bean.result.CoursePlayResultBean;
 import com.jkrm.education.bean.result.CreateAliPayOrderResultBean;
 import com.jkrm.education.bean.result.CreateOrderResultBean;
 import com.jkrm.education.bean.result.CreateWechatPayOrderResultBean;
 import com.jkrm.education.bean.result.MicroLessonResultBean;
 import com.jkrm.education.bean.result.PurseResultBean;
-import com.jkrm.education.bean.rx.RxDownCourseType;
 import com.jkrm.education.bean.rx.RxPayType;
 import com.jkrm.education.bean.rx.RxRePayType;
 import com.jkrm.education.constants.Extras;
-import com.jkrm.education.download.DownloadLimitManager;
 import com.jkrm.education.mvp.presenters.ConfirmAnOrderPresent;
 import com.jkrm.education.mvp.views.ConfirmAnOrderView;
 import com.jkrm.education.student.wxapi.alipay.PayResult;
+import com.jkrm.education.ui.activity.login.VerCodeLoginActivity;
 import com.jkrm.education.ui.fragment.MicrolessonFragment;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
@@ -43,10 +45,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +74,26 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     TextView mTvTitle;
     @BindView(R.id.tv_goods_price)
     TextView mTvGoodsPrice;
+    @BindView(R.id.toolbar_custom)
+    AwViewCustomToolbar mToolbarCustom;
+    @BindView(R.id.ll_title)
+    LinearLayout mLlTitle;
+    @BindView(R.id.tv_time)
+    TextView mTvTime;
+    @BindView(R.id.tv_name)
+    TextView mTvName;
+    @BindView(R.id.rb_pay_purse)
+    RadioButton mRbPayPurse;
+    @BindView(R.id.ll_of_pay_purse)
+    LinearLayout mLlOfPayPurse;
+    @BindView(R.id.rb_alipay)
+    RadioButton mRbAlipay;
+    @BindView(R.id.ll_of_alipay)
+    LinearLayout mLlOfAlipay;
+    @BindView(R.id.rb_wechatpay)
+    RadioButton mRbWechatpay;
+    @BindView(R.id.ll_of_wechatpay)
+    LinearLayout mLlOfWechatpay;
 
     private int PAY_TYPE;
     private IWXAPI mWxapi;
@@ -108,6 +129,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
             }
         }
     };
+    private TimeCount mTimeCount;
 
     @Override
     protected ConfirmAnOrderPresent createPresenter() {
@@ -122,20 +144,22 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     @Override
     protected void initView() {
         super.initView();
-        setToolbarWithBackImg("确认订单", new AwViewCustomToolbar.OnLeftClickListener() {
+        setToolbarWithBackImg("支付订单", new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
             public void onLeftTextClick() {
                 finish();
             }
         });
         mMicroLessonResultBean = (MicroLessonResultBean) getIntent().getSerializableExtra(Extras.KEY_COURSE_BEAN);
-        Glide.with(this).load(mMicroLessonResultBean.getMlessonUrl()).into(mIvImg);
-        mTvTitle.setText(mMicroLessonResultBean.getMlessonName());
-        mTvGoodsPrice.setText(mMicroLessonResultBean.getMlessonPrice());
+        Glide.with(this).load(mMicroLessonResultBean.getMlessonUrl()).  into(mIvImg);
+        mTvName.setText(mMicroLessonResultBean.getMlessonName());
+        mTvGoodsPrice.setText("￥"+mMicroLessonResultBean.getMlessonPrice());
         mTvPrice.setText(mMicroLessonResultBean.getMlessonPrice());
         //微信
         mWxapi = WXAPIFactory.createWXAPI(this, MyApp.WX_APP_ID);
         mWxapi.registerApp(MyApp.WX_APP_ID);
+        mTimeCount = new TimeCount(1000*60*60*24, 1000);
+        mTimeCount.start();
     }
 
     @Override
@@ -151,7 +175,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         mPresenter.getAccountBalances(UserUtil.getUserId());
     }
 
-    @OnClick(R.id.tv_now_buy)
+    @OnClick(R.id.tv_buy)
     public void onViewClicked() {
         if (TextUtils.isEmpty(mMoney) || TextUtils.isEmpty(mMicroLessonResultBean.getMlessonPrice())) {
             showMsg("获取价钱失败，请稍后再试");
@@ -195,9 +219,9 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         }
         // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), mMicroLessonResultBean.getMlessonPrice(), "1", "1", goodsDetais));
         //测试金额 0.01
-           //orderType  1. 充值  2.支付
-       // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais));
-        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
+        //orderType  1. 充值  2.支付
+        // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais));
+        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId, MicrolessonFragment.mStrCourseName));
     }
 
     @Override
@@ -211,13 +235,13 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
                 break;
             //支付宝支付
             case ALI_PAY:
-                 //mPresenter.createAlipayOrder(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice());
+                //mPresenter.createAlipayOrder(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice());
                 mPresenter.createAlipayOrder(resultBean.getOrderId(), "0.01");
                 break;
-                //钱包支付
+            //钱包支付
             case PURSE_PAY:
-               // mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
-                mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(),"0.01","2"));
+                // mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
+                mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(), "0.01", "2"));
                 break;
         }
     }
@@ -229,7 +253,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
 
     @Override
     public void createWechatOrderSuccess(CreateWechatPayOrderResultBean bean) {
-        mCreateWechatPayOrderResultBean=bean;
+        mCreateWechatPayOrderResultBean = bean;
         //发起微信支付
         PayReq request = new PayReq();
         request.appId = bean.getAppid();
@@ -239,6 +263,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         request.nonceStr = bean.getNonce_str();
         request.timeStamp = bean.getTimestamp();
         request.sign = bean.getSign();
+        request.extData = Extras.ORDER_PAY;
         //发起请求，调起微信前去支付
         mWxapi.sendReq(request);
     }
@@ -250,7 +275,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
 
     @Override
     public void createAlipayOrderSuccess(CreateAliPayOrderResultBean bean) {
-        mCreateAliPayOrderResultBean=bean;
+        mCreateAliPayOrderResultBean = bean;
         //支付宝订单信息
         final String orderInfo = bean.getData();
         Runnable payRunnable = new Runnable() {
@@ -290,13 +315,13 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     public void pursePaySuccess(PurseResultBean bean) {
         showMsg("钱包支付成功");
         mMicroLessonResultBean.setWhetherBuy("1");
-        toClass(PaySuccessActivity.class,true,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);
+        toClass(PaySuccessActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
     }
 
     @Override
     public void pursePayFail(String msg) {
         showMsg("钱包支付失败");
-        toClass(PayFailActivity.class,true,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);
+        toClass(PayFailActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
     }
 
     @Override
@@ -305,14 +330,15 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
     //重新支付
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void rePay(RxRePayType rePayType){
-        if(!rePayType.isRePay()){
+    public void rePay(RxRePayType rePayType) {
+        if (!rePayType.isRePay()) {
             finish();
             return;
         }
-        switch (PAY_TYPE){
+        switch (PAY_TYPE) {
 
             case WECHAT_PAY:
                 //发起微信支付
@@ -324,6 +350,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
                 request.nonceStr = mCreateWechatPayOrderResultBean.getNonce_str();
                 request.timeStamp = mCreateWechatPayOrderResultBean.getTimestamp();
                 request.sign = mCreateWechatPayOrderResultBean.getSign();
+                request.extData = Extras.ORDER_PAY;
                 //发起请求，调起微信前去支付
                 mWxapi.sendReq(request);
                 break;
@@ -362,15 +389,15 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
                     case RxPayType.PAY_SUCCESS:
                         showMsg("微信支付成功");
                         mMicroLessonResultBean.setWhetherBuy("1");
-                        toClass(PaySuccessActivity.class,true,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);
+                        toClass(PaySuccessActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
                         break;
                     case RxPayType.PAY_CANCEL:
                         showMsg("微信支付取消");
-                        toClass(PayFailActivity.class,false);
+                        toClass(PayFailActivity.class, false);
                         break;
                     case RxPayType.PAY_FAIL:
                         showMsg("微信支付失败");
-                        toClass(PayFailActivity.class,false);
+                        toClass(PayFailActivity.class, false);
                         break;
                 }
                 break;
@@ -380,15 +407,15 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
                     case RxPayType.PAY_SUCCESS:
                         showMsg("支付宝支付成功");
                         mMicroLessonResultBean.setWhetherBuy("1");
-                        toClass(PaySuccessActivity.class,true,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);
+                        toClass(PaySuccessActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
                         break;
                     case RxPayType.PAY_CANCEL:
                         showMsg("支付宝支付取消");
-                        toClass(PayFailActivity.class,false);
+                        toClass(PayFailActivity.class, false);
                         break;
                     case RxPayType.PAY_FAIL:
                         showMsg("支付宝支付失败");
-                        toClass(PayFailActivity.class,false);
+                        toClass(PayFailActivity.class, false);
                         break;
                 }
                 break;
@@ -398,15 +425,15 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
                     case RxPayType.PAY_SUCCESS:
                         showMsg("钱包支付成功");
                         mMicroLessonResultBean.setWhetherBuy("1");
-                        toClass(PaySuccessActivity.class,true,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);
+                        toClass(PaySuccessActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
                         break;
                     case RxPayType.PAY_CANCEL:
                         showMsg("钱包支付取消");
-                        toClass(PayFailActivity.class,false);
+                        toClass(PayFailActivity.class, false);
                         break;
                     case RxPayType.PAY_FAIL:
                         showMsg("钱包支付失败");
-                        toClass(PayFailActivity.class,false);
+                        toClass(PayFailActivity.class, false);
                         break;
                 }
                 break;
@@ -418,5 +445,43 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     protected void onResume() {
         super.onResume();
         initData();
+    }
+
+    /**
+     * 倒计时的内部类
+     */
+    private class TimeCount extends CountDownTimer {
+        // 参数依次为总时长,和计时的时间间隔
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+            MyApp.getInstance().setDefaultCountdown();
+            if (mTvTime != null) {
+                mTvTime.setText("已过期");
+                mTvTime.setTextColor(getResources().getColor(R.color.colorAccent));
+            }
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+            if (mTvTime != null) {
+                mTvTime.setClickable(false);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                String format = simpleDateFormat.format(millisUntilFinished);
+                mTvTime.setText("支付剩余时间"+format);
+                mTvTime.setTextColor(getResources().getColor(R.color.gray));
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTimeCount != null && MyApp.getInstance().isDefaultCountdown()) {
+            mTimeCount.cancel();
+        }
     }
 }

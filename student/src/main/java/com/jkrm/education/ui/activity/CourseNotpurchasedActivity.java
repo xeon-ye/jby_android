@@ -279,7 +279,7 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
                     }, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            toClass(ConfirmAnOrderActivity.class, false);
+                            toClass(ConfirmAnOrderStepOneActivity.class, false);
                         }
                     });
                 }
@@ -298,7 +298,7 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
 
     @OnClick(R.id.tv_now_buy)
     public void onViewClicked() {
-        toClass(ConfirmAnOrderActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
+        toClass(ConfirmAnOrderStepOneActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
 
     }
 

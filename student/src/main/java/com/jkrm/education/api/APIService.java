@@ -763,4 +763,11 @@ public interface APIService {
     @POST(UrlConstant.GET_ORDER_LIST)
     Observable<OrderBean>  getOrderList(@Body RequestBody requestBody);
 
+    /**
+     * 根据订单id获取课程信息
+     * @return
+     */
+    @POST(UrlConstant.GET_COURSE_BY_ORDERID)
+    Observable<ResponseBean<MicroLessonResultBean>> getCourseById(@Path("goodsId") String goodsId);
+
 }

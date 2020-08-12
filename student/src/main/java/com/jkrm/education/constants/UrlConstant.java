@@ -252,4 +252,9 @@ public class UrlConstant {
      * 获取订单列表
      */
     public static final String GET_ORDER_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"user_server/order/list";
+
+    /**
+     * 根据订单id查询课程信息
+     */
+    public static final String GET_COURSE_BY_ORDERID=MOCK_API_PREFIX+COMMON_URL_PREFIX+"resource_server/combo/manage/pc/{goodsId}";
 }

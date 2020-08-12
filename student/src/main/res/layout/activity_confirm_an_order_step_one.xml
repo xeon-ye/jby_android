@@ -17,7 +17,6 @@
         android:layout_marginRight="@dimen/dimen_20"
         android:layout_marginTop="@dimen/dimen_20"
         app:cardCornerRadius="@dimen/dimen_10"
-        android:visibility="gone"
         >
 
         <LinearLayout
@@ -35,7 +34,7 @@
                     android:id="@+id/iv_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                  />
+                    />
             </android.support.v7.widget.CardView>
 
 
@@ -69,45 +68,41 @@
                     android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:textColor="@color/red"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     tools:text="1115" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textSize="10sp"
+        android:text="你即将购买的商品为虚拟内容服务，购买后不支持退订、转让、退还，请 斟酌确认。"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/dimen_25"
+        android:orientation="horizontal"
         android:gravity="center"
         >
         <TextView
-            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/dimen_12"
-            />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_12"
+            android:text="支付即代表同意"
             android:textSize="12sp"
-            android:textColor="#6D7278"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《新教育课程协议》"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
             />
     </LinearLayout>
-
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -120,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dimen_20">
+            android:padding="@dimen/dimen_20" android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -147,22 +142,14 @@
 
 
                     <TextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dimen_20"
+                        android:layout_weight="1"
                         android:text="账户余额"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dimen_10"
-                        android:textColor="@color/colorPrimary"
-                        />
 
 
                     <RadioButton
@@ -252,20 +239,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
             ></include>
-
-        <TextView
-            android:id="@+id/tv_buy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="@drawable/aw_bg_blue_radius_30"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/dimen_10"
-            android:text="确认支付"
-            android:textColor="@color/white"
-            />
     </RelativeLayout>
 
 </LinearLayout>
