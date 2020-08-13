@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="@dimen/dimen_20"
     android:layout_width="65dp"
     android:layout_height="26dp"
     android:gravity="center"
     android:id="@+id/tv_name"
     android:maxLines="2"
+    android:layout_margin="@dimen/dimen_5"
     android:background="@drawable/selector_btn_blue_with_gray_radius13"
     style="@style/small_black_style2"
     android:textColor="@drawable/aw_selector_text_default_gray_with_white_no_press"/>

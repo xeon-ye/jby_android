@@ -118,7 +118,7 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<AnswerSheetDataD
             helper.setGone(R.id.tv_questionAnswer, false)
                     .setText(R.id.tv_scoreRate,"得分：" + MyDateUtil.replace(bean.getScore()));
             helper.setText(R.id.tv_questionAnswer, "正确答案：" +Html.fromHtml(bean.getProdAnswer()));
-            if(AwDataUtil.isEmpty(bean.getAnswer())){
+            if(AwDataUtil.isEmpty(bean.getAnswer())&&bean.getRawScan().length()==0){
                 MyDateUtil.setScoreStyle(mContext, tv_scoreRate, tv_scoreRate.getText().toString(), R.color.red);
                 helper.setText(R.id.tv_scoreRate,"未作答");
             }

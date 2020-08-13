@@ -2,7 +2,6 @@ package com.jkrm.education.ui.activity;
 
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.alipay.sdk.app.PayTask;
 import com.bumptech.glide.Glide;
 import com.hzw.baselib.base.AwMvpActivity;
-import com.hzw.baselib.util.AwDateUtils;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.hzw.baselib.widgets.CustomNestRadioGroup;
 import com.jkrm.education.R;
@@ -33,7 +31,6 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ConfirmAnOrderPresent;
 import com.jkrm.education.mvp.views.ConfirmAnOrderView;
 import com.jkrm.education.student.wxapi.alipay.PayResult;
-import com.jkrm.education.ui.activity.login.VerCodeLoginActivity;
 import com.jkrm.education.ui.fragment.MicrolessonFragment;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
@@ -45,9 +42,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +92,10 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     RadioButton mRbWechatpay;
     @BindView(R.id.ll_of_wechatpay)
     LinearLayout mLlOfWechatpay;
+    @BindView(R.id.tv_acc_num)
+    TextView mTvAccNum;
+    @BindView(R.id.tv_buy)
+    TextView mTvBuy;
 
     private int PAY_TYPE;
     private IWXAPI mWxapi;
@@ -101,8 +103,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     private String mMoney = "";
     CreateWechatPayOrderResultBean mCreateWechatPayOrderResultBean;//创建微信支付订单
     CreateAliPayOrderResultBean mCreateAliPayOrderResultBean;//创建支付宝订单
-
-
+    public static long time = 60 * 60 * 24;
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
         public void handleMessage(Message msg) {
@@ -129,7 +130,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
             }
         }
     };
-    private TimeCount mTimeCount;
+
 
     @Override
     protected ConfirmAnOrderPresent createPresenter() {
@@ -151,15 +152,31 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
             }
         });
         mMicroLessonResultBean = (MicroLessonResultBean) getIntent().getSerializableExtra(Extras.KEY_COURSE_BEAN);
-        Glide.with(this).load(mMicroLessonResultBean.getMlessonUrl()).  into(mIvImg);
+        Glide.with(this).load(mMicroLessonResultBean.getMlessonUrl()).into(mIvImg);
         mTvName.setText(mMicroLessonResultBean.getMlessonName());
-        mTvGoodsPrice.setText("￥"+mMicroLessonResultBean.getMlessonPrice());
+        mTvGoodsPrice.setText("￥" + mMicroLessonResultBean.getMlessonPrice());
         mTvPrice.setText(mMicroLessonResultBean.getMlessonPrice());
         //微信
         mWxapi = WXAPIFactory.createWXAPI(this, MyApp.WX_APP_ID);
         mWxapi.registerApp(MyApp.WX_APP_ID);
-        mTimeCount = new TimeCount(1000*60*60*24, 1000);
-        mTimeCount.start();
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                time--;
+                long hh = time / 60 / 60 % 60;
+                long mm = time / 60 % 60;
+                long ss = time % 60;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTvTime.setText("支付剩余时间 " + hh + ":" + mm + ":" + ss);
+                    }
+                });
+            }
+        }, 0, 1000);
+
     }
 
     @Override
@@ -304,6 +321,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     @Override
     public void getAccountBalancesSuccess(AccountBalancesBean bean) {
         mMoney = bean.getData();
+        mTvAccNum.setText(mMoney);
     }
 
     @Override
@@ -447,41 +465,4 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         initData();
     }
 
-    /**
-     * 倒计时的内部类
-     */
-    private class TimeCount extends CountDownTimer {
-        // 参数依次为总时长,和计时的时间间隔
-        public TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onFinish() {// 计时完毕时触发
-            MyApp.getInstance().setDefaultCountdown();
-            if (mTvTime != null) {
-                mTvTime.setText("已过期");
-                mTvTime.setTextColor(getResources().getColor(R.color.colorAccent));
-            }
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {// 计时过程显示
-            if (mTvTime != null) {
-                mTvTime.setClickable(false);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                String format = simpleDateFormat.format(millisUntilFinished);
-                mTvTime.setText("支付剩余时间"+format);
-                mTvTime.setTextColor(getResources().getColor(R.color.gray));
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mTimeCount != null && MyApp.getInstance().isDefaultCountdown()) {
-            mTimeCount.cancel();
-        }
-    }
 }
