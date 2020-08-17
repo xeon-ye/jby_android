@@ -98,6 +98,15 @@ public class BatchBean implements Serializable {
     private String isNoVideo;
     //是否是答题卡
     private boolean isAnswerSituation;
+    private String questionNum;
+
+    public String getQuestionNum() {
+        return questionNum;
+    }
+
+    public void setQuestionNum(String questionNum) {
+        this.questionNum = questionNum;
+    }
 
     @Override
     public String toString() {
@@ -660,6 +669,15 @@ public class BatchBean implements Serializable {
         private String typeName;
         private String useTime;
         private String whetherRead;
+        private String questionNum;
+
+        public String getQuestionNum() {
+            return questionNum;
+        }
+
+        public void setQuestionNum(String questionNum) {
+            this.questionNum = questionNum;
+        }
 
         public String getAnswer() {
             return answer;

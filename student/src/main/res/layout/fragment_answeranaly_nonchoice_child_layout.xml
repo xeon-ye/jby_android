@@ -13,6 +13,13 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+            <TextView
+                android:id="@+id/tv_question_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_5"
+                android:textColor="@color/black"
+                />
             <io.github.kexanie.library.MathView
                 android:id="@+id/math_view_title"
                 android:layout_width="match_parent"

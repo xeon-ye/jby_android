@@ -108,6 +108,8 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsFragment extends AwMvpFragmen
     LinearLayout mLlOfHint;
     @BindView(R.id.tv_answer)
     MathView mTvAnswer;
+    @BindView(R.id.tv_question_num)
+    TextView mTvQuestionNum;
     //是否作答
     private boolean isAnswer;
 
@@ -139,9 +141,12 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsFragment extends AwMvpFragmen
         if (null == mBatchBean) {
             return;
         }
-        if(mBatchBean.isAnswerSituation()){
-            showView(mTvHint,false);
-            showView(mLlOfHint,false);
+        if (mBatchBean.isAnswerSituation()) {
+            showView(mTvHint, false);
+            showView(mLlOfHint, false);
+        }
+        if (!AwDataUtil.isEmpty(mBatchBean.getQuestionNum())) {
+            mTvQuestionNum.setText("第" + mBatchBean.getQuestionNum() + "题");
         }
         //错题进来的 隐藏下一题  展示类题
         if (!AwDataUtil.isEmpty(mBatchBean.getErrorTypeName())) {
@@ -178,8 +183,8 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsFragment extends AwMvpFragmen
         if (AwDataUtil.isEmpty(mBatchBean.getAnswerExplanation())) {
             showView(mTvAnalysis, false);
         }
-        if(!AwDataUtil.isEmpty(mBatchBean.getAnswer())){
-            mTvAnswer.setText("答案\n\t"+mBatchBean.getAnswer());
+        if (!AwDataUtil.isEmpty(mBatchBean.getAnswer())) {
+            mTvAnswer.setText("答案\n\t" + mBatchBean.getAnswer());
             AwMathViewUtil.setImgScan(mTvAnswer);
         }
         //题干

@@ -61,6 +61,8 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsChildFragment extends AwMvpFr
     TextView mTvAnswerState;
     @BindView(R.id.tv_answer)
     MathView mTvAnswer;
+    @BindView(R.id.tv_question_num)
+    TextView mTvQuestionNum;
     private SimilarResultBean mBean;
     private List<SimilarResultBean> mList;
     private List<String> mImgList = new ArrayList<>();
@@ -97,8 +99,11 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsChildFragment extends AwMvpFr
             showView(mTvAnalysis, false);
         }
         if (!AwDataUtil.isEmpty(mBatchBean.getAnswer())) {
-            mTvAnswer.setText("答案\n\t"+mBatchBean.getAnswer());
+            mTvAnswer.setText("答案\n\t" + mBatchBean.getAnswer());
             AwMathViewUtil.setImgScan(mTvAnswer);
+        }
+        if(!AwDataUtil.isEmpty(mBatchBean.getQuestionNum())){
+            mTvQuestionNum.setText("第"+mBatchBean.getQuestionNum()+"题");
         }
         //图片
         mAnswerAnalyImgAdapter = new AnswerAnalyImgAdapter();

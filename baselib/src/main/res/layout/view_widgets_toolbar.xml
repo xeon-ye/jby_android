@@ -32,6 +32,9 @@
         style="@style/middle_black_style2"
         android:text="标题"
         android:textSize="15sp"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+
         android:visibility="visible" />
 
     <TextView

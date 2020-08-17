@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.hzw.baselib.base.AwMvpFragment;
 import com.hzw.baselib.util.AwDataUtil;
-import com.hzw.baselib.util.AwDateUtils;
 import com.hzw.baselib.util.AwMathViewUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.util.RegexUtil;
@@ -38,7 +37,6 @@ import com.jkrm.education.ui.activity.ErrorQuestionActivity;
 import com.jkrm.education.ui.activity.OnlineAnswerActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
-import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -103,12 +101,15 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
     @BindView(R.id.ll_of_expand)
     LinearLayout mLlOfExpand;
     Unbinder unbinder;
+    @BindView(R.id.tv_question_num)
+    TextView mTvQuestionNum;
+    Unbinder unbinder1;
 
     private BatchBean mBatchBean;
     private List<QuestionOptionBean> mQuestionOptionBeanList;
     private AnswerAnalyChoiceAdapter mQuestionBasketOptionsAdapter;
     private String mQuestionType = "";
-    List<SimilarResultBean> mList=new ArrayList<>();
+    List<SimilarResultBean> mList = new ArrayList<>();
     AnswerAnalyExpendAdapter mAnswerAnalyExpendAdapter;
 
 
@@ -129,14 +130,14 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
     @Override
     protected void initView() {
         super.initView();
-        mAnswerAnalyExpendAdapter=new AnswerAnalyExpendAdapter();
-        AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(),mRcvChildData,mAnswerAnalyExpendAdapter,false);
+        mAnswerAnalyExpendAdapter = new AnswerAnalyExpendAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(), mRcvChildData, mAnswerAnalyExpendAdapter, false);
     }
 
     @Override
     protected void initData() {
         super.initData();
-       // EventBus.getDefault().register(this);
+        // EventBus.getDefault().register(this);
         mBatchBean = (BatchBean) getArguments().getSerializable(Extras.BATCHBEAN);
         mQuestionType = getArguments().getString(Extras.KEY_QUESTION_TYPE);
         if (null == mBatchBean) {
@@ -146,16 +147,19 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
         if (!AwDataUtil.isEmpty(mBatchBean.getErrorTypeName())) {
             showView(mLlofCollec, false);
             showView(mLlOfAnalyticExpansion, true);
-            initVideo(mBatchBean.getQuestionVideo(),"");
-            if("0".equals(mBatchBean.getIsNoVideo())|| AwDataUtil.isEmpty(mBatchBean.getQuestionVideo())){
-                showView(mLlOfVideo,false);
+            initVideo(mBatchBean.getQuestionVideo(), "");
+            if ("0".equals(mBatchBean.getIsNoVideo()) || AwDataUtil.isEmpty(mBatchBean.getQuestionVideo())) {
+                showView(mLlOfVideo, false);
             }
-            if("0".equals(mBatchBean.getSimilar())){
-                showView(mLlOfExpand,false);
-            }else{
+            if ("0".equals(mBatchBean.getSimilar())) {
+                showView(mLlOfExpand, false);
+            } else {
                 //有类题 请求数据
                 mPresenter.getSimilar(mBatchBean.getQuestionId());
             }
+        }
+        if(!AwDataUtil.isEmpty(mBatchBean.getQuestionNum())){
+           mTvQuestionNum.setText("第"+mBatchBean.getQuestionNum()+"题");
         }
         //题干
         mMathViewTitle.setText(mBatchBean.getContent());
@@ -163,8 +167,8 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
         //解析
         mMathViewAnalysis.setText(mBatchBean.getAnswerExplanation());
         AwMathViewUtil.setImgScan(mMathViewAnalysis);
-        if(AwDataUtil.isEmpty(mBatchBean.getAnswerExplanation())||mBatchBean.getAnswerExplanation().isEmpty()){
-            showView(mTvAnalysis,false);
+        if (AwDataUtil.isEmpty(mBatchBean.getAnswerExplanation()) || mBatchBean.getAnswerExplanation().isEmpty()) {
+            showView(mTvAnalysis, false);
         }
         if (AwDataUtil.isEmpty(mBatchBean.getStudAnswer())) {
             mTvAnswerState.setText("未作答");
@@ -239,7 +243,7 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
     }
 
     private void changeAnswerState() {
-        if(!AwDataUtil.isEmpty(mQuestionOptionBeanList)){
+        if (!AwDataUtil.isEmpty(mQuestionOptionBeanList)) {
             char[] right = Html.fromHtml(mBatchBean.getAnswer()).toString().toCharArray();//html 读取 因为有新罗马字体
             if (!AwDataUtil.isEmpty(mBatchBean.getStudAnswer())) {
                 char[] custom = mBatchBean.getStudAnswer().toCharArray();
@@ -274,7 +278,7 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
     @Override
     protected void initListener() {
         super.initListener();
-        if(AnswerAnalysisActivity.mStrLastQueID.equals(mBatchBean.getId())){
+        if (AnswerAnalysisActivity.mStrLastQueID.equals(mBatchBean.getId())) {
             mBtnNext.setEnabled(false);
             mBtnNext.setText("已是最后一题");
         }
@@ -354,11 +358,11 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
 
     @Override
     public void getSimilarSuccess(List<SimilarResultBean> result) {
-        if(!AwDataUtil.isEmpty(result)){
+        if (!AwDataUtil.isEmpty(result)) {
             mList.addAll(result);
             mAnswerAnalyExpendAdapter.addAllData(mList);
-            mTvNum.setText("类题加练(共"+mList.size()+"题)");
-        }else{
+            mTvNum.setText("类题加练(共" + mList.size() + "题)");
+        } else {
             mAnswerAnalyExpendAdapter.clearData();
             mRcvChildData.removeAllViews();
             mAnswerAnalyExpendAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(getActivity(), MyConstant.ViewConstant.VIEW_EMPTY_COMMON, -1));
@@ -390,8 +394,8 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
 
     @OnClick(R.id.btn_start)
     public void onViewClicked() {
-        if(!AwDataUtil.isEmpty(mList)){
-            toClass(OnlineAnswerActivity.class,true,Extras.KEY_SIMILAR_LIST,(Serializable)mList,Extras.COURSE_ID, ErrorQuestionActivity.mCourseId);
+        if (!AwDataUtil.isEmpty(mList)) {
+            toClass(OnlineAnswerActivity.class, true, Extras.KEY_SIMILAR_LIST, (Serializable) mList, Extras.COURSE_ID, ErrorQuestionActivity.mCourseId);
         }
     }
 
@@ -499,13 +503,24 @@ public class AnswerAnalyChoiceFragment extends AwMvpFragment<AnswerAnalysisPrese
                 mVideoPlayer.getCurrentPlayer().release();
             }
         }
-        if (orientationUtils != null){
+        if (orientationUtils != null) {
             orientationUtils.releaseListener();
         }
 
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
 }

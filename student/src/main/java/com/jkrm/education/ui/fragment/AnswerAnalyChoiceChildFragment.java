@@ -4,18 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.hzw.baselib.base.AwMvpFragment;
-import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.hzw.baselib.util.AwDataUtil;
-import com.hzw.baselib.util.AwLog;
+import com.hzw.baselib.util.AwDateUtils;
 import com.hzw.baselib.util.AwMathViewUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.util.RegexUtil;
@@ -38,7 +34,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.github.kexanie.library.MathView;
 
@@ -49,7 +44,6 @@ import io.github.kexanie.library.MathView;
  */
 
 public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysisPresent> implements AnswerAnalysisView.View {
-
 
 
     @BindView(R.id.math_view_title)
@@ -65,6 +59,8 @@ public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysis
     @BindView(R.id.math_view_analysis)
     MathView mMathViewAnalysis;
     Unbinder unbinder;
+    @BindView(R.id.tv_question_num)
+    TextView mTvQuestionNum;
     private ArrayList<QuestionOptionBean> mQuestionOptionBeanList;
     private AnswerAnalyChoiceAdapter mQuestionBasketOptionsAdapter;
     private BatchBean.SubQuestionsBean mBatchBean;
@@ -88,54 +84,56 @@ public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysis
     protected void initData() {
         super.initData();
         mBatchBean = (BatchBean.SubQuestionsBean) getArguments().getSerializable(Extras.BATCHBEAN_SUB);
-        if(null==mBatchBean){
+        if (null == mBatchBean) {
             return;
         }
         //外部大题 请求 类题
         BatchBean batchBean = AnswerAnalyQuestionsOfGroupChildPagerAdapter.getBatchBean();
-        Log.e("initData", mBatchBean.getStudAnswer()+"" );
         //题干
         mMathViewTitle.setText(mBatchBean.getContent());
         AwMathViewUtil.setImgScan(mMathViewTitle);
         //解析
         mMathViewAnalysis.setText(mBatchBean.getAnswerExplanation());
         AwMathViewUtil.setImgScan(mMathViewAnalysis);
-        if(AwDataUtil.isEmpty(mBatchBean.getAnswerExplanation())){
-            showView(mTvAnalysis,false);
+        if (AwDataUtil.isEmpty(mBatchBean.getAnswerExplanation())) {
+            showView(mTvAnalysis, false);
         }
-        if(AwDataUtil.isEmpty(mBatchBean.getStudAnswer())){
+        if(!AwDataUtil.isEmpty(mBatchBean.getQuestionNum())){
+            mTvQuestionNum.setText("第"+mBatchBean.getQuestionNum()+"题");
+        }
+        if (AwDataUtil.isEmpty(mBatchBean.getStudAnswer())) {
             mTvAnswerState.setText("未作答");
             mTvAnswerState.setTextColor(getResources().getColor(R.color.red));
             //正确答案
-           // mTvAnswer.setText("正确答案："+Html.fromHtml(mBatchBean.getAnswer()));
-        }else{
-            if(AwDataUtil.isEmpty(mBatchBean.getStudAnswer())||AwDataUtil.isEmpty(mBatchBean.getAnswer())){
+            // mTvAnswer.setText("正确答案："+Html.fromHtml(mBatchBean.getAnswer()));
+        } else {
+            if (AwDataUtil.isEmpty(mBatchBean.getStudAnswer()) || AwDataUtil.isEmpty(mBatchBean.getAnswer())) {
                 return;
             }
             int allRight = RegexUtil.isAllRight(Html.fromHtml(mBatchBean.getAnswer()).toString(), mBatchBean.getStudAnswer());
-            if(0==allRight){
+            if (0 == allRight) {
                 mTvAnswerState.setText("回答正确");
                 mTvAnswerState.setTextColor(getResources().getColor(R.color.black));
                 //正确答案
-                mTvAnswer.setText("正确答案："+Html.fromHtml(mBatchBean.getAnswer()));
-            }else if(1==allRight){
+                mTvAnswer.setText("正确答案：" + Html.fromHtml(mBatchBean.getAnswer()));
+            } else if (1 == allRight) {
                 //半对
                 mTvAnswerState.setText("回答不全");
                 mTvAnswerState.setTextColor(getResources().getColor(R.color.red));
                 //正确答案
-                mTvAnswer.setText("正确答案："+Html.fromHtml(mBatchBean.getAnswer())+"我的答案："+mBatchBean.getStudAnswer());
-            }else if(2==allRight){
+                mTvAnswer.setText("正确答案：" + Html.fromHtml(mBatchBean.getAnswer()) + "我的答案：" + mBatchBean.getStudAnswer());
+            } else if (2 == allRight) {
                 //错误
                 mTvAnswerState.setText("回答错误");
                 mTvAnswerState.setTextColor(getResources().getColor(R.color.red));
                 //正确答案
-                mTvAnswer.setText("正确答案："+Html.fromHtml(mBatchBean.getAnswer())+"我的答案："+mBatchBean.getStudAnswer());
+                mTvAnswer.setText("正确答案：" + Html.fromHtml(mBatchBean.getAnswer()) + "我的答案：" + mBatchBean.getStudAnswer());
             }
 
         }
 
 
-        if ("2".equals(mBatchBean.getIsOption())||mBatchBean.getType() != null &&"2".equals( mBatchBean.getType().getIsOption()) && null != mBatchBean.getOptions()) {
+        if ("2".equals(mBatchBean.getIsOption()) || mBatchBean.getType() != null && "2".equals(mBatchBean.getType().getIsOption()) && null != mBatchBean.getOptions()) {
             mRcvData.setVisibility(View.VISIBLE);
             mQuestionBasketOptionsAdapter = new AnswerAnalyChoiceAdapter();
             AwRecyclerViewUtil.setRecyclerViewLinearlayout((Activity) mActivity, mRcvData, mQuestionBasketOptionsAdapter, false);
@@ -146,7 +144,7 @@ public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysis
         mRcvData.setItemAnimator(null);
         changeAnswerState();
         //取消闪烁动画
-       // ((DefaultItemAnimator)mRcvData.getItemAnimator()).setSupportsChangeAnimations(false);*/
+        // ((DefaultItemAnimator)mRcvData.getItemAnimator()).setSupportsChangeAnimations(false);*/
     }
 
     /**
@@ -178,22 +176,22 @@ public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysis
         }
     }
 
-    private void changeAnswerState(){
-        if(AwDataUtil.isEmpty(mBatchBean.getAnswer())){
+    private void changeAnswerState() {
+        if (AwDataUtil.isEmpty(mBatchBean.getAnswer())) {
             return;
         }
         char[] right = Html.fromHtml(mBatchBean.getAnswer()).toString().toCharArray();//html 读取 因为有新罗马字体
-        char[] custom =new char[]{};
-        if(null==mQuestionOptionBeanList||mQuestionOptionBeanList.size()==0){
+        char[] custom = new char[]{};
+        if (null == mQuestionOptionBeanList || mQuestionOptionBeanList.size() == 0) {
             return;
         }
-        if(!AwDataUtil.isEmpty(mBatchBean.getStudAnswer())){
+        if (!AwDataUtil.isEmpty(mBatchBean.getStudAnswer())) {
             custom = mBatchBean.getStudAnswer().toCharArray();
         }
         for (char c : custom) {
             String s = String.valueOf(c);
             for (QuestionOptionBean questionOptionBean : mQuestionOptionBeanList) {
-                if(s.equals(questionOptionBean.getSerialNum())){
+                if (s.equals(questionOptionBean.getSerialNum())) {
                     questionOptionBean.setChoose(1);
                 }
             }
@@ -202,15 +200,16 @@ public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysis
             String s = String.valueOf(c);
 
             for (QuestionOptionBean questionOptionBean : mQuestionOptionBeanList) {
-                if(s.equals(questionOptionBean.getSerialNum())){
+                if (s.equals(questionOptionBean.getSerialNum())) {
                     questionOptionBean.setChoose(2);
                 }
             }
         }
-        if(null!=mQuestionBasketOptionsAdapter){
+        if (null != mQuestionBasketOptionsAdapter) {
             mQuestionBasketOptionsAdapter.notifyDataSetChanged();
         }
     }
+
     @Override
     protected void initListener() {
         super.initListener();
@@ -249,7 +248,6 @@ public class AnswerAnalyChoiceChildFragment extends AwMvpFragment<AnswerAnalysis
         super.onDestroyView();
         unbinder.unbind();
     }
-
 
 
     @Override

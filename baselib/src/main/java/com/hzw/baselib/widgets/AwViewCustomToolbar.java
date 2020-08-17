@@ -60,7 +60,7 @@ public class AwViewCustomToolbar extends Toolbar {
         mTvRightView = (TextView) findViewById(R.id.toolbar_right);
         mIvLeftImg2 = findViewById(R.id.iv_leftImg2);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        mTvMiddleView.setSelected(true);
         mTvLeftView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

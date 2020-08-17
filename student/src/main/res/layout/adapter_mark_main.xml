@@ -2,36 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="65dp"
-    android:gravity="center_vertical"
-    android:background="@color/white"
     android:layout_marginBottom="@dimen/dimen_5"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingLeft="@dimen/dimen_15"
-    android:paddingRight="@dimen/dimen_15"
-    android:orientation="horizontal">
+    android:paddingRight="@dimen/dimen_15">
 
     <TextView
         android:id="@+id/tv_num"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:background="@mipmap/home_icon_blue"
         android:gravity="center"
-        android:textColor="@color/white"
-        android:background="@mipmap/home_icon_blue"/>
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_weight="1"
         android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_classes"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/middle_black_style"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="班级"/>
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/tv_classes"
+                style="@style/middle_black_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="班级" />
+        </HorizontalScrollView>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,37 +48,37 @@
 
             <TextView
                 android:id="@+id/tv_date"
+                style="@style/small_gray_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/small_gray_style"
                 android:layout_gravity="bottom"
                 android:layout_marginRight="@dimen/dimen_10"
-                android:text="2019/05/09 10:19"/>
+                android:text="2019/05/09 10:19" />
 
             <TextView
+                style="@style/small_gray_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/small_gray_style"
                 android:layout_gravity="bottom"
                 android:layout_marginRight="@dimen/dimen_10"
-                android:visibility="gone"
-                android:text="|"/>
+                android:text="|"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_markingProgress"
+                style="@style/small_gray_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/small_gray_style"
                 android:layout_gravity="bottom"
-                android:visibility="gone"
-                android:text="已批阅：0%"/>
+                android:text="已批阅：0%"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/tv_score"
-        android:text="0分"
-        android:enabled="false"
         style="@style/common_tv_custom1_eaeef7"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:enabled="false"
+        android:text="0分" />
 </LinearLayout>
