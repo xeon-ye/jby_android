@@ -98,7 +98,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
     TextView mTvUserAggrement;
     @BindView(R.id.btn_logout)
     Button mBtnLogout;
-    List<RequestClassesBean> mList=new ArrayList<>();
+    List<RequestClassesBean> mList = new ArrayList<>();
 
     @Override
     protected MeMainFragmentPresent createPresenter() {
@@ -185,10 +185,10 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
                 toClass(MeAgreementActivity.class, false);
                 break;
             case R.id.ll_classes:
-                if(mList.size()==0){
+                if (mList.size() == 0) {
                     showMsg("请先绑定班级");
-                    toClass(ChoiceClassesActivity.class,false);
-                }else{
+                    toClass(ChoiceClassesActivity.class, false);
+                } else {
                     toClass(MeClassesActivity.class, false);
                 }
                 break;
@@ -244,15 +244,19 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
 
     @Override
     public void getClassesByIdSuccess(List<RequestClassesBean> data) {
-        mList=data;
-        StringBuffer stringBuffer=new StringBuffer();
-        for (RequestClassesBean datum : data) {
-            stringBuffer.append(datum.getClassName()+",");
+        mList = data;
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < data.size(); i++) {
+            if (i == 0 || i == data.size() - 1) {
+                stringBuffer.append(data.get(i).getClassName());
+            } else {
+                stringBuffer.append(data.get(i).getClassName() + ",");
+            }
         }
-        if(null!=mTvClasses&&!AwDataUtil.isEmpty(stringBuffer)){
+        if (null != mTvClasses && !AwDataUtil.isEmpty(stringBuffer)) {
             mTvClasses.setText(stringBuffer);
         }
-        }
+    }
 
     @Override
     public void getClassesByIdFail(String msg) {

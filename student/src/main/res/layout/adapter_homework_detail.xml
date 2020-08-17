@@ -96,11 +96,13 @@
     <View style="@style/common_line_horizontal" />
 
     <LinearLayout
+        android:id="@+id/ll_of_setting"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="right|center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dimen_15"
+        android:visibility="gone"
         android:paddingRight="@dimen/dimen_15">
 
         <Button

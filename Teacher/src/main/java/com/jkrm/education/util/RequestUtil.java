@@ -493,15 +493,14 @@ public class RequestUtil {
     /**
      * 获取选择题分析
      * @param classIds
-     * @param homeworkIds
      * @param questionId
      * @return
      */
-    public static RequestBody getErrorStatisticsBody(String classIds,String homeworkIds,String questionId){
+    public static RequestBody getErrorStatisticsBody(String classIds,String templateIds,String questionId){
         HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("templateIds",templateIds);
         hashMap.put("classIds",classIds);
-        hashMap.put("homeworkIds",homeworkIds);
-        hashMap.put("questionId",questionId);
+        hashMap.put("questionid",questionId);
         return getBody(hashMap);
     }
 

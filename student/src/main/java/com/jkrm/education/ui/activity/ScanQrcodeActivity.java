@@ -14,6 +14,7 @@ import com.hzw.baselib.interfaces.AwApiCallback;
 import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.util.AwAPPUtils;
 import com.hzw.baselib.util.AwDataUtil;
+import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwTextviewUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.hzw.baselib.widgets.AwViewDialog;
@@ -191,8 +192,8 @@ public class ScanQrcodeActivity extends CaptureActivity {
     @Override
     public void onResult(Result result) {
         //        super.onResult(result);
-        String stuid=UserUtil.getStudId();
-        String s=result.getText();
+        Log.e("result",result.toString()+"--"+UserUtil.getAppUser().getStudId());
+
 //        AwToastUtil.showShort(mActivity, "扫描结果: " + result.getText());
         if (result != null && !AwDataUtil.isEmpty(result.getText())) {
             getVideoPointListByTemplate(result.getText().trim());

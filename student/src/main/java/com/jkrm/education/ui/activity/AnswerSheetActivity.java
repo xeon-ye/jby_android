@@ -290,4 +290,8 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
         showMsg("上传失败");
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(RxAnswerSheetType rxAnswerSheetType) {
+        mAnswerSheetAdapter.notifyDataSetChanged();
+    }
 }

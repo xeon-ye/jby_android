@@ -19,6 +19,7 @@ import com.jkrm.education.R;
 import com.jkrm.education.bean.AnswerSheetBean;
 import com.jkrm.education.bean.QuestionOptionBean;
 import com.jkrm.education.bean.rx.RxAnswerSheetType;
+import com.jkrm.education.bean.rx.RxEditType;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.ui.activity.ImgActivity;
 import com.luck.picture.lib.PictureSelector;
@@ -27,6 +28,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -92,6 +94,40 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                         EventBus.getDefault().post(new RxAnswerSheetType(item.getId(), mAnswer.toString(),true));
                     }
                 });
+            }else if(!AwDataUtil.isEmpty(item.getType())&&!AwDataUtil.isEmpty(item.getType().getTotalId())&&"6".equals(item.getType().getTotalId())){
+                  //判断题目
+                AnswerSheetChoiceAdapter onlineAnswerChoiceAdapter = new AnswerSheetChoiceAdapter();
+                AwRecyclerViewUtil.setRecyclerViewGridlayout((Activity) mContext, recyclerView, onlineAnswerChoiceAdapter, 6);
+                setTureOrFalseListData(onlineAnswerChoiceAdapter,recyclerView);
+                if(!AwDataUtil.isEmpty(item.getStuAnswer())){
+                    List<QuestionOptionBean> data = onlineAnswerChoiceAdapter.getData();
+                    for (QuestionOptionBean datum : data) {
+                        if(datum.getSerialNum().equals(item.getStuAnswer())){
+                            datum.setSelect(true);
+                        }
+                    }
+
+                }
+                onlineAnswerChoiceAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        List<QuestionOptionBean> mQuestionOptionBeanList = (List<QuestionOptionBean>) adapter.getData();
+                        for (int i = 0; i < mQuestionOptionBeanList.size(); i++) {
+                            if (i == position) {
+                                mQuestionOptionBeanList.get(i).setSelect(true);
+                                String mAnswer = mQuestionOptionBeanList.get(i).getSerialNum();
+                                //作答
+                                EventBus.getDefault().post(new RxAnswerSheetType(item.getId(), mAnswer,true));
+                            } else {
+                                mQuestionOptionBeanList.get(i).setSelect(false);
+                            }
+                        }
+                        onlineAnswerChoiceAdapter.notifyDataSetChanged();
+
+                    }
+
+                });
+
             }else{
                 AnswerSheetChoiceAdapter onlineAnswerChoiceAdapter = new AnswerSheetChoiceAdapter();
                 AwRecyclerViewUtil.setRecyclerViewGridlayout((Activity) mContext, recyclerView, onlineAnswerChoiceAdapter, 6);
@@ -177,6 +213,7 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                     if (!AwDataUtil.isEmpty(item.getImageList())) {
                         item.getImageList().remove(postion - 1);
                         notifyDataSetChanged();
+                        EventBus.getDefault().post(new RxAnswerSheetType("",""));
                     }
                 }
             });
@@ -240,6 +277,19 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
             mMQuestionOptionBeanList.add(new QuestionOptionBean(QuestionOptionBean.SERIAL_NUMS[index], entry.getValue(), false));
             index++;
         }
+        adapter.addAllData(mMQuestionOptionBeanList);
+        adapter.loadMoreComplete();
+        adapter.setEnableLoadMore(false);
+        adapter.disableLoadMoreIfNotFullPage(rcvData);
+    }
+
+    /**
+     *     判断题
+     */
+    private void setTureOrFalseListData( AnswerSheetChoiceAdapter adapter,RecyclerView rcvData){
+        List<QuestionOptionBean> mMQuestionOptionBeanList = new ArrayList<>();
+        mMQuestionOptionBeanList.add(new QuestionOptionBean("T", "正确", false));
+        mMQuestionOptionBeanList.add(new QuestionOptionBean("F", "错误", false));
         adapter.addAllData(mMQuestionOptionBeanList);
         adapter.loadMoreComplete();
         adapter.setEnableLoadMore(false);

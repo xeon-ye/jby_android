@@ -1,6 +1,7 @@
 package com.jkrm.education.adapter.error;
 
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -47,5 +48,11 @@ public class ErrorClassesAdapter extends BaseQuickAdapter<ErrorClassesBean, Base
         helper.setText(R.id.checkbox,item.getName()).addOnClickListener(R.id.checkbox);
         CheckBox checkbox = helper.getView(R.id.checkbox);
         checkbox.setChecked(item.isChecked());
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                item.setChecked(b);
+            }
+        });
     }
 }

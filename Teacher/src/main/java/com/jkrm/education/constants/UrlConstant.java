@@ -244,12 +244,12 @@ public class UrlConstant {
     /**
      * 选择题数据分析
      */
-    public static final String GET_ERROR_STATISTICS = MOCK_API_PREFIX + COMMON_URL_PREFIX + "report_server/homework/reports/statistics";
+    public static final String GET_ERROR_STATISTICS = MOCK_API_PREFIX + COMMON_URL_PREFIX + "report_server/homework/reports/templat/statistics";
 
     /**
      * 主观题数据分析
      */
-    public static final String GET_ERROR_SUB_STATISTICS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"report_server/homework/homework/classes/questions/{questionId}/theme_chart";
+    public static final String GET_ERROR_SUB_STATISTICS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"report_server/homework/reports/{questionId}/theme_chart";
 
     /**
      * 添加题蓝
