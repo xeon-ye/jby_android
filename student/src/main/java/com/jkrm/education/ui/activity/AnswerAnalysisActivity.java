@@ -107,6 +107,8 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
                     finish();
                 }
             });
+            showView(mTvCurrent,false);
+            showView(mTvSum,false);
         }
         AnswerAnalysisPagerAdapter answerAnalysisPagerAdapter = new AnswerAnalysisPagerAdapter(getSupportFragmentManager(), mQuestionBeanList, mActivity);
         answerAnalysisPagerAdapter.setInSidePos(inSidePos);
