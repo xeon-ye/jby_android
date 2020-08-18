@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:drawableRight="@mipmap/sniper_normal"
                     android:drawablePadding="@dimen/dimen_5"
-                    android:text="得分率：0-100%"
+                    android:text="得分率：0-60%"
                     android:textColor="@color/colorPrimary"
                     android:textSize="13sp" />
 

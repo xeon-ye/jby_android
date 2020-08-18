@@ -64,6 +64,7 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
     private boolean isError;
     public static String mStrLastQueID = "";
     private boolean mIsFromSituation;
+    public static int mLastPos;
 
     @Override
     protected AnswerAnalysisPresent createPresenter() {
@@ -120,6 +121,7 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
         mViewpageer.setCurrentItem(outSidePos);
         mTvSum.setText("/" + (mQuestionBeanList.size()));
         mStrLastQueID = mQuestionBeanList.get(mQuestionBeanList.size() - 1).getId();
+        mLastPos = mQuestionBeanList.size();
     }
 
     @Override

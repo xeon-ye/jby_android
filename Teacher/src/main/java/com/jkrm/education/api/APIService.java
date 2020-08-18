@@ -705,4 +705,16 @@ public interface APIService {
      */
     @GET(UrlConstant.GET_EXPLAIN_CLASSES)
     Observable<ResponseBean<List<ClassesResponseBean>>>  getExplainClasses(@Path("teacherId") String teacherId, @Path("homeworkId") String homeworkId);
+
+    /**
+     *  动态获取系统安全码
+     * @param clientSessionId
+     * @param t
+     * @param client
+     * @param encrypt
+     * @return
+     */
+    @GET(UrlConstant.GET_SAFE_CODE)
+    Observable<ResponseBean<String>> getSafeCode(@Query("clientSessionId") String clientSessionId,@Query("t") String t,@Query("client") String client,@Query("encrypt") String encrypt);
+
 }

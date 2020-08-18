@@ -1,20 +1,32 @@
 package com.jkrm.education.ui.activity.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 
 import com.hzw.baselib.base.AwBaseActivity;
 import com.hzw.baselib.base.AwBaseApplication;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.bean.UpdateBean;
+import com.hzw.baselib.interfaces.AwApiCallback;
+import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.util.AwAPPUtils;
+import com.hzw.baselib.util.AwMd5Util;
 import com.hzw.baselib.util.AwUpdateUtil;
 import com.hzw.baselib.util.AwVersionUtil;
 import com.jkrm.education.R;
+import com.jkrm.education.api.APIService;
+import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.api.UrlInterceptor;
 import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.result.VersionResultBean;
+import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.MainPresent;
 import com.jkrm.education.mvp.views.MainView;
 import com.jkrm.education.ui.activity.MainActivity;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -38,6 +50,35 @@ public class WelcomeActivity extends AwMvpActivity<MainPresent> implements MainV
         setStatusTxtDark();
         mPresenter.getVersionInfo();
         toNextPage();
+        String cli = UrlInterceptor.getCli();
+        String t = UrlInterceptor.getT();
+        RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getSafeCode(cli, t,"android", AwMd5Util.md5("android"+cli+ t))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new AwApiSubscriber(new AwApiCallback<String>() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(String data) {
+                        //  MyApp.getInstance().saveSafeCode(data);
+                        SharedPreferences sharedPreferences=mActivity.getSharedPreferences(MyConstant.SPConstant.KEY_SAFE, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor edit = sharedPreferences.edit();
+                        edit.putString( MyConstant.SPConstant.KEY_SAFE,data);
+                        edit.commit();
+                    }
+                    @Override
+                    public void onFailure(int code, String msg) {
+                        showMsg(msg);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                    }
+                }));
     }
 
     private void toNextPage() {

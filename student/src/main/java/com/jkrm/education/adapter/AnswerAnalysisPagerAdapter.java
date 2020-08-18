@@ -65,7 +65,6 @@ public class AnswerAnalysisPagerAdapter extends FragmentPagerAdapter {
         Bundle bundle=new Bundle();
         bundle.putString(Extras.KEY_QUESTION_TYPE,batchBean.getErrorTypeName());
         bundle.putSerializable(Extras.BATCHBEAN,batchBean);
-        Log.e( "getItem: ",batchBean.toString()+"" );
         //组题目
         if(batchBean.isGroupQuestion()){
             fragment=new  AnswerAnalyQuestionsOfGroupQuestionsFragment();

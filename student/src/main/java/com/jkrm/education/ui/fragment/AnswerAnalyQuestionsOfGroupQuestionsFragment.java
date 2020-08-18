@@ -2,6 +2,7 @@ package com.jkrm.education.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import com.jkrm.education.bean.rx.RxTurnpageType;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.AnswerAnalysisPresent;
 import com.jkrm.education.mvp.views.AnswerAnalysisView;
+import com.jkrm.education.ui.activity.AnswerAnalysisActivity;
+import com.jkrm.education.ui.activity.AnswerSituationActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 
@@ -87,8 +90,6 @@ public class AnswerAnalyQuestionsOfGroupQuestionsFragment extends AwMvpFragment<
     public static BatchBean mBatchBean;
 
 
-
-
     private int inSidePos;
 
     @Override
@@ -125,6 +126,7 @@ public class AnswerAnalyQuestionsOfGroupQuestionsFragment extends AwMvpFragment<
         if (!AwDataUtil.isEmpty(mBatchBean.getErrorTypeName())) {
             showView(mLlofCollec, false);
         }
+
         mMathViewTitle.setText(mBatchBean.getContent());
         AwMathViewUtil.setImgScan(mMathViewTitle);
         mTvQuestionType.setText(mBatchBean.getType().getName());
@@ -138,9 +140,9 @@ public class AnswerAnalyQuestionsOfGroupQuestionsFragment extends AwMvpFragment<
         mViewpageer.setAdapter(answerAnalyQuestionsOfGroupChildPagerAdapter);
         mViewpageer.setOffscreenPageLimit(mBatchBean.getSubQuestions().size());
         //获取位置
-        inSidePos= AwSpUtil.getInt(Extras.KEY_INSIDEPOS,Extras.KEY_INSIDEPOS,0);
+        inSidePos = AwSpUtil.getInt(Extras.KEY_INSIDEPOS, Extras.KEY_INSIDEPOS, 0);
         String localID = AwSpUtil.getString(Extras.KEY_BATQUESTION, Extras.KEY_BATQUESTION, "");
-        if(mBatchBean.getId().equals(localID)){
+        if (mBatchBean.getId().equals(localID)) {
             mViewpageer.setCurrentItem(inSidePos);
         }
 
@@ -154,9 +156,14 @@ public class AnswerAnalyQuestionsOfGroupQuestionsFragment extends AwMvpFragment<
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 mTvAnsCur.setText((position + 1) + "/" + mViewpageer.getChildCount());
-               /* if(position+1==mViewpageer.getChildCount()){
-                    showDialog("里面最后一题");
-                }*/
+                if (AnswerAnalysisActivity.mLastPos==mViewpageer.getChildCount()) {
+                    if (position + 1 == mViewpageer.getChildCount()) {
+                        mBtnNext.setText("最后一题");
+                    }else{
+                        mBtnNext.setText("下一题");
+                    }
+                }
+
             }
 
             @Override

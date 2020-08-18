@@ -279,4 +279,9 @@ public class UrlConstant {
      * 获取班级
      */
     public static final String GET_EXPLAIN_CLASSES=MOCK_API_PREFIX+COMMON_URL_PREFIX+"report_server/teacher/{teacherId}/homework/{homeworkId}/classes";
+
+    /**
+     * 动态获取系统安全码
+     */
+    public static final String GET_SAFE_CODE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/sys/safe/code";
 }

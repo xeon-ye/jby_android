@@ -12,12 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpLazyFragment;
+import com.hzw.baselib.project.student.bean.MarkBean;
 import com.hzw.baselib.util.AwDataUtil;
+import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
+import com.hzw.baselib.widgets.AwCommonTopListPopupWithIconWindow;
 import com.hzw.baselib.widgets.BidirectionalSeekBar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.error.ErrorClassesAdapter;
@@ -99,7 +103,6 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     LinearLayout llOfSort;
     @BindView(R.id.btn_sure)
     Button btnSure;
-    Unbinder unbinder1;
 
     private ErrorCourseAdapter mErrorCourseAdapter;
     private ErrorHomeWordAdapter mErrorHomeWordAdapter;
@@ -109,8 +112,9 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     private List<ErrorHomeWork> mErrorHomeWorkList = new ArrayList<>();
     private List<ErrorClassesBean> mErrorClassesList = new ArrayList<>();
     private List<MistakeBean> mMistakeList = new ArrayList<>();
-    private double mLeftVaule = 0, mRightValue = 1.0;
+    private double mLeftVaule = 0, mRightValue = 0.6;
     public static String mStrClassIds = "", mStrtempIds = "";
+    private ArrayList<MarkBean> mMarkBeanList=new ArrayList<>();
 
     @Override
     protected ErrorQuestionFragmentPresent createPresenter() {
@@ -143,6 +147,9 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
         super.initData();
         mPresenter.getErrorCourseList(UserUtil.getAppUser().getTeacherId());
         mPresenter.getErrorBasket(UserUtil.getTeacherId());
+
+        mMarkBeanList.add(new MarkBean(true,"按题号排序"));
+        mMarkBeanList.add(new MarkBean(false,"得分率排序"));
     }
 
     @Override
@@ -290,8 +297,25 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 showView(llOfSort, false);
                 break;
             case R.id.tv_sort:
-                showView(llOfSort, true);
-                showView(mLlOfSetting, false);
+               // showView(llOfSort, true);
+               // showView(mLlOfSetting, false);
+                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlphaWithIcon(mActivity, mMarkBeanList, mTvSort, new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                }, new AwCommonTopListPopupWithIconWindow.OnItemClickListener() {
+                    @Override
+                    public void onClick(Object bean) {
+                        if ("按题号排序".equals(((MarkBean) bean).getTitle())) {
+                            setData(0);
+                            mTvSort.setText("按题号排序");
+                        } else if ("得分率排序".equals(((MarkBean) bean).getTitle())) {
+                            setData(1);
+                            mTvSort.setText("得分率排序");
+                        }
+                    }
+                });
                 break;
             case R.id.tv_reset:
                 mLlOfSeekbar.removeView(mBidSeekbar);

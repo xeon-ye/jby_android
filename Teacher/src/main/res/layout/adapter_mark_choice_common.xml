@@ -6,4 +6,4 @@
     android:id="@+id/tv_name"
     android:background="@drawable/selector_btn_blue_with_gray_radius4"
     style="@style/small_black_style"
-    android:textColor="@drawable/aw_selector_text_default_blue_with_black_no_press"/>
+/>

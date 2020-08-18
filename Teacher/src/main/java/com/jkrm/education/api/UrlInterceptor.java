@@ -1,5 +1,7 @@
 package com.jkrm.education.api;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -34,6 +36,8 @@ public class UrlInterceptor implements Interceptor {
 
     public static final String APPLICATION_JSON = "application/json";//返回类型
     private static final String TAG = "UrlInterceptor";
+    private static String sT;
+
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -54,6 +58,8 @@ public class UrlInterceptor implements Interceptor {
                 .addHeader("CLIENTSESSIONID",getCli())
                 .addHeader("App","teacher")
                 .addHeader("Role",getRoleId())
+                .addHeader("t",getT())
+                .addHeader("encrypt", getSafe())
                 .method(oldRequest.method(), oldRequest.body())
                 .url(authorizedUrlBuilder.build())
                 .build();
@@ -80,7 +86,7 @@ public class UrlInterceptor implements Interceptor {
      * 获取时间戳并且MD5加密
      * @return
      */
-    static String getCli(){
+   public  static String getCli(){
         String cli="";
         cli = AwSpUtil.getString(MyConstant.SPConstant.XML_USER_INFO, MyConstant.SPConstant.KEY_CLI, "");
         if(TextUtils.isEmpty(cli)){
@@ -89,6 +95,18 @@ public class UrlInterceptor implements Interceptor {
             //AwSpUtil.saveString(MyConstant.SPConstant.XML_USER_INFO,MyConstant.SPConstant.KEY_CLI,AwMd5Util.md5(String.valueOf(System.currentTimeMillis())));
         }
         return cli;
+    }
+
+    public static String getT(){
+        sT = String.valueOf(System.currentTimeMillis());
+        return sT;
+    }
+
+    public static String getSafe() {
+        SharedPreferences sharedPreferences = MyApp.getInstance().getSharedPreferences(MyConstant.SPConstant.KEY_SAFE, Context.MODE_PRIVATE);
+        String safe_code = sharedPreferences.getString(MyConstant.SPConstant.KEY_SAFE, "");
+        String s = AwMd5Util.md5(safe_code + sT + getCli());
+        return s;
     }
 
     /**
