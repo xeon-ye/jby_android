@@ -28,13 +28,12 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:singleLine="true"
         style="@style/middle_black_style2"
         android:text="标题"
         android:textSize="15sp"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
-
+        android:maxLines="1"
+        android:scrollbars="none"
+        android:focusable="true"
         android:visibility="visible" />
 
     <TextView

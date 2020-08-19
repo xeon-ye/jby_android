@@ -1,9 +1,14 @@
 package com.jkrm.education.adapter.mark;
 
+import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hzw.baselib.util.AwDataUtil;
+import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 
@@ -43,6 +48,10 @@ public class MarkHomeWordDetailGroupAdapter extends BaseQuickAdapter<List<Homewo
 
     @Override
     protected void convert(BaseViewHolder helper, List<HomeworkDetailResultBean.GradQusetionBean> item) {
-
+        helper.setText(R.id.tv_subTitle, AwDataUtil.isEmpty(item.get(0).getTitle())?"答题情况":item.get(0).getTitle());
+        RecyclerView rcv_child_data = helper.getView(R.id.rcv_child_data);
+        MarkHomeWordDetailChildAdapter markHomeWordDetailChildAdapter=new MarkHomeWordDetailChildAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout((Activity) mContext,rcv_child_data,markHomeWordDetailChildAdapter,false);
+        markHomeWordDetailChildAdapter.addAllData(item);
     }
 }

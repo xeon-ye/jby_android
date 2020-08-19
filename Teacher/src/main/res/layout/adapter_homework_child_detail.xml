@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_5"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rl_questionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15">
+
+        <TextView
+            android:id="@+id/tv_scoreRate"
+            style="@style/middle_black_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:text="得分率：98%" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_toLeftOf="@id/tv_scoreRate"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_questionNum"
+                style="@style/middle_black_style2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="第1题" />
+
+            <TextView
+                android:id="@+id/tv_questionScore"
+                style="@style/middle_gray_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimen_3"
+                android:gravity="center_vertical"
+                android:text="【3】" />
+
+            <TextView
+                android:id="@+id/tv_questionAnswer"
+                style="@style/middle_gray_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimen_3"
+                android:gravity="center_vertical"
+                android:textSize="10sp"
+                android:text="正确答案：" />
+            <TextView
+                android:id="@+id/tv_ProdAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/middle_gray_style"
+                android:gravity="center_vertical"
+                android:text="C"
+                android:textSize="10sp"
+
+                />
+            <TextView
+                android:id="@+id/tv_exPlat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/middle_gray_style"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginLeft="@dimen/dimen_3"
+                android:textSize="10sp"
+
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barchart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/white" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_noPieChart"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:gravity="center"
+        android:text="所有区间人数均为0"
+        style="@style/middle_black_style"
+        android:visibility="gone"/>
+
+    <View style="@style/common_line_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dimen_15"
+        android:paddingRight="@dimen/dimen_15">
+
+        <Button
+            android:id="@+id/btn_studentAnswer"
+            style="@style/common_btn_custom1_eaeef7_70"
+            android:layout_width="70dp"
+            android:layout_gravity="center_vertical"
+            android:text="答题详情" />
+
+        <Button
+            android:id="@+id/btn_seeSpecial"
+            style="@style/common_btn_custom1_eaeef7_70"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:text="查看典型" />
+
+        <Button
+            android:id="@+id/btn_questionExpand"
+            style="@style/common_btn_custom1_eaeef7_70"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:text="类题加练" />
+
+        <Button
+            android:id="@+id/btn_famousTeacherLecture"
+            style="@style/common_btn_custom1_eaeef7_70"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:text="名师讲题" />
+
+
+    </LinearLayout>
+</LinearLayout>

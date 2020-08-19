@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -57,6 +58,9 @@ public class AwViewCustomToolbar extends Toolbar {
 
         mTvLeftView = (TextView) findViewById(R.id.toolbar_left);
         mTvMiddleView = (TextView) findViewById(R.id.toolbar_title);
+        mTvMiddleView.setMovementMethod(ScrollingMovementMethod.getInstance());
+        //mTvMiddleView.setHorizontallyScrolling(true);
+        mTvMiddleView.setFocusable(true);
         mTvRightView = (TextView) findViewById(R.id.toolbar_right);
         mIvLeftImg2 = findViewById(R.id.iv_leftImg2);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
