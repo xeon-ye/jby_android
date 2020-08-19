@@ -65,6 +65,7 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
     public static String mStrLastQueID = "";
     private boolean mIsFromSituation;
     public static int mLastPos;
+    public static boolean mIsLastPos;
 
     @Override
     protected AnswerAnalysisPresent createPresenter() {
@@ -117,7 +118,7 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
         answerAnalysisPagerAdapter.setError(isError);
         mViewpageer.setAdapter(answerAnalysisPagerAdapter);
         mViewpageer.setOffscreenPageLimit(3);
-        outSidePos = AwSpUtil.getInt(Extras.OUTSIDE_POS, Extras.OUTSIDE_POS, 0);
+        //outSidePos = AwSpUtil.getInt(Extras.OUTSIDE_POS, Extras.OUTSIDE_POS, 0);
         mViewpageer.setCurrentItem(outSidePos);
         mTvSum.setText("/" + (mQuestionBeanList.size()));
         mStrLastQueID = mQuestionBeanList.get(mQuestionBeanList.size() - 1).getId();
@@ -147,6 +148,11 @@ public class AnswerAnalysisActivity extends AwMvpActivity<AnswerAnalysisPresent>
                 } else {
                     EventBus.getDefault().post(new RxLastBean(false));
                 }*/
+               if(mLastPos==position+1){
+                   mIsLastPos=true;
+               }else{
+                   mIsLastPos=false;
+               }
             }
 
             @Override

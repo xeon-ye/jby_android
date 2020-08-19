@@ -11,7 +11,6 @@ import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.MyDateUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean.GradQusetionBean;
-import com.jkrm.education.util.CustomFontStyleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +33,6 @@ public class MarkDetailAdapter extends BaseQuickAdapter<GradQusetionBean, BaseVi
         helper.setText(R.id.tv_questionNum, "第" + bean.getQuestionNum() + "题")
                 .setText(R.id.tv_markedCount, "已批阅：" + MyDateUtil.getMarkProgress(bean.getProgress())[0])
                 .setGone(R.id.btn_markNextOperate, AwDataUtil.isEmpty(bean.getTypeName()) ? false : true)
-                .setTypeface(R.id.tv_questionNum, CustomFontStyleUtil.getNewRomenType())
-                .setTypeface(R.id.tv_markedCount, CustomFontStyleUtil.getNewRomenType())
                 .addOnClickListener(R.id.btn_markNextOperate);
         ProgressBar pb_progressBar = helper.getView(R.id.pb_progressBar);
         pb_progressBar.setMax(Integer.parseInt(MyDateUtil.getMarkProgress(bean.getProgress())[1]));

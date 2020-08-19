@@ -211,7 +211,9 @@
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -258,7 +260,9 @@
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -305,7 +309,9 @@
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -472,7 +478,9 @@
                     android:paddingRight="@dimen/dimen_15"
                     android:gravity="center_vertical"
                     style="@style/middle_black_style"
-                    android:drawableRight="@mipmap/global_icon_nest"/>
+                    android:drawableRight="@mipmap/global_icon_nest"
+                    android:visibility="gone"
+                    />
             </LinearLayout>
 
 

@@ -282,6 +282,7 @@ public class ScanQrcodeActivity extends CaptureActivity {
     }
 
     private void getAnswerSheet(String template_id) {
+        System.out.println("getAnswerSheet   "+template_id+"  "+UserUtil.getAppUser().getStudId());
         RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getAnswerSheet(template_id, UserUtil.getAppUser().getStudId())

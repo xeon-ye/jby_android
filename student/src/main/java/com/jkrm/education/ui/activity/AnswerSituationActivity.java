@@ -117,6 +117,7 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
                         subQuestionsBean.setQuestionNum(insideSubquestions.get(k).getQuestionNum());
                         AnswerSheetBean.QuestionsBean.SubQuestionsBean.StudentAnswer studentAnswer = new AnswerSheetBean.QuestionsBean.SubQuestionsBean.StudentAnswer();
                         studentAnswer.setAnswer(insideSubquestions.get(k).getStudentAnswer().getAnswer());
+                        studentAnswer.setRawScan(insideSubquestions.get(k).getStudentAnswer().getRawScan());
                         subQuestionsBean.setStudentAnswer(studentAnswer);
                         subQuestions.add(subQuestionsBean);
                     }
@@ -304,6 +305,6 @@ public class AnswerSituationActivity extends AwMvpActivity<AnswerSituationPresen
             batchBean.setAnswerSituation(true);
             mBatBeanList.add(batchBean);
         }
-        toClass(AnswerAnalysisActivity.class, false, Extras.EXERCISEREPORT, (Serializable) mBatBeanList, Extras.KEY_ANSWER_SITUATION, true);
+        toClass(AnswerAnalysisActivity.class, false, Extras.EXERCISEREPORT, (Serializable) mBatBeanList, Extras.KEY_ANSWER_SITUATION, true,Extras.OUTSIDE_POS,0,Extras.INGSIDE_POS,0);
     }
 }

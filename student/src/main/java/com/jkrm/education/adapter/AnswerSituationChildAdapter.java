@@ -111,6 +111,7 @@ public class AnswerSituationChildAdapter extends BaseQuickAdapter<AnswerSheetBea
                 helper.setText(R.id.tv_hint_answer, "未作答");
             } else {
                 helper.setText(R.id.tv_hint_answer, "我的作答");
+                System.out.println("getStudentAnswer"+item.getStudentAnswer().toString());
                 AnswerAnalyImgAdapter answerAnalyImgAdapter = new AnswerAnalyImgAdapter();
                 if(!AwDataUtil.isEmpty(item.getStudentAnswer().getRawScan())){
                     ArrayList<String> arrayList = new ArrayList<>();

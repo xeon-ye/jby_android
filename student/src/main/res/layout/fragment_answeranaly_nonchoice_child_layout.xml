@@ -28,12 +28,14 @@
                 auto:engine="MathJax"
                 ></io.github.kexanie.library.MathView>
             <TextView
+                android:id="@+id/tv_right_and_wrong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="请参考下面的答案解析，判断自己的作答是否正确"
                 android:layout_marginTop="@dimen/dimen_20"
                 />
             <LinearLayout
+                android:id="@+id/ll_of_right_and_wrong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

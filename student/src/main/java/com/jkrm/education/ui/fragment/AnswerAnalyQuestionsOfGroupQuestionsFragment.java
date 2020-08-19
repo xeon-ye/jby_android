@@ -156,13 +156,22 @@ public class AnswerAnalyQuestionsOfGroupQuestionsFragment extends AwMvpFragment<
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 mTvAnsCur.setText((position + 1) + "/" + mViewpageer.getChildCount());
-                if (AnswerAnalysisActivity.mLastPos==mViewpageer.getChildCount()) {
+                if(AnswerAnalysisActivity.mIsLastPos){
                     if (position + 1 == mViewpageer.getChildCount()) {
                         mBtnNext.setText("最后一题");
                     }else{
                         mBtnNext.setText("下一题");
                     }
+                }else{
+                    mBtnNext.setText("下一题");
                 }
+               /* if (AnswerAnalysisActivity.mLastPos==mViewpageer.getChildCount()) {
+                    if (position + 1 == mViewpageer.getChildCount()) {
+                        mBtnNext.setText("最后一题");
+                    }else{
+                        mBtnNext.setText("下一题");
+                    }
+                }*/
 
             }
 

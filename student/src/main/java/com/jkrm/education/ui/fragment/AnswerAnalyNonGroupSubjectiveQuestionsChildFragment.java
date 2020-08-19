@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -63,6 +64,10 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsChildFragment extends AwMvpFr
     MathView mTvAnswer;
     @BindView(R.id.tv_question_num)
     TextView mTvQuestionNum;
+    @BindView(R.id.ll_of_right_and_wrong)
+    LinearLayout mLlOfRightAndWrong;
+    @BindView(R.id.tv_right_and_wrong)
+    TextView mTvRightAndWrong;
     private SimilarResultBean mBean;
     private List<SimilarResultBean> mList;
     private List<String> mImgList = new ArrayList<>();
@@ -86,6 +91,8 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsChildFragment extends AwMvpFr
             mTvAnswerState.setText("未作答");
             mTvAnswerState.setTextColor(getResources().getColor(R.color.red));
             //正确答案
+            showView(mLlOfRightAndWrong, false);
+            showView(mTvRightAndWrong,false);
         }
         //外部大题 请求 类题
         BatchBean batchBean = AnswerAnalyQuestionsOfGroupChildPagerAdapter.getBatchBean();
@@ -102,8 +109,8 @@ public class AnswerAnalyNonGroupSubjectiveQuestionsChildFragment extends AwMvpFr
             mTvAnswer.setText("答案\n\t" + mBatchBean.getAnswer());
             AwMathViewUtil.setImgScan(mTvAnswer);
         }
-        if(!AwDataUtil.isEmpty(mBatchBean.getQuestionNum())){
-            mTvQuestionNum.setText("第"+mBatchBean.getQuestionNum()+"题");
+        if (!AwDataUtil.isEmpty(mBatchBean.getQuestionNum())) {
+            mTvQuestionNum.setText("第" + mBatchBean.getQuestionNum() + "题");
         }
         //图片
         mAnswerAnalyImgAdapter = new AnswerAnalyImgAdapter();
