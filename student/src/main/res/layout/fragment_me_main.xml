@@ -254,14 +254,13 @@
             <View
                 android:layout_marginLeft="@dimen/dimen_15"
                 style="@style/common_line_horizontal"/>
-            <!--任教科目-->
+            <!--我的订单-->
             <LinearLayout
                 android:id="@+id/ll_myorder"
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
                 android:background="@color/white"
-                android:visibility="gone"
                 >
 
                 <TextView
@@ -310,7 +309,6 @@
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
                 android:background="@color/white"
-                android:visibility="gone"
                 >
 
                 <TextView
@@ -479,7 +477,6 @@
                     android:gravity="center_vertical"
                     style="@style/middle_black_style"
                     android:drawableRight="@mipmap/global_icon_nest"
-                    android:visibility="gone"
                     />
             </LinearLayout>
 

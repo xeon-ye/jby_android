@@ -67,12 +67,18 @@ public class BalanceDetailsActivity extends AwMvpActivity<MyOrderFramgmentPresen
 
     @Override
     public void getOrderListSuccess(OrderBean data) {
+        if(data.getRows().size()==0){
+            mBalanceDetailsAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, "暂无数据", -1));
+            return;
+        }
         mBalanceDetailsAdapter.addAllData(data.getRows());
     }
 
     @Override
     public void getOrderListFail(String msg) {
         showMsg(msg);
+        mBalanceDetailsAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, "暂无数据", -1));
+
     }
 
     @Override

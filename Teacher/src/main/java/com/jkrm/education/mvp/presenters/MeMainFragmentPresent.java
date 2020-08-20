@@ -150,4 +150,32 @@ public class MeMainFragmentPresent extends AwCommonPresenter implements MeMainFr
             }
         }));
     }
+
+    @Override
+    public void logout() {
+        Observable<ResponseBean<String>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .logout();
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<String>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(String data) {
+
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
 }

@@ -177,6 +177,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
                 showDialogWithCancelDismiss("确认要退出登录吗？", v1 -> {
                     showMsg("退出登录成功");
                     ReLoginUtil.reLogin(mActivity);
+                    mPresenter.logout();
                 });
                 break;
             case R.id.tv_contract:

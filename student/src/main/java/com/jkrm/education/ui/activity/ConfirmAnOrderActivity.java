@@ -171,7 +171,9 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mTvTime.setText("支付剩余时间 " + hh + ":" + mm + ":" + ss);
+                        if(null!=mTvTime){
+                            mTvTime.setText("支付剩余时间 " + hh + ":" + mm + ":" + ss);
+                        }
                     }
                 });
             }

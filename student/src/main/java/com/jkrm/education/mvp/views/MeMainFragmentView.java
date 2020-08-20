@@ -19,6 +19,7 @@ public interface MeMainFragmentView extends AwBaseView {
         void getTeacherList(String params);
         void getVersionInfo();
         void getClassesById(String stuId);
+        void logout();
     }
 
     interface View extends AwBaseView {

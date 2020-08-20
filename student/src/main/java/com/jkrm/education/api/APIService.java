@@ -770,4 +770,11 @@ public interface APIService {
     @POST(UrlConstant.GET_COURSE_BY_ORDERID)
     Observable<ResponseBean<MicroLessonResultBean>> getCourseById(@Path("goodsId") String goodsId);
 
+    /**
+     * 退出登录
+     * @return
+     */
+    @GET(UrlConstant.LOGOUT)
+    Observable<ResponseBean<String>> logout();
+
 }

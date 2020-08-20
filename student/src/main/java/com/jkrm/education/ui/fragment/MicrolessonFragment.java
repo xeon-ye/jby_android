@@ -224,6 +224,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         mMicroLessonAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                hideSettingLayout(5);
                 MicroLessonResultBean microLessonResultBean = mList.get(position);
                 //校园通可以看所有
                 if ("1".equals(microLessonResultBean.getWhetherBuySch())) {

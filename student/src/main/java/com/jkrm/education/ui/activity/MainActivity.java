@@ -70,7 +70,7 @@ public class MainActivity extends AwMvpActivity<MainPresent> implements MainView
          //mFragmentList.add(new ErrorQuestionFragment());
         mFragmentList.add(new ErrorQuestionNewFragment());
         // mFragmentList.add(new QuestionBasketFragment());
-        //mFragmentList.add(new MicrolessonFragment());//微课
+        mFragmentList.add(new MicrolessonFragment());//微课
         // TODO: 2020/6/18 取消图书习题
         //mFragmentList.add(new BookExercisesFramgment());
         mFragmentList.add(new MeMainFragment());
@@ -156,12 +156,12 @@ public class MainActivity extends AwMvpActivity<MainPresent> implements MainView
             R.drawable.maintab_4_selector};*/
 
         // TODO: 2020/6/18  取消图书习题
-        private String[] tabNames = {"作业", "错题本", "我的"};
+/*        private String[] tabNames = {"作业", "错题本", "我的"};
         private int[] tabIcons = {R.drawable.maintab_1_selector, R.drawable.maintab_2_selector,
-                R.drawable.maintab_4_selector};
-/*               private String[] tabNames = {"作业", "错题本", "微课",  "我的"};
+                R.drawable.maintab_4_selector};*/
+               private String[] tabNames = {"作业", "错题本", "微课",  "我的"};
                private int[] tabIcons = {R.drawable.maintab_1_selector, R.drawable.maintab_2_selector, R.drawable.maintab_5_selector,
-                       R.drawable.maintab_4_selector};*/
+                       R.drawable.maintab_4_selector};
         private LayoutInflater inflater;
 
         public MyAdapter(FragmentManager fragmentManager) {

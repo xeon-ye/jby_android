@@ -717,4 +717,11 @@ public interface APIService {
     @GET(UrlConstant.GET_SAFE_CODE)
     Observable<ResponseBean<String>> getSafeCode(@Query("clientSessionId") String clientSessionId,@Query("t") String t,@Query("client") String client,@Query("encrypt") String encrypt);
 
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @GET(UrlConstant.LOGOUT)
+    Observable<ResponseBean<String>> logout();
 }

@@ -63,7 +63,6 @@ public class MarkHomeWordDetailChildAdapter extends BaseQuickAdapter<HomeworkDet
         helper.setText(R.id.tv_questionNum, "第" + bean.getQuestionNum() + "题")
                 .setText(R.id.tv_questionScore, "【" + MyDateUtil.replace(bean.getMaxScore()) + "分】")
                 .setText(R.id.tv_scoreRate, "得分率：" + AwConvertUtil.double2String(Double.parseDouble(bean.getRatio() == null ? "0" : bean.getRatio()) * 100, 2) + "%")
-                .setText(R.id.tv_subTitle, AwDataUtil.isEmpty(bean.getTitle()) ? "答题详情" : bean.getTitle())
                 .setText(R.id.tv_exPlat,bean.getExPlat()+"人需要讲解")
                 .addOnClickListener(R.id.btn_studentAnswer)
                 .addOnClickListener(R.id.btn_seeSpecial)

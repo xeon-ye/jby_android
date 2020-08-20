@@ -284,4 +284,9 @@ public class UrlConstant {
      * 动态获取系统安全码
      */
     public static final String GET_SAFE_CODE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/sys/safe/code";
+
+    /**
+     * 退出登录
+     */
+    public static final String LOGOUT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/logout";
 }

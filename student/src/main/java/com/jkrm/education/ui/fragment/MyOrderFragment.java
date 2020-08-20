@@ -189,12 +189,18 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
 
     @Override
     public void getOrderListSuccess(OrderBean data) {
+        if(data.getRows().size()==0){
+            mOrderAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, "暂无数据", -1));
+            return;
+        }
         mOrderAdapter.addAllData(data.getRows());
     }
 
     @Override
     public void getOrderListFail(String msg) {
         showMsg(msg);
+        mOrderAdapter.setEmptyView(AwRecyclerViewUtil.getEmptyDataView(mActivity, "暂无数据", -1));
+
     }
 
     @Override

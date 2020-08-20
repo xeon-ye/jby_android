@@ -257,4 +257,9 @@ public class UrlConstant {
      * 根据订单id查询课程信息
      */
     public static final String GET_COURSE_BY_ORDERID=MOCK_API_PREFIX+COMMON_URL_PREFIX+"resource_server/combo/manage/pc/{goodsId}";
+
+    /**
+     * 退出登录
+     */
+    public static final String LOGOUT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/logout";
 }
