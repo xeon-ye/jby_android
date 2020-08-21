@@ -230,6 +230,10 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
                 if ("1".equals(microLessonResultBean.getWhetherBuySch())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
                 }
+                //免费
+                else if ("0".equals(microLessonResultBean.getWhetherFree())) {
+                    toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
+                }
                 //vip
                 else if ("1".equals(microLessonResultBean.getWhetherVip())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
@@ -240,9 +244,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
                     //已购买
                 } else if ("1".equals(microLessonResultBean.getWhetherBuy())) {
                     toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
-                    //免费
-                } else if ("0".equals(microLessonResultBean.getWhetherFree())) {
-                    toClass(CoursePurchasedActivity.class, false, Extras.KEY_COURSE_BEAN, mList.get(position));
+
                 }
 
 

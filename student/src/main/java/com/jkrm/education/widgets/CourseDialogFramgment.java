@@ -50,10 +50,21 @@ public class CourseDialogFramgment extends DialogFragment {
     private List<List<CoursePlayResultBean.VideoListBean>> mChildValues = new ArrayList<>();
     CoursePlayAdapter mCoursePlayAdapter;
     private ExpandableListView mEpv;
+    private ConfirmListener mConfirmListener;
+
+    public ConfirmListener getConfirmListener() {
+        return mConfirmListener;
+    }
+
+    public void setConfirmListener(ConfirmListener confirmListener) {
+        mConfirmListener = confirmListener;
+    }
 
     public interface ConfirmListener {
         void onClickComplete(List<CoursePlayResultBean.VideoListBean> mChildValues);
     }
+
+
 
 
     @Override
@@ -90,6 +101,10 @@ public class CourseDialogFramgment extends DialogFragment {
                     ToastUtil.showLongToast(getActivity(), "请选择课程");
                     return;
                 }
+               /* if(null!=mConfirmListener){
+                    mConfirmListener.onClickComplete(list);
+                }*/
+
                 confirmListener.onClickComplete(list);
                 dismiss();
             }

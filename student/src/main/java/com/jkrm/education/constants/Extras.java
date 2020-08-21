@@ -31,6 +31,7 @@ public class Extras {
 
     public static final String RESET_PWD = "reset_pwd";//重置密码标志
     public static final String MICROLESS_ID = "microless_id";//课程id
+    public static final String MICROLESS_PVC_ID="microless_pvc_id";//课程pvc id
     /**
      *课程名称
      */

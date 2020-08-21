@@ -46,10 +46,11 @@ public class MicroLessonAdapter extends BaseQuickAdapter<MicroLessonResultBean, 
         if("0".equals(item.getWhetherFree())){
             price="免费";
             helper.setText(R.id.tv_price,price);
+            helper.setTextColor(R.id.tv_price,Color.parseColor("#FFC71C"));
         }else{
-            price=item.getMlessonPrice()+" 新教育币";
+            price=item.getMlessonPrice()+" 储值";
             SpannableStringBuilder builder=new SpannableStringBuilder(price);
-            ForegroundColorSpan yellow=new ForegroundColorSpan(Color.parseColor("#FFC71C"));
+            ForegroundColorSpan yellow=new ForegroundColorSpan(mContext.getResources().getColor(R.color.colorPrimary));
             builder.setSpan(yellow,0,item.getMlessonPrice().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             helper.setText(R.id.tv_price,builder);
         }

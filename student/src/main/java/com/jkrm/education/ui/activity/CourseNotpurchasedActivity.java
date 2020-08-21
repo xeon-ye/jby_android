@@ -211,13 +211,22 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
             TextView tvName = view.findViewById(R.id.tv_name);
             tvName.setText(mChildValues.get(i).get(i1).getName());
             TextView tvShow = view.findViewById(R.id.tv_show);
+            ImageView iv_lock = view.findViewById(R.id.iv_lock);
             TextView tv_time = view.findViewById(R.id.tv_time);
             String times = mChildValues.get(i).get(i1).getTimes();
-            String[] split = times.split(":");
-            tv_time.setText(split[0]+"分");
-            if (i1 != 0) {
+            tv_time.setText(times);
+          /*  if("0".equals(mChildValues.get(i).get(i1).getWhetherFree())){
+                tvShow.setText("试看");
+                iv_lock.setVisibility(View.GONE);
+            }else{
                 tvShow.setVisibility(View.GONE);
-            }
+                iv_lock.setVisibility(View.VISIBLE);
+            }*/
+           /* if (i1 != 0) {
+                tvShow.setVisibility(View.GONE);
+            }*/
+
+
             return view;
         }
 
@@ -268,7 +277,8 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
         mEpv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                if (i1 == 0) {
+                CoursePlayResultBean.VideoListBean videoListBean = mChildValues.get(i).get(i1);
+                if ("0".equals(videoListBean.getWhetherFree())) {
                     toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
                 } else {
                     showDialogCustomLeftAndRight("您暂未购买该课程,去购买？", "取消", "购买", new View.OnClickListener() {

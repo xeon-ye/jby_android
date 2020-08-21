@@ -185,6 +185,7 @@
         <activity android:name=".ui.activity.order.CanceledOrderActivity" />
         <activity android:name=".ui.activity.order.InvestMoneyActivity" />
         <activity android:name=".ui.activity.CourseCacheNewActivity"></activity>
+        <activity android:name=".ui.activity.CourseCacheChildActivity"> </activity>
     </application>
 
 </manifest>

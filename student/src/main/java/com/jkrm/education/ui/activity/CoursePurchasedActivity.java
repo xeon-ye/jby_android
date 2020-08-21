@@ -15,18 +15,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.hzw.baselib.widgets.SuperExpandableListView;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.result.CoursePlayResultBean;
 import com.jkrm.education.bean.result.MicroLessonResultBean;
+import com.jkrm.education.bean.rx.RxCostomDownType;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.constants.UrlConstant;
+import com.jkrm.education.db.DaoCatalogueBean;
+import com.jkrm.education.db.DaoMicroLessonBean;
+import com.jkrm.education.db.DaoVideoBean;
+import com.jkrm.education.db.util.DaoUtil;
 import com.jkrm.education.mvp.presenters.CoursePurchasedPresent;
 import com.jkrm.education.mvp.views.CoursePurchasedView;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.ShareSDKUtils;
+import com.jkrm.education.widgets.CourseDialogFramgment;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.IndicatorView;
@@ -40,6 +47,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +61,7 @@ import io.github.kexanie.library.MathView;
 /**
  * 已购课程
  */
-public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresent> implements CoursePurchasedView.View {
+public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresent> implements CoursePurchasedView.View ,CourseDialogFramgment.ConfirmListener{
 
 
     @BindView(R.id.start_now)
@@ -179,7 +188,7 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.start_now, R.id.iv_img})
+    @OnClick({R.id.start_now, R.id.iv_img,R.id.iv_down})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.start_now:
@@ -191,6 +200,20 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
                 // toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);
                 toClass(CourseBroadcastActivity.class, false, Extras.KEY_COURSE_LIST, (Serializable) mGroupValues, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean, Extras.VIDEO_GROUP_PRO, 0, Extras.VIDEO_CHILD_PRO, 0);
 
+                break;
+            case R.id.iv_down:
+                //点击下载弹出下载框
+                CourseDialogFramgment courseDialogFramgment = new CourseDialogFramgment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Extras.KEY_COURSE_LIST, (Serializable) mGroupValues);
+                courseDialogFramgment.setArguments(bundle);
+                courseDialogFramgment.show(getSupportFragmentManager(), "");
+                courseDialogFramgment.setConfirmListener(new CourseDialogFramgment.ConfirmListener() {
+                    @Override
+                    public void onClickComplete(List<CoursePlayResultBean.VideoListBean> mChildValues) {
+
+                    }
+                });
                 break;
         }
     }
@@ -237,6 +260,38 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
             }
         });
 
+    }
+
+    @Override
+    public void onClickComplete(List<CoursePlayResultBean.VideoListBean> mChildValues) {
+        ArrayList<DaoVideoBean> daoVideoBeanArrayList = new ArrayList<>();
+        //数据库记录课程信息
+        Gson microGson = new Gson();
+        DaoMicroLessonBean daoMicroLessonBean = microGson.fromJson(microGson.toJson(mMicroLessonResultBean), DaoMicroLessonBean.class);
+        DaoUtil.getInstance().insertMicro(daoMicroLessonBean);//插入数据
+        for (CoursePlayResultBean groupValue : mGroupValues) {
+            Gson courseGson = new Gson();
+            DaoCatalogueBean daoCatalogueBean = courseGson.fromJson(courseGson.toJson(groupValue), DaoCatalogueBean.class);
+            DaoUtil.getInstance().insertCatalogue(daoCatalogueBean);
+        }
+        for (CoursePlayResultBean.VideoListBean videoListBean : mChildValues) {
+            Gson daoVideoGson = new Gson();
+            DaoVideoBean daoVideoBean = daoVideoGson.fromJson(daoVideoGson.toJson(videoListBean), DaoVideoBean.class);
+            daoVideoBean.setFileName("JBY" + videoListBean.getId() + videoListBean.getUrl().substring(videoListBean.getUrl().lastIndexOf("/")).replace("/", "").trim());
+            daoVideoBean.setFilePath(Extras.FILE_PATH + "/" + daoVideoBean.getFileName());
+            DaoUtil.getInstance().insertVideoBean(daoVideoBean);
+            //数据库查询是否下载过
+            DaoVideoBean daoVideoBean1 = DaoUtil.getInstance().queryVideoByUrl(daoVideoBean);
+            if (null != daoVideoBean1) {
+                daoVideoBeanArrayList.add(daoVideoBean);
+            }
+        }
+       /* ArrayList<String> downUrlList = new ArrayList<>();
+        for (CoursePlayResultBean.VideoListBean videoListBean : videoList) {
+            downUrlList.add(videoListBean.getUrl());
+        }*/
+        EventBus.getDefault().post(new RxCostomDownType(daoVideoBeanArrayList));
+        toClass(CourseCacheNewActivity.class, false);
     }
 
     class CoursePlayAdapter extends BaseExpandableListAdapter {
@@ -302,8 +357,7 @@ public class CoursePurchasedActivity extends AwMvpActivity<CoursePurchasedPresen
             //.setText(mChildValues.get(i).get(i1).getTimes());
             TextView tv_time = view.findViewById(R.id.tv_time);
             String times = mChildValues.get(i).get(i1).getTimes();
-            String[] split = times.split(":");
-            tv_time.setText(split[0]+"分");
+            tv_time.setText(times);
             return view;
         }
 

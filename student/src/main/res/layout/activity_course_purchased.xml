@@ -21,7 +21,20 @@
         android:paddingTop="@dimen/dimen_20"
         android:orientation="vertical">
 
-        <include layout="@layout/common_title_no_line" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/common_title_no_line" />
+            <ImageView
+                android:id="@+id/iv_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="300dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/down_con"
+
+                />
+        </RelativeLayout>
 
 
         <ImageView

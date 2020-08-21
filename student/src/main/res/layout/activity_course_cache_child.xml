@@ -41,6 +41,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/rl_down_more"
                     android:layout_width="@dimen/dimen_120"
                     android:layout_height="@dimen/dimen_80"
                     android:background="#F5FAFF">

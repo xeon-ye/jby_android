@@ -73,7 +73,9 @@
                         android:text="目录"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        />
 
                     <com.hzw.baselib.widgets.SuperExpandableListView
                         android:id="@+id/epv"

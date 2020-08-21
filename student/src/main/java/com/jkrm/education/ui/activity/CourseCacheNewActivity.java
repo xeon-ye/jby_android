@@ -117,8 +117,8 @@ public class CourseCacheNewActivity extends AwBaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<DaoMicroLessonBean> data = adapter.getData();
-                toClass(CourseCacheChildActivity.class, false, Extras.MICROLESS_ID, data.get(position).getId(), Extras.MICROLESS_NAME, data.get(position).getMlessonName());
-            }
+                toClass(CourseCacheChildActivity.class, false, Extras.MICROLESS_ID, data.get(position).getId(), Extras.MICROLESS_NAME, data.get(position).getMlessonName(),Extras.MICROLESS_PVC_ID,data.get(position).getPcvId());
+             }
         });
         mToolbarCustom.setOnRightClickListener(new AwViewCustomToolbar.OnRightClickListener() {
             @Override
