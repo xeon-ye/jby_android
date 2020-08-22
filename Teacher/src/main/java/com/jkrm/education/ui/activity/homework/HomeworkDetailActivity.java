@@ -26,6 +26,7 @@ import com.hzw.baselib.util.MyDateUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.HomeworkDetailViewPagerAdapter;
+import com.jkrm.education.adapter.mark.MarkHomeWordDetailGroupAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailStudentAnswerAdapter;
 import com.jkrm.education.bean.result.ExplainStudentBean;
@@ -141,6 +142,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private View mHeaderView;
     private GradQusetionBean mGradQusetionBean;
     private List<ClassesResponseBean> mClassesResponseBeanList = new ArrayList<>();
+    private MarkHomeWordDetailGroupAdapter markHomeWordDetailGroupAdapter;
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -211,14 +213,15 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         refreshData();
 
         mDetailAdapter = new MarkHomeworkDetailAdapter();
+        markHomeWordDetailGroupAdapter = new MarkHomeWordDetailGroupAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mDetailAdapter, false);
 
         mHeaderView = getLayoutInflater().inflate(R.layout.inflate_homework_detail, null);
         FixedIndicatorView mScrollIndicator = mHeaderView.findViewById(R.id.scroll_indicator);
         SViewPager mScrollViewPager = mHeaderView.findViewById(R.id.scroll_viewPager);
         initScoreViewPager(mScrollIndicator, mScrollViewPager);
-        mDetailAdapter.addHeaderView(mHeaderView);//添加了headerview, 注意position位置处理
-
+        //mDetailAdapter.addHeaderView(mHeaderView);//添加了headerview, 注意position位置处理
+        mDetailAdapter.addHeaderView(mHeaderView);
         //初始化侧滑学生作答(答题详情)组件
         mStudentAnswerAdapter = new MarkHomeworkDetailStudentAnswerAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvDataStudentAnswer, mStudentAnswerAdapter, false);
@@ -563,6 +566,9 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mToolbar.setToolbarTitle(mRowsHomeworkBean.getName());
         mToolbar.setToolbarMaxEms(10);
         setData(bean, TAG_SORT_QUESTION_NUM);
+        /*ArrayList<List<HomeworkDetailResultBean.GradQusetionBean>> homeworkDetailResultBeanList=new ArrayList<>();
+        homeworkDetailResultBeanList.add(bean.getGradQusetion());
+        mDetailAdapter.addAllData(homeworkDetailResultBeanList);*/
     }
 
     @Override

@@ -172,8 +172,7 @@ public class StudyCourseActivity extends AwMvpActivity<StudyCoursePresent> imple
             TextView tvShow = view.findViewById(R.id.tv_show);
            // tvShow.setText(mChildValues.get(i).get(i1).getTimes());
             String times = mChildValues.get(i).get(i1).getTimes();
-            String[] split = times.split(":");
-            tv_time.setText(split[0]+"分");
+            tv_time.setText(times);
             return view;
         }
 
