@@ -54,11 +54,103 @@
         android:layout_height="match_parent"
 
         >
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+
+            <!--我的账户-->
+            <LinearLayout
+                android:id="@+id/ll_account"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/dimen_15"
+                android:layout_height="55dp"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    style="@style/middle_black_style"
+                    android:text="我的账户"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingRight="@dimen/dimen_15"
+                    android:layout_gravity="right">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/global_icon_nest"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_toLeftOf="@id/iv_school"
+                        style="@style/middle_black_style"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:text=""/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_marginLeft="@dimen/dimen_15"
+                style="@style/common_line_horizontal"/>
+
+            <!--任教科目-->
+            <LinearLayout
+                android:id="@+id/ll_myorder"
+                android:layout_width="match_parent"
+                android:paddingLeft="@dimen/dimen_15"
+                android:layout_height="55dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    style="@style/middle_black_style"
+                    android:text="我的订单"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:paddingRight="@dimen/dimen_15">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/global_icon_nest"
+                        />
+
+                    <TextView
+                        style="@style/middle_black_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/dimen_10"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="" />
+                </RelativeLayout>
+
+            </LinearLayout>
             <!--我的学校-->
             <LinearLayout
                 android:id="@+id/ll_school"
@@ -256,11 +348,11 @@
                 style="@style/common_line_horizontal"/>
             <!--我的订单-->
             <LinearLayout
-                android:id="@+id/ll_myorder"
                 android:layout_width="match_parent"
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
                 android:background="@color/white"
+                android:visibility="gone"
                 >
 
                 <TextView
@@ -309,6 +401,7 @@
                 android:paddingLeft="@dimen/dimen_15"
                 android:layout_height="55dp"
                 android:background="@color/white"
+                android:visibility="gone"
                 >
 
                 <TextView

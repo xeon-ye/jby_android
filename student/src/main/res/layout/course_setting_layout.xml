@@ -26,10 +26,11 @@
                 android:background="@null" />
 
             <TextView
+                android:id="@+id/tv_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_10"
-                android:text="全选" />
+                android:text="全选(0)" />
         </LinearLayout>
 
         <View

@@ -260,7 +260,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
             //钱包支付
             case PURSE_PAY:
                 // mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
-                mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(), "0.01", "2"));
+                mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(), mMicroLessonResultBean.getMlessonPrice(), "2"));
                 break;
         }
     }

@@ -72,6 +72,7 @@
                     android:drawableRight="@mipmap/sniper_normal"
                     android:drawablePadding="@dimen/dimen_5"
                     android:gravity="center"
+                    android:textSize="@dimen/dimen_10"
                     ></TextView>
                 <TextView
                     android:id="@+id/tv_banben"
@@ -81,6 +82,8 @@
                     android:drawableRight="@mipmap/sniper_normal"
                     android:drawablePadding="@dimen/dimen_5"
                     android:gravity="center"
+                    android:textSize="@dimen/dimen_10"
+
                     ></TextView>
                 <TextView
                     android:id="@+id/tv_mokuai"
@@ -90,6 +93,8 @@
                     android:drawableRight="@mipmap/sniper_normal"
                     android:drawablePadding="@dimen/dimen_5"
                     android:gravity="center"
+                    android:textSize="@dimen/dimen_10"
+
                     ></TextView>
                 <TextView
                     android:id="@+id/tv_zhuanyong"
@@ -98,6 +103,8 @@
                     android:layout_weight="1"
                     android:drawableRight="@mipmap/sniper_normal"
                     android:drawablePadding="@dimen/dimen_5"
+                    android:textSize="@dimen/dimen_10"
+
                     android:gravity="center"
                     ></TextView>
             </LinearLayout>

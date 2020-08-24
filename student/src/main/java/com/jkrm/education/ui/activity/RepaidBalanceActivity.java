@@ -1,6 +1,7 @@
 package com.jkrm.education.ui.activity;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +37,7 @@ import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.RepaidBalancePresent;
 import com.jkrm.education.mvp.views.RepaidBalanceView;
 import com.jkrm.education.student.wxapi.alipay.PayResult;
+import com.jkrm.education.ui.activity.me.BalanceDetailsActivity;
 import com.jkrm.education.ui.fragment.MicrolessonFragment;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
@@ -129,12 +131,14 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
     @Override
     protected void initView() {
         super.initView();
-        setToolbarWithBackImg("我的账户", new AwViewCustomToolbar.OnLeftClickListener() {
+
+        setToolbarWithBackImgAndRightView("我的账户", "账单", new AwViewCustomToolbar.OnRightClickListener() {
             @Override
-            public void onLeftTextClick() {
-                finish();
+            public void onRightTextClick() {
+                toClass(BalanceDetailsActivity.class,false);
             }
         });
+        mToolbarCustom.setRTextColor(R.color.colorAccent);
         //微信
         mWxapi = WXAPIFactory.createWXAPI(this, MyApp.WX_APP_ID);
         mWxapi.registerApp(MyApp.WX_APP_ID);

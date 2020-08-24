@@ -121,8 +121,8 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
                 tv_subTitle.setVisibility(View.GONE);
                 tv_sort.setVisibility(View.GONE);
             } else {
-                tv_subTitle.setVisibility(View.GONE);
-                tv_sort.setVisibility(View.GONE);
+                tv_subTitle.setVisibility(View.VISIBLE);
+                tv_sort.setVisibility(View.VISIBLE);
             }
         } else {
             tv_subTitle.setVisibility(View.VISIBLE);

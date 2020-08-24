@@ -16,6 +16,7 @@ import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.OrderBean;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +63,8 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.RowsBean, BaseViewH
             helper.setText(R.id.tv_step, "待支付");
             helper.setTextColor(R.id.tv_step, mContext.getResources().getColor(R.color.colorPrimary));
             helper.setVisible(R.id.ll_of_pay, true);
-            CountDownTimer timer = new CountDownTimer(item.getValidTime(), 1000) {
+          long l=  System.currentTimeMillis()-item.getValidTime();
+            CountDownTimer timer = new CountDownTimer(System.currentTimeMillis()-item.getValidTime(), 1000) {
                 @Override
                 public void onTick(long l) {
                     mTv_valid_time.setText(getGapTime(l) + "后自动取消");
@@ -87,10 +89,12 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.RowsBean, BaseViewH
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
+
+            DecimalFormat decimalFormat=new DecimalFormat("#0.00");
             Date parse = simpleDateFormat.parse(item.getCreateTime());
             helper.setText(R.id.tv_time, "下单时间:" + AwDateUtils.getyyyyMMddHHmmssWithNo(parse.getTime()))
-                    .setText(R.id.tv_price, "￥" + item.getGoodsPrice())
-                    .setText(R.id.tv_content, "共" + item.getDetaiList().get(0).getComboNum() + "节课")
+                    .setText(R.id.tv_price, "￥" +  decimalFormat.format(Double.parseDouble(item.getGoodsPrice())))
+                    .setText(R.id.tv_content, "共" + item.getDetaiList().get(0).getComboNum() + "讲")
                     .setText(R.id.tv_course, item.getDetaiList().get(0).getCourseName())
                     .setText(R.id.tv_title, item.getDetaiList().get(0).getGoodsName())
                     .addOnClickListener(R.id.tv_title)

@@ -31,6 +31,7 @@
                 android:layout_marginLeft="@dimen/dimen_15"
                 android:text="全部暂停"
                 android:padding="@dimen/dimen_10"
+                android:visibility="gone"
                 android:textColor="@color/color_999999" />
 
 

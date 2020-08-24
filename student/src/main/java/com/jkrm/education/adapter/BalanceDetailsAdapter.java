@@ -11,6 +11,7 @@ import com.jkrm.education.R;
 import com.jkrm.education.bean.AnswerSheetBean;
 import com.jkrm.education.bean.OrderBean;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,15 +60,17 @@ public class BalanceDetailsAdapter extends BaseQuickAdapter<OrderBean.RowsBean, 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        DecimalFormat decimalFormat=new DecimalFormat("#0.00");
+
         if ("1".equals(item.getOrderType())) {
             helper.setText(R.id.tv_type, "课程购买")
-                    .setText(R.id.tv_num, "-" + item.getGoodsPrice())
+                    .setText(R.id.tv_num, "-" +  decimalFormat.format(Double.parseDouble(item.getGoodsPrice())))
                     .setTextColor(R.id.tv_num, mContext.getResources().getColor(R.color.red));
             iv_type.setImageResource(R.mipmap.purchase_icon);
 
         } else if ("2".equals(item.getOrderType())) {
             helper.setText(R.id.tv_type, "储蓄充值")
-                    .setText(R.id.tv_num, "+" + item.getGoodsPrice())
+                    .setText(R.id.tv_num, "+" +  decimalFormat.format(Double.parseDouble(item.getGoodsPrice())))
                     .setTextColor(R.id.tv_num, mContext.getResources().getColor(R.color.colorPrimary));
             iv_type.setImageResource(R.mipmap.invest_icon);
 

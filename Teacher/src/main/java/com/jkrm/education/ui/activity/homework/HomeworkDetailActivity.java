@@ -142,7 +142,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private View mHeaderView;
     private GradQusetionBean mGradQusetionBean;
     private List<ClassesResponseBean> mClassesResponseBeanList = new ArrayList<>();
-    private MarkHomeWordDetailGroupAdapter markHomeWordDetailGroupAdapter;
+    private MarkHomeWordDetailGroupAdapter mMarkHomeWordDetailGroupAdapter;
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -213,21 +213,21 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         refreshData();
 
         mDetailAdapter = new MarkHomeworkDetailAdapter();
-        markHomeWordDetailGroupAdapter = new MarkHomeWordDetailGroupAdapter();
+        mMarkHomeWordDetailGroupAdapter = new MarkHomeWordDetailGroupAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mDetailAdapter, false);
 
         mHeaderView = getLayoutInflater().inflate(R.layout.inflate_homework_detail, null);
         FixedIndicatorView mScrollIndicator = mHeaderView.findViewById(R.id.scroll_indicator);
         SViewPager mScrollViewPager = mHeaderView.findViewById(R.id.scroll_viewPager);
         initScoreViewPager(mScrollIndicator, mScrollViewPager);
-        //mDetailAdapter.addHeaderView(mHeaderView);//添加了headerview, 注意position位置处理
-        mDetailAdapter.addHeaderView(mHeaderView);
+        mDetailAdapter.addHeaderView(mHeaderView);//添加了headerview, 注意position位置处理
+
         //初始化侧滑学生作答(答题详情)组件
         mStudentAnswerAdapter = new MarkHomeworkDetailStudentAnswerAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvDataStudentAnswer, mStudentAnswerAdapter, false);
 
         mPresenter.getExplainClasses(UserUtil.getTeacherId(), homeworkId);
-        mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
+    /*    mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
             @Override
             public void onSortChick(View view,TextView textView) {
                 AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), view,
@@ -255,7 +255,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 //                        }
                         });
             }
-        });
+        });*/
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -490,6 +490,11 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     });
                     break;
             }
+            ArrayList<List<GradQusetionBean>> mList=new ArrayList<>();
+            classifyData();
+            mList.add(bean.getGradQusetion());
+            mList.add(bean.getGradQusetion());
+            mMarkHomeWordDetailGroupAdapter.addAllData(mList);
             mDetailAdapter.addAllData(list);
             mDetailAdapter.loadMoreComplete();
             mDetailAdapter.setEnableLoadMore(false);
@@ -560,15 +565,15 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         }, 300);
     }
 
+    private void classifyData() {
+    }
+
     @Override
     public void getHomeworkDetailSuccess(HomeworkDetailResultBean bean) {
         mHomeworkDetailResultBean = bean;
         mToolbar.setToolbarTitle(mRowsHomeworkBean.getName());
         mToolbar.setToolbarMaxEms(10);
         setData(bean, TAG_SORT_QUESTION_NUM);
-        /*ArrayList<List<HomeworkDetailResultBean.GradQusetionBean>> homeworkDetailResultBeanList=new ArrayList<>();
-        homeworkDetailResultBeanList.add(bean.getGradQusetion());
-        mDetailAdapter.addAllData(homeworkDetailResultBeanList);*/
     }
 
     @Override
