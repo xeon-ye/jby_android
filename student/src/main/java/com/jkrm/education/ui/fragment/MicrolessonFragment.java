@@ -1,13 +1,12 @@
 package com.jkrm.education.ui.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -32,16 +31,16 @@ import com.jkrm.education.mvp.presenters.MicroLessonPresent;
 import com.jkrm.education.mvp.views.MicroLessonFragmentView;
 import com.jkrm.education.ui.activity.CourseNotpurchasedActivity;
 import com.jkrm.education.ui.activity.CoursePurchasedActivity;
+import com.jkrm.education.ui.activity.MainActivity;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * @Description: 微课
@@ -110,6 +109,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     public static String mStrCourseId,mStrCourseName;
 
 
+
     @Override
     protected MicroLessonPresent createPresenter() {
         return new MicroLessonPresent(this);
@@ -128,6 +128,29 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         mToolbar.hideLeft2ImgView();
         mToolbar.setToolbarTitleColor(R.color.white);
         mToolbar.setLeftTextColor(R.color.white);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.MyTouchListener myTouchListener = new MainActivity.MyTouchListener() {
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                if(touchEventInView(mLlOfSetting,event.getX(),event.getY())||touchEventInView(rcvXueke,event.getX(),event.getY())||
+                        touchEventInView(rcvBanben,event.getX(),event.getY())||
+                        touchEventInView(rcvMokuai,event.getX(),event.getY())||
+                        touchEventInView(rcvZhuanyong,event.getX(),event.getY())){
+                    return false;
+                }else{
+                    hideSettingLayout(5);
+                    return true;
+                }
+                // 处理手势事件
+            }
+        };
+        // 将myTouchListener注册到分发列表
+        ((MainActivity)this.getActivity()).registerMyTouchListener(myTouchListener);
+        return super.onCreateView(inflater, container, savedInstanceState);
+
     }
 
     @Override
@@ -458,6 +481,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
 
     private void initXueDuanChoiceData() {
         mXueduanValues = mCourseAttrValues.get("first");
+        String gradeName = UserUtil.getAppUser().getGradeName();
         mXueduanAdapter.addAllData(mXueduanValues);
         initScreenState(mXueduanValues);
         initNianfenChoiceData();
@@ -621,6 +645,35 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
     public void onResume() {
         super.onResume();
         getData();
+    }
+
+    /**
+     * 该方法检测一个点击事件是否落入在一个View内，换句话说，检测这个点击事件是否发生在该View上。
+     *
+     * @param view
+     * @param x
+     * @param y
+     * @return
+     */
+    private boolean touchEventInView(View view, float x, float y) {
+        if (view == null) {
+            return false;
+        }
+
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+
+        int left = location[0];
+        int top = location[1];
+
+        int right = left + view.getMeasuredWidth();
+        int bottom = top + view.getMeasuredHeight();
+
+        if (y >= top && y <= bottom && x >= left && x <= right) {
+            return true;
+        }
+
+        return false;
     }
 
 

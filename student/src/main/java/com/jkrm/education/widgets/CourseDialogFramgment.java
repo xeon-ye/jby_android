@@ -51,6 +51,7 @@ public class CourseDialogFramgment extends DialogFragment {
     CoursePlayAdapter mCoursePlayAdapter;
     private ExpandableListView mEpv;
     private ConfirmListener mConfirmListener;
+    private TextView mTvAll;
 
     public ConfirmListener getConfirmListener() {
         return mConfirmListener;
@@ -63,8 +64,6 @@ public class CourseDialogFramgment extends DialogFragment {
     public interface ConfirmListener {
         void onClickComplete(List<CoursePlayResultBean.VideoListBean> mChildValues);
     }
-
-
 
 
     @Override
@@ -83,6 +82,7 @@ public class CourseDialogFramgment extends DialogFragment {
     private void init(View view) {
         mBtndelete = view.findViewById(R.id.btn_delete);
         mEpv = view.findViewById(R.id.elv);
+        mTvAll = view.findViewById(R.id.tv_all);
         mBtndelete.setText("确定缓存");
         mBtndelete.setTextColor(getResources().getColor(R.color.colorAccent));
         mBtndelete.setOnClickListener(new View.OnClickListener() {
@@ -238,7 +238,7 @@ public class CourseDialogFramgment extends DialogFragment {
             //时长 大小
             String times = videoListBean.getTimes();
             String[] split = times.split(":");
-            tv_time_and_size.setText(split[0] + "分钟  " + FileUtils.getPrintSize(Long.parseLong(videoListBean.getSize())));
+            tv_time_and_size.setText(times);
             tvName.setText(videoListBean.getName());
             if (null != daoVideoBean1) {
                 checkBox.setEnabled(false);
@@ -255,6 +255,7 @@ public class CourseDialogFramgment extends DialogFragment {
                     } else {
                         videoListBean.setChecked(false);
                     }
+                    getChoseNum();
                 }
             });
             return view;
@@ -265,6 +266,18 @@ public class CourseDialogFramgment extends DialogFragment {
             return true;
         }
 
+    }
+
+    private void getChoseNum() {
+        int num = 0;
+        for (List<CoursePlayResultBean.VideoListBean> childValue : mChildValues) {
+            for (CoursePlayResultBean.VideoListBean videoListBean : childValue) {
+                if (videoListBean.isChecked()) {
+                    num++;
+                }
+            }
+        }
+        mTvAll.setText("全选（"+num+"）");
     }
 
 }

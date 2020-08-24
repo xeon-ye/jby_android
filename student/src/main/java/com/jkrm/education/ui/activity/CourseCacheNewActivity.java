@@ -327,6 +327,7 @@ public class CourseCacheNewActivity extends AwBaseActivity {
             daoMicroLessonBean.setCacheNum("已缓存" + cacheingNum + "节/共" + cacheNum + "节");
             daoMicroLessonBean.setCacheSize(FileUtils.getPrintSize(cacheSize));
 
+
         }
 
     }

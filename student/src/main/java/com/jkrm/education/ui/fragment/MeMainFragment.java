@@ -163,7 +163,7 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
         super.initListener();
     }
 
-    @OnClick({R.id.tv_mobile, R.id.btn_logout, R.id.tv_contract, R.id.tv_modifyPwd, R.id.tv_sobot, R.id.ll_version, R.id.tv_userAggrement, R.id.tv_cache, R.id.tv_answer_answerrecord, R.id.ll_classes, R.id.ll_myorder,R.id.ll_acc,R.id.ll_balancedetails})
+    @OnClick({R.id.tv_mobile, R.id.btn_logout, R.id.tv_contract, R.id.tv_modifyPwd, R.id.tv_sobot, R.id.ll_version, R.id.tv_userAggrement, R.id.tv_cache, R.id.tv_answer_answerrecord, R.id.ll_classes, R.id.ll_myorder,R.id.ll_acc,R.id.ll_balancedetails,R.id.ll_account})
     @Override
     public void onClick(View v) {
         if (AwBtnClickUtil.isFastDoubleClick(v.getId())) {
@@ -219,6 +219,9 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
                 break;
             case R.id.ll_balancedetails:
                 toClass(BalanceDetailsActivity.class,false);
+                break;
+            case R.id.ll_account:
+                toClass(RepaidBalanceActivity.class,false);
                 break;
         }
     }

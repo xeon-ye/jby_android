@@ -117,12 +117,12 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
 
         //添加了headerview. 注意position位置处理
         if(helper.getPosition() != 0 && helper.getPosition() != 1) {
-            if(bean.getTypeName().equals(mList.get(helper.getPosition() - 2).getTypeName())) {
+            if(bean.getTitle().equals(mList.get(helper.getPosition() - 2).getTitle())) {
                 tv_subTitle.setVisibility(View.GONE);
                 tv_sort.setVisibility(View.GONE);
             } else {
-                tv_subTitle.setVisibility(View.GONE);
-                tv_sort.setVisibility(View.GONE);
+                tv_subTitle.setVisibility(View.VISIBLE);
+                tv_sort.setVisibility(View.VISIBLE);
             }
         } else {
             tv_subTitle.setVisibility(View.VISIBLE);

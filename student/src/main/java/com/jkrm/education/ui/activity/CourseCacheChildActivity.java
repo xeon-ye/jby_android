@@ -255,16 +255,9 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
 
     @Override
     public void onClickComplete(List<CoursePlayResultBean.VideoListBean> mChildValues) {
-        /*ArrayList<DaoVideoBean> daoVideoBeanArrayList = new ArrayList<>();
+        ArrayList<DaoVideoBean> daoVideoBeanArrayList = new ArrayList<>();
         //数据库记录课程信息
-        Gson microGson = new Gson();
-        DaoMicroLessonBean daoMicroLessonBean = microGson.fromJson(microGson.toJson(mMicroLessonResultBean), DaoMicroLessonBean.class);
-        DaoUtil.getInstance().insertMicro(daoMicroLessonBean);//插入数据
-        for (CoursePlayResultBean groupValue : mGroupValues) {
-            Gson courseGson = new Gson();
-            DaoCatalogueBean daoCatalogueBean = courseGson.fromJson(courseGson.toJson(groupValue), DaoCatalogueBean.class);
-            DaoUtil.getInstance().insertCatalogue(daoCatalogueBean);
-        }
+
         for (CoursePlayResultBean.VideoListBean videoListBean : mChildValues) {
             Gson daoVideoGson = new Gson();
             DaoVideoBean daoVideoBean = daoVideoGson.fromJson(daoVideoGson.toJson(videoListBean), DaoVideoBean.class);
@@ -277,10 +270,13 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
                 daoVideoBeanArrayList.add(daoVideoBean);
             }
         }
-       *//* ArrayList<String> downUrlList = new ArrayList<>();
-        for (CoursePlayResultBean.VideoListBean videoListBean : videoList) {
+        ArrayList<String> downUrlList = new ArrayList<>();
+        for (CoursePlayResultBean.VideoListBean videoListBean : mChildValues) {
             downUrlList.add(videoListBean.getUrl());
-        }*//*
-        EventBus.getDefault().post(new RxCostomDownType(daoVideoBeanArrayList));*/
+        }
+        EventBus.getDefault().post(new RxCostomDownType(daoVideoBeanArrayList));
+        mCourseCacheChildAdapter.notifyDataSetChanged();
+        mCourseCacheChildAdapter.clearData();
+        initData();
     }
 }

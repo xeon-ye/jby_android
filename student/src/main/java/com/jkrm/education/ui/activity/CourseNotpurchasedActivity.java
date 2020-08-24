@@ -289,7 +289,8 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
                     }, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            toClass(ConfirmAnOrderStepOneActivity.class, false);
+                            dismissDialog();
+                            toClass(ConfirmAnOrderStepOneActivity.class, false,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);
                         }
                     });
                 }

@@ -26,6 +26,7 @@ import com.hzw.baselib.util.MyDateUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.HomeworkDetailViewPagerAdapter;
+import com.jkrm.education.adapter.mark.MarkHomeWordDetailGroupAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailAdapter;
 import com.jkrm.education.adapter.mark.MarkHomeworkDetailStudentAnswerAdapter;
 import com.jkrm.education.bean.result.ExplainStudentBean;
@@ -141,6 +142,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private View mHeaderView;
     private GradQusetionBean mGradQusetionBean;
     private List<ClassesResponseBean> mClassesResponseBeanList = new ArrayList<>();
+    private MarkHomeWordDetailGroupAdapter mMarkHomeWordDetailGroupAdapter;
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -211,6 +213,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         refreshData();
 
         mDetailAdapter = new MarkHomeworkDetailAdapter();
+        mMarkHomeWordDetailGroupAdapter = new MarkHomeWordDetailGroupAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mDetailAdapter, false);
 
         mHeaderView = getLayoutInflater().inflate(R.layout.inflate_homework_detail, null);
@@ -224,7 +227,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvDataStudentAnswer, mStudentAnswerAdapter, false);
 
         mPresenter.getExplainClasses(UserUtil.getTeacherId(), homeworkId);
-        mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
+    /*    mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
             @Override
             public void onSortChick(View view,TextView textView) {
                 AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), view,
@@ -252,7 +255,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 //                        }
                         });
             }
-        });
+        });*/
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -487,6 +490,11 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     });
                     break;
             }
+            ArrayList<List<GradQusetionBean>> mList=new ArrayList<>();
+            classifyData();
+            mList.add(bean.getGradQusetion());
+            mList.add(bean.getGradQusetion());
+            mMarkHomeWordDetailGroupAdapter.addAllData(mList);
             mDetailAdapter.addAllData(list);
             mDetailAdapter.loadMoreComplete();
             mDetailAdapter.setEnableLoadMore(false);
@@ -555,6 +563,9 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         new Handler().postDelayed(() -> {
             EventBus.getDefault().postSticky(new RxHomeworkDetailDurationType(bean.getHomeworkDurat()));
         }, 300);
+    }
+
+    private void classifyData() {
     }
 
     @Override
