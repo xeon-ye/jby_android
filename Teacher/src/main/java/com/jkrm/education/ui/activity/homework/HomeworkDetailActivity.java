@@ -227,7 +227,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvDataStudentAnswer, mStudentAnswerAdapter, false);
 
         mPresenter.getExplainClasses(UserUtil.getTeacherId(), homeworkId);
-    /*    mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
+        mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
             @Override
             public void onSortChick(View view,TextView textView) {
                 AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), view,
@@ -255,7 +255,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 //                        }
                         });
             }
-        });*/
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

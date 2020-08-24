@@ -481,9 +481,26 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
 
     private void initXueDuanChoiceData() {
         mXueduanValues = mCourseAttrValues.get("first");
-        String gradeName = UserUtil.getAppUser().getGradeName();
         mXueduanAdapter.addAllData(mXueduanValues);
         initScreenState(mXueduanValues);
+        boolean b = checkIsHighSchool();
+        if(b){
+            for (CourseAttrBean.Value mXueduanValue : mXueduanValues) {
+                if(mXueduanValue.getValueName().contains("高")){
+                    mXueduanValue.setChecked(true);
+                }else{
+                    mXueduanValue.setChecked(false);
+                }
+            }
+        }else{
+            for (CourseAttrBean.Value mXueduanValue : mXueduanValues) {
+                if(!mXueduanValue.getValueName().contains("高")){
+                    mXueduanValue.setChecked(true);
+                }else{
+                    mXueduanValue.setChecked(false);
+                }
+            }
+        }
         initNianfenChoiceData();
     }
 
@@ -676,5 +693,11 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         return false;
     }
 
-
+    /**
+     * 包含高字选中高中 否则选中初中
+     * @return
+     */
+    private boolean checkIsHighSchool(){
+        return UserUtil.getAppUser().getGradeName().contains("高");
+    }
 }

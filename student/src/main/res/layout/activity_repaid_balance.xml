@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="新教育币"
+            android:text="储值"
             android:layout_marginLeft="@dimen/dimen_10"
             />
     </LinearLayout>
