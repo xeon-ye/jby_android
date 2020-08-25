@@ -43,6 +43,15 @@ public class CourseCacheChildAdapter extends BaseQuickAdapter<DaoVideoBean, Base
     private long rxtxTotal = 0;
     private Activity mActivity;
     private DecimalFormat showFloatFormat = new DecimalFormat("0.00");
+    private TextView tvAll;
+
+    public TextView getTvAll() {
+        return tvAll;
+    }
+
+    public void setTvAll(TextView tvAll) {
+        this.tvAll = tvAll;
+    }
 
     public CourseCacheChildAdapter() {
         super(R.layout.adapter_course_cache_item_layout);
@@ -72,6 +81,8 @@ public class CourseCacheChildAdapter extends BaseQuickAdapter<DaoVideoBean, Base
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 item.setIsCheck(b);
+                getChoseNum();
+
             }
         });
         //下载中
@@ -173,5 +184,14 @@ public class CourseCacheChildAdapter extends BaseQuickAdapter<DaoVideoBean, Base
         return speedString;
     }
 
+    private void getChoseNum() {
+        int num = 0;
+        for (DaoVideoBean daoVideoBean : mList) {
+            if(daoVideoBean.getIsCheck()){
+                num++;
+            }
+        }
+        tvAll.setText("全选（" + num + "）");
+    }
 
 }

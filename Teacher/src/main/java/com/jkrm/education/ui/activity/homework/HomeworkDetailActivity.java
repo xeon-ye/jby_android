@@ -1,7 +1,9 @@
 package com.jkrm.education.ui.activity.homework;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -67,9 +69,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -228,34 +234,73 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 
         mPresenter.getExplainClasses(UserUtil.getTeacherId(), homeworkId);
         mDetailAdapter.setOnSortChickLister(new MarkHomeworkDetailAdapter.onSortChickLister() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSortChick(View view,TextView textView) {
-                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), view,
-                        () -> showView(mViewAlpha, false)
-                        , bean -> {
-                            showView(mViewAlpha, false);
-                            if (!AwDataUtil.isEmpty(mToolbar.getRightText()) && mToolbar.getRightText().equals(bean)
-                                    || null == mHomeworkDetailResultBean
-                                    || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
-                                return;
-                            }
+                boolean b = checkIsHaveExplan(mHomeworkDetailResultBean);
+                if(b){
+                    AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), view,
+                            () -> showView(mViewAlpha, false)
+                            , bean -> {
+                                showView(mViewAlpha, false);
+                                if (!AwDataUtil.isEmpty(mToolbar.getRightText()) && mToolbar.getRightText().equals(bean)
+                                        || null == mHomeworkDetailResultBean
+                                        || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
+                                    return;
+                                }
 
-                            if ("按题号正序".equals(bean)) {
-                                textView.setText("按题号正序");
-                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
-                            } else if ("按得分率倒序".equals(bean)) {
-                                textView.setText("按得分率倒序");
-                                setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
-                            }else if("按需讲解人数倒序".equals(bean)){
-                                textView.setText("按需讲解人数倒序");
-                                setData(mHomeworkDetailResultBean,TAG_SORT_QUESTION_EXPLAIN);
-                            }
+                                if ("按题号正序".equals(bean)) {
+                                    textView.setText("按题号正序");
+                                    setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
+                                } else if ("按得分率倒序".equals(bean)) {
+                                    textView.setText("按得分率倒序");
+                                    setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+                                }else if("按需讲解人数倒序".equals(bean)){
+                                    textView.setText("按需讲解人数倒序");
+                                    setData(mHomeworkDetailResultBean,TAG_SORT_QUESTION_EXPLAIN);
+                                }
 //                        else if("得分率降序".equals(bean)) {
 //                            setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
 //                        }
-                        });
+                            });
+                }else{
+                    AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailWithoutExplan(), view,
+                            () -> showView(mViewAlpha, false)
+                            , bean -> {
+                                showView(mViewAlpha, false);
+                                if (!AwDataUtil.isEmpty(mToolbar.getRightText()) && mToolbar.getRightText().equals(bean)
+                                        || null == mHomeworkDetailResultBean
+                                        || AwDataUtil.isEmpty(mHomeworkDetailResultBean.getGradQusetion())) {
+                                    return;
+                                }
+
+                                if ("按题号正序".equals(bean)) {
+                                    textView.setText("按题号正序");
+                                    setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_NUM);
+                                } else if ("按得分率倒序".equals(bean)) {
+                                    textView.setText("按得分率倒序");
+                                    setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+                                }
+                            });
+                }
+
             }
         });
+    }
+
+    /**
+     * 检测所有问题是否有需要讲解
+     * @param homeworkDetailResultBean
+     * @return
+     */
+    private boolean checkIsHaveExplan(HomeworkDetailResultBean homeworkDetailResultBean) {
+        boolean isHaveExplat=false;
+        for (GradQusetionBean gradQusetionBean : homeworkDetailResultBean.getGradQusetion()) {
+            if(!"0".equals(gradQusetionBean.getExPlat())){
+                isHaveExplat=true;
+            }
+        }
+        return isHaveExplat;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -377,6 +422,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             }
         });
         mTvSort.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlpha(mActivity, TestDataUtil.createHomeworkDetailType(), mTvClasses,
@@ -418,6 +464,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         indicatorViewPager.setAdapter(mViewPagerAdapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setData(HomeworkDetailResultBean bean, int sortTag) {
         List<GradQusetionBean> list = bean.getGradQusetion();
         if (AwDataUtil.isEmpty(list)) {
@@ -429,9 +476,27 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             if (AwDataUtil.isEmpty(list.get(0).getQuestionId())) {
                 list.remove(0);
             }
+
+
             switch (sortTag) {
                 case TAG_SORT_QUESTION_NUM:
-                    Collections.sort(list, (o1, o2) -> {
+                    Map<String, List<GradQusetionBean>> collect = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
+                    list.clear();
+                    Set<String> strings = collect.keySet();
+                    for (String string : strings) {
+                        List<GradQusetionBean> gradQusetionBeans = collect.get(string);
+                        Collections.sort(gradQusetionBeans, new Comparator<GradQusetionBean>() {
+                            @Override
+                            public int compare(GradQusetionBean bean, GradQusetionBean t1) {
+                                if(Float.parseFloat(bean.getQuestionNum())>=Float.parseFloat(t1.getQuestionNum())){
+                                    return 1;
+                                }
+                                return -1;
+                            }
+                        });
+                        list.addAll(gradQusetionBeans);
+                    }
+                 /*   Collections.sort(list, (o1, o2) -> {
                         String questionNum1 = o1.getQuestionNum();
                         String questionNum2 = o2.getQuestionNum();
                         if (AwDataUtil.isEmpty(questionNum1)) {
@@ -445,10 +510,26 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         } else {
                             return -1;
                         }
-                    });
+                    });*/
                     break;
                 case TAG_SORT_QUESTION_RATIO_INCREASE:
-                    Collections.sort(list, (o1, o2) -> {
+                    Map<String, List<GradQusetionBean>> collect1 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
+                    list.clear();
+                    Set<String> strings1 = collect1.keySet();
+                    for (String string : strings1) {
+                        List<GradQusetionBean> gradQusetionBeans = collect1.get(string);
+                        Collections.sort(gradQusetionBeans, new Comparator<GradQusetionBean>() {
+                            @Override
+                            public int compare(GradQusetionBean bean, GradQusetionBean t1) {
+                                if(Float.parseFloat(bean.getRatio())>=Float.parseFloat(t1.getRatio())){
+                                    return 1;
+                                }
+                                return -1;
+                            }
+                        });
+                        list.addAll(gradQusetionBeans);
+                    }
+                   /* Collections.sort(list, (o1, o2) -> {
                         String ratio1 = o1.getRatio();
                         String ratio2 = o2.getRatio();
                         if (AwDataUtil.isEmpty(ratio1)) {
@@ -462,10 +543,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         } else {
                             return -1;
                         }
-                    });
+                    });*/
                     break;
                 case TAG_SORT_QUESTION_RATIO_REDUCE:
-                    Collections.sort(list, (o1, o2) -> {
+                    /*Collections.sort(list, (o1, o2) -> {
                         String ratio1 = o1.getRatio();
                         String ratio2 = o2.getRatio();
                         if (AwDataUtil.isEmpty(ratio1)) {
@@ -479,15 +560,44 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         } else {
                             return -1;
                         }
-                    });
+                    });*/
+                    Map<String, List<GradQusetionBean>> collect3 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
+                    list.clear();
+                    Set<String> strings3 = collect3.keySet();
+                    for (String string : strings3) {
+                        List<GradQusetionBean> gradQusetionBeans = collect3.get(string);
+                        Collections.sort(gradQusetionBeans, new Comparator<GradQusetionBean>() {
+                            @Override
+                            public int compare(GradQusetionBean bean, GradQusetionBean t1) {
+                                if(Float.parseFloat(bean.getRatio())>=Float.parseFloat(t1.getRatio())){
+                                    return 1;
+                                }
+                                return -1;
+                            }
+                        });
+                        list.addAll(gradQusetionBeans);
+                    }
                     break;
                 case TAG_SORT_QUESTION_EXPLAIN:
-                    Collections.sort(list, new Comparator<GradQusetionBean>() {
+                    Map<String, List<GradQusetionBean>> collect2 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
+                    list.clear();
+                    Set<String> strings2 = collect2.keySet();
+                    for (String string : strings2) {
+                        List<GradQusetionBean> gradQusetionBeans = collect2.get(string);
+                        Collections.sort(gradQusetionBeans, new Comparator<GradQusetionBean>() {
+                            @Override
+                            public int compare(GradQusetionBean gradQusetionBean, GradQusetionBean t1) {
+                                return new Double(t1.getExPlat()).compareTo(new Double(gradQusetionBean.getExPlat()));
+                            }
+                        });
+                        list.addAll(gradQusetionBeans);
+                    }
+                    /*Collections.sort(list, new Comparator<GradQusetionBean>() {
                         @Override
                         public int compare(GradQusetionBean gradQusetionBean, GradQusetionBean t1) {
                             return new Double(t1.getExPlat()).compareTo(new Double(gradQusetionBean.getExPlat()));
                         }
-                    });
+                    });*/
                     break;
             }
             ArrayList<List<GradQusetionBean>> mList=new ArrayList<>();
@@ -502,7 +612,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         }
 
         List<HomeworkDetailResultBean.QuestionScoreBean> questionScoreBeanList = bean.getQuestionScore();
-        if (!AwDataUtil.isEmpty(questionScoreBeanList)) {
+        /*if (!AwDataUtil.isEmpty(questionScoreBeanList)) {
             switch (sortTag) {
                 case TAG_SORT_QUESTION_NUM:
                     Collections.sort(questionScoreBeanList, (o1, o2) -> {
@@ -556,7 +666,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     });
                     break;
             }
-        }
+        }*/
         new Handler().postDelayed(() -> {
             EventBus.getDefault().postSticky(new RxHomeworkDetailRatioType(questionScoreBeanList));
         }, 300);
@@ -568,6 +678,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private void classifyData() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void getHomeworkDetailSuccess(HomeworkDetailResultBean bean) {
         mHomeworkDetailResultBean = bean;

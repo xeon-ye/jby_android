@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.FileUtils;
+import com.hzw.baselib.util.MemoryTool;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.result.CoursePlayResultBean;
 import com.jkrm.education.bean.result.CourseSuccessBean;
@@ -137,10 +138,13 @@ public class CourseDialogFramgment extends DialogFragment {
                         }
                     }
                 }
-
+                getChoseNum();
                 mCoursePlayAdapter.notifyDataSetChanged();
             }
         });
+        TextView tvFreeSize = view.findViewById(R.id.tv_free_size);
+        tvFreeSize.setText("剩余空间"+ MemoryTool.getAvailableInternalMemorySize(getActivity()));
+
     }
 
 
@@ -165,6 +169,7 @@ public class CourseDialogFramgment extends DialogFragment {
         dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
+
 
     class CoursePlayAdapter extends BaseExpandableListAdapter {
 

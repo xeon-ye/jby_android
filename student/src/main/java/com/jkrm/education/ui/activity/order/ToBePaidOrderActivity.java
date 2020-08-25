@@ -247,10 +247,12 @@ public class ToBePaidOrderActivity extends AwMvpActivity<RepaidBalancePresent> i
     }
 
     @Override
-    public void pursePaySuccess(PurseResultBean bean) {
+    public void pursePaySuccess(String bean) {
         showMsg("钱包支付成功");
         finish();
     }
+
+
 
     @Override
     public void pursePayFail(String msg) {
@@ -280,22 +282,22 @@ public class ToBePaidOrderActivity extends AwMvpActivity<RepaidBalancePresent> i
                 chosePayDialogFragment.setOnChosePayListener(new ChosePayDialogFragment.onChosePayListener() {
                     @Override
                     public void choseWechatPay() {
-                       //  mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(),mBean.getGoodsPrice(),"2"));
+                        mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(),mBean.getGoodsPrice(),"2"));
                         //测试金额 0.01
-                         mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(), "0.01", "2"));
+                        // mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(), "0.01", "2"));
 
                     }
 
                     @Override
                     public void choseAliPay() {
-                        //mPresenter.createAlipayOrder(mBean.getId(),mBean.getGoodsPrice());
-                        mPresenter.createAlipayOrder(mBean.getId(), "0.01");
+                        mPresenter.createAlipayOrder(mBean.getId(),mBean.getGoodsPrice());
+                        //mPresenter.createAlipayOrder(mBean.getId(), "0.01");
                     }
 
                     @Override
                     public void chosePursePay() {
-                         //mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(mBean.getId(),mBean.getGoodsPrice(),"2"));
-                        mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(mBean.getId(),"0.01","2"));
+                         mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(mBean.getId(),mBean.getGoodsPrice(),"2"));
+                        //mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(mBean.getId(),"0.01","2"));
 
                     }
                 });

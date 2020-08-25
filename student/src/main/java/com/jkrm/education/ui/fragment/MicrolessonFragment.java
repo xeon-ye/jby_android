@@ -483,7 +483,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
         mXueduanValues = mCourseAttrValues.get("first");
         mXueduanAdapter.addAllData(mXueduanValues);
         initScreenState(mXueduanValues);
-        boolean b = checkIsHighSchool();
+   /*     boolean b = checkIsHighSchool();
         if(b){
             for (CourseAttrBean.Value mXueduanValue : mXueduanValues) {
                 if(mXueduanValue.getValueName().contains("高")){
@@ -500,7 +500,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
                     mXueduanValue.setChecked(false);
                 }
             }
-        }
+        }*/
         initNianfenChoiceData();
     }
 
@@ -544,7 +544,7 @@ public class MicrolessonFragment extends AwMvpLazyFragment<MicroLessonPresent> i
 
     @Override
     public void getCourseAttrFail(String msg) {
-
+        showMsg(msg);
     }
 
     @Override

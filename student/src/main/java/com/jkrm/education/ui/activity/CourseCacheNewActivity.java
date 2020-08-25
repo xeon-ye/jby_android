@@ -19,7 +19,7 @@ import com.hzw.baselib.util.FileUtils;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.CourseCacheAdapter;
-import com.jkrm.education.bean.rx.RxCostomDownType;
+import com.jkrm.education.bean.result.CoursePlayResultBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.db.DaoCatalogueBean;
 import com.jkrm.education.db.DaoMicroLessonBean;
@@ -59,10 +59,14 @@ public class CourseCacheNewActivity extends AwBaseActivity {
     Button mBtnDelete;
     @BindView(R.id.ll_of_setting)
     LinearLayout mLlOfSetting;
+    @BindView(R.id.tv_all)
+    TextView mTvAll;
+    @BindView(R.id.tv_free_size)
+    TextView mTvFreeSize;
     private List<DaoMicroLessonBean> mDaoMicroLessonBeans = new ArrayList<>();
     private Set<DaoMicroLessonBean> microLessonBeanSet = new HashSet<>();
     private CourseCacheAdapter mCourseCacheAdapter;
-    private Handler mHnadler = new Handler(){
+    private Handler mHnadler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -113,12 +117,13 @@ public class CourseCacheNewActivity extends AwBaseActivity {
     @Override
     protected void initListener() {
         super.initListener();
+        mCourseCacheAdapter.setTvAll(mTvAll);
         mCourseCacheAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<DaoMicroLessonBean> data = adapter.getData();
-                toClass(CourseCacheChildActivity.class, false, Extras.MICROLESS_ID, data.get(position).getId(), Extras.MICROLESS_NAME, data.get(position).getMlessonName(),Extras.MICROLESS_PVC_ID,data.get(position).getPcvId());
-             }
+                toClass(CourseCacheChildActivity.class, false, Extras.MICROLESS_ID, data.get(position).getId(), Extras.MICROLESS_NAME, data.get(position).getMlessonName(), Extras.MICROLESS_PVC_ID, data.get(position).getPcvId());
+            }
         });
         mToolbarCustom.setOnRightClickListener(new AwViewCustomToolbar.OnRightClickListener() {
             @Override
@@ -141,6 +146,7 @@ public class CourseCacheNewActivity extends AwBaseActivity {
                 for (DaoMicroLessonBean daoMicroLessonBean : mDaoMicroLessonBeans) {
                     daoMicroLessonBean.setIsCheck(b);
                 }
+                getChoseNum();
                 mCourseCacheAdapter.notifyDataSetChanged();
             }
         });
@@ -160,6 +166,7 @@ public class CourseCacheNewActivity extends AwBaseActivity {
                 for (DaoMicroLessonBean daoMicroLessonBean : list) {
                     List<DaoCatalogueBean> daoCatalogueBeans = DaoUtil.getInstance().queryCatalogueListByQueryBuilder(daoMicroLessonBean.getId());
                     for (DaoCatalogueBean daoCatalogueBean : daoCatalogueBeans) {
+                        DaoUtil.getInstance().deleteCatalogue(daoCatalogueBean);
                         List<DaoVideoBean> daoVideoBeans1 = DaoUtil.getInstance().queryVideoListByQueryBuilder(daoCatalogueBean.getId());
                         for (DaoVideoBean daoVideoBean : daoVideoBeans1) {
                             DownloadLimitManager.getInstance().cancelDownload(daoVideoBean);
@@ -331,4 +338,17 @@ public class CourseCacheNewActivity extends AwBaseActivity {
         }
 
     }
+
+    private void getChoseNum() {
+        int num = 0;
+        for (DaoMicroLessonBean daoMicroLessonBean : mDaoMicroLessonBeans) {
+            if (daoMicroLessonBean.getIsCheck()) {
+                num++;
+            }
+        }
+
+        mTvAll.setText("全选（" + num + "）");
+    }
+
+
 }

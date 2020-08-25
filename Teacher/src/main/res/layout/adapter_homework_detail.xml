@@ -22,6 +22,8 @@
             android:paddingLeft="@dimen/dimen_15"
             android:paddingRight="@dimen/dimen_15"
             android:drawableLeft="@mipmap/icon_biaolan"
+            android:textSize="10sp"
+            android:maxLines="1"
             android:drawablePadding="@dimen/dimen_10"
 
             android:text="选择题" />

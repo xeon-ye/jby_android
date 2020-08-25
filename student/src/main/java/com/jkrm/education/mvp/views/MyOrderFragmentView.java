@@ -48,7 +48,7 @@ public interface MyOrderFragmentView extends AwBaseView {
         void getAccountBalancesSuccess(AccountBalancesBean bean);
         void getAccountBalancesFail(String msg);
 
-        void pursePaySuccess(PurseResultBean bean);
+        void pursePaySuccess(String bean);
         void pursePayFail(String msg);
     }
 }

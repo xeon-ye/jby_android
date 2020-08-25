@@ -1,5 +1,7 @@
 package com.jkrm.education.adapter.score;
 
+import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,6 +47,9 @@ public class ScoreListAdapter extends BaseQuickAdapter<RowsHomeworkBean, BaseVie
             tv_score.setText("处理中");
             AwEffectiveRequestViewUtil.setButtonEnableChangeTxtColor(mContext, tv_score, false);
         }
+        TextView tv_classes = helper.getView(R.id.tv_classes);
+        tv_classes.setMovementMethod(ScrollingMovementMethod.getInstance());
+        tv_classes.setHorizontallyScrolling(true);
     }
 
     public void addAllData(List<RowsHomeworkBean> dataList) {

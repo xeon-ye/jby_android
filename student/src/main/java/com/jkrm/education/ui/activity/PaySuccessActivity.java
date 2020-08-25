@@ -10,6 +10,7 @@ import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.result.MicroLessonResultBean;
 import com.jkrm.education.constants.Extras;
+import com.jkrm.education.ui.activity.me.MyOrderActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +49,7 @@ public class PaySuccessActivity extends AwBaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_view_order:
+                toClass(MyOrderActivity.class,false);
                 break;
             case R.id.btn_start_now:
                 toClass(CoursePurchasedActivity.class,true,Extras.KEY_COURSE_BEAN,mMicroLessonResultBean);

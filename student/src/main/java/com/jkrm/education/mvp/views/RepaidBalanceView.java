@@ -53,7 +53,7 @@ public interface RepaidBalanceView extends AwBaseView{
         void createAlipayOrderFail(String msg);
 
 
-        void pursePaySuccess(PurseResultBean bean);
+        void pursePaySuccess(String bean);
         void pursePayFail(String msg);
 
     }

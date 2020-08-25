@@ -112,7 +112,8 @@ public class CourseNotpurchasedActivity extends AwMvpActivity<CourseNotPurchased
         mToolbar.setOnRightClickListener(new AwViewCustomToolbar.OnRightClickListener() {
             @Override
             public void onRightTextClick() {
-                share();
+                showMsg("此功能正紧锣密鼓开发中");
+                //  share();
             }
         });
         mToolbar.setRightImg(R.mipmap.share);

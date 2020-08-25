@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.hzw.baselib.base.AwBaseActivity;
 import com.hzw.baselib.interfaces.AwApiCallback;
 import com.hzw.baselib.interfaces.AwApiSubscriber;
-import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.util.FileUtils;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
@@ -24,7 +23,6 @@ import com.jkrm.education.R;
 import com.jkrm.education.adapter.CourseCacheChildAdapter;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
-import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.result.CoursePlayResultBean;
 import com.jkrm.education.bean.rx.RxCostomDownType;
 import com.jkrm.education.constants.Extras;
@@ -48,11 +46,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class CourseCacheChildActivity extends AwBaseActivity implements CourseDialogFramgment.ConfirmListener{
+public class CourseCacheChildActivity extends AwBaseActivity implements CourseDialogFramgment.ConfirmListener {
     @BindView(R.id.toolbar_custom)
     AwViewCustomToolbar mToolbarCustom;
     @BindView(R.id.ll_title)
@@ -69,6 +66,10 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
     LinearLayout mLlOfSetting;
     @BindView(R.id.rl_down_more)
     RelativeLayout mRlDownMore;
+    @BindView(R.id.tv_all)
+    TextView mTvAll;
+    @BindView(R.id.tv_free_size)
+    TextView mTvFreeSize;
     private String MICROLESS_ID, MICROLESS_NAME;
     private CourseCacheChildAdapter mCourseCacheChildAdapter;
     private CopyOnWriteArrayList<DaoVideoBean> mDaoVideoBeans = new CopyOnWriteArrayList<DaoVideoBean>();
@@ -85,6 +86,7 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
         super.initView();
         mCourseCacheChildAdapter = new CourseCacheChildAdapter();
         mCourseCacheChildAdapter.setActivity(CourseCacheChildActivity.this);
+        mCourseCacheChildAdapter.setTvAll(mTvAll);
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mCourseCacheChildAdapter, false);
         MICROLESS_NAME = getIntent().getStringExtra(Extras.MICROLESS_NAME);
         setToolbarWithBackImgAndRightView(MICROLESS_NAME, "编辑", null);
@@ -128,7 +130,11 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DaoVideoBean daoVideoBean = (DaoVideoBean) adapter.getData().get(position);
-                toClass(StudyCourseActivity.class, false, Extras.MICROLESS_ID, MICROLESS_ID, Extras.FILE_NAME, daoVideoBean.getFilePath());
+                if(daoVideoBean.getDownloadStatus().equals(DaoVideoBean.DOWNLOAD_OVER)){
+                    toClass(StudyCourseActivity.class, false, Extras.MICROLESS_ID, MICROLESS_ID, Extras.FILE_NAME, daoVideoBean.getFilePath());
+                }else{
+                    showMsg("视频下载中");
+                }
             }
         });
         mCbAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -137,6 +143,7 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
                 for (DaoVideoBean daoVideoBean : mDaoVideoBeans) {
                     daoVideoBean.setIsCheck(b);
                 }
+                getChoseNum();
                 mCourseCacheChildAdapter.notifyDataSetChanged();
             }
         });
@@ -278,5 +285,15 @@ public class CourseCacheChildActivity extends AwBaseActivity implements CourseDi
         mCourseCacheChildAdapter.notifyDataSetChanged();
         mCourseCacheChildAdapter.clearData();
         initData();
+    }
+
+    private void getChoseNum() {
+        int num = 0;
+        for (DaoVideoBean daoVideoBean : mDaoVideoBeans) {
+            if(daoVideoBean.getIsCheck()){
+                num++;
+            }
+        }
+        mTvAll.setText("全选（" + num + "）");
     }
 }

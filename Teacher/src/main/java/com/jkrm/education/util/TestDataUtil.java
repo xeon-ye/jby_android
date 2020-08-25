@@ -281,6 +281,13 @@ public class TestDataUtil {
         return list;
     }
 
+    public static List<String> createHomeworkDetailWithoutExplan(){
+        List<String> list = new ArrayList<>();
+        list.add("按题号正序");
+        list.add("按得分率倒序");
+        return list;
+    }
+
 
     public static List<MarkBean> createMarkByQuestion(){
         List<MarkBean> list = new ArrayList<>();

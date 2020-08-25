@@ -145,7 +145,7 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<AnswerSheetDataD
 //        AwLog.d("detail bean 本次题号 " + bean.getQuestionNum() + " 类型" + bean.getType());
 //        AwLog.d("detail bean 上一题号 " + mList.get(helper.getPosition() - 1).getQuestionNum() + " 类型" + mList.get(helper.getPosition() - 1).getType());
         if(helper.getPosition() != 0 && helper.getPosition() != 1) { //添加了headerview, 注意position位置
-            if(bean.getTypeName().equals(mList.get(helper.getPosition() - 2).getTypeName())) {
+            if(bean.getTitle().equals(mList.get(helper.getPosition() - 2).getTitle())) {
                 tv_subTitle.setVisibility(View.GONE);
             } else {
                 tv_subTitle.setVisibility(View.VISIBLE);
@@ -153,7 +153,8 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<AnswerSheetDataD
         } else {
             tv_subTitle.setVisibility(View.VISIBLE);
         }
-        tv_subTitle.setText(bean.getTypeName());
+        helper.setText(R.id.tv_subTitle, AwDataUtil.isEmpty(bean.getTitle()) ? "答题详情" : bean.getTitle());
+
     }
 
     public void addAllData(List<AnswerSheetDataDetailResultBean> dataList) {

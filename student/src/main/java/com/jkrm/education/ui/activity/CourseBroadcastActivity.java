@@ -232,7 +232,7 @@ public class CourseBroadcastActivity extends AwMvpActivity<CourseBroadcastPresen
 
     @Override
     public void onSaveWatchLogFail(String msg) {
-        showMsg(msg);
+      //  showMsg(msg);
         mStrWatchState = "0";
     }
 

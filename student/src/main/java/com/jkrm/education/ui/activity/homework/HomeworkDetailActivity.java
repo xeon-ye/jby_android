@@ -2,8 +2,10 @@ package com.jkrm.education.ui.activity.homework;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -66,7 +68,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -480,6 +486,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 //        mPresenter.getVideoPointList("0301201902030303021890258a699734c48bd21a3c40c4c1c3d");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setData(int sortTag) {
         if (AwDataUtil.isEmpty(mAnswerSheetDataDetailResultBeanList)) {
             mDetailAdapter.clearData();
@@ -488,22 +495,23 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         } else {
             switch (sortTag) {
                 case TAG_SORT_QUESTION_NUM:
-                    Collections.sort(mAnswerSheetDataDetailResultBeanList, (o1, o2) -> {
-                        String questionNum1 = o1.getQuestionNum();
-                        String questionNum2 = o2.getQuestionNum();
-                        if (AwDataUtil.isEmpty(questionNum1)) {
-                            questionNum1 = AwBaseConstant.COMMON_INVALID_VALUE;
-                        }
-                        if (AwDataUtil.isEmpty(questionNum2)) {
-                            questionNum2 = AwBaseConstant.COMMON_INVALID_VALUE;
-                        }
+                    Map<String, List<AnswerSheetDataDetailResultBean>> collect = mAnswerSheetDataDetailResultBeanList.stream().collect((Collectors.groupingBy(AnswerSheetDataDetailResultBean::getTitle)));
+                    mAnswerSheetDataDetailResultBeanList.clear();
+                    Set<String> strings = collect.keySet();
+                    for (String string : strings) {
+                        List<AnswerSheetDataDetailResultBean> gradQusetionBeans = collect.get(string);
+                        Collections.sort(gradQusetionBeans, new Comparator<AnswerSheetDataDetailResultBean>() {
+                            @Override
+                            public int compare(AnswerSheetDataDetailResultBean bean, AnswerSheetDataDetailResultBean t1) {
+                                if (Float.parseFloat(bean.getQuestionNum()) >= Float.parseFloat(t1.getQuestionNum())) {
+                                    return 1;
+                                }
+                                return -1;
+                            }
+                        });
+                        mAnswerSheetDataDetailResultBeanList.addAll(gradQusetionBeans);
 
-                        if (Float.parseFloat(questionNum1) >= Float.parseFloat(questionNum2)) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    });
+                    }
                     break;
          /*       case TAG_SORT_QUESTION_RATIO_INCREASE:
                     Collections.sort(mAnswerSheetDataDetailResultBeanList, (o1, o2) -> {

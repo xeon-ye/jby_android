@@ -565,7 +565,7 @@
                     android:id="@+id/tv_cache"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_55"
-                    android:text="缓存课程"
+                    android:text="下载管理"
                     android:paddingRight="@dimen/dimen_15"
                     android:gravity="center_vertical"
                     style="@style/middle_black_style"

@@ -131,9 +131,11 @@ public class ConfirmAnOrderStepOneActivity extends AwMvpActivity<ConfirmAnOrderP
     }
 
     @Override
-    public void pursePaySuccess(PurseResultBean bean) {
+    public void pursePaySuccess(String bean) {
 
     }
+
+
 
     @Override
     public void pursePayFail(String msg) {

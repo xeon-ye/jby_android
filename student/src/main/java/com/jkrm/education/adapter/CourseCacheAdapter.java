@@ -5,6 +5,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,6 +30,15 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
     private List<DaoMicroLessonBean> mList = new ArrayList<>();
     private boolean isChose;
     private CheckBox mChoseAll;
+    private TextView tvAll;
+
+    public TextView getTvAll() {
+        return tvAll;
+    }
+
+    public void setTvAll(TextView tvAll) {
+        this.tvAll = tvAll;
+    }
 
     public CourseCacheAdapter() {
         super(R.layout.adapter_course_cache_item_layout);
@@ -50,6 +60,7 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 item.setIsCheck(b);
+                getChoseNum();
             }
         });
         List<DaoCatalogueBean> daoCatalogueBeans = DaoUtil.getInstance().queryCatalogueListByQueryBuilder(item.getId());
@@ -154,5 +165,15 @@ public class CourseCacheAdapter extends BaseQuickAdapter<DaoMicroLessonBean, Bas
         progressBar.setMax(daoVideoBeans.size());
         progressBar.setProgress(pro);
         return "已下载"+"("+pro+"/"+daoVideoBeans.size()+")";
+    }
+
+    private void getChoseNum() {
+        int num = 0;
+        for (DaoMicroLessonBean daoMicroLessonBean : mList) {
+            if (daoMicroLessonBean.getIsCheck()) {
+                num++;
+            }
+        }
+        tvAll.setText("全选（" + num + "）");
     }
 }

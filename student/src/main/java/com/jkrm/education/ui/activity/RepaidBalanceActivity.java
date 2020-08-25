@@ -49,6 +49,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -157,7 +158,8 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
 
     @Override
     public void getAccountBalancesSuccess(AccountBalancesBean bean) {
-        mTvNum.setText(bean.getData());
+        DecimalFormat decimalFormat=new DecimalFormat("#0.00");
+        mTvNum.setText( decimalFormat.format(Double.parseDouble(bean.getData())));
     }
 
     @Override
@@ -318,7 +320,7 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
     }
 
     @Override
-    public void pursePaySuccess(PurseResultBean bean) {
+    public void pursePaySuccess(String bean) {
 
     }
 

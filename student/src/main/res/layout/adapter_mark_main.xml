@@ -24,20 +24,15 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <HorizontalScrollView
+
+        <TextView
+            android:id="@+id/tv_classes"
+            style="@style/middle_black_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <TextView
-                android:id="@+id/tv_classes"
-                style="@style/middle_black_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="班级" />
-        </HorizontalScrollView>
+            android:maxLines="1"
+            android:scrollbars="none"
+            android:text="班级" />
 
 
         <LinearLayout

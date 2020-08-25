@@ -175,19 +175,21 @@ public class MyOrderFramgmentPresent extends AwCommonPresenter implements MyOrde
 
     @Override
     public void pursePay(RequestBody body) {
-        Observable<ResponseBean<PurseResultBean>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<String>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .pursePay(body);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<PurseResultBean>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<String>() {
             @Override
             public void onStart() {
                 mView.showLoadingDialog();
             }
 
             @Override
-            public void onSuccess(PurseResultBean data) {
+            public void onSuccess(String data) {
                 mView.pursePaySuccess(data);
             }
+
+
 
 
             @Override

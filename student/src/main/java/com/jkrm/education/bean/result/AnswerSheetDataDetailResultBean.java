@@ -86,7 +86,15 @@ public class AnswerSheetDataDetailResultBean {
     private String practice;
     private String isOption;
     private String groupQuestion;// 是否是组题 1 不是  2 是
+    private String title;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getGroupQuestion() {
         return groupQuestion;

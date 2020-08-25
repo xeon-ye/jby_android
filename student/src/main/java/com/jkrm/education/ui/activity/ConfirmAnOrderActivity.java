@@ -239,8 +239,8 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), mMicroLessonResultBean.getMlessonPrice(), "1", "1", goodsDetais));
         //测试金额 0.01
         //orderType  1. 充值  2.支付
-        // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais));
-        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId, MicrolessonFragment.mStrCourseName));
+         mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais,MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
+       // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId, MicrolessonFragment.mStrCourseName));
     }
 
     @Override
@@ -248,19 +248,19 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         switch (PAY_TYPE) {
             //微信支付
             case WECHAT_PAY:
-                // mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
+                 mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
                 //测试金额 0.01
-                mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(resultBean.getOrderId(), "0.01", "2"));
+                //mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(resultBean.getOrderId(), "0.01", "2"));
                 break;
             //支付宝支付
             case ALI_PAY:
-                //mPresenter.createAlipayOrder(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice());
-                mPresenter.createAlipayOrder(resultBean.getOrderId(), "0.01");
+                mPresenter.createAlipayOrder(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice());
+               // mPresenter.createAlipayOrder(resultBean.getOrderId(), "0.01");
                 break;
             //钱包支付
             case PURSE_PAY:
-                // mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
-                mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(), mMicroLessonResultBean.getMlessonPrice(), "2"));
+                 mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(),mMicroLessonResultBean.getMlessonPrice(),"2"));
+              //  mPresenter.pursePay(RequestUtil.gerCreatePursePayOrderBody(resultBean.getOrderId(), mMicroLessonResultBean.getMlessonPrice(), "2"));
                 break;
         }
     }
@@ -332,7 +332,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
     }
 
     @Override
-    public void pursePaySuccess(PurseResultBean bean) {
+    public void pursePaySuccess(String bean) {
         showMsg("钱包支付成功");
         mMicroLessonResultBean.setWhetherBuy("1");
         toClass(PaySuccessActivity.class, true, Extras.KEY_COURSE_BEAN, mMicroLessonResultBean);

@@ -49,7 +49,7 @@ public class BalanceDetailsActivity extends AwMvpActivity<MyOrderFramgmentPresen
     @Override
     protected void initView() {
         super.initView();
-        setToolbarWithBackImg("余额明细", new AwViewCustomToolbar.OnLeftClickListener() {
+        setToolbarWithBackImg("账单", new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
             public void onLeftTextClick() {
                 finish();
@@ -112,9 +112,11 @@ public class BalanceDetailsActivity extends AwMvpActivity<MyOrderFramgmentPresen
     }
 
     @Override
-    public void pursePaySuccess(PurseResultBean bean) {
+    public void pursePaySuccess(String bean) {
 
     }
+
+
 
     @Override
     public void pursePayFail(String msg) {

@@ -13,8 +13,8 @@ android {
         applicationId rootProject.ext.applicationId_teacher
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 47
-        versionName "3.6.8"
+        versionCode 48
+        versionName "3.7.0"
         testInstrumentationRunner "android.support.addSpecial.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true

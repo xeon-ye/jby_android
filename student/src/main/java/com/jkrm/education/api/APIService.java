@@ -497,7 +497,7 @@ public interface APIService {
      * 钱包支付
      */
     @POST(UrlConstant.PURSE_PAY)
-    Observable<ResponseBean<PurseResultBean>>  pursePay(@Body RequestBody requestBody);
+    Observable<ResponseBean<String>>  pursePay(@Body RequestBody requestBody);
 
     /**
      * 获取教育币
