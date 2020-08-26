@@ -154,9 +154,9 @@ public class ConfirmAnOrderStepOneActivity extends AwMvpActivity<ConfirmAnOrderP
         ArrayList<GoodsDetai> goodsDetais = new ArrayList<>();
         goodsDetais.add(new GoodsDetai(mMicroLessonResultBean.getId(), mMicroLessonResultBean.getMlessonName(), mMicroLessonResultBean.getMlessonPrice(), mMicroLessonResultBean.getMlessonCount(), "videos", mMicroLessonResultBean.getMlessonUrl()));
 
-        //  mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais,MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
+          mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais,MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
         //测试金额  0.01
-        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId, MicrolessonFragment.mStrCourseName));
+       // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId, MicrolessonFragment.mStrCourseName));
 
     }
 }

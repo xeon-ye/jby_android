@@ -12,6 +12,7 @@ import com.jkrm.education.bean.MistakeBean;
 import com.jkrm.education.bean.ClassessBean;
 import com.jkrm.education.bean.PeriodCourseBean;
 import com.jkrm.education.bean.RegisterBean;
+import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.request.RequestClassesBean;
 import com.jkrm.education.bean.result.AllStudentScoreResultBean;
@@ -724,4 +725,12 @@ public interface APIService {
      */
     @GET(UrlConstant.LOGOUT)
     Observable<ResponseBean<String>> logout();
+
+    /**
+     * 阅卷任务列表
+     * @param teacherId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_LIST)
+    Observable<ResponseBean<TaskBean>> getExamList(@Path("teacherId") String teacherId);
 }

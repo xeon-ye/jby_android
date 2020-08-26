@@ -26,10 +26,12 @@
         android:roundIcon="@mipmap/teacher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.me.MeClassesActivity"></activity>
-        <activity android:name=".ui.activity.login.RegisterActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            />
+        <activity android:name=".ui.activity.exam.ReviewActivity"></activity>
+        <activity android:name=".ui.activity.exam.ExamTaskActivity" />
+        <activity android:name=".ui.activity.me.MeClassesActivity" />
+        <activity
+            android:name=".ui.activity.login.RegisterActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".ui.activity.login.ChoiceClassesActivity" />
         <activity android:name=".ui.activity.login.InputPswActivity" />
         <activity android:name=".ui.activity.login.ChoiceSchoolActivity" />

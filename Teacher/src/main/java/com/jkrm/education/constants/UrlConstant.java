@@ -289,4 +289,9 @@ public class UrlConstant {
      * 退出登录
      */
     public static final String LOGOUT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/logout";
+
+    /**
+     * 阅卷任务列表
+     */
+    public static final String GET_EXAM_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/app/examList/{teacherId}";
 }
