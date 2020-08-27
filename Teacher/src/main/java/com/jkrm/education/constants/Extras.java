@@ -44,5 +44,9 @@ public class Extras {
     public final static String KEY_STUDENT_LIST="key_student_list";
     public final static String KEY_SCORE_LIST="key_score_list";
 
+    public final static String EXAM_ID="key_examid";
+    public final static String PAPER_ID="key_paperid";
+    public final static String READ_WAY="key_read_way";
+
 
 }

@@ -294,4 +294,19 @@ public class UrlConstant {
      * 阅卷任务列表
      */
     public static final String GET_EXAM_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/app/examList/{teacherId}";
+
+    /**
+     * 阅卷任务详情
+     */
+    public static final String GET_REVIEW_TASK_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/readTask/{teacherId}";
+
+    /**
+     * 回评查询分数
+     */
+    public static final String GET_EXAM_REVIEW_SCORE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewScore/{teacherId}";
+
+    /**
+     * 回评评分列表数据
+     */
+    public static final String GET_EXAM_REVIEWLIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewList/{teacherId}";
 }

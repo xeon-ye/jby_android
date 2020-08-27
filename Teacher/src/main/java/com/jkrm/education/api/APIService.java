@@ -11,6 +11,7 @@ import com.jkrm.education.bean.ErrorBasketBean;
 import com.jkrm.education.bean.MistakeBean;
 import com.jkrm.education.bean.ClassessBean;
 import com.jkrm.education.bean.PeriodCourseBean;
+import com.jkrm.education.bean.ReViewTaskBean;
 import com.jkrm.education.bean.RegisterBean;
 import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.common.ResponseBean;
@@ -733,4 +734,38 @@ public interface APIService {
      */
     @GET(UrlConstant.GET_EXAM_LIST)
     Observable<ResponseBean<TaskBean>> getExamList(@Path("teacherId") String teacherId);
+
+    /**
+     * 阅卷任务详情
+     * @param teacherId
+     * @return
+     */
+    @GET(UrlConstant.GET_REVIEW_TASK_LIST)
+    Observable<ResponseBean<List<ReViewTaskBean>>> getReviewTaskList(@Path("teacherId") String teacherId, @Query("examId") String examId, @Query("paperId") String paperId);
+
+    /**
+     * 回评查询分数
+     * @param teacherId
+     * @param examId
+     * @param paperId
+     * @param readWay
+     * @param questionId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_REVIEW_SCORE)
+    Observable<ResponseBean<String>> getExamReviewScore(@Path("teacherId") String teacherId,@Query("examId")String examId,@Query("paperId") String paperId,@Query("readWay")String readWay,@Query("questionId")String questionId);
+
+
+    /**
+     * 回评评分列表数据
+     * @param teacherId
+     * @param examId
+     * @param paperId
+     * @param readWay
+     * @param questionId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_REVIEWLIST)
+    Observable<ResponseBean<String>> getExamReviewList(@Path("teacherId") String teacherId,@Query("examId")String examId,@Query("paperId") String paperId,@Query("readWay")String readWay,@Query("questionId")String questionId);
+
 }

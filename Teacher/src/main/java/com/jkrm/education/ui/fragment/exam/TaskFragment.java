@@ -12,6 +12,7 @@ import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.TaskBeanAdapter;
 import com.jkrm.education.bean.TaskBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.TaskPresent;
 import com.jkrm.education.mvp.views.TaskView;
 import com.jkrm.education.ui.activity.exam.ExamTaskActivity;
@@ -67,7 +68,7 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
                     case R.id.tv_step:
                         if("1".equals(bean.getIsRead())){
                             showMsg("开始阅卷");
-                            toClass(ExamTaskActivity.class,false);
+                            toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }else if("2".equals(bean.getIsRead())){
                             showMsg("暂停阅卷");
                         }else if("3".equals(bean.getIsRead())){
