@@ -26,7 +26,11 @@
         android:roundIcon="@mipmap/teacher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.exam.ReviewActivity"></activity>
+        <activity android:name=".ui.activity.exam.CorrectingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape"
+            ></activity>
+        <activity android:name=".ui.activity.exam.ReviewActivity" />
         <activity android:name=".ui.activity.exam.ExamTaskActivity" />
         <activity android:name=".ui.activity.me.MeClassesActivity" />
         <activity

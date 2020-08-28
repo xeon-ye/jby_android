@@ -5,7 +5,9 @@ import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.bean.ExamReviewBean;
 import com.jkrm.education.bean.ReViewTaskBean;
+import com.jkrm.education.bean.ScoreBean;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.mvp.views.ExamTaskView;
 import com.jkrm.education.mvp.views.ReviewView;
@@ -33,16 +35,16 @@ public class ReviewPresent extends AwCommonPresenter implements ReviewView.Prese
 
     @Override
     public void getExamReviewScore(String teacherId, String examId, String paperId, String readWay, String questionId) {
-        Observable<ResponseBean<String>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<List<ScoreBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getExamReviewScore(teacherId,examId,paperId,readWay,questionId);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<String>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ScoreBean>>() {
             @Override
             public void onStart() {
             }
 
             @Override
-            public void onSuccess(String data) {
+            public void onSuccess(List<ScoreBean> data) {
                 mView.getExamReviewScoreSuccess(data);
             }
 
@@ -59,18 +61,19 @@ public class ReviewPresent extends AwCommonPresenter implements ReviewView.Prese
 
     @Override
     public void getExamReviewList(String teacherId, String examId, String paperId, String readWay, String questionId) {
-        Observable<ResponseBean<String>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<List<ExamReviewBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getExamReviewList(teacherId,examId,paperId,readWay,questionId);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<String>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamReviewBean>>() {
             @Override
             public void onStart() {
             }
 
             @Override
-            public void onSuccess(String data) {
+            public void onSuccess(List<ExamReviewBean> data) {
                 mView.getExamReviewListSuccess(data);
             }
+
 
             @Override
             public void onFailure(int code, String msg) {

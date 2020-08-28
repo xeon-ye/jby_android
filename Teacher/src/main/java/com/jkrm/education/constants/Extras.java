@@ -47,6 +47,7 @@ public class Extras {
     public final static String EXAM_ID="key_examid";
     public final static String PAPER_ID="key_paperid";
     public final static String READ_WAY="key_read_way";
+    public final static String REVIEW_TASK_BEAN="key_review_task";
 
 
 }

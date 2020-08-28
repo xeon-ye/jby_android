@@ -13,8 +13,10 @@ import com.jkrm.education.R;
 import com.jkrm.education.bean.ReViewTaskBean;
 import com.jkrm.education.bean.test.TestMarkKindsBean;
 import com.jkrm.education.constants.Extras;
+import com.jkrm.education.ui.activity.exam.CorrectingActivity;
 import com.jkrm.education.ui.activity.exam.ReviewActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,11 +57,11 @@ public class ExamGroupAdapter extends BaseQuickAdapter<ReViewTaskBean, BaseViewH
         TextView tv_type = helper.getView(R.id.tv_type);
         RecyclerView rcv_child_data = helper.getView(R.id.rcv_child_data);
         if("1".equals(item.getReadWay())){
-            tv_type.setText("单凭题号");
+            tv_type.setText("单评题号");
         }else if("2".equals(item.getReadWay())){
-            tv_type.setText("双凭题号");
+            tv_type.setText("双评题号");
         }else if("3".equals(item.getReadWay())){
-            tv_type.setText("终凭题号");
+            tv_type.setText("终评题号");
         }
         helper.setText(R.id.tv_done_num,item.getFinishRead()+"")
                 .setText(R.id.tv_not_done,item.getTotalRead()+"");
@@ -78,9 +80,16 @@ public class ExamGroupAdapter extends BaseQuickAdapter<ReViewTaskBean, BaseViewH
                         intent.putExtra(Extras.PAPER_ID,bean.getPaperId());
                         intent.putExtra(Extras.READ_WAY,bean.getReadWay());
                         intent.putExtra(Extras.QUESTION_ID,bean.getQuestionId());
+                        intent.putExtra(Extras.REVIEW_TASK_BEAN,(Serializable) bean);
+
                         mContext.startActivity(intent);
                         break;
                     case R.id.tv_mark:
+                        Intent intent1 = new Intent();
+                        intent1.setClass(mContext, CorrectingActivity.class);
+                        intent1.putExtra(Extras.REVIEW_TASK_BEAN,(Serializable) bean);
+
+                        mContext.startActivity(intent1);
                         break;
                 }
             }

@@ -1,5 +1,6 @@
 package com.jkrm.education.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @CreateDate: 2020/8/27 15:48
  */
 
-public class ReViewTaskBean {
+public class ReViewTaskBean implements Serializable {
     private int readWay;
     private String readWayName;
     private int finishRead;
@@ -55,7 +56,7 @@ public class ReViewTaskBean {
         this.quesList = quesList;
     }
 
-    public static class Bean{
+    public static class Bean implements Serializable{
         private String examId;
         private String haveRead;
         private String maxScore;

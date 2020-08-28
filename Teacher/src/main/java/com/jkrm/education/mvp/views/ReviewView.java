@@ -2,7 +2,9 @@ package com.jkrm.education.mvp.views;
 
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
+import com.jkrm.education.bean.ExamReviewBean;
 import com.jkrm.education.bean.ReViewTaskBean;
+import com.jkrm.education.bean.ScoreBean;
 
 import java.util.List;
 
@@ -22,10 +24,10 @@ public interface ReviewView extends AwBaseView {
     }
 
     interface View extends AwBaseView {
-        void getExamReviewScoreSuccess(String data);
+        void getExamReviewScoreSuccess(List<ScoreBean> data);
         void getExamReviewScoreFail(String msg);
 
-        void getExamReviewListSuccess(String data);
+        void getExamReviewListSuccess(List<ExamReviewBean> data);
         void getExamReviewListFail(String msg);
     }
 

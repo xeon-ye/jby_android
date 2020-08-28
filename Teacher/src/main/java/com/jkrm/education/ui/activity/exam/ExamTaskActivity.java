@@ -63,6 +63,7 @@ public class ExamTaskActivity extends AwMvpActivity<ExamTaskPresent> implements 
     protected void initData() {
         super.initData();
         mPresenter.getReviewTaskList(UserUtil.getAppUser().getTeacherId(), EXAM_ID, PAPER_ID);
+
     }
 
     @Override

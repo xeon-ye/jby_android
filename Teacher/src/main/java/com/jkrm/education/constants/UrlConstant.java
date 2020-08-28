@@ -309,4 +309,11 @@ public class UrlConstant {
      * 回评评分列表数据
      */
     public static final String GET_EXAM_REVIEWLIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewList/{teacherId}";
+
+    /**
+     *  批阅表头  readWay //1单凭，2双评，3终评
+     */
+    public static final String GET_EXAM_READ_HEADER=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReadHeader/{teacherId}";
+
+    public static final String GET_EXAM_READ_QUESTIONS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReadQuestions/{teacherId}";
 }
