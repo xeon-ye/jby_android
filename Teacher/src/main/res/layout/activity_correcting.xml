@@ -136,7 +136,7 @@
                         android:gravity="center"
                         style="@style/middle_white_style"
                         android:drawableRight="@mipmap/chose_hint"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         android:text="按题批阅" />
 
                     <TextView
@@ -198,9 +198,11 @@
                         android:id="@+id/iv_questionImg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
+                        android:layout_alignStart="@+id/fl_imgFlLayout"
 
-                        android:scaleType="matrix"/>
+                        android:layout_alignTop="@+id/fl_imgFlLayout"
+                        android:layout_gravity="center"
+                        android:scaleType="matrix" />
 
                     <ImageView
                         android:id="@+id/iv_lastQuestion"

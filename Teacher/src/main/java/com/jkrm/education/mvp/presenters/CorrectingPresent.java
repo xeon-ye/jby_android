@@ -7,6 +7,8 @@ import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.ClassessBean;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ExamQuestionsBean;
+import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.mvp.views.ChoiceClassesView;
 import com.jkrm.education.mvp.views.CorrectionView;
 
@@ -33,17 +35,17 @@ public class CorrectingPresent extends AwCommonPresenter implements CorrectionVi
 
     @Override
     public void getExamReadHeader(String teacherId, String examId, String paperId, String readWay) {
-        Observable<ResponseBean<String>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<List<ExamReadHeaderBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getExamReadHeader(teacherId,examId,paperId,readWay);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<String>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamReadHeaderBean>>() {
             @Override
             public void onStart() {
                 mView.showLoadingDialog();
             }
 
             @Override
-            public void onSuccess(String data) {
+            public void onSuccess(List<ExamReadHeaderBean> data) {
                 mView.getExamReadHeaderSuccess(data);
             }
 
@@ -62,19 +64,20 @@ public class CorrectingPresent extends AwCommonPresenter implements CorrectionVi
 
     @Override
     public void getExamQuestions(String teacherId, String examId, String paperId, String readWay, String questionId) {
-        Observable<ResponseBean<String>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<List<ExamQuestionsBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getExamQuestions(teacherId,examId,paperId,readWay,questionId);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<String>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamQuestionsBean>>() {
             @Override
             public void onStart() {
                 mView.showLoadingDialog();
             }
 
             @Override
-            public void onSuccess(String data) {
+            public void onSuccess(List<ExamQuestionsBean> data) {
                 mView.getExamQuestionsSuccess(data);
             }
+
 
 
             @Override

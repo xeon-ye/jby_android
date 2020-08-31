@@ -4,6 +4,8 @@ import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
 import com.jkrm.education.bean.ExamReviewBean;
 import com.jkrm.education.bean.ScoreBean;
+import com.jkrm.education.bean.exam.ExamQuestionsBean;
+import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 
 import java.util.List;
 
@@ -24,10 +26,10 @@ public interface CorrectionView extends AwBaseView {
     }
 
     interface View extends AwBaseView {
-        void  getExamReadHeaderSuccess(String data);
+        void  getExamReadHeaderSuccess(List<ExamReadHeaderBean> data);
         void  getExamReadHeaderFail(String msg);
 
-        void getExamQuestionsSuccess(String data);
+        void getExamQuestionsSuccess(List<ExamQuestionsBean> data);
         void getExamQuestionsFail(String msg);
 
     }

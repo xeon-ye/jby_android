@@ -8,13 +8,17 @@ import com.hzw.baselib.bean.SchoolBean;
 import com.hzw.baselib.project.student.bean.AnswerSheetAllDataResultBean;
 import com.jkrm.education.bean.ClassesBean;
 import com.jkrm.education.bean.ErrorBasketBean;
+import com.jkrm.education.bean.ExamReviewBean;
 import com.jkrm.education.bean.MistakeBean;
 import com.jkrm.education.bean.ClassessBean;
 import com.jkrm.education.bean.PeriodCourseBean;
 import com.jkrm.education.bean.ReViewTaskBean;
 import com.jkrm.education.bean.RegisterBean;
+import com.jkrm.education.bean.ScoreBean;
 import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ExamQuestionsBean;
+import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.bean.request.RequestClassesBean;
 import com.jkrm.education.bean.result.AllStudentScoreResultBean;
 import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
@@ -753,7 +757,7 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_EXAM_REVIEW_SCORE)
-    Observable<ResponseBean<String>> getExamReviewScore(@Path("teacherId") String teacherId,@Query("examId")String examId,@Query("paperId") String paperId,@Query("readWay")String readWay,@Query("questionId")String questionId);
+    Observable<ResponseBean<List<ScoreBean>>> getExamReviewScore(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
 
 
     /**
@@ -766,6 +770,31 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_EXAM_REVIEWLIST)
-    Observable<ResponseBean<String>> getExamReviewList(@Path("teacherId") String teacherId,@Query("examId")String examId,@Query("paperId") String paperId,@Query("readWay")String readWay,@Query("questionId")String questionId);
+    Observable<ResponseBean<List<ExamReviewBean>>> getExamReviewList(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
+
+    /**
+     * 批阅表头
+     * @param teacherId
+     * @param examId
+     * @param paperId
+     * @param readWay
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_READ_HEADER)
+    Observable<ResponseBean<List<ExamReadHeaderBean>>>  getExamReadHeader(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay);
+
+    /**
+     *  批阅列表
+     * @param teacherId
+     * @param examId
+     * @param paperId
+     * @param readWay
+     * @param questionId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_READ_QUESTIONS)
+    Observable<ResponseBean<List<ExamQuestionsBean>>> getExamQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
+
+
 
 }

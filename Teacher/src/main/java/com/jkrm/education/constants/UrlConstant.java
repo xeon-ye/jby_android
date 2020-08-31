@@ -315,5 +315,8 @@ public class UrlConstant {
      */
     public static final String GET_EXAM_READ_HEADER=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReadHeader/{teacherId}";
 
+    /**
+     * 批阅列表
+     */
     public static final String GET_EXAM_READ_QUESTIONS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReadQuestions/{teacherId}";
 }
