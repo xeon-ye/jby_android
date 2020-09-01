@@ -6,9 +6,11 @@ import com.jkrm.education.bean.ExamReviewBean;
 import com.jkrm.education.bean.ScoreBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
+import com.jkrm.education.bean.result.OssResultBean;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -23,6 +25,11 @@ public interface CorrectionView extends AwBaseView {
 
         void getExamQuestions(String teacherId, String examId, String paperId, String readWay, String questionId);
 
+        void uploadOss(boolean isNext, String model, String filePath);
+        void addSpecial(RequestBody body);
+        void deleteSpecial(String homeworkId, String questionId, String studCode);
+        void markQuestion(boolean isNext, String questionAnswerId, RequestBody requestBody);
+        void examMark(boolean isNext,RequestBody requestBody);
     }
 
     interface View extends AwBaseView {
@@ -32,6 +39,17 @@ public interface CorrectionView extends AwBaseView {
         void getExamQuestionsSuccess(List<ExamQuestionsBean> data);
         void getExamQuestionsFail(String msg);
 
+        void uploadOssSuccess(boolean isNext, OssResultBean bean);
+        void uploadOssFail(boolean isNext, String msg);
+
+        void addSpecialSuccess();
+        void deleteSpecialSuccess();
+
+        void markQuestionSuccess(boolean isNext);
+        void markQuestionFail(String msg);
+
+        void examMarkSuccess(boolean isNext);
+        void examMarkFail(String msg);
     }
 
 }

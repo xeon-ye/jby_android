@@ -277,6 +277,8 @@ public class RequestUtil {
         return getBody(hashMap);
     }
 
+
+
     /**
      * 批阅选择题请求
      * @param id
@@ -501,6 +503,24 @@ public class RequestUtil {
         hashMap.put("templateIds",templateIds);
         hashMap.put("classIds",classIds);
         hashMap.put("questionid",questionId);
+        return getBody(hashMap);
+    }
+
+    /**
+     * 考试批阅
+     * @param status
+     * @return
+     */
+    public static RequestBody getExamMarkRequest(String id, String answerId, String score,String gradedScan,String optStatus,String readWay ) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("id", id);
+        hashMap.put("answerId", answerId);
+        hashMap.put("score", score);
+        hashMap.put("gradedScan", score);
+        hashMap.put("optStatus", score);
+        hashMap.put("status", "");
+        hashMap.put("answer", "");
+        hashMap.put("readWay", readWay);
         return getBody(hashMap);
     }
 

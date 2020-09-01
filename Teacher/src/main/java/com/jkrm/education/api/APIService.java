@@ -796,5 +796,11 @@ public interface APIService {
     Observable<ResponseBean<List<ExamQuestionsBean>>> getExamQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
 
 
-
+    /**
+     * 考试批阅
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.EXAM_MARK)
+    Observable<ResponseBean<String>> examMark(@Body RequestBody requestBody);
 }

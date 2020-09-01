@@ -198,11 +198,9 @@
                         android:id="@+id/iv_questionImg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignStart="@+id/fl_imgFlLayout"
-
-                        android:layout_alignTop="@+id/fl_imgFlLayout"
                         android:layout_gravity="center"
-                        android:scaleType="matrix" />
+
+                        android:scaleType="matrix"/>
 
                     <ImageView
                         android:id="@+id/iv_lastQuestion"
@@ -219,6 +217,8 @@
                         android:layout_gravity="center_vertical|right"
                         android:padding="@dimen/dimen_5"
                         android:src="@mipmap/piyue_btn_next" />
+
+
                 </FrameLayout>
             </RelativeLayout>
 
@@ -229,6 +229,7 @@
                 android:alpha="0.5"
                 android:visibility="gone"
                 android:background="@color/black" />
+
         </FrameLayout>
     </RelativeLayout>
 </LinearLayout>
