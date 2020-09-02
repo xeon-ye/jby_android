@@ -87,6 +87,15 @@ public class AnswerSheetDataDetailResultBean {
     private String isOption;
     private String groupQuestion;// 是否是组题 1 不是  2 是
     private String title;
+    private String isFree;
+
+    public String getIsFree() {
+        return isFree;
+    }
+
+    public void setIsFree(String isFree) {
+        this.isFree = isFree;
+    }
 
     public String getTitle() {
         return title;

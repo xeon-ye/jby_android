@@ -508,7 +508,6 @@ public class RequestUtil {
 
     /**
      * 考试批阅
-     * @param status
      * @return
      */
     public static RequestBody getExamMarkRequest(String id, String answerId, String score,String gradedScan,String optStatus,String readWay ) {
@@ -516,8 +515,8 @@ public class RequestUtil {
         hashMap.put("id", id);
         hashMap.put("answerId", answerId);
         hashMap.put("score", score);
-        hashMap.put("gradedScan", score);
-        hashMap.put("optStatus", score);
+        hashMap.put("gradedScan", gradedScan);
+        hashMap.put("optStatus", optStatus);
         hashMap.put("status", "");
         hashMap.put("answer", "");
         hashMap.put("readWay", readWay);

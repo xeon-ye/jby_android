@@ -271,6 +271,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     toClass(SeeTargetQuestionActivity.class, false, Extras.COMMON_BOOLEAN, bean.isChoiceQuestion() ? false : true, Extras.COMMON_PARAMS, bean.getQuestionId());
                     break;
                 case R.id.btn_questionExpand:
+                    if("0".equals(bean.getIsFree())){
+                        showMsg("暂未开通此服务，请联系客服或代理商");
+                        return;
+                    }
                     //进入类题加连后区分数据
                     toClass(OnlineAnswerActivity.class,false ,Extras.COMMON_PARAMS, bean.getQuestionId(),Extras.COURSE_ID,mRowsHomeworkBean.getCourseId());
                /*     // *  非组题 主观题
@@ -292,6 +296,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                    // toClass(QuestionExpandActivity.class, false, Extras.COMMON_PARAMS, bean.getQuestionId());
                     break;
                 case R.id.btn_famousTeacherLecture:
+                    if("0".equals(bean.getIsFree())){
+                        showMsg("暂未开通此服务，请联系客服或代理商");
+                        return;
+                    }
                     mPresenter.getVideos(bean.getQuestionId());
                     break;
                 case R.id.btn_addQuestionBasket:

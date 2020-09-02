@@ -249,7 +249,7 @@ public class UrlConstant {
     /**
      * 主观题数据分析
      */
-    public static final String GET_ERROR_SUB_STATISTICS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"report_server/homework/reports/{questionId}/theme_chart";
+    public static final String GET_ERROR_SUB_STATISTICS = MOCK_API_PREFIX + COMMON_URL_PREFIX + "report_server/homework/reports/{questionId}/theme_chart";
 
     /**
      * 添加题蓝
@@ -270,58 +270,58 @@ public class UrlConstant {
     /**
      * //导出题篮
      */
-    public static final String QUESTION_BASKET_EXPORT_CUSTOM = MOCK_API_PREFIX+COMMON_URL_PREFIX+"product_server/questions/exportQuestions";
+    public static final String QUESTION_BASKET_EXPORT_CUSTOM = MOCK_API_PREFIX + COMMON_URL_PREFIX + "product_server/questions/exportQuestions";
     /**
      * 获取需讲解学生信息
      */
-    public static final String GET_EXPLAIN_STUDENT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"mark_server/homework/explain/students";
+    public static final String GET_EXPLAIN_STUDENT = MOCK_API_PREFIX + COMMON_URL_PREFIX + "mark_server/homework/explain/students";
     /**
      * 获取班级
      */
-    public static final String GET_EXPLAIN_CLASSES=MOCK_API_PREFIX+COMMON_URL_PREFIX+"report_server/teacher/{teacherId}/homework/{homeworkId}/classes";
+    public static final String GET_EXPLAIN_CLASSES = MOCK_API_PREFIX + COMMON_URL_PREFIX + "report_server/teacher/{teacherId}/homework/{homeworkId}/classes";
 
     /**
      * 动态获取系统安全码
      */
-    public static final String GET_SAFE_CODE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/sys/safe/code";
+    public static final String GET_SAFE_CODE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "system_server/sys/safe/code";
 
     /**
      * 退出登录
      */
-    public static final String LOGOUT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"system_server/logout";
+    public static final String LOGOUT = MOCK_API_PREFIX + COMMON_URL_PREFIX + "system_server/logout";
 
     /**
      * 阅卷任务列表
      */
-    public static final String GET_EXAM_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/app/examList/{teacherId}";
+    public static final String GET_EXAM_LIST = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/app/examList/{teacherId}";
 
     /**
      * 阅卷任务详情
      */
-    public static final String GET_REVIEW_TASK_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/readTask/{teacherId}";
+    public static final String GET_REVIEW_TASK_LIST = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/readTask/{teacherId}";
 
     /**
      * 回评查询分数
      */
-    public static final String GET_EXAM_REVIEW_SCORE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewScore/{teacherId}";
+    public static final String GET_EXAM_REVIEW_SCORE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examReviewScore/{teacherId}";
 
     /**
      * 回评评分列表数据
      */
-    public static final String GET_EXAM_REVIEWLIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewList/{teacherId}";
+    public static final String GET_EXAM_REVIEWLIST = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examReviewList/{teacherId}";
 
     /**
-     *  批阅表头  readWay //1单凭，2双评，3终评
+     * 批阅表头  readWay //1单凭，2双评，3终评
      */
-    public static final String GET_EXAM_READ_HEADER=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReadHeader/{teacherId}";
+    public static final String GET_EXAM_READ_HEADER = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examReadHeader/{teacherId}";
 
     /**
      * 批阅列表
      */
-    public static final String GET_EXAM_READ_QUESTIONS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReadQuestions/{teacherId}";
+    public static final String GET_EXAM_READ_QUESTIONS = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examReadQuestions/{teacherId}";
 
     /**
      * 考试批阅
      */
-    public static final String EXAM_MARK=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/pc/updatExamQuestion";
+    public static final String EXAM_MARK = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/updatExamQuestion";
 }
