@@ -23,6 +23,35 @@ public class ExamQuestionsBean {
     private int optStatus;
     private String scores;//步长
     private String questioType;//题的类型
+    private String homeworkId;
+    private String classId;
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
+
+    public String getStudCode() {
+        return studCode;
+    }
+
+    public void setStudCode(String studCode) {
+        this.studCode = studCode;
+    }
+
+    private String studCode;
+
+
+    public String getHomeworkId() {
+        return homeworkId;
+    }
+
+    public void setHomeworkId(String homeworkId) {
+        this.homeworkId = homeworkId;
+    }
 
     public String getId() {
         return id;

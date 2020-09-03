@@ -290,5 +290,64 @@ public class CorrectingPresent extends AwCommonPresenter implements CorrectionVi
         }));
     }
 
+    @Override
+    public void getExamReviewHeader(String teacherId, String examId, String paperId, String readWay) {
+        Observable<ResponseBean<List<ExamReadHeaderBean>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getExamReviewHeader(teacherId,examId,paperId,readWay);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamReadHeaderBean>>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(List<ExamReadHeaderBean> data) {
+                mView.getExamReadHeaderSuccess(data);
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.getExamReadHeaderFail(msg);
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
+    @Override
+    public void getExamReviewQuestions(String teacherId, String examId, String paperId, String readWay, String questionId) {
+        Observable<ResponseBean<List<ExamQuestionsBean>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getExamReviewQuestions(teacherId,examId,paperId,readWay,questionId);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamQuestionsBean>>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(List<ExamQuestionsBean> data) {
+                mView.getExamReviewQuestionsSuccess(data);
+            }
+
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.getExamReviewQuestionsFail(msg);
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
 
 }

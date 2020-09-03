@@ -803,4 +803,31 @@ public interface APIService {
      */
     @POST(UrlConstant.EXAM_MARK)
     Observable<ResponseBean<String>> examMark(@Body RequestBody requestBody);
+
+
+    /**
+     * 回评批阅表头
+     * @param teacherId
+     * @param examId
+     * @param paperId
+     * @param readWay
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_REVIEW_HEADER)
+    Observable<ResponseBean<List<ExamReadHeaderBean>>>  getExamReviewHeader(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay);
+
+
+    /**
+     *  回评批阅列表
+     * @param teacherId
+     * @param examId
+     * @param paperId
+     * @param readWay
+     * @param questionId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_REVIEW_QUESTIONS)
+    Observable<ResponseBean<List<ExamQuestionsBean>>> getExamReviewQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
+
+
 }

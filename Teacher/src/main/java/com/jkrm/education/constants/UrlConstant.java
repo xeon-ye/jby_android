@@ -324,4 +324,14 @@ public class UrlConstant {
      * 考试批阅
      */
     public static final String EXAM_MARK = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/updatExamQuestion";
+
+    /**
+     * 回评批阅表头题号
+     */
+    public static final String GET_EXAM_REVIEW_HEADER=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewHeader/{teacherId}";
+
+    /**
+     * 回评列表
+     */
+    public static final String GET_EXAM_REVIEW_QUESTIONS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewQuestions/{teacherId}";
 }

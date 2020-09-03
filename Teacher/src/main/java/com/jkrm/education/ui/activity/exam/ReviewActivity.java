@@ -141,7 +141,7 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()){
                     case R.id.img:
-                        toClass(CorrectingActivity.class,false,Extras.REVIEW_TASK_BEAN,mBean);
+                        toClass(CorrectingActivity.class,false,Extras.REVIEW_TASK_BEAN,mBean,Extras.KEY_IS_RE_MARK,true,Extras.KEY_MACK_POS,position);
                         break;
                 }
             }

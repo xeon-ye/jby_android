@@ -73,6 +73,7 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
                             showMsg("暂停阅卷");
                         }else if("3".equals(bean.getIsRead())){
                             showMsg("批阅完成");
+                            toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }
                         break;
                 }

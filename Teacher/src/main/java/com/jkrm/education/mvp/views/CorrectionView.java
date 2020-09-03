@@ -30,6 +30,12 @@ public interface CorrectionView extends AwBaseView {
         void deleteSpecial(String homeworkId, String questionId, String studCode);
         void markQuestion(boolean isNext, String questionAnswerId, RequestBody requestBody);
         void examMark(boolean isNext,RequestBody requestBody);
+
+        void getExamReviewHeader(String teacherId, String examId, String paperId, String readWay);
+
+        void getExamReviewQuestions(String teacherId, String examId, String paperId, String readWay, String questionId);
+
+
     }
 
     interface View extends AwBaseView {
@@ -50,6 +56,13 @@ public interface CorrectionView extends AwBaseView {
 
         void examMarkSuccess(boolean isNext);
         void examMarkFail(String msg);
+
+        void  getExamReviewHeaderSuccess(List<ExamReadHeaderBean> data);
+        void  getExamReviewHeaderFail(String msg);
+
+        void getExamReviewQuestionsSuccess(List<ExamQuestionsBean> data);
+        void getExamReviewQuestionsFail(String msg);
+
     }
 
 }

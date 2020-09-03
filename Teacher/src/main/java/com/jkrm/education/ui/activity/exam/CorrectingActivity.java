@@ -30,6 +30,7 @@ import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.interfaces.IPermissionListener;
 import com.hzw.baselib.project.student.bean.MarkBean;
 import com.hzw.baselib.util.AwDataUtil;
+import com.hzw.baselib.util.AwEffectiveRequestViewUtil;
 import com.hzw.baselib.util.AwFileUtil;
 import com.hzw.baselib.util.AwImgUtil;
 import com.hzw.baselib.util.AwLog;
@@ -50,6 +51,7 @@ import com.jkrm.education.bean.result.AnswerSheetProgressResultBean;
 import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.OssResultBean;
 import com.jkrm.education.bean.result.RowsHomeworkBean;
+import com.jkrm.education.bean.rx.RxRefreshHomeworkDetailType;
 import com.jkrm.education.bean.rx.RxRefreshHomeworkListType;
 import com.jkrm.education.bean.rx.RxRefreshMarkDetailType;
 import com.jkrm.education.bean.test.TestMarkCommonUseScoreBean;
@@ -200,6 +202,8 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
      */
     private int mCurrentQuestion = 0;
     private List<ExamQuestionsBean> mExamQuestionsBeansxamList;
+    private int mMarkPos;
+
 
     @Override
     protected int getLayoutId() {
@@ -215,7 +219,10 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     protected void initView() {
         super.initView();
         mBean = (ReViewTaskBean.Bean) getIntent().getExtras().getSerializable(Extras.REVIEW_TASK_BEAN);
-        mTvQuestionInfo.setText(mBean.getQuestionNum()+"");
+        //回评
+        isSelectReMark = getIntent().getExtras().getBoolean(Extras.KEY_IS_RE_MARK, false);
+        mMarkPos = getIntent().getExtras().getInt(Extras.KEY_MACK_POS);
+        mTvQuestionInfo.setText(mBean.getQuestionNum() + "");
         setStatusTxtDark();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             getNotchParams();
@@ -223,8 +230,14 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         mIvQuestionImg.setEnableTouch(true);
         mHandleSwitchList.add(new MarkBean(true, "分步赋分"));
         mHandleSwitchList.add(new MarkBean(false, "一键赋分"));
-        mPresenter.getExamReadHeader(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay());
-        mPresenter.getExamQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId());
+        if (isSelectReMark) {
+            mPresenter.getExamReviewHeader(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay());
+            mPresenter.getExamReviewQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId());
+        } else {
+            mPresenter.getExamReadHeader(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay());
+            mPresenter.getExamQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId());
+
+        }
     }
 
     @Override
@@ -236,7 +249,6 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         AwRxPermissionUtil.getInstance().checkPermission(mActivity, AwRxPermissionUtil.permissionsStorage, new IPermissionListener() {
             @Override
             public void granted() {
-
 
 
             }
@@ -393,8 +405,9 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 questionId = mExamQuestionsBean.getId();
                 mCurrentQuestion = i;
             }*/
-            mExamQuestionsBean=  mExamQuestionsBeansxamList.get(0);
-            questionId = mExamQuestionsBean.getId();
+            mCurrentQuestion=mMarkPos;
+            mExamQuestionsBean = mExamQuestionsBeansxamList.get(mMarkPos);
+            questionId = mExamQuestionsBean.getQuestionId();
 
         }
         setExamPaperAndNum();
@@ -404,6 +417,9 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     private void setExamPaperAndNum() {
         resetScoreImg(true);
         String replace = mExamQuestionsBean.getRawScan().replace("\\", "/");
+        if(isSelectReMark){
+            replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
+        }
         //设置常用分数, 最大分数不存在, 取消展示常用分数
         maxScore = Float.parseFloat(MyDateUtil.replace(AwDataUtil.isEmpty(mExamQuestionsBean.getMaxScore()) ? "0" : (mExamQuestionsBean.getMaxScore())));
         Glide.with(mActivity).load(replace).into(mIvQuestionImg);
@@ -446,6 +462,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             }
         }
         setCommonUseScoreData();
+        mTvTotalMarkPercent.setText("总批阅进度："+(mCurrentQuestion+1)+"/"+mExamQuestionsBeansxamList.size());
     }
 
 
@@ -488,12 +505,18 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
     @Override
     public void addSpecialSuccess() {
-
+        showMsg("添加典型成功");
+        setText(mBtnAddSpecial, "移除典型");
+        AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mBtnAddSpecial, false); //刷新作业详情
+        EventBus.getDefault().postSticky(new RxRefreshHomeworkDetailType());
     }
 
     @Override
     public void deleteSpecialSuccess() {
-
+        showMsg("删除典型成功");
+        setText(mBtnAddSpecial, "添加典型");
+        EventBus.getDefault().postSticky(new RxRefreshHomeworkDetailType());
+        AwEffectiveRequestViewUtil.setTextViewBgBlueAndWhite(mActivity, mBtnAddSpecial, true); //刷新作业详情
     }
 
     @Override
@@ -508,7 +531,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
     @Override
     public void examMarkSuccess(boolean isNext) {
-       // setTotalMarkPercent(false);
+        // setTotalMarkPercent(false);
         totalMarkScore = "";
         isMarked = false;
         isMarkedSomeOne = true;
@@ -519,6 +542,38 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     @Override
     public void examMarkFail(String msg) {
         showMsg(msg);
+    }
+
+    @Override
+    public void getExamReviewHeaderSuccess(List<ExamReadHeaderBean> data) {
+
+    }
+
+    @Override
+    public void getExamReviewHeaderFail(String msg) {
+
+    }
+
+    @Override
+    public void getExamReviewQuestionsSuccess(List<ExamQuestionsBean> data) {
+        mExamQuestionsBeansxamList = data;
+        for (int i = 0; i < data.size(); i++) {
+            /*if (mBean.getQuestionId().equals(data.get(i).getQuestionId())) {
+                mExamQuestionsBean = mExamQuestionsBeansxamList.get(i);
+                questionId = mExamQuestionsBean.getId();
+                mCurrentQuestion = i;
+            }*/
+            mCurrentQuestion=mMarkPos;
+            mExamQuestionsBean = mExamQuestionsBeansxamList.get(mMarkPos);
+            questionId = mExamQuestionsBean.getId();
+
+        }
+        setExamPaperAndNum();
+    }
+
+    @Override
+    public void getExamReviewQuestionsFail(String msg) {
+
     }
 
     @Override
@@ -829,12 +884,12 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 if (isEditCommonUse) {
                     return;
                 }
-           /*     if ("添加典型".equals(mBtnAddSpecial.getText().toString())) {
-                    mPresenter.addSpecial(RequestUtil.getAddSpecialRequest(homeworkId, questionId, classId, MyApp.getInstance().getAppUser().getTeacherId(), "",
+                if ("添加典型".equals(mBtnAddSpecial.getText().toString())) {
+                    mPresenter.addSpecial(RequestUtil.getAddSpecialRequest(mExamQuestionsBean.getHomeworkId(), mExamQuestionsBean.getQuestionId(), mExamQuestionsBean.getClassId(), MyApp.getInstance().getAppUser().getTeacherId(), "",
                             questionUrl, mExamQuestionsBean.getStudCode()));
                 } else {
-                    mPresenter.deleteSpecial(homeworkId, questionId, mCurrentStudentBean.getStudCode());
-                }*/
+                    mPresenter.deleteSpecial(mExamQuestionsBean.getHomeworkId(),  mExamQuestionsBean.getQuestionId(), mExamQuestionsBean.getStudCode());
+                }
                 break;
             case R.id.iv_lastQuestion:
                 if (isEditCommonUse) {
@@ -882,27 +937,29 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     private boolean continueOperate(boolean isNext) {
 
         if (isNext) {
-            if (mCurrentQuestion < mExamQuestionsBeansxamList.size()-1) {
+            if (mCurrentQuestion < mExamQuestionsBeansxamList.size() - 1) {
                 mCurrentQuestion++;
-                mExamQuestionsBean =  mExamQuestionsBeansxamList.get(mCurrentQuestion);
+                mExamQuestionsBean = mExamQuestionsBeansxamList.get(mCurrentQuestion);
                 questionId = mExamQuestionsBean.getQuestionId();
                 setExamPaperAndNum();
-            }else{
+            } else {
                 showDialogToFinish("所有学生已经批阅完成，点击返回");
             }
             return true;
         } else {
             if (mCurrentQuestion > 0) {
                 mCurrentQuestion--;
-                mExamQuestionsBean =  mExamQuestionsBeansxamList.get(mCurrentQuestion);
+                mExamQuestionsBean = mExamQuestionsBeansxamList.get(mCurrentQuestion);
                 questionId = mExamQuestionsBean.getQuestionId();
                 setExamPaperAndNum();
-            }else{
+            } else {
                 showDialogToFinish("所有学生已经批阅完成，点击返回");
 
             }
             return true;
         }
     }
+
+
 
 }

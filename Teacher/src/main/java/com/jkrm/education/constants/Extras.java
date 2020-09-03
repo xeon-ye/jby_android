@@ -50,6 +50,7 @@ public class Extras {
     public final static String REVIEW_TASK_BEAN="key_review_task";
 
     public final static String KEY_QUESTION_NUM_LIST="key_question_num_list";
+    public final static String KEY_MACK_POS="key_mack_pos";
 
 
 }
