@@ -239,7 +239,7 @@ public class ConfirmAnOrderActivity extends AwMvpActivity<ConfirmAnOrderPresent>
         // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), mMicroLessonResultBean.getMlessonPrice(), "1", "1", goodsDetais));
         //测试金额 0.01
         //orderType  1. 充值  2.支付
-         mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "2", "1", goodsDetais,MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
+         mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(),  mMicroLessonResultBean.getMlessonPrice(), "1", "1", goodsDetais,MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
        // mPresenter.createOrder(RequestUtil.getCreateOrderBody(mMicroLessonResultBean.getMlessonName(), "0.01", "2", "1", goodsDetais, MicrolessonFragment.mStrCourseId, MicrolessonFragment.mStrCourseName));
     }
 

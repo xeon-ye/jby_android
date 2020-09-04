@@ -373,7 +373,7 @@ public class RequestUtil {
      *
      * @param orderName
      * @param goodsPrice
-     * @param orderType      1. 充值  2.支付
+     * @param orderType      1支付 2 充值
      * @param goodsNum
      * @param goodsDetaiList
      * @return

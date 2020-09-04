@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.hzw.baselib.R;
+import com.hzw.baselib.bean.RxLoginRemoteLoginType;
 import com.hzw.baselib.bean.RxLoginTimeOutType;
 import com.hzw.baselib.constants.AwBaseConstant;
 import com.hzw.baselib.util.AwBtnClickUtil;
@@ -127,6 +128,16 @@ public abstract class AwBaseActivity extends TakePhotoFragmentActivity implement
         showDialog("登录过期，请重新登录", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reLogin();
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void remoteLogin(RxLoginRemoteLoginType type){
+        showDialog("您的账号已在其他地方登录\n\t请重新登录", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 reLogin();
             }
         });

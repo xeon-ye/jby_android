@@ -124,6 +124,7 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                         }
                         onlineAnswerChoiceAdapter.notifyDataSetChanged();
 
+
                     }
 
                 });

@@ -10,6 +10,7 @@ public class AwResponseBean<T> {
     private static final int CODE_ERROR_NOLOGIN = 410;
     private static final int ERROR_ILLEGAL_IP = 411;
     private static final int RESET_PSW=413;
+    private static final int CODE_REMOTE_LOGIN=416;
 
     private String msg;
     private T data;
@@ -49,6 +50,13 @@ public class AwResponseBean<T> {
             return true;
         }
         return  false;
+    }
+
+    public boolean isRemoteLogin(){
+        if(code==CODE_REMOTE_LOGIN){
+            return true;
+        }
+        return false;
     }
 
     public String getMessage() {

@@ -3,6 +3,7 @@ package com.hzw.baselib.interfaces;
 import com.google.gson.JsonParseException;
 import com.hzw.baselib.bean.AwResponseBean;
 import com.hzw.baselib.bean.ResetPSWType;
+import com.hzw.baselib.bean.RxLoginRemoteLoginType;
 import com.hzw.baselib.bean.RxLoginTimeOutType;
 
 import org.greenrobot.eventbus.EventBus;
@@ -84,7 +85,11 @@ public class AwApiSubscriber<T> extends Subscriber<AwResponseBean<T>> {
         }
         else if (tResponseBean.isTokenError()) {
             EventBus.getDefault().postSticky(new RxLoginTimeOutType());
-        } else {
+        }
+        else if(tResponseBean.isRemoteLogin()){
+            EventBus.getDefault().postSticky(new RxLoginRemoteLoginType());
+        }
+        else {
             apiCallBack.onFailure(tResponseBean.getCode(), tResponseBean.getMsg());
         }
     }

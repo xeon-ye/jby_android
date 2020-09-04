@@ -347,7 +347,7 @@ public class RepaidBalanceActivity extends AwMvpActivity<RepaidBalancePresent> i
             }
         }
 
-        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mInvestResultBean.getMsg(),mInvestResultBean.getPrice(),"1","1",goodsDetais, MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
+        mPresenter.createOrder(RequestUtil.getCreateOrderBody(mInvestResultBean.getMsg(),mInvestResultBean.getPrice(),"2","1",goodsDetais, MicrolessonFragment.mStrCourseId,MicrolessonFragment.mStrCourseName));
     }
 
     private void alertDialog(CreateOrderResultBean resultBean){

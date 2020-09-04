@@ -143,7 +143,11 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
                             public void onClick(View view) {
                                 dismissDialog();
                                 ChosePayDialogFragment chosePayDialogFragment=new ChosePayDialogFragment();
-                                chosePayDialogFragment.setHasPurse(true);
+                                if("2".equals(mBean.getOrderType())){
+                                    chosePayDialogFragment.setHasPurse(false);
+                                }else{
+                                    chosePayDialogFragment.setHasPurse(true);
+                                }
                                 chosePayDialogFragment.setOnChosePayListener(new ChosePayDialogFragment.onChosePayListener() {
                                     @Override
                                     public void choseWechatPay() {
