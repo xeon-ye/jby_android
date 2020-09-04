@@ -151,9 +151,9 @@ public class MyOrderFragment extends AwMvpFragment<MyOrderFramgmentPresent> impl
                                 chosePayDialogFragment.setOnChosePayListener(new ChosePayDialogFragment.onChosePayListener() {
                                     @Override
                                     public void choseWechatPay() {
-                                          mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(),mBean.getGoodsPrice(),"2"));
+                                          mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(),mBean.getGoodsPrice(),"1"));
                                         //测试金额 0.01
-                                        //mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(), "0.01", "2"));
+                                        //mPresenter.createWechatOrder(RequestUtil.getCreateWechatOrderBody(mBean.getId(), "0.01", "1"));
 
                                     }
 

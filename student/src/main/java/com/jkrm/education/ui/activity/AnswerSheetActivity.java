@@ -18,6 +18,7 @@ import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.util.AwRxPermissionUtil;
+import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.util.AwSystemIntentUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
@@ -91,6 +92,7 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
     @Override
     protected void initView() {
         super.initView();
+        AwSpUtil.clearAll(Extras.KEY_ANSWER);
         setStatusTxtDark();
         checkPermission();
         mAnswerSheetAdapter = new AnswerSheetAdapter();
@@ -275,6 +277,19 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        for (AnswerSheetBean.QuestionsBean question : mAnswerSheetBeans.getQuestions()) {
+            for (AnswerSheetBean.QuestionsBean.SubQuestionsBean subQuestion : question.getSubQuestions()) {
+                String string = AwSpUtil.getString(Extras.KEY_ANSWER, subQuestion.getId(), "");
+                subQuestion.setStuAnswer(string);
+            }
+        }
+    }
+
+
+
+    @Override
     public void uploadOssSuccess(OssResultBean bean) {
         showMsg("上传成功");
         if (AwDataUtil.isEmpty(mQuestionsBean.getImageList())) {
@@ -290,8 +305,8 @@ public class AnswerSheetActivity extends AwMvpActivity<OnlineNonGroupSubjectiveQ
         showMsg("上传失败");
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(RxAnswerSheetType rxAnswerSheetType) {
         mAnswerSheetAdapter.notifyDataSetChanged();
-    }
+    }*/
 }

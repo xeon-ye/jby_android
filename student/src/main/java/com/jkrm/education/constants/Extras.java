@@ -89,5 +89,7 @@ public class Extras {
 
     public final static String KEY_STEP="key_step";
     public final static String KEY_ORDER="key_order";
+
+    public final static String KEY_ANSWER="key_answer";
 }
 

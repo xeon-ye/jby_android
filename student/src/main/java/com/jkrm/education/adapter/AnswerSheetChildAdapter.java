@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
+import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.widgets.MyGridView;
 import com.hzw.baselib.widgets.PhotoFragmentDialog;
 import com.jkrm.education.R;
@@ -92,6 +93,7 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                         }
                         //作答
                         EventBus.getDefault().post(new RxAnswerSheetType(item.getId(), mAnswer.toString(),true));
+                        AwSpUtil.saveString(Extras.KEY_ANSWER,item.getId(),mAnswer.toString());
                     }
                 });
             }else if(!AwDataUtil.isEmpty(item.getType())&&!AwDataUtil.isEmpty(item.getType().getTotalId())&&"6".equals(item.getType().getTotalId())){
@@ -118,12 +120,13 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                                 String mAnswer = mQuestionOptionBeanList.get(i).getSerialNum();
                                 //作答
                                 EventBus.getDefault().post(new RxAnswerSheetType(item.getId(), mAnswer,true));
+                                AwSpUtil.saveString(Extras.KEY_ANSWER,item.getId(),mAnswer.toString());
+
                             } else {
                                 mQuestionOptionBeanList.get(i).setSelect(false);
                             }
                         }
                         onlineAnswerChoiceAdapter.notifyDataSetChanged();
-
 
                     }
 
@@ -152,6 +155,8 @@ public class AnswerSheetChildAdapter extends BaseQuickAdapter<AnswerSheetBean.Qu
                                 String mAnswer = mQuestionOptionBeanList.get(i).getSerialNum();
                                 //作答
                                 EventBus.getDefault().post(new RxAnswerSheetType(item.getId(), mAnswer,true));
+                                AwSpUtil.saveString(Extras.KEY_ANSWER,item.getId(),mAnswer.toString());
+
                             } else {
                                 mQuestionOptionBeanList.get(i).setSelect(false);
                             }
