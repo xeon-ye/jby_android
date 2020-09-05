@@ -492,7 +492,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             showView(mTvTotalMarkPercent, false);
         }
         if (!AwDataUtil.isEmpty(KEY_TO_BE_READ) && !AwDataUtil.isEmpty(KEY_READ_NUM)) {
-            mTvTotalMarkPercent.setText("总批阅进度：" + (mToBeRead) + "/" + (Integer.parseInt(KEY_TO_BE_READ) + Integer.parseInt(KEY_READ_NUM)));
+            mTvTotalMarkPercent.setText("总批阅进度：" + (KEY_READ_NUM) + "/" + (Integer.parseInt(KEY_TO_BE_READ) + Integer.parseInt(KEY_READ_NUM)));
         }
     }
 
@@ -992,6 +992,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 mExamQuestionsBean = mExamQuestionsBeansxamList.get(mCurrentQuestion);
                 questionId = mExamQuestionsBean.getQuestionId();
                 mToBeRead++;
+                KEY_READ_NUM=(Integer.parseInt(KEY_READ_NUM)+1)+"";
                 setExamPaperAndNum();
             } else {
                 showDialogToFinish("所有学生已经批阅完成，点击返回");
@@ -1003,6 +1004,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 mExamQuestionsBean = mExamQuestionsBeansxamList.get(mCurrentQuestion);
                 questionId = mExamQuestionsBean.getQuestionId();
                 mToBeRead--;
+                KEY_READ_NUM=(Integer.parseInt(KEY_READ_NUM)-1)+"";
                 setExamPaperAndNum();
             } else {
                 showDialogToFinish("所有学生已经批阅完成，点击返回");
