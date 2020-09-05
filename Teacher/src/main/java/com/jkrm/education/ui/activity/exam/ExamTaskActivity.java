@@ -81,4 +81,10 @@ public class ExamTaskActivity extends AwMvpActivity<ExamTaskPresent> implements 
     public void getReviewTaskListFail(String msg) {
         showMsg(msg);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
 }

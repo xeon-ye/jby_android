@@ -44,7 +44,7 @@ public class ExamChildAdapter extends BaseQuickAdapter<ReViewTaskBean.Bean, Base
     protected void convert(BaseViewHolder helper, ReViewTaskBean.Bean item) {
         helper.setText(R.id.tv_title,item.getQuestionType()+":"+item.getQuestionNum()+"题("+item.getMaxScore()+")分")
                 .setText(R.id.tv_type,item.getReadDistName())
-                .setText(R.id.tv_done_num,item.getReadNum())
+                .setText(R.id.tv_done_num,item.getHaveRead())
                 .setText(R.id.tv_not_done,item.getToBeRead())
                 .addOnClickListener(R.id.tv_review)
                 .addOnClickListener(R.id.tv_mark);

@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.data.BarEntry;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.project.student.bean.MarkBean;
+import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.widgets.AwCommonTopListPopupWithIconWindow;
@@ -26,6 +27,9 @@ import com.jkrm.education.mvp.views.ReviewView;
 import com.jkrm.education.util.UserUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,9 +57,11 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
     TextView mTvSort;
     private String EXAM_ID, PAPER_ID, READ_WAY, QUESTION_ID;
     private ReViewTaskBean.Bean mBean;
-    private List<MarkBean>  mScoreSortList=new ArrayList<>();
-    private List<MarkBean>  mSortList=new ArrayList<>();
+    private List<MarkBean> mScoreSortList = new ArrayList<>();
+    private List<MarkBean> mSortList = new ArrayList<>();
     private ReviewAdapter mReviewAdapter;
+    private List<ExamReviewBean> mList;
+    private String ORDER_TYPE = "1";
 
     @Override
     protected int getLayoutId() {
@@ -77,15 +83,15 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
         READ_WAY = (String) getIntent().getExtras().get(Extras.READ_WAY);
         QUESTION_ID = (String) getIntent().getExtras().get(Extras.QUESTION_ID);
         mBean = (ReViewTaskBean.Bean) getIntent().getSerializableExtra(Extras.REVIEW_TASK_BEAN);
-        mReviewAdapter=new ReviewAdapter();
-        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity,mRcvData,mReviewAdapter,false);
+        mReviewAdapter = new ReviewAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mReviewAdapter, false);
     }
 
     @Override
     protected void initData() {
         super.initData();
         mPresenter.getExamReviewScore(UserUtil.getAppUser().getTeacherId(), EXAM_ID, PAPER_ID, READ_WAY, QUESTION_ID);
-        mPresenter.getExamReviewList(UserUtil.getAppUser().getTeacherId(), EXAM_ID, PAPER_ID, READ_WAY, QUESTION_ID);
+        getData();
         mTvTitle.setText(mBean.getQuestionType() + ":" + mBean.getQuestionNum() + "题(" + mBean.getMaxScore() + ")分");
         if ("1".equals(mBean.getReadWay())) {
             mTvType.setText("单评题号");
@@ -94,11 +100,15 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
         } else if ("3".equals(mBean.getReadWay())) {
             mTvType.setText("终评题号");
         }
-        mScoreSortList.add(new MarkBean(true,"全部"));
-        mSortList.add(new MarkBean(false,"题号正序排序"));
-        mSortList.add(new MarkBean(false,"题号倒序排序"));
-        mSortList.add(new MarkBean(false,"得分率正序排序"));
-        mSortList.add(new MarkBean(false,"得分率倒序排序"));
+        mScoreSortList.add(new MarkBean(true, "全部"));
+        mSortList.add(new MarkBean(false, "时间降序"));
+        mSortList.add(new MarkBean(false, "时间升序"));
+        mSortList.add(new MarkBean(false, "得分降序"));
+        mSortList.add(new MarkBean(false, "得分升序"));
+    }
+
+    private void getData() {
+        mPresenter.getExamReviewList(UserUtil.getAppUser().getTeacherId(), EXAM_ID, PAPER_ID, READ_WAY, QUESTION_ID, ORDER_TYPE);
     }
 
     @Override
@@ -111,7 +121,10 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
     public void getExamReviewScoreSuccess(List<ScoreBean> data) {
 
         for (ScoreBean datum : data) {
-            mScoreSortList.add(new MarkBean(false,datum.getScore()));
+            if (null != datum && null != datum.getScore()) {
+                mScoreSortList.add(new MarkBean(false, datum.getScore()));
+
+            }
         }
     }
 
@@ -123,7 +136,8 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
 
     @Override
     public void getExamReviewListSuccess(List<ExamReviewBean> data) {
-        mReviewAdapter.addAllData(data);
+        mList = data;
+        mReviewAdapter.addAllData(mList);
     }
 
 
@@ -139,9 +153,9 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
         mReviewAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.img:
-                        toClass(CorrectingActivity.class,false,Extras.REVIEW_TASK_BEAN,mBean,Extras.KEY_IS_RE_MARK,true,Extras.KEY_MACK_POS,position);
+                        toClass(CorrectingActivity.class, false, Extras.REVIEW_TASK_BEAN, mBean, Extras.KEY_IS_RE_MARK, true, Extras.KEY_MACK_POS, position);
                         break;
                 }
             }
@@ -161,6 +175,21 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
                     @Override
                     public void onClick(Object bean) {
                         mTvScoreSort.setText(((MarkBean) bean).getTitle());
+                        ArrayList<ExamReviewBean> fitter = new ArrayList<>();
+                        if ("全部".equals(((MarkBean) bean).getTitle())) {
+                            for (ExamReviewBean examReviewBean : mList) {
+                                fitter.add(examReviewBean);
+                            }
+                        } else {
+                            for (ExamReviewBean examReviewBean : mList) {
+                                if (examReviewBean.getScore().equals(((MarkBean) bean).getTitle())) {
+                                    fitter.add(examReviewBean);
+                                }
+                            }
+                        }
+
+
+                        mReviewAdapter.addAllData(fitter);
                     }
                 });
                 break;
@@ -174,6 +203,19 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
                     @Override
                     public void onClick(Object bean) {
                         mTvSort.setText(((MarkBean) bean).getTitle());
+                        //排序常用分数
+                        if ("时间降序".equals(((MarkBean) bean).getTitle())) {
+                            ORDER_TYPE = "1";
+
+                        } else if ("时间升序".equals(((MarkBean) bean).getTitle())) {
+                            ORDER_TYPE = "2";
+                        } else if ("得分降序".equals(((MarkBean) bean).getTitle())) {
+                            ORDER_TYPE = "3";
+                        } else if ("得分升序".equals(((MarkBean) bean).getTitle())) {
+                            ORDER_TYPE = "4";
+                        }
+                        getData();
+
                     }
                 });
                 break;

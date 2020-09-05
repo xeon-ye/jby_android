@@ -770,7 +770,7 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_EXAM_REVIEWLIST)
-    Observable<ResponseBean<List<ExamReviewBean>>> getExamReviewList(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
+    Observable<ResponseBean<List<ExamReviewBean>>> getExamReviewList(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId,@Query("orderType") String orderType);
 
     /**
      * 批阅表头

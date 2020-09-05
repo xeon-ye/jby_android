@@ -60,10 +60,10 @@ public class ReviewPresent extends AwCommonPresenter implements ReviewView.Prese
     }
 
     @Override
-    public void getExamReviewList(String teacherId, String examId, String paperId, String readWay, String questionId) {
+    public void getExamReviewList(String teacherId, String examId, String paperId, String readWay, String questionId,String orderType) {
         Observable<ResponseBean<List<ExamReviewBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
-                .getExamReviewList(teacherId,examId,paperId,readWay,questionId);
+                .getExamReviewList(teacherId,examId,paperId,readWay,questionId,orderType);
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamReviewBean>>() {
             @Override
             public void onStart() {

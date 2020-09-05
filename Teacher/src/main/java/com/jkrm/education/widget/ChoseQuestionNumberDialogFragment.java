@@ -86,7 +86,13 @@ public class ChoseQuestionNumberDialogFragment extends DialogFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 dismiss();
-                mList.get(position).setChecked(true);
+                for (int i = 0; i < mList.size(); i++) {
+                    if(i==position){
+                        mList.get(i).setChecked(true);
+                    }else{
+                        mList.get(i).setChecked(false);
+                    }
+                }
                 mOnItemClickListener.onItemChickListener(mList.get(position));
             }
         });

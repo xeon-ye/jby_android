@@ -20,7 +20,7 @@ public interface ReviewView extends AwBaseView {
     interface Presenter extends AwBasePresenter {
         void getExamReviewScore(String teacherId, String examId, String paperId, String readWay, String questionId);
 
-        void getExamReviewList(String teacherId, String examId, String paperId, String readWay, String questionId);
+        void getExamReviewList(String teacherId, String examId, String paperId, String readWay, String questionId,String orderType);
     }
 
     interface View extends AwBaseView {

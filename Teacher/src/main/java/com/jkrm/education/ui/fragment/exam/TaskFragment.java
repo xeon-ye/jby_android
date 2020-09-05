@@ -74,6 +74,8 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
                         }else if("3".equals(bean.getIsRead())){
                             showMsg("批阅完成");
                             toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
+                        }else if("4".equals(bean.getIsRead())){
+
                         }
                         break;
                 }
@@ -98,4 +100,9 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
 }

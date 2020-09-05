@@ -45,9 +45,18 @@ public class TaskBeanAdapter extends BaseQuickAdapter<TaskBean.Bean, BaseViewHol
         } else if ("2".equals(item.getIsRead())) {
             tv_step.setText("暂停阅卷");
             tv_step.setTextColor(Color.parseColor("#FFA900"));
+            tv_step.setBackground(null);
+
         } else if ("3".equals(item.getIsRead())) {
             tv_step.setText("阅卷完成");
             tv_step.setTextColor(Color.parseColor("#3DC823"));
+            tv_step.setBackground(null);
+
+        }else if("4".equals(item.getIsRead())){
+            tv_step.setText("查看分析");
+            tv_step.setTextColor(Color.parseColor("#FF0000"));
+            tv_step.setBackground(null);
+
         }
 
 
