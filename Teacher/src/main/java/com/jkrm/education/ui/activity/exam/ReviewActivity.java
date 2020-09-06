@@ -221,4 +221,10 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
 }
