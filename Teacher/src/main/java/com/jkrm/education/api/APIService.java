@@ -829,5 +829,12 @@ public interface APIService {
     @GET(UrlConstant.GET_EXAM_REVIEW_QUESTIONS)
     Observable<ResponseBean<List<ExamQuestionsBean>>> getExamReviewQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
 
+    /**
+     * 成绩分析列表
+     * @param requestBody
+     * @return
+     */
+    @GET(UrlConstant.GET_ANALYSIS_LIST)
+    Observable<ResponseBean<List<String>>>  getAnalysisList(@Body RequestBody requestBody);
 
 }

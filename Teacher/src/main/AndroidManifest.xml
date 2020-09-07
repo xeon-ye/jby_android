@@ -25,12 +25,13 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/teacher"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.exam.CorrectingActivity"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.exam.ExamSearchActivity"></activity>
+        <activity
+            android:name=".ui.activity.exam.CorrectingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
-            android:screenOrientation="landscape"
-            ></activity>
+            android:screenOrientation="landscape" />
         <activity android:name=".ui.activity.exam.ReviewActivity" />
         <activity android:name=".ui.activity.exam.ExamTaskActivity" />
         <activity android:name=".ui.activity.me.MeClassesActivity" />

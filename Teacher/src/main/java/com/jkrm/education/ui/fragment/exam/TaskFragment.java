@@ -71,12 +71,16 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
                             toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }else if("2".equals(bean.getIsRead())){
                             showMsg("暂停阅卷");
-                        }else if("3".equals(bean.getIsRead())){
+                        }
+                        else{
+                            toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
+                        }
+                       /* else if("3".equals(bean.getIsRead())){
                             showMsg("批阅完成");
                             toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }else if("4".equals(bean.getIsRead())){
 
-                        }
+                        }*/
                         break;
                 }
             }

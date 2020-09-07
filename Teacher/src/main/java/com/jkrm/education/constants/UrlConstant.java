@@ -334,4 +334,9 @@ public class UrlConstant {
      * 回评列表
      */
     public static final String GET_EXAM_REVIEW_QUESTIONS=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examReviewQuestions/{teacherId}";
+
+    /**
+     * 成绩分析列表
+     */
+    public static final String GET_ANALYSIS_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examAnalysisPage";
 }
