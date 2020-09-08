@@ -313,7 +313,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     }
 
     private void refreshData() {
-        mRowsHomeworkBean = mRowsHomeworkBeans.get(mExtraPro);
+        //mRowsHomeworkBean = mRowsHomeworkBeans.get(mExtraPro);
         setText(mTvClasses, mRowsHomeworkBean.getClasses().getName());
         setText(mTvHomeworkSubmitResult, String.format(getString(R.string.format_homework_detail_submit_status), mRowsHomeworkBean.getClasses().getPopulation(), mRowsHomeworkBean.getStatistics().getSubmitted()));
        /* homeworkId = mRowsHomeworkBean.getId();
@@ -406,6 +406,8 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                             homeworkId = classesResponseBean.getHomeId();
                             classid = classesResponseBean.getClassId();
                             mPresenter.getHomeworkDetail(homeworkId, classid);
+                            mTvClasses.setText(classesResponseBean.getClassName());
+                            changemRowsHomeworkBean(homeworkId,classid);
 //        mPresenter.getVideoPointList(homeworkId);
                             mPresenter.getVideoPointListNew(homeworkId);
                            /* if ("按题号排序".equals(bean)) {
@@ -450,6 +452,15 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             }
         });
 
+    }
+
+    private void changemRowsHomeworkBean(String homeworkId, String classid) {
+        for (int i = 0; i < mRowsHomeworkBeans.size(); i++) {
+            if(homeworkId.equals(mRowsHomeworkBeans.get(i).getId())){
+                mRowsHomeworkBean=mRowsHomeworkBeans.get(i);
+                mExtraPro=i;
+            }
+        }
     }
 
     private void initScoreViewPager(FixedIndicatorView mScrollIndicator, SViewPager mScrollViewPager) {
@@ -610,11 +621,6 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     });
                     break;
             }
-            ArrayList<List<GradQusetionBean>> mList = new ArrayList<>();
-            classifyData();
-            mList.add(bean.getGradQusetion());
-            mList.add(bean.getGradQusetion());
-            mMarkHomeWordDetailGroupAdapter.addAllData(mList);
             mDetailAdapter.addAllData(list);
             mDetailAdapter.loadMoreComplete();
             mDetailAdapter.setEnableLoadMore(false);
@@ -802,11 +808,6 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     @Override
     public void getExplainClassesSuccess(List<ClassesResponseBean> data) {
         mClassesResponseBeanList = data;
-        if (!AwDataUtil.isEmpty(mClassesResponseBeanList)) {
-            homeworkId = mClassesResponseBeanList.get(0).getHomeId();
-            classid = mClassesResponseBeanList.get(0).getClassId();
-            refreshData();
-        }
     }
 
 
