@@ -70,7 +70,7 @@ public class UserBean {
     private SchoolBean school;
     private String gradeName;
 
-    public String getGradeName() {
+    public String  getGradeName() {
         return gradeName;
     }
 

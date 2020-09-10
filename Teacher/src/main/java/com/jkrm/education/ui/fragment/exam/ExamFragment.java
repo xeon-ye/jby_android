@@ -69,10 +69,10 @@ public class ExamFragment extends AwMvpLazyFragment {
 
     private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
 
-/*        private Fragment[] fragments = {new TaskFragment(), new AnalysisFragment()};
-        private String[] tabs = {"阅卷任务", "成绩分析"};*/
-        private Fragment[] fragments = {new TaskFragment()};
-        private String[] tabs = {"阅卷任务"};
+        private Fragment[] fragments = {new TaskFragment(), new AnalysisFragment()};
+        private String[] tabs = {"阅卷任务", "成绩分析"};
+       /* private Fragment[] fragments = {new TaskFragment()};
+        private String[] tabs = {"阅卷任务"};*/
 
         public MyAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);

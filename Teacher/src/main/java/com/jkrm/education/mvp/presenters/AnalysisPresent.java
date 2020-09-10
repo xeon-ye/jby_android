@@ -31,6 +31,8 @@ public class AnalysisPresent extends AwCommonPresenter implements AnalysisView.P
     }
 
 
+
+
     @Override
     public void getAnalysisList(RequestBody requestBody) {
         Observable<ResponseBean<List<String>>> observable = RetrofitClient.builderRetrofit()
@@ -46,6 +48,7 @@ public class AnalysisPresent extends AwCommonPresenter implements AnalysisView.P
             public void onSuccess(List<String> data) {
                 mView.getAnalysisListSuccess(data);
             }
+
 
             @Override
             public void onFailure(int code, String msg) {

@@ -834,7 +834,7 @@ public interface APIService {
      * @param requestBody
      * @return
      */
-    @GET(UrlConstant.GET_ANALYSIS_LIST)
+    @POST(UrlConstant.GET_ANALYSIS_LIST)
     Observable<ResponseBean<List<String>>>  getAnalysisList(@Body RequestBody requestBody);
 
 }

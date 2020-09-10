@@ -527,7 +527,6 @@ public class RequestUtil {
     /**
      * 获取成绩分析报表
      * @param current
-     * @param examCategory
      * @param gradeId
      * @param roleId
      * @param size
@@ -535,15 +534,17 @@ public class RequestUtil {
      * @param teacherId
      * @return
      */
-    public static RequestBody getAnalysisRequestBody(String current,String examCategory,String gradeId,String roleId,String size,String classId,String teacherId){
+    public static RequestBody getAnalysisRequestBody(String current,String examName,String gradeId,String roleId,String size,String classId,String teacherId){
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("current",current);
-        hashMap.put("examCategory",examCategory);
+        hashMap.put("examCategory","");
         hashMap.put("gradeId",gradeId);
         hashMap.put("roleId",roleId);
         hashMap.put("size",size);
         hashMap.put("classId",classId);
         hashMap.put("teacherId",teacherId);
+        hashMap.put("beginTime","");
+        hashMap.put("examName",examName);
         return getBody(hashMap);
     }
 
