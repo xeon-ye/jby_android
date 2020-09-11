@@ -9,7 +9,12 @@ import android.widget.TextView;
 
 import com.hzw.baselib.base.AwBaseActivity;
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.ExamSearchAdapter;
+import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ExamSearchBean;
+import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
 import com.jkrm.education.util.RequestUtil;
@@ -34,6 +39,8 @@ public class ExamSearchActivity extends AwMvpActivity<AnalysisPresent> implement
     EditText mEtSearch;
     @BindView(R.id.rcv_data)
     RecyclerView mRcvData;
+    private ExamSearchAdapter mExamSearchAdapter;
+
 
     @Override
     protected int getLayoutId() {
@@ -44,6 +51,8 @@ public class ExamSearchActivity extends AwMvpActivity<AnalysisPresent> implement
     protected void initView() {
         super.initView();
         setStatusTransparent();
+        mExamSearchAdapter=new ExamSearchAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity,mRcvData,mExamSearchAdapter,false);
     }
 
     @Override
@@ -66,18 +75,42 @@ public class ExamSearchActivity extends AwMvpActivity<AnalysisPresent> implement
                 break;
             case R.id.tv_search:
                 String trim = mEtSearch.getText().toString().trim();
-                mPresenter.getAnalysisList(RequestUtil.getAnalysisRequestBody("1",trim,UserUtil.getAppUser().getGradeName(), UserUtil.getRoleld(),"100","",UserUtil.getAppUser().getTeacherId()));
+                mPresenter.getAnalysisList(RequestUtil.getAnalysisRequestBody("1",trim,"", UserUtil.getRoleld(),"100","",UserUtil.getAppUser().getTeacherId()));
                 break;
         }
     }
 
+
+
     @Override
-    public void getAnalysisListSuccess(List<String> data) {
-        showMsg(data.toString());
+    public void getAnalysisListSuccess(ExamSearchBean data) {
+        mExamSearchAdapter.addAllData(data.getRows());
     }
 
     @Override
     public void getAnalysisListFail(String msg) {
         showMsg(msg);
+    }
+
+    @Override
+    public void getGradeListSuccess(List<GradeBean> data) {
+
+    }
+
+
+    @Override
+    public void getGradeListFail(String msg) {
+
+    }
+
+    @Override
+    public void getClassListSuccess(List<ClassBean> data) {
+
+    }
+
+
+    @Override
+    public void getClassListFail(String msg) {
+
     }
 }

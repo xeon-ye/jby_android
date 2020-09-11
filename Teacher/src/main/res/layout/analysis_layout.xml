@@ -12,19 +12,24 @@
 
         >
         <TextView
+            android:id="@+id/tv_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="111"
+            android:text="全部"
             android:drawableRight="@mipmap/sniper_normal"
             android:layout_marginLeft="@dimen/dimen_10"
+            android:drawablePadding="@dimen/dimen_10"
 
             />
         <TextView
+            android:id="@+id/tv_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="112"
+            android:text="全部"
             android:drawableRight="@mipmap/sniper_normal"
             android:layout_marginLeft="@dimen/dimen_20"
+            android:drawablePadding="@dimen/dimen_10"
+
             />
         <View
             android:layout_width="wrap_content"

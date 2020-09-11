@@ -339,4 +339,23 @@ public class UrlConstant {
      * 成绩分析列表
      */
     public static final String GET_ANALYSIS_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examAnalysisPage";
+
+    /**
+     * 柱状图
+     */
+    public static final String GET_COLUMN_DATA=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examCourse/results/analysis";
+    /**
+     * 折线图
+     */
+    public static final String GET_LINE_DATA=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examCourse/history/five";
+
+    /**
+     * 获取考试年级列表
+     */
+    public static final String GET_GRADE_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"sch_mgmt_server/querySchoolGrade";
+
+    /**
+     * 获取考试班级列表
+     */
+    public static final String GET_CLASS_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"sch_mgmt_server/schools/teachers/{teacherId}/classes";
 }

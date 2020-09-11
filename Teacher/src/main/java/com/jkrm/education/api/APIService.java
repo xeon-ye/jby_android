@@ -17,8 +17,11 @@ import com.jkrm.education.bean.RegisterBean;
 import com.jkrm.education.bean.ScoreBean;
 import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
+import com.jkrm.education.bean.exam.ExamSearchBean;
+import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.bean.request.RequestClassesBean;
 import com.jkrm.education.bean.result.AllStudentScoreResultBean;
 import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
@@ -835,6 +838,42 @@ public interface APIService {
      * @return
      */
     @POST(UrlConstant.GET_ANALYSIS_LIST)
-    Observable<ResponseBean<List<String>>>  getAnalysisList(@Body RequestBody requestBody);
+    Observable<ExamSearchBean>  getAnalysisList(@Body RequestBody requestBody);
+
+    /**
+     * 获取年级列表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.GET_GRADE_LIST)
+    Observable<ResponseBean<List<GradeBean>>>  getGradeList(@Body RequestBody requestBody);
+
+    /**
+     * 获取班级列表
+     * @param teacherId
+     * @return
+     */
+    @GET(UrlConstant.GET_CLASS_LIST)
+    Observable<ResponseBean<List<ClassBean>>>  getClassList(@Path("teacherId") String teacherId);
+
+
+    /**
+     * 单个学生柱状图
+     * @param examId
+     * @param studId
+     * @return
+     */
+    @GET(UrlConstant.GET_COLUMN_DATA)
+    Observable<ResponseBean<String>>  getColumnData(@Query("examId") String examId,@Query("studId") String studId);
+
+    /**
+     * 单个学生折线图
+     * @param examId
+     * @param studId
+     * @return
+     */
+    @GET(UrlConstant.GET_LINE_DATA)
+    Observable<ResponseBean<String>>  getLineData(@Query("examId") String examId,@Query("studId") String studId);
+
 
 }

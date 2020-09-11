@@ -548,4 +548,18 @@ public class RequestUtil {
         return getBody(hashMap);
     }
 
+    /**
+     * 获取年级列表
+     * @param current
+     * @param schId
+     * @param size
+     * @return
+     */
+    public static RequestBody getGradeList(String current,String schId,String size){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("current",current);
+        hashMap.put("schId",schId);
+        hashMap.put("size",size);
+        return getBody(hashMap);
+    }
 }

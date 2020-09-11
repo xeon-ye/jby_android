@@ -55,5 +55,8 @@ public class Extras {
     public final static String KEY_READ_NUM="key_read_num";
     public final static String KEY_TO_BE_READ="key_to_be_read";
 
+    public final static String KEY_GRADE_LIST="key_grade_list";
+    public final static String KEY_CLASS_LIST="key_class_list";
+
 
 }
