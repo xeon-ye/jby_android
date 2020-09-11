@@ -113,7 +113,7 @@ public class UrlInterceptor implements Interceptor {
      * roldid
      * @return
      */
-    static String getRoleId(){
+   public static String getRoleId(){
         String encrypt="";
         try {
             String roleld = UserUtil.getRoleld();

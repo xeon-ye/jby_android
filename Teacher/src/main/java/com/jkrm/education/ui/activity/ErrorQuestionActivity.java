@@ -23,6 +23,7 @@ import com.hzw.baselib.util.AwRxPermissionUtil;
 import com.hzw.baselib.util.AwSpUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.error.ErrorBasketAdapter;
+import com.jkrm.education.api.UrlInterceptor;
 import com.jkrm.education.bean.ErrorBasketBean;
 import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.constants.UrlConstant;
@@ -267,9 +268,12 @@ public class ErrorQuestionActivity extends AwMvpActivity<ErrorQuestionPresent> i
 //                    connection.setRequestProperty("Charset", "utf-8");
                     connection.setRequestProperty("Content-type", "application/json");
                     connection.setRequestProperty("Authorization", AwSpUtil.getString(MyConstant.SPConstant.XML_USER_INFO, MyConstant.SPConstant.KEY_TOKEN, ""));
-                    connection.setRequestProperty("clientFlag", "android");
+                    connection.setRequestProperty("client", "android");
                     connection.setRequestProperty("CLIENTSESSIONID", AwSpUtil.getString(MyConstant.SPConstant.XML_USER_INFO, MyConstant.SPConstant.KEY_CLI, ""));
-
+                    connection.setRequestProperty("Role", UrlInterceptor.getRoleId());
+                    connection.setRequestProperty("t", UrlInterceptor.getT());
+                    connection.setRequestProperty("encrypt", UrlInterceptor.getSafe());
+                    connection.setRequestProperty("App","teacher");
                     //传参
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("allIds", ids);

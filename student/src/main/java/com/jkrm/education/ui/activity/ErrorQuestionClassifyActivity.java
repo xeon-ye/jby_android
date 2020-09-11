@@ -30,6 +30,7 @@ import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.widgets.AwCommonListPopupWindow;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.ErrorQuesitonDetailAdapter;
+import com.jkrm.education.api.UrlInterceptor;
 import com.jkrm.education.bean.BatchBean;
 import com.jkrm.education.bean.ErrorQuestionClassifyBean;
 import com.jkrm.education.bean.ErrorQuestionDetailBean;
@@ -415,9 +416,13 @@ public class ErrorQuestionClassifyActivity extends AwMvpActivity<ErrorQuestionFr
 //                    connection.setRequestProperty("Charset", "utf-8");
                     connection.setRequestProperty("Content-type", "application/json");
                     connection.setRequestProperty("Authorization", AwSpUtil.getString(MyConstant.SPConstant.XML_USER_INFO, MyConstant.SPConstant.KEY_TOKEN, ""));
-                    connection.setRequestProperty("clientFlag", "android");
+                    connection.setRequestProperty("client", "android");
                     connection.setRequestProperty("CLIENTSESSIONID", AwSpUtil.getString(MyConstant.SPConstant.XML_USER_INFO, MyConstant.SPConstant.KEY_CLI, ""));
-
+                    connection.setRequestProperty("Role", UrlInterceptor.getRoleId());
+                    connection.setRequestProperty("t", UrlInterceptor.getT());
+                    connection.setRequestProperty("encrypt", UrlInterceptor.getSafe());
+                    connection.setRequestProperty("App","student");
+                    //传参
                     //传参
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("allIds", ids);
