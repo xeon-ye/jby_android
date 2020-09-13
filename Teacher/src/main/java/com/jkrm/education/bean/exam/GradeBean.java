@@ -42,6 +42,15 @@ public class GradeBean implements Serializable {
     private String schId;
     private String schIds;
     private String schName;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getAreaId() {
         return areaId;

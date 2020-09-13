@@ -85,6 +85,13 @@ public class GradeListDialogFrament extends DialogFragment {
             mGradeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    for (int i = 0; i < mGradeBeans.size(); i++) {
+                        if(i==position){
+                            mGradeBeans.get(i).setSelect(true);
+                        }else{
+                            mGradeBeans.get(i).setSelect(false);
+                        }
+                    }
                     mOnItemClickListener.onItemChick(adapter,position);
                     mGradeAdapter.notifyDataSetChanged();
                     dismiss();

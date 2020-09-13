@@ -27,7 +27,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.exam.ExamSearchActivity"></activity>
+        <activity android:name=".ui.activity.exam.StudentAnalyseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape"
+            ></activity>
+        <activity android:name=".ui.activity.exam.ExamSearchActivity" />
         <activity
             android:name=".ui.activity.exam.CorrectingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"

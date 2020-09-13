@@ -26,6 +26,11 @@ public class GradeAdapter extends BaseQuickAdapter<GradeBean, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, GradeBean item) {
         helper.setText(R.id.tv_title,item.getGradeName()).addOnClickListener(R.id.tv_title);
+        if(item.isSelect()){
+            helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.colorPrimary));
+        }else{
+            helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.black));
+        }
        // helper.setTextColor(R.id.tv_title,item.isHandleModify()? mContext.getResources().getColor(R.color.colorPrimary): Color.BLACK);
     }
     public void addAllData(List<GradeBean> dataList) {

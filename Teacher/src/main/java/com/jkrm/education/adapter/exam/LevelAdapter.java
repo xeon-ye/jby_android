@@ -2,9 +2,9 @@ package com.jkrm.education.adapter.exam;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hzw.baselib.project.student.bean.MarkBean;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.ClassBean;
-import com.jkrm.education.bean.exam.GradeBean;
 
 import java.util.List;
 
@@ -14,24 +14,26 @@ import java.util.List;
  * @CreateDate: 2020/9/11 17:29
  */
 
-public class ClassAdapter extends BaseQuickAdapter<ClassBean, BaseViewHolder> {
-    List<ClassBean> mList;
+public class LevelAdapter extends BaseQuickAdapter<MarkBean, BaseViewHolder> {
+    List<MarkBean> mList;
 
-    public ClassAdapter() {
-        super(R.layout.adapter_grade_item_layout);
+    public LevelAdapter() {
+        super(R.layout.adapter__item_level_layout);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ClassBean item) {
-        helper.setText(R.id.tv_title,item.getClassName()).addOnClickListener(R.id.tv_title);
+    protected void convert(BaseViewHolder helper, MarkBean item) {
+        helper.setText(R.id.tv_title,item.getTitle()).addOnClickListener(R.id.tv_title);
         if(item.isSelect()){
             helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.colorPrimary));
+            helper.setGone(R.id.iv_level_tri,true);
         }else{
             helper.setTextColor(R.id.tv_title,mContext.getResources().getColor(R.color.black));
+            helper.setGone(R.id.iv_level_tri,false);
         }
        // helper.setTextColor(R.id.tv_title,item.isHandleModify()? mContext.getResources().getColor(R.color.colorPrimary): Color.BLACK);
     }
-    public void addAllData(List<ClassBean> dataList) {
+    public void addAllData(List<MarkBean> dataList) {
         this.mList = dataList;
         this.setNewData(mList);
         notifyDataSetChanged();

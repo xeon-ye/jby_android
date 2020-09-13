@@ -23,6 +23,7 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
 import com.jkrm.education.ui.activity.exam.ExamSearchActivity;
+import com.jkrm.education.ui.activity.exam.StudentAnalyseActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.ClassListDialogFrament;
@@ -65,6 +66,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     @Override
     protected void initView() {
         super.initView();
+        toClass(StudentAnalyseActivity.class,false);
         mExamSearchAdapter = new ExamSearchAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mExamSearchAdapter, false);
     }
@@ -150,6 +152,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         GradeBean gradeBean = new GradeBean();
         gradeBean.setGradeName("全部");
         gradeBean.setGradeId("");
+        gradeBean.setSelect(true);
         mGradeBeans.add(0,gradeBean);
     }
 
@@ -165,6 +168,8 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         ClassBean classBean=new ClassBean();
         classBean.setClassName("全部");
         classBean.setClassId("");
+        classBean.setSelect(true);
+
         mClassBeans.add(0,classBean);
     }
 

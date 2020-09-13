@@ -28,6 +28,15 @@ public class ClassBean implements Serializable {
     private String className;
     private String course;
     private String courseName;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getClassId() {
         return classId;

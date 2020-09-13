@@ -85,6 +85,13 @@ public class ClassListDialogFrament extends DialogFragment {
             mClassAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    for (int i = 0; i < mClassBeans.size(); i++) {
+                        if(i==position){
+                            mClassBeans.get(i).setSelect(true);
+                        }else{
+                            mClassBeans.get(i).setSelect(false);
+                        }
+                    }
                     mOnItemClickListener.onItemChick(adapter,position);
                     mClassAdapter.notifyDataSetChanged();
                     dismiss();
