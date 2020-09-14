@@ -22,9 +22,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.mpchart.formatters.ValueFormatter;
 import com.hzw.baselib.project.student.bean.MarkBean;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
@@ -109,124 +111,48 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
 
     private void setBarChartData() {
 
-        List<BarEntry>list;
-        List<BarEntry>list2;
-        List<BarEntry>list3;
-        list=new ArrayList<>();
-        list2=new ArrayList<>();
-        list3=new ArrayList<>();
-//为第一组添加数据
-        list.add(new BarEntry(1,5));
-        list.add(new BarEntry(2,8));
-        list.add(new BarEntry(3,4));
-        list.add(new BarEntry(4,3));
-        list.add(new BarEntry(5,9));
+        ArrayList<BarEntry> values1 = new ArrayList<>();
+        ArrayList<BarEntry> values2 = new ArrayList<>();
+        ArrayList<BarEntry> values3 = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            values1.add(new BarEntry(i, (float) (Math.random() * 10)));
+            values2.add(new BarEntry(i, (float) (Math.random() * 20)));
+            values3.add(new BarEntry(i, (float) (Math.random() * 30)));
+        }
 
-        //为第二组添加数据
-        list2.add(new BarEntry(1,6));
-        list2.add(new BarEntry(2,8));
-        list2.add(new BarEntry(3,5));
-        list2.add(new BarEntry(4,3));
-        list2.add(new BarEntry(5,4));
-        list3.add(new BarEntry(1,5));
-        list3.add(new BarEntry(2,4));
-        list3.add(new BarEntry(3,3));
-        list3.add(new BarEntry(4,8));
-        list3.add(new BarEntry(5,6));
+        BarDataSet set1, set2, set3;
+        set1 = new BarDataSet(values1, "我的成绩");
+        set1.setColor(Color.rgb(104, 241, 175));
+        set2 = new BarDataSet(values2, "最高分");
+        set2.setColor(Color.rgb(164, 228, 251));
+        set3 = new BarDataSet(values3, "平均分");
+        set3.setColor(Color.rgb(242, 247, 158));
 
-        BarDataSet barDataSet=new BarDataSet(list,"男");
-        barDataSet.setColor(Color.RED);    //为第一组柱子设置颜色
-        BarDataSet barDataSet2=new BarDataSet(list2,"女");
-        barDataSet2.setColor(Color.BLUE);   //为第二组柱子设置颜色
-        BarDataSet barDataSet3=new BarDataSet(list3,"女");
-        barDataSet3.setColor(Color.BLUE);   //为第二组柱子设置颜色
-        BarData barData=new BarData(barDataSet);   //加上第一组
-
-        barData.addDataSet(barDataSet2);    //加上第二组   （多组也可以用同样的方法）
-        barData.addDataSet(barDataSet3);    //加上第二组   （多组也可以用同样的方法）
-        barchart.setData(barData);
-
-        barData.setBarWidth(0.2f);//柱子的宽度
-        //重点！   三个参数   分别代表   X轴起点     组与组之间的间隔      组内柱子的间隔
-        barData.groupBars(1f,0.2f,0);
-
-        barchart.getXAxis().setCenterAxisLabels(true);   //设置柱子（柱子组）居中对齐X轴上的点
-
-
-        barchart.getXAxis().setAxisMaximum(6);   //X轴最大数值
-        barchart.getXAxis().setAxisMinimum(1);   //X轴最小数值
-        //X轴坐标的个数    第二个参数一般填false     true表示强制设置标签数 可能会导致X轴坐标显示不全等问题
-        barchart.getXAxis().setLabelCount(5,false);
-        barchart.getDescription().setEnabled(false);    //右下角一串英文字母不显示
-        barchart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);   //X轴的位置设置为下  默认为上
-        barchart.getAxisRight().setEnabled(false);
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("1");
-        strings.add("3");
-        strings.add("4");
-        strings.add("3");
+        BarData data = new BarData(set1, set2, set3);
+        data.setValueFormatter(new LargeValueFormatter());
+        barchart.getXAxis().setAxisMinimum(0);
         XAxis xAxis = barchart.getXAxis();
-        xAxis.setGranularity(1);
-
+        xAxis.setGranularity(1f);
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("总分");
+        strings.add("生物");
+        strings.add("化学");
+        strings.add("语文");
+        strings.add("数学");
+        strings.add("政治");
+        strings.add("历史");
+        strings.add("英语");
+        strings.add("地理");
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 return strings.get((int) (value % strings.size()));
             }
         });
-        /*List<BarEntry> entries = new ArrayList<BarEntry>();
-        List<BarEntry> entries2 = new ArrayList<BarEntry>();
-        List<BarEntry> entries3 = new ArrayList<BarEntry>();
-
-        for (int i = 0; i < 20; i++) {
-            // turn your data into Entry objects
-            entries.add(new BarEntry(i, 20 * i));
-            entries2.add(new BarEntry(i,30 * i));
-            entries3.add(new BarEntry(i,10 * i));
-        }
-
-        //创建数据集
-        BarDataSet dataSet = new BarDataSet(entries, "BarDataSet1"); // add entries to dataset
-        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        BarDataSet dataSet2 = new BarDataSet(entries2, "BarDataSet2"); // add entries to dataset
-        BarDataSet dataSet3 = new BarDataSet(entries2, "BarDataSet2"); // add entries to dataset
-        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        //设置数据显示颜色：柱子颜色
-        dataSet2.setColor(Color.RED);
-        dataSet3.setColor(Color.RED);
-        dataSet2.setBarBorderColor(Color.BLUE);
-        dataSet3.setBarBorderColor(Color.BLUE);
-        float groupSpace=1f;
-        float barSpace=0.2f;
-        float barWidth=0.45f;
-
-
-        //柱状图数据集
-        BarData data = new BarData(dataSet,dataSet2,dataSet3   );
-        //设置柱子宽度
-        data.setBarWidth(barWidth);
-        List<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-        //添加数据
-        dataSets.add(dataSet);
-        dataSets.add(dataSet2);
-        dataSets.add(dataSet3);
-        barchart.setData(data);//装载数据
-        barchart.groupBars(0f,groupSpace,barSpace);
-        barchart.invalidate();//刷新
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("1");
-        strings.add("3");
-        strings.add("4");
-        strings.add("3");
-        XAxis xAxis = barchart.getXAxis();
-        xAxis.setGranularity(1);
-
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return strings.get((int) (value % strings.size()));
-            }
-        });*/
+        barchart.setData(data);
+        barchart.getBarData().setBarWidth(0.05f);
+        barchart.groupBars(0, 0.5f, 0);
+        barchart.invalidate();
     }
 
     @Override

@@ -24,6 +24,7 @@ import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
 import com.jkrm.education.ui.activity.exam.ExamSearchActivity;
 import com.jkrm.education.ui.activity.exam.StudentAnalyseActivity;
+import com.jkrm.education.ui.activity.exam.ViewStudentAnswerSheetActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.ClassListDialogFrament;
@@ -66,7 +67,8 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     @Override
     protected void initView() {
         super.initView();
-        toClass(StudentAnalyseActivity.class,false);
+        //toClass(StudentAnalyseActivity.class,false);
+        toClass(ViewStudentAnswerSheetActivity.class,false);
         mExamSearchAdapter = new ExamSearchAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mExamSearchAdapter, false);
     }
