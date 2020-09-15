@@ -1,5 +1,6 @@
 package com.jkrm.education.ui.fragment.exam;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpLazyFragment;
 import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
+import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.widgets.AwCommonTopListPopupWithIconWindow;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.ExamSearchAdapter;
@@ -78,7 +80,8 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
             @Override
             public void onClick(View v) {
                 //测试表格入口
-                toClass(CommonlyMultipleActivity.class,false);
+//                toClass(CommonlyMultipleActivity.class,false);
+                toClass(CommonlyMultipleActivity.class,false,"class_list",mClassBeans);
             }
         });
 
@@ -184,6 +187,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         classBean.setSelect(true);
 
         mClassBeans.add(0,classBean);
+
     }
 
 

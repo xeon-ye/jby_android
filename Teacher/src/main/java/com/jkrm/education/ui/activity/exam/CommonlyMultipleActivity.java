@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,16 +15,22 @@ import android.widget.Toast;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.TableMultipleAdapter;
 import com.jkrm.education.adapter.exam.TableMultipleAdapter01;
 import com.jkrm.education.adapter.exam.TableScoreAdapter;
 import com.jkrm.education.adapter.exam.TableSectionAdapter;
 import com.jkrm.education.bean.ReViewTaskBean;
+import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.mvp.presenters.CommonlyMultiplePresent;
 import com.jkrm.education.mvp.views.CommonlyMultipleView;
+import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -59,6 +66,8 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
     @BindView(R.id.item_section_recyclerview)
     RecyclerView sectionRV;
 
+    private List<ClassBean> mClassList = new ArrayList<>();
+
 
     private MultipleAchievementBean achievementBean;
 
@@ -85,14 +94,14 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         });
         setToolbarTitleColor(R.color.white);
 
+        mClassList = (List<ClassBean>) getIntent().getSerializableExtra("class_list");
+
         findViewById(R.id.achievement_more_tv).setOnClickListener(this);
         findViewById(R.id.score_achievement_more_tv).setOnClickListener(this);
         findViewById(R.id.class_score_more_tv).setOnClickListener(this);
         findViewById(R.id.section_achievement_more_tv).setOnClickListener(this);
 
 
-        //综合成绩表：根据接口的科目数据，动态添加科目
-        initMultiple();
         //小题得分表：
         initScore();
         //班级成绩对比
@@ -208,23 +217,45 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         LinearLayout childRoot = findViewById(R.id.item_achievement_linear);
         achievement_relative.setClickable(true);
 
-        ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            strings.add("张三" + i);
+        List<String> sList = new ArrayList<>();
+
+        if (achievementBean == null) {
+            Toast.makeText(CommonlyMultipleActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        for (int i = 0; i < achievementBean.getRows().size(); i++) {
+
+            for (int j = 0; j < achievementBean.getRows().get(i).getReaList().size(); j++) {
+                sList.add(achievementBean.getRows().get(i).getReaList().get(j).getCourseName());
+
+//                View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
+//                TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
+//                TextView score_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
+//                title.setText(achievementBean.getRows().get(i).getReaList().get(j).getCourseName());
+//                score_text.setText("分数");
+//                childRoot.addView(inflate);
+            }
         }
 
-        for (int i = 0; i < 5; i++) {
+        //去除重复科目
+        HashSet<String> set = new LinkedHashSet<>(sList);
+        for (String name : set) {
             View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
             TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
             TextView score_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
-            title.setText("科目" + i);
-            score_text.setText("类别" + i);
+            title.setText(name);
+            score_text.setText("分数");
+            inflate.setTag(name);
             childRoot.addView(inflate);
+            sList.clear();
+            sList.add(name);
+            Log.e("xxxxxxxxxx", name);
         }
 
         achievementRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableMultipleAdapter01 adapter = new TableMultipleAdapter01(strings, achievementSSL);
+        TableMultipleAdapter adapter = new TableMultipleAdapter(achievementBean.getRows(), achievementSSL, sList);
+//        TableMultipleAdapter adapter = new TableMultipleAdapter(strings, achievementSSL);
         achievementRV.setAdapter(adapter);
 
         achievementRV.setOnTouchListener(getListener(achievementSSL));
@@ -286,36 +317,38 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         switch (v.getId()) {
             //综合成绩表
             case R.id.achievement_more_tv: {
-                   toClass(MultipleAchievementActivity.class,false);
+                toClass(MultipleAchievementActivity.class, false, "class_list_0", mClassList);
                 break;
             }
             //小题得分表
             case R.id.score_achievement_more_tv: {
-                toClass(ScoreAchievementActivity.class,false);
+                toClass(ScoreAchievementActivity.class, false);
                 break;
             }
             //班级成绩对比
             case R.id.class_score_more_tv: {
-                toClass(ClassAchievementActivity.class,false);
+                toClass(ClassAchievementActivity.class, false);
                 break;
             }
             //成绩分段表
             case R.id.section_achievement_more_tv: {
-                toClass(SectionAchievementActivity.class,false);
+                toClass(SectionAchievementActivity.class, false);
                 break;
             }
         }
     }
 
-
     @Override
     protected void initData() {
         super.initData();
+        mPresenter.getMultipleAchievementList(RequestUtil.MultipleAchievementBody("", "", ""));
     }
 
     @Override
-    public void getMultipleAchievementSuccess(List<ReViewTaskBean> data) {
-
+    public void getMultipleAchievementSuccess(MultipleAchievementBean data) {
+        achievementBean = data;
+        //综合成绩表：根据接口的科目数据，动态添加科目
+        initMultiple();
     }
 
     @Override

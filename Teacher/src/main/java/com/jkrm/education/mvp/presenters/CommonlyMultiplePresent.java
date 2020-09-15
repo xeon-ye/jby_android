@@ -1,7 +1,14 @@
 package com.jkrm.education.mvp.presenters;
 
 import com.hzw.baselib.presenters.AwCommonPresenter;
+import com.jkrm.education.api.APIService;
+import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.mvp.views.CommonlyMultipleView;
+
+import okhttp3.RequestBody;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * @Author: Zhoujing
@@ -11,7 +18,6 @@ import com.jkrm.education.mvp.views.CommonlyMultipleView;
 public class CommonlyMultiplePresent extends AwCommonPresenter implements CommonlyMultipleView.Presenter {
 
 
-
     private CommonlyMultipleView.View mView;
 
     public CommonlyMultiplePresent(CommonlyMultipleView.View view) {
@@ -19,32 +25,33 @@ public class CommonlyMultiplePresent extends AwCommonPresenter implements Common
     }
 
     @Override
-    public void getMultipleAchievementList(String teacherId, String examId, String paperId) {
+    public void getMultipleAchievementList(RequestBody requestBody) {
         //接口访问逻辑
+        Observable<MultipleAchievementBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getMultipleTable(requestBody);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
 
-//        Observable<ResponseBean<List<ReViewTaskBean>>> observable = RetrofitClient.builderRetrofit()
-//                .create(APIService.class)
-//                .getReviewTaskList(teacherId,examId,paperId);
-//        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ReViewTaskBean>>() {
-//            @Override
-//            public void onStart() {
-//            }
-//
-//            @Override
-//            public void onSuccess(List<ReViewTaskBean> data) {
-//                mView.getReviewTaskListSuccess(data);
-//
-//            }
-//
-//
-//            @Override
-//            public void onFailure(int code, String msg) {
-//                mView.getReviewTaskListFail(msg);
-//            }
-//
-//            @Override
-//            public void onCompleted() {
-//            }
-//        }));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                if (o != null) {
+                    MultipleAchievementBean data = (MultipleAchievementBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getMultipleAchievementSuccess(data);
+                    else
+                        mView.getMultipleAchievementListFail(data.getMsg());
+                } else
+                    mView.getMultipleAchievementListFail("数据异常！！");
+            }
+        });
     }
 }

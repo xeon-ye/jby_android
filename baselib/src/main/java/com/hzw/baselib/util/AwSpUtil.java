@@ -3,7 +3,10 @@ package com.hzw.baselib.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
 import com.hzw.baselib.base.AwBaseApplication;
+
+import org.json.JSONObject;
 
 import java.util.Set;
 
@@ -222,4 +225,6 @@ public class AwSpUtil {
         float value = sharedPreferences.getFloat(key, defaultValue);
         return value;
     }
+
+
 }

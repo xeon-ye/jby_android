@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,10 +17,13 @@ import android.widget.Toast;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.TableClassGridAdapter;
 import com.jkrm.education.adapter.exam.TableMultipleAdapter;
 import com.jkrm.education.bean.PeriodCourseBean;
+import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.TableClassBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
 import com.jkrm.education.util.RequestUtil;
@@ -65,7 +69,9 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
 
     private MultipleAchievementBean achievementBean;
-    private CommonDialog commonDialog;
+
+    private List<ClassBean> mClassList = new ArrayList<>();
+
 
 
     @Override
@@ -91,11 +97,17 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         });
         setToolbarTitleColor(R.color.white);
 
+        mClassList = (List<ClassBean>) getIntent().getSerializableExtra("class_list_0");
 
-        commonDialog = new CommonDialog(this,R.layout.dialog_multiple_achievement_layout,2);
-        commonDialog.setCanceledOnTouchOutside(true);
-
-
+//        commonDialog = new CommonDialog(this,R.layout.dialog_multiple_achievement_layout,2);
+//        commonDialog.setCanceledOnTouchOutside(true);
+//        GridView gridView = commonDialog.findViewById(R.id.class_name_gv);
+//
+//        if(mClassList.size()>0){
+//            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this,mClassList);
+//            gridView.setAdapter(gridAdapter);
+//            commonDialog.show();
+//        }
 
     }
 
@@ -194,7 +206,6 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
     }
 
     private void getClassName() {
-
     }
 
     private void getSubject() {

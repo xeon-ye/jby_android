@@ -87,8 +87,6 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
                     }
 
                 }
-//                mText.add(mData.get(position).getReaList().get(i).getScore());
-//                mText.add(mData.get(position).getReaList().get(i).getSchRank());
             }
 
             for (int j = 0; j < mText.size(); j++) {
