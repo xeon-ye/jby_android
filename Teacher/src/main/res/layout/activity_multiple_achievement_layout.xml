@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:id="@+id/multiple_top_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <include
+            android:id="@+id/multiple_common_toolbar"
+            layout="@layout/common_title_blue"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/multiple_top_search"
+            layout="@layout/multiple_top_search_layout"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/multiple_subject_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_top_frame"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/dimen_30"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:text="学科："
+        android:textColor="@color/color_6D7278"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/multiple_subject_tv"
+        style="@style/small_black_style2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_top_frame"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_toEndOf="@id/multiple_subject_name_tv"
+        android:drawableRight="@mipmap/sniper_normal"
+        android:drawablePadding="@dimen/dimen_5"
+        android:text="高一1班语文"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/multiple_class_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_top_frame"
+        android:layout_marginStart="@dimen/dimen_30"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_toEndOf="@id/multiple_subject_tv"
+        android:text="班级："
+        android:textColor="@color/color_6D7278"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/multiple_class_tv"
+        style="@style/small_black_style2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_top_frame"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_toEndOf="@id/multiple_class_name_tv"
+        android:drawableRight="@mipmap/sniper_normal"
+        android:drawablePadding="@dimen/dimen_5"
+        android:text="高一1班语文"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_top_frame"
+        android:layout_marginStart="@dimen/dimen_60"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_toEndOf="@id/multiple_class_tv"
+        android:text="@string/achievement_select_hint"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/multiple_subject_tv"
+        android:layout_marginStart="@dimen/dimen_30"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginEnd="@dimen/dimen_30"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/achievement_top"
+            layout="@layout/item_achievement_scroll_layout001" />
+
+        <!--         代码动态设置不滑动-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/achievement_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbars="none" />
+
+    </LinearLayout>
+
+</RelativeLayout>

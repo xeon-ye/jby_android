@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/aw_bg_gray_e8e8e8_top_radius_10"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/item_achievement_name_tv"
+        android:layout_width="120dp"
+        android:layout_height="64dp"
+        android:layout_alignParentLeft="true"
+        android1:gravity="center"
+        android:text="姓名"
+        android1:textColor="#666666"
+        android:textSize="14sp" />
+
+    <View
+        android:id="@+id/contain_line"
+        android:layout_width="1dp"
+        android:layout_height="64dp"
+        android:layout_toRightOf="@id/item_achievement_name_tv"
+        android:background="#e8e8e8" />
+
+    <com.jkrm.education.widget.SynScrollerLayout
+        android:id="@+id/item_score_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/contain_line"
+        android:focusable="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/item_score_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_score_exam_num_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="考号"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <TextView
+                android:id="@+id/item_score_num_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="新教育号"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <TextView
+                android:id="@+id/item_score_class_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="班级"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <TextView
+                android:id="@+id/item_score_all_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="总分"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <TextView
+                android:id="@+id/item_score_objective_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="客观题得分"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <TextView
+                android:id="@+id/item_score_subjective_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="主观题得分"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <TextView
+                android:id="@+id/item_score_ranking_tv"
+                android:layout_width="@dimen/dimen_120"
+                android:layout_height="@dimen/dimen_64"
+                android1:gravity="center"
+                android:text="联考/学校/班级"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android1:textColor="#666666"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="64dp"
+                android:background="#e8e8e8" />
+
+            <!--总分，只有一科的话，不显示总分，科目条目需要动态添加-->
+            <!--                <include layout="@layout/item_achievement_child_scroll_layout" />-->
+
+        </LinearLayout>
+    </com.jkrm.education.widget.SynScrollerLayout>
+
+</RelativeLayout>

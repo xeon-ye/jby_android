@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.sothree.slidinguppanel:library:3.4.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-3.4.0.aar/1d5dcddd4d306783c715c93ae321f2a0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-3.4.0.aar/1d5dcddd4d306783c715c93ae321f2a0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-3.4.0.aar/c9dc32f57cc6c0f2266283a21ca8456a/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-3.4.0.aar/c9dc32f57cc6c0f2266283a21ca8456a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-3.4.0.aar/c9dc32f57cc6c0f2266283a21ca8456a/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

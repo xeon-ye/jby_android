@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: io.github.kexanie.library:MathView:0.0.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/a0b6ecdbcaeb7f50fac4aabf0bc63e0d/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/a0b6ecdbcaeb7f50fac4aabf0bc63e0d/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/a0b6ecdbcaeb7f50fac4aabf0bc63e0d/jars/libs/chunk-templates-3.0.1.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/83085a10279bb368c30437e5e9d8318a/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/83085a10279bb368c30437e5e9d8318a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/83085a10279bb368c30437e5e9d8318a/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MathView-0.0.6.aar/83085a10279bb368c30437e5e9d8318a/jars/libs/chunk-templates-3.0.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

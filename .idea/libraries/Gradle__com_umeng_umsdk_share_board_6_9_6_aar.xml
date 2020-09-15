@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.umeng.umsdk:share-board:6.9.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-board-6.9.6.aar/edb40cec28342ece654731abf833e912/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-board-6.9.6.aar/edb40cec28342ece654731abf833e912/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-board-6.9.6.aar/07b0c34dfee04d206e236db10f1d3763/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-board-6.9.6.aar/07b0c34dfee04d206e236db10f1d3763/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-board-6.9.6.aar/07b0c34dfee04d206e236db10f1d3763/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

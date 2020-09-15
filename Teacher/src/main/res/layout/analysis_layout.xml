@@ -31,6 +31,13 @@
             android:drawablePadding="@dimen/dimen_10"
 
             />
+
+        <TextView
+            android:id="@+id/example_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1111111"
+            />
         <View
             android:layout_width="wrap_content"
             android:layout_height="0dp"

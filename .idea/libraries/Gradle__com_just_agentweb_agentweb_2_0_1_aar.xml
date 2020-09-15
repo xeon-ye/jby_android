@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.just.agentweb:agentweb:2.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/agentweb-2.0.1.aar/e4ed2c4e14033b9a1238aa3298b3eead/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/agentweb-2.0.1.aar/e4ed2c4e14033b9a1238aa3298b3eead/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/agentweb-2.0.1.aar/84f4ec20295ae397fb02640bf8498537/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/agentweb-2.0.1.aar/84f4ec20295ae397fb02640bf8498537/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/agentweb-2.0.1.aar/84f4ec20295ae397fb02640bf8498537/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: :alipaySdk-15.7.4-20200228192259:@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alipaySdk-15.7.4-20200228192259.aar/e827128453a07d4931fa575114f7c96e/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alipaySdk-15.7.4-20200228192259.aar/e827128453a07d4931fa575114f7c96e/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alipaySdk-15.7.4-20200228192259.aar/6aa7ffa0c3c1e3f76615589054f88069/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alipaySdk-15.7.4-20200228192259.aar/6aa7ffa0c3c1e3f76615589054f88069/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/alipaySdk-15.7.4-20200228192259.aar/6aa7ffa0c3c1e3f76615589054f88069/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,10 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.soundcloud.android.crop:lib_crop:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib_crop-1.0.0.aar/ec4b60c7ca91040456217010de232265/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib_crop-1.0.0.aar/ec4b60c7ca91040456217010de232265/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib_crop-1.0.0.aar/3a3c84f4df0ce8f5499438681caec6f5/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib_crop-1.0.0.aar/3a3c84f4df0ce8f5499438681caec6f5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lib_crop-1.0.0.aar/3a3c84f4df0ce8f5499438681caec6f5/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.soundcloud.android.crop/lib_crop/1.0.0/6ca6214e189fed255a63e2f1192f8b6703f22b0d/lib_crop-1.0.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.soundcloud.android.crop/lib_crop/1.0.0/4be961d0684a5d3ddba6361138264e8b00afab8c/lib_crop-1.0.0-sources.jar!/" />
     </SOURCES>

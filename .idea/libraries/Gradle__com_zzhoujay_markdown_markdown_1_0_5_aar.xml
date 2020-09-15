@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.zzhoujay.markdown:markdown:1.0.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/markdown-1.0.5.aar/4a9c46d15b80c677196e116ddff53667/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/markdown-1.0.5.aar/4a9c46d15b80c677196e116ddff53667/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/markdown-1.0.5.aar/06b7a060fcc0775da39818588c3a2242/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/markdown-1.0.5.aar/06b7a060fcc0775da39818588c3a2242/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/markdown-1.0.5.aar/06b7a060fcc0775da39818588c3a2242/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

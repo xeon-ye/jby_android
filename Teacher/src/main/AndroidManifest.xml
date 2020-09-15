@@ -164,6 +164,26 @@
             android:name=".ui.activity.ImgActivity"
             android:theme="@style/BaseDialog" /> <!-- 班级 -->
         <activity
+            android:name=".ui.activity.exam.CommonlyMultipleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape" /> <!-- 常用综合报表 -->
+        <activity
+            android:name=".ui.activity.exam.MultipleAchievementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape" /> <!-- 综合成绩表 -->
+        <activity
+            android:name=".ui.activity.exam.ClassAchievementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape" /> <!-- 班级成绩对比 -->
+        <activity
+            android:name=".ui.activity.exam.ScoreAchievementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape" /> <!-- 小题得分表 -->
+        <activity
+            android:name=".ui.activity.exam.SectionAchievementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape" /> <!-- 成绩分段表 -->
+        <activity
             android:name=".ui.activity.ClassesChoiceActiviity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
             android:screenOrientation="portrait" /> <!-- 人员 -->

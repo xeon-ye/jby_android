@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.activity.exam.CommonlyMultipleActivity">
+
+    <include
+        android:id="@+id/common_toolbar"
+        layout="@layout/common_title_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/commonly_nsv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/achievement_relative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_42"
+                android:background="@color/color_F5F5F5"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <View
+                    android:id="@+id/achievement_blue_line"
+                    android:layout_width="@dimen/dimen_2"
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_30"
+                    android:background="@color/colorPrimary"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/achievement_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_toEndOf="@id/achievement_blue_line"
+                    android:text="@string/achievement_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/achievement_title_hint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:layout_toEndOf="@id/achievement_title_tv"
+                    android:text="@string/achievement_title_hint"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_24"
+                    android:layout_toEndOf="@id/achievement_title_hint_tv"
+                    android:text="@string/achievement_title_hint01"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/achievement_more_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_30"
+                    android:text="更多"
+                    android:textColor="@color/color_0A93FC"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/item_achievement_top"
+                    layout="@layout/item_achievement_scroll_layout001" />
+
+                <!--         代码动态设置不滑动-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/item_achievement_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="none" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e8e8e8" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/score_achievement_relative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_42"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@color/color_F5F5F5"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <View
+                    android:id="@+id/score_achievement_blue_line"
+                    android:layout_width="@dimen/dimen_2"
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_30"
+                    android:background="@color/colorPrimary"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/score_achievement_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_toEndOf="@id/score_achievement_blue_line"
+                    android:text="@string/score_achievement_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/score_achievement_hint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:layout_toEndOf="@id/score_achievement_title_tv"
+                    android:text="@string/score_achievement_title_hint"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/score_achievement_more_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_30"
+                    android:text="更多"
+                    android:textColor="@color/color_0A93FC"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/item_score_top"
+                    layout="@layout/item_score_achievement_scroll_layout" />
+
+                <!--         代码动态设置不滑动-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/item_score_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="none" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e8e8e8" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/class_score_relative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_42"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@color/color_F5F5F5"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <View
+                    android:id="@+id/class_score_blue_line"
+                    android:layout_width="@dimen/dimen_2"
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_30"
+                    android:background="@color/colorPrimary"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/class_score_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_toEndOf="@id/class_score_blue_line"
+                    android:text="@string/class_score_achievement_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/class_score_hint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:layout_toEndOf="@id/class_score_title_tv"
+                    android:text="@string/class_score_title_hint"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_24"
+                    android:layout_toEndOf="@id/class_score_hint_tv"
+                    android:text="@string/class_score_title_hint01"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/class_score_more_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_30"
+                    android:text="更多"
+                    android:textColor="@color/color_0A93FC"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/item_class_top"
+                    layout="@layout/item_class_contrast_scroll_layout" />
+
+                <!--         代码动态设置不滑动-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/item_class_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="none" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e8e8e8" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/achievement_relative_section"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_42"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:background="@color/color_F5F5F5"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <View
+                    android:id="@+id/section_achievement_blue_line"
+                    android:layout_width="@dimen/dimen_2"
+                    android:layout_height="@dimen/dimen_18"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_30"
+                    android:background="@color/colorPrimary"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/section_achievement_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_toEndOf="@id/section_achievement_blue_line"
+                    android:text="@string/section_achievement_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/section_achievement_hint_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dimen_12"
+                    android:layout_toEndOf="@id/section_achievement_title_tv"
+                    android:text="@string/section_achievement_title_hint"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/section_achievement_more_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_30"
+                    android:text="更多"
+                    android:textColor="@color/color_0A93FC"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:layout_marginBottom="@dimen/dimen_30"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/item_section_top"
+                    layout="@layout/item_section_scroll_layout" />
+
+                <!--         代码动态设置不滑动-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/item_section_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:scrollbars="none" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e8e8e8" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

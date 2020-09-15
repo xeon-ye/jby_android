@@ -562,4 +562,21 @@ public class RequestUtil {
         hashMap.put("size",size);
         return getBody(hashMap);
     }
+
+    /**
+     * 综合成绩表
+     *
+     * @param classId
+     * @param examId
+     * @return
+     */
+    public static RequestBody MultipleAchievementBody(String classId, String examId, String keywords) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("classId", classId);
+        hashMap.put("examId", examId);
+        hashMap.put("keywords", keywords);
+        return getBody(hashMap);
+    }
+
+
 }

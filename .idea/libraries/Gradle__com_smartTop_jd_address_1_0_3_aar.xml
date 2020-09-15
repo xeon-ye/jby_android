@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.smartTop:jd-address:1.0.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jd-address-1.0.3.aar/b6420e30a87682be9c85cdf5ca01b180/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jd-address-1.0.3.aar/b6420e30a87682be9c85cdf5ca01b180/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jd-address-1.0.3.aar/3d13da67c34468987aeb259f7e643d7a/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jd-address-1.0.3.aar/3d13da67c34468987aeb259f7e643d7a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jd-address-1.0.3.aar/3d13da67c34468987aeb259f7e643d7a/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

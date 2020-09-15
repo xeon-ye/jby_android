@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.umeng.umsdk:share-qq:6.9.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/c9c49640ddfd546980533414f12d0606/jars/libs/open_sdk_r5990_lite.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/c9c49640ddfd546980533414f12d0606/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/c9c49640ddfd546980533414f12d0606/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/1144bccd5551620a04016a927d9457bf/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/1144bccd5551620a04016a927d9457bf/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/1144bccd5551620a04016a927d9457bf/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/share-qq-6.9.6.aar/1144bccd5551620a04016a927d9457bf/jars/libs/open_sdk_r5990_lite.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

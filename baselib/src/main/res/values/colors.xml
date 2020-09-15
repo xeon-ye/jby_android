@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#0093FF</color>
     <color name="colorAccent">#0093FF</color>
 
+    <color name="black_3B3E42">#3B3E42</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#0093FF</color>
@@ -52,6 +53,7 @@
     <color name="color_F1F5F7">#F1F5F7</color>
     <color name="color_5DE941">#5DE941</color>
     <color name="color_FFAD35">#FFAD35</color>
+    <color name="color_6D7278">#6D7278</color>
 
 
     <color name="color_shadow_start">#E5E9EC</color>

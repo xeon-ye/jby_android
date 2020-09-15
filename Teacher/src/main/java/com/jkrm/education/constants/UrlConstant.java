@@ -358,4 +358,19 @@ public class UrlConstant {
      * 获取考试班级列表
      */
     public static final String GET_CLASS_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"sch_mgmt_server/schools/teachers/{teacherId}/classes";
+
+    /**
+     * 综合成绩表
+     */
+    public static final String MULTIPLE_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examCompre/hensivePage";
+    /**
+     * 班级成绩对比表
+     */
+    public static final String CLASS_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/contrast";
+    /**
+     * 小题得分表
+     */
+    public static final String SCORE_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examCourse/item/question";
+
+
 }

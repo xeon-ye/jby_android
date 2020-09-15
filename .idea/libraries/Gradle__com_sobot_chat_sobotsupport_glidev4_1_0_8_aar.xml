@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.sobot.chat:sobotsupport-glidev4:1.0.8@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sobotsupport-glidev4-1.0.8.aar/ed915fd9788ecab687f33bc888147570/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sobotsupport-glidev4-1.0.8.aar/ed915fd9788ecab687f33bc888147570/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sobotsupport-glidev4-1.0.8.aar/5b96f962d53e590434977982b98123dc/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sobotsupport-glidev4-1.0.8.aar/5b96f962d53e590434977982b98123dc/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sobotsupport-glidev4-1.0.8.aar/5b96f962d53e590434977982b98123dc/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

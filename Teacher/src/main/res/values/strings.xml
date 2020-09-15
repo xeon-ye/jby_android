@@ -9,6 +9,26 @@
     <string name="scan_info_complete_new">平台收到扫描件已全部识别完成\n请至作业列表查阅</string>
 
     <string name="format_homework_detail_submit_status">共%1$s人，提交%2$s份</string>
+
+
+    <!--    报表相关-->
+    <string name="achievement_title">综合成绩表</string>
+    <string name="score_achievement_title">小题得分表</string>
+    <string name="class_score_achievement_title">班级成绩对比</string>
+    <string name="section_achievement_title">成绩分段表</string>
+    <string name="achievement_title_hint">点击学生单科成绩的分数，可以查看学生答题卡</string>
+    <string name="achievement_title_hint01">学生信息为“-”指不参与排名的学生</string>
+    <string name="score_achievement_title_hint">点击学生成绩的分数，可以查看学生答题卡</string>
+    <string name="section_achievement_title_hint">点击人数可以查看详细名单</string>
+    <string name="class_score_title_hint">点击蓝色数字可以查看具体学生名单</string>
+    <string name="class_score_title_hint01">等级说明</string>
+    <string name="achievement_select_hint">(点击学生单科成绩的分数，可以查看学生的答题卡)</string>
+    <string name="score_select_hint">(点击学生成绩的分数，可以查看学生的答题卡)</string>
+
+    <string name="multiple_top_search_cancel">取消</string>
+
+
+    
 </resources>
 
 

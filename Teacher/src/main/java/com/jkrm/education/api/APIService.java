@@ -17,11 +17,16 @@ import com.jkrm.education.bean.RegisterBean;
 import com.jkrm.education.bean.ScoreBean;
 import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.MultipleAchievementBean;
+import com.jkrm.education.bean.exam.ScoreAchievementBean;
+import com.jkrm.education.bean.exam.SectionAchievementBean;
+import com.jkrm.education.bean.exam.TableClassBean;
 import com.jkrm.education.bean.request.RequestClassesBean;
 import com.jkrm.education.bean.result.AllStudentScoreResultBean;
 import com.jkrm.education.bean.result.AnswerSheetDataDetailResultBean;
@@ -875,5 +880,41 @@ public interface APIService {
     @GET(UrlConstant.GET_LINE_DATA)
     Observable<ResponseBean<String>>  getLineData(@Query("examId") String examId,@Query("studId") String studId);
 
+    /**
+     * 综合成绩报表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.MULTIPLE_TABLE)
+    Observable<MultipleAchievementBean> getMultipleTable(@Body RequestBody requestBody);
+    /**
+     * 班级成绩对比表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.CLASS_TABLE)
+    Observable<ResponseBean<ClassAchievementBean>> getClassTable(@Body RequestBody requestBody);
+    /**
+     * 小题得分表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.SCORE_TABLE)
+    Observable<ResponseBean<ScoreAchievementBean>> getScoreTable(@Body RequestBody requestBody);
+    /**
+     * 成绩分段表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.SCORE_TABLE) //暂无接口，
+    Observable<ResponseBean<SectionAchievementBean>> getSectionTable(@Body RequestBody requestBody);
+
+//    /**
+//     * 班级列表
+//     * @param teacherId
+//     * @return
+//     */
+//    @GET(UrlConstant.GET_TABLE_CLASS_LIST)
+//    Observable<ResponseBean<TableClassBean>> getTableClassList(@Path("teacherId") String teacherId);
 
 }

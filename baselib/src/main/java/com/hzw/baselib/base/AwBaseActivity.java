@@ -634,10 +634,38 @@ public abstract class AwBaseActivity extends TakePhotoFragmentActivity implement
         }
     }
 
+    protected void setToolbarWithBackImgAndRightImg(String title, AwViewCustomToolbar.OnRightClickListener rigthClickListener) {
+        mToolbar = (AwViewCustomToolbar) findViewById(R.id.toolbar_custom);
+        if(mToolbar != null) {
+            if(!AwDataUtil.isEmpty(title)) {
+                mToolbar.setToolbarTitle(title);
+            } else {
+                mToolbar.hideTitleView();
+            }
+            mToolbar.setLeftImg(R.mipmap.icon_back);
+//            mToolbar.setRightImg(R.mipmap.search_icon);
+            mToolbar.setRightImgWithSizeValue(R.mipmap.search_icon);
+            mToolbar.setOnLeftClickListener(new AwViewCustomToolbar.OnLeftClickListener() {
+                @Override
+                public void onLeftTextClick() {
+                    finish();
+                }
+            });
+            if(null != rigthClickListener)
+                mToolbar.setOnRightClickListener(rigthClickListener);
+        }
+    }
+
     protected void setStatusColor(int colorRes) {
         if(mToolbar != null) {
             mToolbar.setBackgroundColor(colorRes);
             AwStatusBarUtil.setColor(mActivity, colorRes, 0);//0 透明 255 黑色
+        }
+    }
+
+    protected void setToolbarTitleColor(int colorRes) {
+        if(mToolbar != null) {
+            mToolbar.setToolbarTitleColor(colorRes);
         }
     }
 

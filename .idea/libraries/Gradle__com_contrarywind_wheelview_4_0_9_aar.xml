@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.contrarywind:wheelview:4.0.9@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wheelview-4.0.9.aar/3c34acc7653268527567b2c117c7c9d4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wheelview-4.0.9.aar/3c34acc7653268527567b2c117c7c9d4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wheelview-4.0.9.aar/374c9e92387df68c3cea4276d0c2b9c9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wheelview-4.0.9.aar/374c9e92387df68c3cea4276d0c2b9c9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/wheelview-4.0.9.aar/374c9e92387df68c3cea4276d0c2b9c9/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

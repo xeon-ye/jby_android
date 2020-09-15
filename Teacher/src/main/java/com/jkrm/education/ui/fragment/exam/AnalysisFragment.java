@@ -22,6 +22,7 @@ import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
+import com.jkrm.education.ui.activity.exam.CommonlyMultipleActivity;
 import com.jkrm.education.ui.activity.exam.ExamSearchActivity;
 import com.jkrm.education.ui.activity.exam.StudentAnalyseActivity;
 import com.jkrm.education.ui.activity.exam.ViewStudentAnswerSheetActivity;
@@ -33,6 +34,7 @@ import com.jkrm.education.widget.GradeListDialogFrament;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +73,15 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         toClass(ViewStudentAnswerSheetActivity.class,false);
         mExamSearchAdapter = new ExamSearchAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mExamSearchAdapter, false);
+
+        Objects.requireNonNull(getActivity()).findViewById(R.id.example_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //测试表格入口
+                toClass(CommonlyMultipleActivity.class,false);
+            }
+        });
+
     }
 
     @Override
