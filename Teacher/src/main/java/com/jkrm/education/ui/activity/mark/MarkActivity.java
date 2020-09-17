@@ -209,7 +209,7 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
     /**
      * 是否自动翻页
      */
-    private boolean isHandleSwitch = true;
+    private boolean isHandleSwitch = false;
     /**
      * 是否已批阅
      */
@@ -333,8 +333,8 @@ public class MarkActivity extends AwMvpActivity<MarkPresent> implements MarkView
         mCommonUseScoreAdapter = new MarkCommonUseScoreAdapter();
         mMarkByQuestionList.add(new MarkBean(true, "按题批阅"));
         mMarkByQuestionList.add(new MarkBean(false, "按人批阅"));
-        mHandleSwitchList.add(new MarkBean(true, "分步赋分"));
-        mHandleSwitchList.add(new MarkBean(false, "一键赋分"));
+        mHandleSwitchList.add(new MarkBean(true, "一键赋分"));
+        mHandleSwitchList.add(new MarkBean(false, "分步赋分"));
         mQuestionList = (List<GradQusetionBean>) getIntent().getSerializableExtra(Extras.KEY_BEAN_GRADQUESTIONLIST);
         if (mQuestionList.isEmpty()) {
             showDialogToFinish("获取题目列表错误");

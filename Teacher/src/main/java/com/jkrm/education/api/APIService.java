@@ -1,6 +1,7 @@
 package com.jkrm.education.api;
 
 
+import com.github.mikephil.charting.data.LineData;
 import com.hzw.baselib.bean.AddressBean;
 import com.hzw.baselib.bean.AwResponseListBean;
 import com.hzw.baselib.bean.ClassesResponseBean;
@@ -19,11 +20,14 @@ import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ColumnDataBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.LineDataBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
+import com.jkrm.education.bean.exam.OverViewBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.bean.exam.TableClassBean;
@@ -861,24 +865,26 @@ public interface APIService {
     @GET(UrlConstant.GET_CLASS_LIST)
     Observable<ResponseBean<List<ClassBean>>>  getClassList(@Path("teacherId") String teacherId);
 
+    /**
+     * 单个学生成绩分析
+     * @return
+     */
+    @POST(UrlConstant.GET_OVER_VIEW)
+    Observable<ResponseBean<OverViewBean>>  getOverView(@Body RequestBody requestBody);
 
     /**
      * 单个学生柱状图
-     * @param examId
-     * @param studId
      * @return
      */
-    @GET(UrlConstant.GET_COLUMN_DATA)
-    Observable<ResponseBean<String>>  getColumnData(@Query("examId") String examId,@Query("studId") String studId);
+    @POST(UrlConstant.GET_COLUMN_DATA)
+    Observable<ResponseBean<List<ColumnDataBean>>>  getColumnData(@Body RequestBody requestBody);
 
     /**
      * 单个学生折线图
-     * @param examId
-     * @param studId
      * @return
      */
-    @GET(UrlConstant.GET_LINE_DATA)
-    Observable<ResponseBean<String>>  getLineData(@Query("examId") String examId,@Query("studId") String studId);
+    @POST(UrlConstant.GET_LINE_DATA)
+    Observable<ResponseBean<List<LineDataBean>>>  getLineData(@Body RequestBody requestBody);
 
     /**
      * 综合成绩报表

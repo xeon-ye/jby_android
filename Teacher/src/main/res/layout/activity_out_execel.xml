@@ -32,14 +32,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_5"
             >
-            <TextView
-                android:id="@+id/tv_class"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:maxLines="15"
-                android:ellipsize="end"
-                />
+
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
@@ -47,6 +40,15 @@
                 android:layout_alignParentRight="true"
                 android:textSize="13sp"
 
+                />
+            <TextView
+                android:id="@+id/tv_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:maxLines="15"
+                android:ellipsize="end"
+                android:layout_toLeftOf="@id/tv_time"
                 />
         </RelativeLayout>
     </LinearLayout>

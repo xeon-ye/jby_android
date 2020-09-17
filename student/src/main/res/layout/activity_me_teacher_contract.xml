@@ -31,6 +31,7 @@
             android:layout_height="match_parent"
             style="@style/middle_gray_style"
             android:text="班级"
+            android:visibility="gone"
             android:gravity="center"/>
         <TextView
             android:layout_width="0dp"

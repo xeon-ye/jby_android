@@ -7,11 +7,14 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -69,13 +72,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,6 +118,14 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     TextView mTvSubTitle;
     @BindView(R.id.tv_sort)
     TextView mTvSort;
+    @BindView(R.id.toolbar_custom)
+    AwViewCustomToolbar mToolbarCustom;
+    @BindView(R.id.ll_title)
+    LinearLayout mLlTitle;
+    @BindView(R.id.iv_back)
+    ImageView mIvBack;
+    @BindView(R.id.ll_bottomBtn)
+    LinearLayout mLlBottomBtn;
     private IndicatorViewPager indicatorViewPager;
     private HomeworkDetailViewPagerAdapter mViewPagerAdapter;
 
@@ -407,7 +414,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                             classid = classesResponseBean.getClassId();
                             mPresenter.getHomeworkDetail(homeworkId, classid);
                             mTvClasses.setText(classesResponseBean.getClassName());
-                            changemRowsHomeworkBean(homeworkId,classid);
+                            changemRowsHomeworkBean(homeworkId, classid);
 //        mPresenter.getVideoPointList(homeworkId);
                             mPresenter.getVideoPointListNew(homeworkId);
                            /* if ("按题号排序".equals(bean)) {
@@ -451,14 +458,20 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         });
             }
         });
-
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void changemRowsHomeworkBean(String homeworkId, String classid) {
         for (int i = 0; i < mRowsHomeworkBeans.size(); i++) {
-            if(homeworkId.equals(mRowsHomeworkBeans.get(i).getId())){
-                mRowsHomeworkBean=mRowsHomeworkBeans.get(i);
-                mExtraPro=i;
+            if (homeworkId.equals(mRowsHomeworkBeans.get(i).getId())) {
+                mRowsHomeworkBean = mRowsHomeworkBeans.get(i);
+                refreshData();
+                mExtraPro = i;
             }
         }
     }
@@ -517,7 +530,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         });
                         list.addAll(gradQusetionBeans);
                     }*/
-                 /*   Collections.sort(list, (o1, o2) -> {
+                    Collections.sort(list, (o1, o2) -> {
                         String questionNum1 = o1.getQuestionNum();
                         String questionNum2 = o2.getQuestionNum();
                         if (AwDataUtil.isEmpty(questionNum1)) {
@@ -531,7 +544,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         } else {
                             return -1;
                         }
-                    });*/
+                    });
                     break;
                 case TAG_SORT_QUESTION_RATIO_INCREASE:
                 /*    Map<String, List<GradQusetionBean>> collect1 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
@@ -565,9 +578,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                             return -1;
                         }
                     });
+
                     break;
                 case TAG_SORT_QUESTION_RATIO_REDUCE:
-                    /*Collections.sort(list, (o1, o2) -> {
+                    Collections.sort(list, (o1, o2) -> {
                         String ratio1 = o1.getRatio();
                         String ratio2 = o2.getRatio();
                         if (AwDataUtil.isEmpty(ratio1)) {
@@ -581,8 +595,8 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         } else {
                             return -1;
                         }
-                    });*/
-                    Map<String, List<GradQusetionBean>> collect3 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
+                    });
+                    /*Map<String, List<GradQusetionBean>> collect3 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
                     list.clear();
                     Set<String> strings3 = collect3.keySet();
                     for (String string : strings3) {
@@ -597,7 +611,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                             }
                         });
                         list.addAll(gradQusetionBeans);
-                    }
+                    }*/
                     break;
                 case TAG_SORT_QUESTION_EXPLAIN:
                     /*Map<String, List<GradQusetionBean>> collect2 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
@@ -700,6 +714,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mHomeworkDetailResultBean = bean;
         mToolbar.setToolbarTitle(mRowsHomeworkBean.getName());
         mToolbar.setToolbarMaxEms(10);
+        mTvTitle.setText(mRowsHomeworkBean.getName());
+        mTvTitle.setTypeface(CustomFontStyleUtil.getNewRomenType());
+        mTvTitle.setMovementMethod(ScrollingMovementMethod.getInstance());
+        mTvTitle.setHorizontallyScrolling(true);
         setData(bean, TAG_SORT_QUESTION_NUM);
     }
 
@@ -740,6 +758,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             mStudentAnswerAdapter.loadMoreComplete();
             mStudentAnswerAdapter.setEnableLoadMore(false);
             mStudentAnswerAdapter.disableLoadMoreIfNotFullPage(mRcvDataStudentAnswer);
+            mRcvDataStudentAnswer.scrollToPosition(0);
         }
     }
 
@@ -834,7 +853,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (touchEventInView(mHeaderView, event.getX(), event.getY())) {
+        if (touchEventInView(mHeaderView, event.getX(), event.getY())||touchEventInView(mTvTitle,event.getX(),event.getY())) {
             return super.dispatchTouchEvent(event);
         }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -898,4 +917,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

@@ -148,7 +148,7 @@
                         android:layout_toRightOf="@id/tv_markByQuestion"
                         android:layout_marginLeft="@dimen/dimen_10"
                         android:layout_centerVertical="true"
-                        android:text="分步赋分"
+                        android:text="一键赋分"
                         android:drawableRight="@mipmap/chose_hint"
                         android:gravity="center"
                         style="@style/middle_white_style"/>

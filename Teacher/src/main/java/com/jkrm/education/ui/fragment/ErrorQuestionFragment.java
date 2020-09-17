@@ -23,6 +23,8 @@ import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.widgets.AwCommonTopListPopupWithIconWindow;
 import com.hzw.baselib.widgets.BidirectionalSeekBar;
+import com.jaygoo.widget.OnRangeChangedListener;
+import com.jaygoo.widget.RangeSeekBar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.error.ErrorClassesAdapter;
 import com.jkrm.education.adapter.error.ErrorCourseAdapter;
@@ -103,6 +105,13 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     LinearLayout llOfSort;
     @BindView(R.id.btn_sure)
     Button btnSure;
+    @BindView(R.id.rsb)
+    RangeSeekBar mRsb;
+    @BindView(R.id.tv_normal)
+    TextView mTvNormal;
+    @BindView(R.id.tv_inverted)
+    TextView mTvInverted;
+    Unbinder unbinder1;
 
     private ErrorCourseAdapter mErrorCourseAdapter;
     private ErrorHomeWordAdapter mErrorHomeWordAdapter;
@@ -114,7 +123,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     private List<MistakeBean> mMistakeList = new ArrayList<>();
     private double mLeftVaule = 0, mRightValue = 0.6;
     public static String mStrClassIds = "", mStrtempIds = "";
-    private ArrayList<MarkBean> mMarkBeanList=new ArrayList<>();
+    private ArrayList<MarkBean> mMarkBeanList = new ArrayList<>();
 
     @Override
     protected ErrorQuestionFragmentPresent createPresenter() {
@@ -140,6 +149,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
         mErrorMistakeAdapter = new ErrorMistakeAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(), mRcvData, mErrorMistakeAdapter, false);
         EventBus.getDefault().register(this);
+        mRsb.setProgress(0,60);
     }
 
     @Override
@@ -148,8 +158,8 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
         mPresenter.getErrorCourseList(UserUtil.getAppUser().getTeacherId());
         mPresenter.getErrorBasket(UserUtil.getTeacherId());
 
-        mMarkBeanList.add(new MarkBean(true,"按题号排序"));
-        mMarkBeanList.add(new MarkBean(false,"得分率排序"));
+        mMarkBeanList.add(new MarkBean(true, "按题号排序"));
+        mMarkBeanList.add(new MarkBean(false, "得分率排序"));
     }
 
     @Override
@@ -229,7 +239,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 mStrClassIds = "";
                 for (int i = 0; i < data.size(); i++) {
                     ErrorClassesBean errorClassesBean = mErrorClassesList.get(i);
-                    if(errorClassesBean.isChecked()){
+                    if (errorClassesBean.isChecked()) {
                         mStrClassIds = mStrClassIds + errorClassesBean.getId() + ",";
                     }
                 }
@@ -255,6 +265,36 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 } else {
                     mTvPro.setText(mLeftVaule + "-" + mRightValue + "%");
                 }
+            }
+        });
+        mRsb.setOnRangeChangedListener(new OnRangeChangedListener() {
+            @Override
+            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) {
+                mLeftVaule = (int) ((int) Math.round((leftValue + 5) / 10.0) * 10.0);
+                mRightValue = (int) ((int) Math.round((rightValue) / 10.0) * 10.0);
+             /*   mLeftVaule = leftProgress;
+                mRightValue = rightProgress;*/
+                if (leftValue == 0) {
+                    mLeftVaule = 0;
+                }
+                if (rightValue == 100) {
+                    mRightValue = 100;
+                }
+                if (leftValue == 0 && rightValue == 100) {
+                    mTvPro.setText("不限");
+                } else {
+                    mTvPro.setText(mLeftVaule + "-" + mRightValue + "%");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft) {
+
             }
         });
         mErrorMistakeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -297,8 +337,8 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 showView(llOfSort, false);
                 break;
             case R.id.tv_sort:
-               // showView(llOfSort, true);
-               // showView(mLlOfSetting, false);
+                // showView(llOfSort, true);
+                // showView(mLlOfSetting, false);
                 AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlphaWithIcon(mActivity, mMarkBeanList, mTvSort, new PopupWindow.OnDismissListener() {
                     @Override
                     public void onDismiss() {
@@ -323,6 +363,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 mTvPro.setText("不限");
                 mLeftVaule = 0;
                 mRightValue = 100;
+
                 break;
             case R.id.tv_sure:
                 showView(mLlOfSetting, false);
@@ -334,7 +375,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 mStrClassIds = "";
                 for (int i = 0; i < mErrorClassesList.size(); i++) {
                     ErrorClassesBean errorClassesBean = mErrorClassesList.get(i);
-                    if(errorClassesBean.isChecked()){
+                    if (errorClassesBean.isChecked()) {
                         mStrClassIds = mStrClassIds + errorClassesBean.getId() + ",";
                     }
                 }
@@ -515,4 +556,17 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
 }
