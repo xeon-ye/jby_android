@@ -452,6 +452,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         if (isSelectReMark) {
             replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
         }
+        questionUrl=replace;
         //设置常用分数, 最大分数不存在, 取消展示常用分数
         maxScore = Float.parseFloat(MyDateUtil.replace(AwDataUtil.isEmpty(mExamQuestionsBean.getMaxScore()) ? "0" : (mExamQuestionsBean.getMaxScore())));
         Glide.with(mActivity).load(replace).into(mIvQuestionImg);
