@@ -923,4 +923,11 @@ public interface APIService {
     @GET(UrlConstant.GET_CLASS_SUBJECT)
     Observable<ResponseBean<List<ErrorCourseBean>>> getTableSubjectList(@Path("teacherId") String teacherId);
 
+    /**
+     * 获取科目
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.GET_COURSE_LIST)
+    Observable<ResponseBean<List<String>>> getCourseList(@Body RequestBody requestBody);
 }

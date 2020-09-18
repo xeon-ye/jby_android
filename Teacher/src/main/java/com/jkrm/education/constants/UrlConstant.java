@@ -382,6 +382,8 @@ public class UrlConstant {
      * 成绩分段表
      */
     public static final String SECTION_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscalePage";
-
-
+    /**
+     * 获取学生分析科目
+     */
+    public static final String GET_COURSE_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examCompre/oneCourse";
 }

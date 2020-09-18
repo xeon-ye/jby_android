@@ -25,6 +25,7 @@ import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.TableClassBean;
 import com.jkrm.education.bean.result.error.ErrorCourseBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
 import com.jkrm.education.util.RequestUtil;
@@ -191,7 +192,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             @Override
             public void onClick(View view, int position) {
                // Toast.makeText(MultipleAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(StudentAnalyseActivity.class,false,Extras.EXAM_ID,achievementBean.getRows().get(position).getExamId(),Extras.STUDENT_ID,achievementBean.getRows().get(position).getStudId());
+                toClass(StudentAnalyseActivity.class,false, Extras.EXAM_ID,achievementBean.getRows().get(position).getExamId(),Extras.STUDENT_ID,achievementBean.getRows().get(position).getStudId());
             }
         });
 
