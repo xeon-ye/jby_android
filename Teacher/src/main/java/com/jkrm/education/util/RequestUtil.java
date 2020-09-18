@@ -577,6 +577,52 @@ public class RequestUtil {
         hashMap.put("keywords", keywords);
         return getBody(hashMap);
     }
+    /**
+     * 班级成绩对比表
+     *
+     * @param classId
+     * @param examId
+     * @return
+     */
+    public static RequestBody ClassAchievementBody(String classId, String examId, String courseId,String params) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("classId", classId);
+        hashMap.put("examId", examId);
+        hashMap.put("courseId", courseId);
+        hashMap.put("params", params);
+        return getBody(hashMap);
+    }
+    /**
+     * 小题得分表
+     *
+     * @param classId
+     * @param examId
+     * @return
+     */
+    public static RequestBody ScoreAchievementBody(String classId, String examId, String courseId) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("classId", classId);
+        hashMap.put("examId", examId);
+        hashMap.put("courseId", courseId);
+        return getBody(hashMap);
+    }
+    /**
+     * 成绩分段表
+     *
+     * @param classId
+     * @param examId
+     * @return
+     */
+    public static RequestBody SectionAchievementBody(String classId, String examId, String courseId,String current,String size,String params) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("classId", classId);
+        hashMap.put("examId", examId);
+        hashMap.put("courseId", courseId);
+        hashMap.put("current", current);
+        hashMap.put("size", size);
+        hashMap.put("params", params);
+        return getBody(hashMap);
+    }
 
 
 }

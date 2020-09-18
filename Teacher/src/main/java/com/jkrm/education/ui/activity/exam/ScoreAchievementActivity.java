@@ -1,19 +1,34 @@
 package com.jkrm.education.ui.activity.exam;
 
+import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.TableClassAdapter;
+import com.jkrm.education.adapter.exam.TableScoreAdapter;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
 import com.jkrm.education.mvp.views.ScoreAchievementView;
+import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.widget.SynScrollerLayout;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +41,11 @@ import butterknife.OnClick;
 public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPresent> implements ScoreAchievementView.View {
 
 
+    @BindView(R.id.multiple_subject_tv)
+    TextView subject_tv;
+    @BindView(R.id.multiple_class_tv)
+    TextView class_tv;
+
     @BindView(R.id.multiple_common_toolbar)
     LinearLayout common_toolbar;
     @BindView(R.id.multiple_top_search)
@@ -36,16 +56,14 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     @BindView(R.id.multiple_top_ed)
     EditText multiple_ed;
 
-    @BindView(R.id.multiple_subject_tv)
-    TextView subject_tv;
-    @BindView(R.id.multiple_class_tv)
-    TextView class_tv;
 
-    //综合成绩表
-    @BindView(R.id.item_achievement_contain)
-    SynScrollerLayout achievementSSL;
-    @BindView(R.id.achievement_recyclerview)
-    RecyclerView achievementRV;
+    @BindView(R.id.item_score_scroll)
+    SynScrollerLayout scoreSSL;
+    @BindView(R.id.score_recyclerview)
+    RecyclerView scoreRV;
+
+
+    private ScoreAchievementBean scoreBean;
 
 
     @Override
@@ -61,7 +79,8 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     @Override
     protected void initView() {
         super.initView();
-        setToolbarWithBackImgAndRightImg("综合成绩表", new AwViewCustomToolbar.OnRightClickListener() {
+        setStatusBlue();
+        setToolbarWithBackImgAndRightImg("小题得分表", new AwViewCustomToolbar.OnRightClickListener() {
             @Override
             public void onRightTextClick() {
                 common_toolbar.setVisibility(View.GONE);
@@ -97,16 +116,129 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
     }
 
+
+    @Override
+    protected void initData() {
+        super.initData();
+
+        String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
+        mPresenter.getTableList(RequestUtil.ScoreAchievementBody("", examId, ""));
+    }
+
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
+    private void initScore() {
+        RelativeLayout score_relative = findViewById(R.id.score_achievement_top);
+        LinearLayout childRoot = findViewById(R.id.item_score_linear);
+        score_relative.setClickable(true);
+
+        List<ScoreAchievementBean.DataBean> titleList = scoreBean.getData();
+
+        int mSize = 0;
+        ArrayList<String> nameList = new ArrayList<>();
+
+
+        for (int i = 0; i < titleList.size(); i++) {
+            View inflate;
+            if (titleList.get(i).getIsOption().equals("2")) {
+                inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);//客观题
+                TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
+                TextView left_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
+                TextView right_text = inflate.findViewById(R.id.item_achievement_child_right_tv);
+                title.setText("一." + titleList.get(i).getQuestionNum() + "(满分" +
+                        titleList.get(i).getMaxScore() + "分，正确答案" + titleList.get(i).getNoSpanAnswer() + ")");
+                left_text.setText("得分");
+                right_text.setText("作答");
+
+                mSize = mSize + 1;
+            } else {
+                inflate = View.inflate(this, R.layout.item_score_child_scroll_layout, null);  //主观题
+                TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
+                TextView left_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
+                title.setText("二." + titleList.get(i).getQuestionNum() + "(满分" +
+                        titleList.get(i).getMaxScore() + "分，正确答案" + titleList.get(i).getNoSpanAnswer() + ")");
+                left_text.setText("得分");
+            }
+            nameList.add(titleList.get(i).getQuestionId()); //questionId作为表头标记的对应关系
+            childRoot.addView(inflate);
+        }
+
+        //最大表头需要数据数量
+        int allSize = mSize * 2 + (titleList.size() - mSize) + 7;
+
+        //传入adapter的数据形式
+        Map<String, List<String>> listMap = new HashMap<>();
+
+        for (int k = 0; k < scoreBean.getRows().size(); k++) {
+            ScoreAchievementBean.RowsBean bean = scoreBean.getRows().get(k);
+            List<ScoreAchievementBean.RowsBean.QuestListBean> questList = bean.getQuestList();
+
+            ArrayList<String> strings = new ArrayList<>();
+            strings.add(bean.getStudCode()); //学号
+            strings.add(bean.getStudExamCode());//新教育好
+            strings.add(bean.getClassName());
+            strings.add(bean.getMyScore());
+            strings.add(bean.getObjectScore());//客观题
+            strings.add(bean.getSubjectScore()); //主观题
+            strings.add(bean.getJointRank() + "/" + bean.getGradeRank() + "/" + bean.getClassRank());
+
+            for (int i = 0; i < questList.size(); i++) {
+                //两种情况（）
+                ArrayList<String> answerList = new ArrayList<>();
+                if (questList.get(i).getIsOption().equals("2")) { //客观题
+//                    answerList.add(questList.get(i).getScore()); //得分
+                    answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+                    answerList.add(questList.get(i).getStudAnswer());//作答
+                } else
+                    answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+                strings.addAll(answerList);
+            }
+
+            listMap.put(bean.getStudName(), strings);
+        }
+
+        scoreRV.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+
+        //可以通用adapter
+        TableScoreAdapter adapter = new TableScoreAdapter(listMap, scoreSSL);
+        scoreRV.setAdapter(adapter);
+
+        scoreRV.setOnTouchListener(getListener(scoreSSL));
+        score_relative.setOnTouchListener(getListener(scoreSSL));
+
+        //item点击
+        scoreSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(ScoreAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public void getTableListSuccess(ScoreAchievementBean data) {
-
+        scoreBean = data;
+        initScore();
     }
 
     @Override
     public void getTableListFail(String msg) {
-
+        Toast.makeText(ScoreAchievementActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
+    @NonNull
+    private View.OnTouchListener getListener(SynScrollerLayout scrollerLayout) {
+
+        return new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                scrollerLayout.onTouchEvent(motionEvent);
+                return false;
+            }
+        };
+    }
 
 
 }

@@ -11,8 +11,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1a4ab75-f41e-4d2a-b241-80b45e4bc80c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassGridAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/adapter_table_grade_item_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/widget/SelectDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/dialog_class_achievement_set_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_score_child_scroll_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/baselib/src/main/java/com/hzw/baselib/util/AwSubLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/baselib/src/main/res/drawable/aw_bg_gray_e8e8e8_bottom_radius_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/baselib/src/main/res/drawable/aw_bg_white_radius_10.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
@@ -25,15 +29,40 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/StudentAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/StudentAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableMultipleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableMultipleAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/CommonlyMultiplePresent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/CommonlyMultiplePresent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/views/CommonlyMultipleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/views/CommonlyMultipleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/api/APIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/api/APIService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/api/RetrofitClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/api/RetrofitClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/bean/exam/ClassAchievementBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/bean/exam/ClassAchievementBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/bean/exam/ScoreAchievementBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/bean/exam/ScoreAchievementBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/constants/UrlConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/constants/UrlConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/ClassAchievementPresent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/ClassAchievementPresent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/MultipleAchievementPresent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/MultipleAchievementPresent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/ScoreAchievementPresent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/ScoreAchievementPresent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/SectionAchievementPresent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/SectionAchievementPresent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/views/ClassAchievementView.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/views/ClassAchievementView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/views/MultipleAchievementView.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/views/MultipleAchievementView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ClassAchievementActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ClassAchievementActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/CommonlyMultipleActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/CommonlyMultipleActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/MultipleAchievementActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/MultipleAchievementActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/SectionAchievementActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/SectionAchievementActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/fragment/exam/AnalysisFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/fragment/exam/AnalysisFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/adapter_grade_item_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/adapter_grade_item_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/util/RequestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/util/RequestUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/widget/CommonDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/widget/CommonDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/activity_class_achievement_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/activity_class_achievement_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/activity_score_achievement_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/activity_score_achievement_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/dialog_multiple_achievement_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/dialog_multiple_achievement_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baselib/src/main/java/com/hzw/baselib/util/AwSpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/baselib/src/main/java/com/hzw/baselib/util/AwSpUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_achievement_child_scroll_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_achievement_child_scroll_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_class_contrast_scroll_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_class_contrast_scroll_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_score_achievement_scroll_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/layout/item_score_achievement_scroll_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Teacher/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baselib/baselib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/baselib/baselib.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baselib/src/main/java/com/hzw/baselib/util/AwLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/baselib/src/main/java/com/hzw/baselib/util/AwLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baselib/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/baselib/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobotsdk/sobotsdk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sobotsdk/sobotsdk.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,8 +85,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -78,7 +107,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="device.picker.selection" value="99a7c034" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Teacher/src/main/res/layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/baselib/src/main/res/drawable" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -86,13 +115,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.hzw.baselib.util" />
       <recent name="com.jkrm.education.mvp.views" />
       <recent name="com.jkrm.education.mvp.presenters" />
       <recent name="com.jkrm.education.widget" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\gitSource\jby\jby\Teacher\src\main\res\layout" />
       <recent name="E:\gitSource\jby\jby\baselib\src\main\res\drawable" />
+      <recent name="E:\gitSource\jby\jby\Teacher\src\main\res\layout" />
       <recent name="E:\gitSource\jby\jby\baselib\src\main\res\mipmap-xhdpi" />
       <recent name="E:\gitSource\jby\jby\Teacher\src\main\res\mipmap-xxhdpi" />
       <recent name="E:\gitSource\jby\jby\Teacher\src\main\java\com\jkrm\education\mvp\views" />
@@ -227,18 +257,27 @@
     <option name="LAST_COMMIT_MESSAGE" value="first commit" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1600324596837">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="275" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600324596837" />
     <state x="184" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595867717698">
       <screen x="0" y="23" width="1440" height="798" />
     </state>
     <state x="184" y="84" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.798@0.23.1440.798" timestamp="1595867717698" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1600165137764">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1600226115990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600165137764" />
-    <state x="2610" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600137422752">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600226115990" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600223260741">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600223260741" />
     <state x="2610" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1600137422752" />
+    <state x="715" y="222" key="#xdebugger.evaluate" timestamp="1600398020525">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="715" y="222" key="#xdebugger.evaluate/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600398020525" />
     <state x="339" y="26" key="CommitChangelistDialog2" timestamp="1595867939591">
       <screen x="0" y="23" width="1440" height="798" />
     </state>
@@ -247,50 +286,62 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600163856307" />
-    <state width="1877" height="547" key="GridCell.Tab.0.bottom" timestamp="1600169118599">
+    <state width="1877" height="604" key="GridCell.Tab.0.bottom" timestamp="1600410753321">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="547" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600169118599" />
+    <state width="1877" height="604" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600410753321" />
     <state width="1877" height="547" key="GridCell.Tab.0.bottom/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1600152864671" />
-    <state width="1877" height="547" key="GridCell.Tab.0.center" timestamp="1600169118599">
+    <state width="1877" height="604" key="GridCell.Tab.0.center" timestamp="1600410753321">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="547" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600169118599" />
+    <state width="1877" height="604" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600410753321" />
     <state width="1877" height="547" key="GridCell.Tab.0.center/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1600152864671" />
-    <state width="1877" height="547" key="GridCell.Tab.0.left" timestamp="1600169118599">
+    <state width="1877" height="604" key="GridCell.Tab.0.left" timestamp="1600410753321">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="547" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600169118599" />
+    <state width="1877" height="604" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600410753321" />
     <state width="1877" height="547" key="GridCell.Tab.0.left/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1600152864671" />
-    <state width="1877" height="547" key="GridCell.Tab.0.right" timestamp="1600169118599">
+    <state width="1877" height="604" key="GridCell.Tab.0.right" timestamp="1600410753321">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="547" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600169118599" />
+    <state width="1877" height="604" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600410753321" />
     <state width="1877" height="547" key="GridCell.Tab.0.right/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1600152864671" />
-    <state width="1877" height="347" key="GridCell.Tab.1.bottom" timestamp="1600168725766">
+    <state width="1877" height="347" key="GridCell.Tab.1.bottom" timestamp="1600398059969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600168725766" />
-    <state width="1877" height="347" key="GridCell.Tab.1.center" timestamp="1600168725766">
+    <state width="1877" height="347" key="GridCell.Tab.1.bottom/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600398059969" />
+    <state width="1877" height="347" key="GridCell.Tab.1.center" timestamp="1600398059969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600168725766" />
-    <state width="1877" height="347" key="GridCell.Tab.1.left" timestamp="1600168725766">
+    <state width="1877" height="347" key="GridCell.Tab.1.center/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600398059969" />
+    <state width="1877" height="347" key="GridCell.Tab.1.left" timestamp="1600398059969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600168725766" />
-    <state width="1877" height="347" key="GridCell.Tab.1.right" timestamp="1600168725766">
+    <state width="1877" height="347" key="GridCell.Tab.1.left/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600398059969" />
+    <state width="1877" height="347" key="GridCell.Tab.1.right" timestamp="1600398059969">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="347" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600168725766" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1600163020665">
+    <state width="1877" height="347" key="GridCell.Tab.1.right/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600398059969" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1600410859959">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600163020665" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1600167418544">
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600410859959" />
+    <state x="640" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1600391379075">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600167418544" />
+    <state x="640" y="363" key="com.intellij.ide.util.TipDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600391379075" />
+    <state x="702" y="147" key="refactoring.ChangeSignatureDialog" timestamp="1600327098925">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="702" y="147" key="refactoring.ChangeSignatureDialog/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600327098925" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1600335247032">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600335247032" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1600247684318">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1600247684318" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -391,29 +442,114 @@
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/CommonlyMultipleActivity.java</url>
-          <line>221</line>
-          <option name="timeStamp" value="35" />
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/MultipleAchievementActivity.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/CommonlyMultipleActivity.java</url>
-          <line>343</line>
-          <option name="timeStamp" value="36" />
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassAdapter.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/CommonlyMultiplePresent.java</url>
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassAdapter.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassAdapter.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableClassAdapter.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>195</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>124</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>219</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/ScoreAchievementPresent.java</url>
           <line>46</line>
-          <option name="timeStamp" value="37" />
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/CommonlyMultiplePresent.java</url>
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/ScoreAchievementPresent.java</url>
           <line>48</line>
-          <option name="timeStamp" value="38" />
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/mvp/presenters/CommonlyMultiplePresent.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="39" />
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>133</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>203</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>206</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/adapter/exam/TableScoreAdapter.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/Teacher/src/main/java/com/jkrm/education/ui/activity/exam/ScoreAchievementActivity.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

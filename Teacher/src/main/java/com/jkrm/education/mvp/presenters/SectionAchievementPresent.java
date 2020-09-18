@@ -11,6 +11,7 @@ import com.jkrm.education.mvp.views.SectionAchievementView;
 
 import okhttp3.RequestBody;
 import rx.Observable;
+import rx.Subscriber;
 
 public class SectionAchievementPresent extends AwCommonPresenter implements SectionAchievementView.Presenter {
 
@@ -23,31 +24,25 @@ public class SectionAchievementPresent extends AwCommonPresenter implements Sect
 
     @Override
     public void getTableList(RequestBody requestBody) {
-        Observable<ResponseBean<SectionAchievementBean>> observable = RetrofitClient.builderRetrofit()
+        Observable<SectionAchievementBean> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getSectionTable(requestBody);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<SectionAchievementBean>() {
+        addIOSubscription(observable, new Subscriber() {
             @Override
-            public void onSuccess(SectionAchievementBean data) {
-                mView.getTableListSuccess(data);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void onFailure(int code, String msg) {
-                mView.getTableListFail(msg);
+            public void onError(Throwable e) {
+
             }
 
-//            @Override
-//            public void onStart() {
-//                mView.showLoadingDialog();
-//            }
-//
-//            @Override
-//            public void onCompleted() {
-//                mView.dismissLoadingDialog();
-//            }
+            @Override
+            public void onNext(Object o) {
 
-        }));
+            }
+        });
     }
 
 

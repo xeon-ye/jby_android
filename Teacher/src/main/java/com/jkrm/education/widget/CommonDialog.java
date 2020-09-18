@@ -20,9 +20,8 @@ import com.jkrm.education.R;
  */
 public class CommonDialog  extends Dialog {
     private Context context;
-    //    private TextView titleTv, contentTv;
-//    private View okBtn, cancelBtn;
     private int layoutId;
+    private int mHeightPixels;
 //    private OnDialogClickListener dialogClickListener;
 
     /**
@@ -53,9 +52,10 @@ public class CommonDialog  extends Dialog {
     private void initWindow(int type) {
         Window dialogWindow = getWindow();
         assert dialogWindow != null;
-        dialogWindow.setBackgroundDrawable(new ColorDrawable(0));//设置window背景
+//        dialogWindow.setBackgroundDrawable(new ColorDrawable(0));//设置window背景
         dialogWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-//        dialogWindow.setWindowAnimations(R.style.dialog_animations); //设置动画
+        dialogWindow.setWindowAnimations(R.style.dialog_fragment_style); //设置背景和动画
+//        dialogWindow.getDecorView().setPadding(0, 0, 0, 0); //取消dialog自带的padding造成的边框
         //设置输入法显示模式
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         DisplayMetrics d = context.getResources().getDisplayMetrics();//获取屏幕尺寸
@@ -68,8 +68,6 @@ public class CommonDialog  extends Dialog {
         }else if (type==2){
             lp.width = d.widthPixels; //宽度为屏幕
             lp.gravity = Gravity.TOP;     //顶部
-            lp.x = DensityUtils.dp2px(context,10.0f);
-            lp.y = DensityUtils.dp2px(context,50.0f);
         }
         dialogWindow.setAttributes(lp);
     }

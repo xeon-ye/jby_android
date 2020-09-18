@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.ScoreAdapter;
+import com.jkrm.education.adapter.exam.TableClassAdapter;
 import com.jkrm.education.adapter.exam.TableMultipleAdapter;
 import com.jkrm.education.adapter.exam.TableMultipleAdapter01;
 import com.jkrm.education.adapter.exam.TableScoreAdapter;
@@ -193,7 +195,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
         classRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableScoreAdapter adapter = new TableScoreAdapter(strings, classSSL);
+        TableSectionAdapter adapter = new TableSectionAdapter(strings, classSSL);
         classRV.setAdapter(adapter);
 
         classRV.setOnTouchListener(getListener(classSSL));
@@ -218,6 +220,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         achievement_relative.setClickable(true);
 
         List<String> sList = new ArrayList<>();
+        List<String> tList = new ArrayList<>();
 
         if (achievementBean == null) {
             Toast.makeText(CommonlyMultipleActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
@@ -227,7 +230,6 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
             for (int j = 0; j < achievementBean.getRows().get(i).getReaList().size(); j++) {
                 sList.add(achievementBean.getRows().get(i).getReaList().get(j).getCourseName());
-
 //                View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
 //                TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
 //                TextView score_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
@@ -296,7 +298,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
         scoreRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableScoreAdapter adapter = new TableScoreAdapter(strings, scoreSSL);
+        TableSectionAdapter adapter = new TableSectionAdapter(strings, scoreSSL);
         scoreRV.setAdapter(adapter);
 
         scoreRV.setOnTouchListener(getListener(scoreSSL));

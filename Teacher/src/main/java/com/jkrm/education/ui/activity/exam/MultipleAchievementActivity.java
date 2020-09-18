@@ -1,6 +1,7 @@
 package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +24,16 @@ import com.jkrm.education.bean.PeriodCourseBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.TableClassBean;
-import com.jkrm.education.constants.Extras;
+import com.jkrm.education.bean.result.error.ErrorCourseBean;
 import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
+import com.jkrm.education.widget.SelectDialog;
 import com.jkrm.education.widget.SynScrollerLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -72,6 +76,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     private List<ClassBean> mClassList = new ArrayList<>();
 
+    private SelectDialog popView;
+
 
 
     @Override
@@ -99,16 +105,17 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
         mClassList = (List<ClassBean>) getIntent().getSerializableExtra("class_list_0");
 
-//        commonDialog = new CommonDialog(this,R.layout.dialog_multiple_achievement_layout,2);
-//        commonDialog.setCanceledOnTouchOutside(true);
-//        GridView gridView = commonDialog.findViewById(R.id.class_name_gv);
-//
-//        if(mClassList.size()>0){
-//            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this,mClassList);
-//            gridView.setAdapter(gridAdapter);
-//            commonDialog.show();
-//        }
+        popView = new SelectDialog(this,R.layout.dialog_multiple_achievement_layout);
+        popView.setOutsideTouchable(true);
+        popView.setClippingEnabled(false);//不超出屏幕
 
+        GridView gridView =popView.getContentView().findViewById(R.id.dialog_class_name_gv);
+        if(mClassList.size()>0){
+            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this,mClassList);
+            gridView.setAdapter(gridAdapter);
+        }
+
+//
     }
 
     @Override
@@ -117,8 +124,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
         mPresenter.getTableList(RequestUtil.MultipleAchievementBody("", "", ""));
 
-        //班级列表
-//        mPresenter.getClassList(UserUtil.getAppUser().getTeacherId());
+        //科目列表
+        mPresenter.getSubjectList(UserUtil.getAppUser().getTeacherId());
 
     }
 
@@ -206,6 +213,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
     }
 
     private void getClassName() {
+        popView.showAsDropDown(findViewById(R.id.multiple_class_tv));
     }
 
     private void getSubject() {
@@ -224,22 +232,12 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
     }
 
     @Override
-    public void getSubjectSuccess(PeriodCourseBean data) {
-
+    public void getSubjectSuccess(List<ErrorCourseBean> data) {
+        //科目这有点奇怪
     }
 
     @Override
     public void getSubjectListFail(String msg) {
-
-    }
-
-    @Override
-    public void getClassListSuccess(TableClassBean data) {
-
-    }
-
-    @Override
-    public void getClassListFail(String msg) {
 
     }
 

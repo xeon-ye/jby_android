@@ -13,6 +13,7 @@ import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.mvp.presenters.SectionAchievementPresent;
 import com.jkrm.education.mvp.views.SectionAchievementView;
+import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import butterknife.BindView;
@@ -61,7 +62,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
     @Override
     protected void initView() {
         super.initView();
-        setToolbarWithBackImgAndRightImg("综合成绩表", new AwViewCustomToolbar.OnRightClickListener() {
+        setToolbarWithBackImgAndRightImg("成绩分段表", new AwViewCustomToolbar.OnRightClickListener() {
             @Override
             public void onRightTextClick() {
                 common_toolbar.setVisibility(View.GONE);
@@ -69,6 +70,14 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             }
         });
         setToolbarTitleColor(R.color.white);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+
+        String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
+        mPresenter.getTableList(RequestUtil.ScoreAchievementBody("", examId, ""));
     }
 
     @OnClick({R.id.multiple_top_tv, R.id.multiple_subject_tv, R.id.multiple_class_tv})

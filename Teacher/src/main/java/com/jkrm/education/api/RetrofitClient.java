@@ -13,6 +13,7 @@ import com.google.gson.stream.JsonWriter;
 import com.hzw.baselib.api.gson.LenientGsonConverterFactory;
 import com.hzw.baselib.api.gson.NullOnEmptyConverterFactory;
 import com.hzw.baselib.util.AwLog;
+import com.hzw.baselib.util.AwSubLog;
 import com.jkrm.education.constants.MyConstant;
 
 import java.io.IOException;
@@ -71,7 +72,8 @@ public class RetrofitClient {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                AwLog.d("okHttpLog: " + message);
+//                AwLog.d("okHttpLog: " + message);
+                AwSubLog.d("okHttpLog: ", message);
             }
         });
         //HttpLoggingInterceptor logging = new HttpLoggingInterceptor(message -> Log.d("RetrofitLog", message));
@@ -86,16 +88,12 @@ public class RetrofitClient {
                 .allEnabledCipherSuites()
                 .build();//解决在Android5.0版本以下https无法访问
         ConnectionSpec spec1 = new ConnectionSpec.Builder(ConnectionSpec.CLEARTEXT).build();//兼容http接口
-        httpClient.connectionSpecs(Arrays.asList(spec,spec1));
+        httpClient.connectionSpecs(Arrays.asList(spec, spec1));
         //添加ssl  完全信任证书
         httpClient.sslSocketFactory(SSLSocketFactoryCompat.getSSLSocketFactory());
         httpClient.hostnameVerifier(SSLSocketFactoryCompat.getHostnameVerifier());
         return httpClient;
     }
-
-
-
-
 
 
     public static class NullToDefaultValueAdapterFactory<T> implements TypeAdapterFactory {

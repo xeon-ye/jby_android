@@ -360,6 +360,11 @@ public class UrlConstant {
     public static final String GET_CLASS_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"sch_mgmt_server/schools/teachers/{teacherId}/classes";
 
     /**
+     * 获取科目列表
+     */
+    public static final String GET_CLASS_SUBJECT=MOCK_API_PREFIX+COMMON_URL_PREFIX+"mark_server/teachers/{teacherId}/course";
+
+    /**
      * 综合成绩表
      */
     public static final String MULTIPLE_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examCompre/hensivePage";
@@ -371,6 +376,10 @@ public class UrlConstant {
      * 小题得分表
      */
     public static final String SCORE_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examCourse/item/question";
+    /**
+     * 成绩分段表
+     */
+    public static final String SECTION_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscalePage";
 
 
 }

@@ -18,7 +18,6 @@ public class StudentAdapter extends BaseQuickAdapter<ExplainStudentBean, BaseVie
         super(R.layout.adapter_student_layout);
     }
 
-
     @Override
     protected void convert(BaseViewHolder helper, ExplainStudentBean item) {
         helper.setText(R.id.tv_name,item.getStudentName());

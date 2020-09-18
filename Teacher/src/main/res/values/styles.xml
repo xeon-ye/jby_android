@@ -4,5 +4,10 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/video_popup_toast_anim</item>
         <item name="android:backgroundDimEnabled">true</item>
+
+        <item name="android:background">@android:color/transparent</item>
+
     </style>
+
+
 </resources>

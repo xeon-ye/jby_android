@@ -893,28 +893,28 @@ public interface APIService {
      * @return
      */
     @POST(UrlConstant.CLASS_TABLE)
-    Observable<ResponseBean<ClassAchievementBean>> getClassTable(@Body RequestBody requestBody);
+    Observable<ClassAchievementBean> getClassTable(@Body RequestBody requestBody);
     /**
      * 小题得分表
      * @param requestBody
      * @return
      */
     @POST(UrlConstant.SCORE_TABLE)
-    Observable<ResponseBean<ScoreAchievementBean>> getScoreTable(@Body RequestBody requestBody);
+    Observable<ScoreAchievementBean> getScoreTable(@Body RequestBody requestBody);
     /**
      * 成绩分段表
      * @param requestBody
      * @return
      */
-    @POST(UrlConstant.SCORE_TABLE) //暂无接口，
-    Observable<ResponseBean<SectionAchievementBean>> getSectionTable(@Body RequestBody requestBody);
+    @POST(UrlConstant.SECTION_TABLE)
+    Observable<SectionAchievementBean> getSectionTable(@Body RequestBody requestBody);
 
-//    /**
-//     * 班级列表
-//     * @param teacherId
-//     * @return
-//     */
-//    @GET(UrlConstant.GET_TABLE_CLASS_LIST)
-//    Observable<ResponseBean<TableClassBean>> getTableClassList(@Path("teacherId") String teacherId);
+    /**
+     * 科目列表
+     * @param teacherId
+     * @return
+     */
+    @GET(UrlConstant.GET_CLASS_SUBJECT)
+    Observable<ResponseBean<List<ErrorCourseBean>>> getTableSubjectList(@Path("teacherId") String teacherId);
 
 }

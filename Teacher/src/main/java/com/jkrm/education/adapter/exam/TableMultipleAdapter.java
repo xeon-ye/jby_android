@@ -72,7 +72,7 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
             List<String> mText = new ArrayList<>();
             mText.add(mData.get(position).getStudCode());
             mText.add(mData.get(position).getStudExamCode());
-            mText.add(mData.get(position).getStudExamCode());
+            mText.add(mData.get(position).getClassName());
 
             for (int i = 0; i < mData.get(position).getReaList().size(); i++) {
 //               initText(holder.itemView.getContext(),holder.mChildRoot,"");

@@ -150,4 +150,7 @@ public class AwLog {
 		if (Is_LogIn_File)
 			record(msg);
 	}
+
+
+
 }

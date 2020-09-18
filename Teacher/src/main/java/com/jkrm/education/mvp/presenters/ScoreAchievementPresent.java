@@ -6,11 +6,13 @@ import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.mvp.views.ScoreAchievementView;
 
 import okhttp3.RequestBody;
 import rx.Observable;
+import rx.Subscriber;
 
 public class ScoreAchievementPresent extends AwCommonPresenter implements ScoreAchievementView.Presenter {
 
@@ -23,31 +25,32 @@ public class ScoreAchievementPresent extends AwCommonPresenter implements ScoreA
 
     @Override
     public void getTableList(RequestBody requestBody) {
-        Observable<ResponseBean<ScoreAchievementBean>> observable = RetrofitClient.builderRetrofit()
+        Observable<ScoreAchievementBean> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getScoreTable(requestBody);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<ScoreAchievementBean>() {
+        addIOSubscription(observable, new Subscriber() {
             @Override
-            public void onSuccess(ScoreAchievementBean data) {
-                mView.getTableListSuccess(data);
+            public void onCompleted() {
+
             }
 
             @Override
-            public void onFailure(int code, String msg) {
-                mView.getTableListFail(msg);
+            public void onError(Throwable e) {
+
             }
 
-//            @Override
-//            public void onStart() {
-//                mView.showLoadingDialog();
-//            }
-//
-//            @Override
-//            public void onCompleted() {
-//                mView.dismissLoadingDialog();
-//            }
-
-        }));
+            @Override
+            public void onNext(Object o) {
+                if (o != null) {
+                    ScoreAchievementBean data = (ScoreAchievementBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getTableListSuccess(data);
+                    else
+                        mView.getTableListFail(data.getMsg());
+                } else
+                    mView.getTableListFail("数据异常！！");
+            }
+        });
     }
 
 

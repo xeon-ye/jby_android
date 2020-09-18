@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,134 +12,134 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/multiple_subject_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:text="学科："
-        android:textColor="@color/color_6D7278"
-        android:textSize="@dimen/sp_12"
+    <RelativeLayout
+        android:id="@+id/class_common_relative"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar">
 
-    <TextView
-        android:id="@+id/multiple_subject_tv"
-        style="@style/small_black_style2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:drawableRight="@mipmap/sniper_normal"
-        android:drawablePadding="@dimen/dimen_5"
-        android:text="高一1班语文"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toEndOf="@id/multiple_subject_name_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <TextView
+            android:id="@+id/multiple_subject_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:text="学科："
+            android:textColor="@color/color_6D7278"
+            android:textSize="@dimen/sp_12" />
 
-    <TextView
-        android:id="@+id/multiple_class_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:text="班级："
-        android:textColor="@color/color_6D7278"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/multiple_subject_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <TextView
+            android:id="@+id/multiple_subject_tv"
+            style="@style/small_black_style2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/multiple_subject_name_tv"
+            android:drawableRight="@mipmap/sniper_normal"
+            android:drawablePadding="@dimen/dimen_5"
+            android:text="高一1班语文"
+            android:textColor="@color/colorPrimary" />
 
-    <TextView
-        android:id="@+id/multiple_class_tv"
-        style="@style/small_black_style2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:drawableRight="@mipmap/sniper_normal"
-        android:drawablePadding="@dimen/dimen_5"
-        android:text="高一1班语文"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toEndOf="@id/multiple_class_name_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <TextView
+            android:id="@+id/multiple_class_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:layout_toEndOf="@id/multiple_subject_tv"
+            android:text="班级："
+            android:textColor="@color/color_6D7278"
+            android:textSize="@dimen/sp_12" />
 
-    <TextView
-        android:id="@+id/class_score_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_60"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:text="@string/class_score_title_hint"
-        android:textColor="@color/color_999999"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/multiple_class_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <TextView
+            android:id="@+id/multiple_class_tv"
+            style="@style/small_black_style2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/multiple_class_name_tv"
+            android:drawableRight="@mipmap/sniper_normal"
+            android:drawablePadding="@dimen/dimen_5"
+            android:text="高一1班语文"
+            android:textColor="@color/colorPrimary" />
 
-    <CheckBox
-        android:id="@+id/class_score_one_cb"
-        android:layout_width="@dimen/dimen_12"
-        android:layout_height="@dimen/dimen_12"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:background="@drawable/aw_bg_checkbox_click"
-        android:checked="true"
-        app:layout_constraintStart_toEndOf="@id/class_score_hint"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <TextView
+            android:id="@+id/class_score_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_60"
+            android:layout_toEndOf="@id/multiple_class_tv"
+            android:text="@string/class_score_title_hint"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12" />
 
-    <TextView
-        android:id="@+id/class_score_one_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:text="不含缺考"
-        android:textColor="@color/black_3B3E42"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/class_score_one_cb"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <CheckBox
+            android:id="@+id/class_score_one_cb"
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="70dp"
+            android:layout_toEndOf="@id/class_score_hint"
+            android:background="@drawable/aw_bg_checkbox_click"
+            android:checked="true" />
 
-    <CheckBox
-        android:id="@+id/class_score_two_cb"
-        android:layout_width="@dimen/dimen_12"
-        android:layout_height="@dimen/dimen_12"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:background="@drawable/aw_bg_checkbox_click"
-        android:checked="true"
-        app:layout_constraintStart_toEndOf="@id/class_score_one_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <TextView
+            android:id="@+id/class_score_one_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_6"
+            android:layout_toEndOf="@id/class_score_one_cb"
+            android:text="不含缺考"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_12" />
 
-    <TextView
-        android:id="@+id/class_score_two_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:text="含0分学生"
-        android:textColor="@color/black_3B3E42"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/class_score_two_cb"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        <CheckBox
+            android:id="@+id/class_score_two_cb"
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_20"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/class_score_one_tv"
+            android:background="@drawable/aw_bg_checkbox_click"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/class_score_two_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_6"
+            android:layout_toEndOf="@id/class_score_two_cb"
+            android:text="含0分学生"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_15"
         android:layout_marginEnd="@dimen/dimen_30"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/multiple_subject_tv">
+        app:layout_constraintTop_toBottomOf="@id/class_common_relative">
 
         <include
-            android:id="@+id/score_achievement_top"
+            android:id="@+id/class_achievement_top"
             layout="@layout/item_class_contrast_scroll_layout" />
 
         <!--         代码动态设置不滑动-->
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/score_recyclerview"
+            android:id="@+id/class_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:scrollbars="none" />
 
         <View
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_1"
             android:layout_height="1dp"
             android:background="#e8e8e8" />
     </LinearLayout>

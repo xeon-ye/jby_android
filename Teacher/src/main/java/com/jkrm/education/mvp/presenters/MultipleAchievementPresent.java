@@ -5,10 +5,14 @@ import com.hzw.baselib.interfaces.AwApiSubscriber;
 import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
+import com.jkrm.education.bean.PeriodCourseBean;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.TableClassBean;
+import com.jkrm.education.bean.result.error.ErrorCourseBean;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import rx.Observable;
@@ -25,30 +29,6 @@ public class MultipleAchievementPresent extends AwCommonPresenter implements Mul
 
     @Override
     public void getTableList(RequestBody requestBody) {
-//        Observable<MultipleAchievementBean> observable = RetrofitClient.builderRetrofit()
-//                .create(APIService.class)
-//                .getMultipleTable(requestBody);
-//        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<MultipleAchievementBean>() {
-//            @Override
-//            public void onSuccess(MultipleAchievementBean data) {
-//                mView.getTableListSuccess(data);
-//            }
-//
-//            @Override
-//            public void onFailure(int code, String msg) {
-//                mView.getTableListFail(msg);
-//            }
-//
-////            @Override
-////            public void onStart() {
-////                mView.showLoadingDialog();
-////            }
-////
-////            @Override
-////            public void onCompleted() {
-////                mView.dismissLoadingDialog();
-////            }
-//        }));
 
         Observable<MultipleAchievementBean> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
@@ -80,39 +60,21 @@ public class MultipleAchievementPresent extends AwCommonPresenter implements Mul
     }
 
     @Override
-    public void getSubjectList() {
-//        Observable<ResponseBean<List<ReViewTaskBean>>> observable = RetrofitClient.builderRetrofit()
-//                .create(APIService.class)
-//                .getTableClassList(teacherId);
-//        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<PeriodCourseBean>() {
-//            @Override
-//            public void onSuccess(PeriodCourseBean data) {
-//                mView.getClassListSuccess(data);
-//            }
-//
-//            @Override
-//            public void onFailure(int code, String msg) {
-//                mView.getClassListFail(msg);
-//            }
-//        }));
+    public void getSubjectList(String teacherId) {
+        Observable<ResponseBean<List<ErrorCourseBean>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getTableSubjectList(teacherId);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ErrorCourseBean>>() {
+            @Override
+            public void onSuccess(List<ErrorCourseBean> data) {
+                mView.getSubjectSuccess(data);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.getSubjectListFail(msg);
+            }
+        }));
     }
 
-    @Override
-    public void getClassList(String teacherId) {
-//        Observable<ResponseBean<TableClassBean>> observable = RetrofitClient.builderRetrofit()
-//                .create(APIService.class)
-//                .getTableClassList(teacherId);
-//        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<TableClassBean>() {
-//            @Override
-//            public void onSuccess(TableClassBean data) {
-//                mView.getClassListSuccess(data);
-//            }
-//
-//            @Override
-//            public void onFailure(int code, String msg) {
-//                mView.getClassListFail(msg);
-//            }
-//        }));
-
-    }
 }

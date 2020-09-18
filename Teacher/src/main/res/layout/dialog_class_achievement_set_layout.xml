@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="420dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/aw_bg_white_radius_8">
+
+    <TextView
+        android:id="@+id/dialog_class_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:text="设置等级"
+        android:textColor="@color/black_3B3E42"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/dialog_excellent_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_class_title_tv">
+
+        <TextView
+            android:id="@+id/dialog_class_excellent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:gravity="center_vertical"
+            android:text="优秀："
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14" />
+
+        <EditText
+            android:id="@+id/excellent_start_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dp_4"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:gravity="center_vertical"
+            android:text="-"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/excellent_end_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_good_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_excellent_linear">
+
+        <TextView
+            android:id="@+id/dialog_class_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:gravity="center_vertical"
+            android:text="良好："
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14" />
+
+        <EditText
+            android:id="@+id/good_start_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dp_4"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:gravity="center_vertical"
+            android:text="-"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/good_end_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_pass_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_good_linear">
+
+        <TextView
+            android:id="@+id/dialog_class_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:gravity="center_vertical"
+            android:text="及格："
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14" />
+
+        <EditText
+            android:id="@+id/pass_start_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dp_4"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:gravity="center_vertical"
+            android:text="-"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/pass_end_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dialog_low_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_pass_linear">
+
+        <TextView
+            android:id="@+id/dialog_class_low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:gravity="center_vertical"
+            android:text="低分："
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14" />
+
+        <EditText
+            android:id="@+id/low_start_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dp_4"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:gravity="center_vertical"
+            android:text="-"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/low_end_et"
+            android:layout_width="104dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/dimen_24"
+            android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_12"
+            android:gravity="center_vertical"
+            android:text="%"
+            android:textColor="@color/black_3B3E42"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/grade_dialog_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dimen_24"
+        android:background="@color/color_d8d8d8"
+        app:layout_constraintTop_toBottomOf="@id/dialog_low_linear" />
+
+    <View
+        android:id="@+id/grade_dialog_line_01"
+        android:layout_width="@dimen/dimen_1_px"
+        android:layout_height="@dimen/dimen_46"
+        android:background="@color/color_d8d8d8"
+        android:duplicateParentState="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grade_dialog_line" />
+
+    <TextView
+        android:id="@+id/dialog_cancel"
+        android:layout_width="@dimen/dimen_150"
+        android:layout_height="@dimen/dimen_45"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/black_3B3E42"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/grade_dialog_line_01"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grade_dialog_line" />
+
+    <TextView
+        android:id="@+id/dialog_sure"
+        android:layout_width="@dimen/dimen_150"
+        android:layout_height="@dimen/dimen_45"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/grade_dialog_line_01"
+        app:layout_constraintTop_toBottomOf="@id/grade_dialog_line" />
+
+</android.support.constraint.ConstraintLayout>
