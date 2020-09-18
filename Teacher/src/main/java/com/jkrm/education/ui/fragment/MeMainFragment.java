@@ -247,13 +247,21 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
     public void getClassesByIdSuccess(List<RequestClassesBean> data) {
         mList = data;
         StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < data.size(); i++) {
-            if (i == 0 || i == data.size() - 1) {
+        if(data.size()>1){
+            for (int i = 0; i < data.size(); i++) {
+
+                if (i == data.size() - 1) {
+                    stringBuffer.append(data.get(i).getClassName());
+                } else {
+                    stringBuffer.append(data.get(i).getClassName() + ",");
+                }
+            }
+        }else{
+            for (int i = 0; i < data.size(); i++) {
                 stringBuffer.append(data.get(i).getClassName());
-            } else {
-                stringBuffer.append(data.get(i).getClassName() + ",");
             }
         }
+
         if (null != mTvClasses && !AwDataUtil.isEmpty(stringBuffer)) {
             mTvClasses.setText(stringBuffer);
         }

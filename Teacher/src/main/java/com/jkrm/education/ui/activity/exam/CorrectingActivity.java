@@ -67,6 +67,7 @@ import com.jkrm.education.mvp.presenters.CorrectingPresent;
 import com.jkrm.education.mvp.views.CorrectionView;
 import com.jkrm.education.ui.activity.ImgActivity;
 import com.jkrm.education.ui.activity.SeeTargetQuestionActivity;
+import com.jkrm.education.util.ReLoginUtil;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.TestDataUtil;
 import com.jkrm.education.util.UserUtil;
@@ -398,6 +399,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     new Handler().postDelayed(() -> toSaveImg(true, totalMarkScore), 300);
                     //直接判分, 不用上传图片
 //                        mPresenter.markQuestion(true, mCurrentStudentSingleQuestionAnswerResultBean.getId(), RequestUtil.getMarkQuestionRequest("", totalMarkScore, "1"));
+                    mPresenter.examMark(true, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(),mExamQuestionsBean.getQuestionId()));
 
                 }
             }
@@ -450,6 +452,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         if (isSelectReMark) {
             replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
         }
+        questionUrl=replace;
         //设置常用分数, 最大分数不存在, 取消展示常用分数
         maxScore = Float.parseFloat(MyDateUtil.replace(AwDataUtil.isEmpty(mExamQuestionsBean.getMaxScore()) ? "0" : (mExamQuestionsBean.getMaxScore())));
         Glide.with(mActivity).load(replace).into(mIvQuestionImg);
@@ -521,7 +524,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             e.printStackTrace();
         }
         questionUrl = bean.getAccessUrl();
-        mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay()));
+        mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(),mExamQuestionsBean.getQuestionId()));
 
 
     }
@@ -775,6 +778,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 break;
             case R.id.tv_commonUse:
             case R.id.iv_commonUse:
+                isEditCommonUse=true;
                 IncommonUseDialogFrament incommonUseDialogFrament = new IncommonUseDialogFrament();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Extras.KEY_SCORE_LIST, (Serializable) mCommonUseScoreList);
@@ -785,6 +789,35 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     public void onSureChick() {
                         mCommonUseScoreAdapter.notifyDataSetChanged();
                         mIvQuestionImg.setEnableTouch(true);
+                        if (isEditCommonUse) {
+                            mIvQuestionImg.setEnableTouch(true);
+                            isEditCommonUse = false;
+                            // showView(mVieAlpha, false);
+                            //setText(mTvCommonUse, "常用");
+                            mIvCommonUse.setImageResource(R.mipmap.common_setting);
+
+                            List<String> commonUseScoreList = new ArrayList<>();
+                            //保存到数据库
+                            for (TestMarkCommonUseScoreBean temp : mCommonUseScoreList) {
+                                if (temp.isHandleModify()) {
+                                    commonUseScoreList.add(String.valueOf(temp.getScore()));
+                                }
+                            }
+                            List<DaoMarkCommonScoreUseBean> list = DaoScoreCommonUseUtil.getInstance().queryBeanByQueryBuilderOfName("");
+                            if (!AwDataUtil.isEmpty(list)) {
+                                for (DaoMarkCommonScoreUseBean temp : list) {
+                                    DaoScoreCommonUseUtil.getInstance().deleteBean(temp);
+                                }
+                            }
+                            DaoScoreCommonUseUtil.getInstance().insertBean(new DaoMarkCommonScoreUseBean(questionName, "", commonUseScoreList));
+                        } else {
+                            mIvQuestionImg.setEnableTouch(false);
+                            isEditCommonUse = true;
+                            //showView(mVieAlpha, true);
+                            // setText(mTvCommonUse, "完成");
+                            // mIvCommonUse.setImageResource(R.mipmap.common_finish);
+
+                        }
                         isEditCommonUse = false;
                         // showView(mVieAlpha, false);
                     }
@@ -838,35 +871,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                         }
                     }
                 });
-                if (isEditCommonUse) {
-                    mIvQuestionImg.setEnableTouch(true);
-                    isEditCommonUse = false;
-                    // showView(mVieAlpha, false);
-                    //setText(mTvCommonUse, "常用");
-                    mIvCommonUse.setImageResource(R.mipmap.common_setting);
 
-                    List<String> commonUseScoreList = new ArrayList<>();
-                    //保存到数据库
-                    for (TestMarkCommonUseScoreBean temp : mCommonUseScoreList) {
-                        if (temp.isHandleModify()) {
-                            commonUseScoreList.add(String.valueOf(temp.getScore()));
-                        }
-                    }
-                    List<DaoMarkCommonScoreUseBean> list = DaoScoreCommonUseUtil.getInstance().queryBeanByQueryBuilderOfName("");
-                    if (!AwDataUtil.isEmpty(list)) {
-                        for (DaoMarkCommonScoreUseBean temp : list) {
-                            DaoScoreCommonUseUtil.getInstance().deleteBean(temp);
-                        }
-                    }
-                    DaoScoreCommonUseUtil.getInstance().insertBean(new DaoMarkCommonScoreUseBean(questionName, "", commonUseScoreList));
-                } else {
-                    mIvQuestionImg.setEnableTouch(false);
-                    isEditCommonUse = true;
-                    //showView(mVieAlpha, true);
-                    // setText(mTvCommonUse, "完成");
-                    // mIvCommonUse.setImageResource(R.mipmap.common_finish);
-
-                }
                 break;
             case R.id.tv_handleSwitch:
                 if (isEditCommonUse) {
@@ -1103,5 +1108,9 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         totalMarkScore = type.getTotalMarkScore();
         setQuestionInfo(false);
         AwLog.d("MarkActivity refreshByBus isMark: " + isMarked + ",totalMarkScore: " + totalMarkScore);
+    }
+    @Override
+    protected void reLogin() {
+        ReLoginUtil.reLogin(mActivity);
     }
 }

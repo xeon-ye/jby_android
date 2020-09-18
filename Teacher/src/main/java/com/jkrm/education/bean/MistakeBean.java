@@ -106,6 +106,26 @@ public class MistakeBean {
     private List<?> knowlPoints;
     private List<?> testPoints;
     private boolean isExpend;
+    private String parentContent;
+
+    public boolean isParentExpend() {
+        return isParentExpend;
+    }
+
+    public void setParentExpend(boolean parentExpend) {
+        isParentExpend = parentExpend;
+    }
+
+    private boolean isParentExpend;
+
+
+    public String getParentContent() {
+        return parentContent;
+    }
+
+    public void setParentContent(String parentContent) {
+        this.parentContent = parentContent;
+    }
 
     public boolean isExpend() {
         return isExpend;

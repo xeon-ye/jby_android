@@ -190,7 +190,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         achievementSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(MultipleAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MultipleAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+                toClass(StudentAnalyseActivity.class,false,Extras.EXAM_ID,achievementBean.getRows().get(position).getExamId(),Extras.STUDENT_ID,achievementBean.getRows().get(position).getStudId());
             }
         });
 

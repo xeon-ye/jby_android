@@ -101,19 +101,24 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
         BarChart barChart = helper.getView(R.id.barchart);
         PieChart piechart = helper.getView(R.id.piechart);
         TextView tv_join = helper.getView(R.id.tv_join);
-
-
+        TextView tv_exPlat = helper.getView(R.id.tv_exPlat);
+        MathView mathview_content = helper.getView(R.id.mathview_content);
+        if(!AwDataUtil.isEmpty(item.getParentId())){
+            helper.setVisible(R.id.tv_exPlat,true);
+            helper.setVisible(R.id.mathview_content,true);
+            mathview_content.setText(item.getParentContent());
+        }
         QuestionBasketOptionsAdapter questionBasketOptionsAdapter = new QuestionBasketOptionsAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout((Activity) mContext, recyclerView, questionBasketOptionsAdapter, false);
         setChoiceListData(item, questionBasketOptionsAdapter, recyclerView);
         mathView.setText(item.getContent());
         AwMathViewUtil.setImgScan(mathView);
-        if("1".equals(item.getIsBasket())){
+        if ("1".equals(item.getIsBasket())) {
             tv_join.setText("移除题篮");
             Drawable drawable = mContext.getResources().getDrawable(R.drawable.aw_bg_gray_radius_30);
             tv_join.setBackground(drawable);
             tv_join.setTextColor(Color.BLACK);
-        }else{
+        } else {
             tv_join.setText("加入题篮");
             Drawable drawable = mContext.getResources().getDrawable(R.drawable.aw_bg_blue_radius_30);
             tv_join.setBackground(drawable);
@@ -129,11 +134,23 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
                 sniper_normal.setBounds(0, 0, sniper_normal.getMinimumWidth(), sniper_normal.getMinimumHeight());
                 sniper_select.setBounds(0, 0, sniper_select.getMinimumWidth(), sniper_select.getMinimumHeight());
                 tv_analyse.setCompoundDrawables(null, null, !item.isExpend() ? sniper_normal : sniper_select, null);
-                if("2".equals(item.getType().getIsOption())){
+                if ("2".equals(item.getType().getIsOption())) {
                     helper.setGone(R.id.barchart, item.isExpend());
-                }else{
-                    helper.setGone(R.id.piechart,item.isExpend());
+                } else {
+                    helper.setGone(R.id.piechart, item.isExpend());
                 }
+            }
+        });
+        tv_exPlat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                item.setParentExpend(!item.isParentExpend());
+                Drawable sniper_normal = mContext.getResources().getDrawable(R.mipmap.sniper_normal);
+                Drawable sniper_select = mContext.getResources().getDrawable(R.mipmap.sniper_select);
+                sniper_normal.setBounds(0, 0, sniper_normal.getMinimumWidth(), sniper_normal.getMinimumHeight());
+                sniper_select.setBounds(0, 0, sniper_select.getMinimumWidth(), sniper_select.getMinimumHeight());
+                tv_exPlat.setCompoundDrawables(null, null, !item.isParentExpend() ? sniper_normal : sniper_select, null);
+                helper.setGone(R.id.mathview_content, item.isParentExpend());
             }
         });
         if ("2".equals(item.getType().getIsOption())) {
@@ -142,7 +159,7 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
                     .getErrorStatistics(RequestUtil.getErrorStatisticsBody(ErrorQuestionFragment.mStrClassIds, item.getTemplateId(), item.getId()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe( new AwApiSubscriber(new AwApiCallback<ErrorChoiceStatisticsBean>() {
+                    .subscribe(new AwApiSubscriber(new AwApiCallback<ErrorChoiceStatisticsBean>() {
                         @Override
                         public void onStart() {
                         }
@@ -159,7 +176,7 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
                             for (int i = 0; i < arrayList.size(); i++) {
                                 if ("unchoose".equals(arrayList.get(i).toString())) {
                                     xAxisValues.add("未答");
-                                }else{
+                                } else {
                                     xAxisValues.add(arrayList.get(i).toString());
                                 }
                                 yAxisValues.add((float) data.getOptionsStatistic().get(arrayList.get(i)).size());

@@ -267,7 +267,7 @@ public class CorrectingPresent extends AwCommonPresenter implements CorrectionVi
 
             @Override
             public void onSuccess(String model) {
-                mView.markQuestionSuccess(isNext);
+                mView.examMarkSuccess(isNext);
             }
 
             @Override

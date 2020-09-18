@@ -510,7 +510,7 @@ public class RequestUtil {
      * 考试批阅
      * @return
      */
-    public static RequestBody getExamMarkRequest(String id, String answerId, String score,String gradedScan,String optStatus,String readWay ) {
+    public static RequestBody getExamMarkRequest(String id, String answerId, String score,String gradedScan,String optStatus,String readWay ,String questinId) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("id", id);
         hashMap.put("answerId", answerId);
@@ -520,6 +520,7 @@ public class RequestUtil {
         hashMap.put("status", "");
         hashMap.put("answer", "");
         hashMap.put("readWay", readWay);
+        hashMap.put("questinId",questinId);
         return getBody(hashMap);
     }
 
@@ -624,5 +625,17 @@ public class RequestUtil {
         return getBody(hashMap);
     }
 
+    /**
+     * 获取报表
+     * @param examId
+     * @param studId
+     * @return
+     */
+    public static RequestBody getReportForm( String examId, String studId){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("examId", examId);
+        hashMap.put("studId", studId);
+        return getBody(hashMap);
+    }
 
 }

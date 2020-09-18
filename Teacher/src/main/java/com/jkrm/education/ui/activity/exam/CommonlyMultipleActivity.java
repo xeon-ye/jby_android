@@ -25,6 +25,7 @@ import com.jkrm.education.bean.ReViewTaskBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.CommonlyMultiplePresent;
 import com.jkrm.education.mvp.views.CommonlyMultipleView;
 import com.jkrm.education.util.RequestUtil;
@@ -158,6 +159,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(CommonlyMultipleActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -206,6 +208,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(CommonlyMultipleActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -267,7 +270,8 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         achievementSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(CommonlyMultipleActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CommonlyMultipleActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+                toClass(StudentAnalyseActivity.class,false, Extras.EXAM_ID,achievementBean.getRows().get(position).getExamId(),Extras.STUDENT_ID,achievementBean.getRows().get(position).getStudId());
             }
         });
 

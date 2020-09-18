@@ -127,7 +127,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    >
 
                     <TextView
                         android:id="@+id/tv_pro"
@@ -135,14 +136,27 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_20"
                         android:gravity="center"
-                        android:text="不限"
+                        android:text="0-60"
                         android:textColor="@color/colorPrimary" />
+
+
+
 
                     <LinearLayout
                         android:id="@+id/ll_of_seekbar"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
+                        <com.jaygoo.widget.RangeSeekBar
+                            android:id="@+id/rsb"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:rsb_gravity="bottom"
+                            app:rsb_mode="range"
+                            app:rsb_thumb_drawable="@drawable/thumb_yellow_stroke"
+                            app:rsb_progress_color="@color/colorPrimary"
+
+                            />
 
                         <com.hzw.baselib.widgets.BidirectionalSeekBar
                             android:id="@+id/bid_seekbar"
@@ -153,7 +167,10 @@
                             app:ball_right_drawable="@drawable/seekbar_ball"
                             app:pb_height="8dp"
                             app:pb_within_color="@color/colorPrimary"
-                            app:pb_without_color="@color/color_ededed" />
+                            app:pb_without_color="@color/color_ededed"
+                            android:visibility="gone"
+                            />
+
                     </LinearLayout>
 
 

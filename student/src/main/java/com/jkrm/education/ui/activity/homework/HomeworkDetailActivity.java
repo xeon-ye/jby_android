@@ -1,6 +1,5 @@
 package com.jkrm.education.ui.activity.homework;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,17 +8,18 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hzw.baselib.base.AwMvpActivity;
-import com.hzw.baselib.constants.AwBaseConstant;
 import com.hzw.baselib.project.student.bean.MarkBean;
 import com.hzw.baselib.util.AwConvertUtil;
 import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwDisplayUtil;
-import com.hzw.baselib.util.AwEffectiveRequestViewUtil;
 import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
@@ -39,22 +39,14 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.HomeworkDetailPresent;
 import com.jkrm.education.mvp.views.HomeworkDetailView;
-import com.jkrm.education.mvp.views.OnlineAnswerChoiceView;
 import com.jkrm.education.ui.activity.FamousTeacherLectureActivity;
 import com.jkrm.education.ui.activity.ImgActivity;
 import com.jkrm.education.ui.activity.OnlineAnswerActivity;
-import com.jkrm.education.ui.activity.OnlineGroupObjectiveQuestionsActivity;
-import com.jkrm.education.ui.activity.OnlineMultipleChoiceActivity;
-import com.jkrm.education.ui.activity.OnlineNonGroupSubjectiveQuestionsActivity;
-import com.jkrm.education.ui.activity.OnlineNonMultipleChoiceActivity;
-import com.jkrm.education.ui.activity.OnlineSubjectiveQuestionsOfGroupQuestionsActivity;
 import com.jkrm.education.ui.activity.OriginPaperActivity;
-import com.jkrm.education.ui.activity.QuestionExpandActivity;
 import com.jkrm.education.ui.activity.SeeTargetQuestionActivity;
 import com.jkrm.education.ui.activity.VideoPointActivity;
 import com.jkrm.education.util.CustomFontStyleUtil;
 import com.jkrm.education.util.RequestUtil;
-import com.jkrm.education.util.TestDataUtil;
 import com.jkrm.education.util.UserUtil;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
@@ -100,6 +92,14 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private static final int TAG_SORT_QUESTION_RATIO_AVERAGE = 3;
     @BindView(R.id.tv_exam)
     TextView mTvExam;
+    @BindView(R.id.ll_title)
+    LinearLayout mLlTitle;
+    @BindView(R.id.iv_back)
+    ImageView mIvBack;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
+    @BindView(R.id.tv_num)
+    TextView mTvNum;
     private IndicatorViewPager indicatorViewPager;
     private HomeworkDetailViewPagerAdapter mViewPagerAdapter;
 
@@ -109,7 +109,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private String sheetId = "";
     private String homeworkId = "";
     //得分 展示在哪个柱状图里
-    public static String mStrAverageGrade="";
+    public static String mStrAverageGrade = "";
 
     private List<AnswerSheetDataDetailResultBean> mAnswerSheetDataDetailResultBeanList = new ArrayList<>();
     /**
@@ -121,7 +121,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
      */
     private List<VideoPointResultBean> mVideoPointResultBeanList = new ArrayList<>();
 
-    private List<MarkBean> mMarkBeanList=new ArrayList<>();
+    private List<MarkBean> mMarkBeanList = new ArrayList<>();
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -137,11 +137,11 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     protected void initView() {
         super.initView();
         setStatusTxtDark();
-        mMarkBeanList.add(new MarkBean(true,"按题号排序"));
-        mMarkBeanList.add(new MarkBean(false,"得分率排序"));
+        mMarkBeanList.add(new MarkBean(true, "按题号排序"));
+        mMarkBeanList.add(new MarkBean(false, "得分率排序"));
         setToolbarWithBackImgAndRightView("作业详情", "题号", () -> {
             showView(mViewAlpha, true);
-            AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlphaWithIcon(mActivity,mMarkBeanList, mToolbar,
+            AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlphaWithIcon(mActivity, mMarkBeanList, mToolbar,
                     () -> HomeworkDetailActivity.this.showView(mViewAlpha, false)
                     , bean -> {
                         showView(mViewAlpha, false);
@@ -162,6 +162,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     });
 
         });
+
         mToolbar.setRTextColor(R.color.blue);
         mToolbar.setRightImgWithTxt(R.mipmap.icon_sanjiao);
         TextView textView = mToolbar.findViewById(R.id.toolbar_title);
@@ -176,17 +177,21 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             showDialogToFinish("获取作业数据失败");
             return;
         }
-        if("2".equals(mRowsHomeworkBean.getOrigin())){
-            showView(mTvExam,false);
+        if ("2".equals(mRowsHomeworkBean.getOrigin())) {
+            showView(mTvExam, false);
         }
 
         mToolbar.setToolbarMaxEms(10);
         mToolbar.setToolbarTitle(mRowsHomeworkBean.getHomeworkName());
+        mTvTitle.setText(mRowsHomeworkBean.getHomeworkName());
+        mTvTitle.setTypeface(CustomFontStyleUtil.getNewRomenType());
+        mTvTitle.setMovementMethod(ScrollingMovementMethod.getInstance());
+        mTvTitle.setHorizontallyScrolling(true);
         sheetId = mRowsHomeworkBean.getId();
         homeworkId = mRowsHomeworkBean.getHomeworkId();
         setText(mTvScoreResult, "得分" + MyDateUtil.replace(mRowsHomeworkBean.getScore()) + "分");
-        mStrAverageGrade=mRowsHomeworkBean.getScore();
-        setText(mTvClasseAverage, "，班级均分" + AwConvertUtil.double2String(Double.parseDouble(mRowsHomeworkBean.getAverageGrade()), 2)  + "分");
+        mStrAverageGrade = mRowsHomeworkBean.getScore();
+        setText(mTvClasseAverage, "，班级均分" + AwConvertUtil.double2String(Double.parseDouble(mRowsHomeworkBean.getAverageGrade()), 2) + "分");
         setScoreStyle();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -249,7 +254,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
             }
         });
         mTvExam.setOnClickListener(view -> {
-            toClass(OriginPaperActivity.class,false,Extras.KEY_BEAN_ROWS_HOMEWORK,mRowsHomeworkBean);//查看原卷
+            toClass(OriginPaperActivity.class, false, Extras.KEY_BEAN_ROWS_HOMEWORK, mRowsHomeworkBean);//查看原卷
         });
 
         mDetailAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -271,12 +276,12 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     toClass(SeeTargetQuestionActivity.class, false, Extras.COMMON_BOOLEAN, bean.isChoiceQuestion() ? false : true, Extras.COMMON_PARAMS, bean.getQuestionId());
                     break;
                 case R.id.btn_questionExpand:
-                    if("0".equals(bean.getIsFree())){
+                    if ("0".equals(bean.getIsFree())) {
                         showMsg("暂未开通此服务，请联系客服或代理商");
                         return;
                     }
                     //进入类题加连后区分数据
-                    toClass(OnlineAnswerActivity.class,false ,Extras.COMMON_PARAMS, bean.getQuestionId(),Extras.COURSE_ID,mRowsHomeworkBean.getCourseId());
+                    toClass(OnlineAnswerActivity.class, false, Extras.COMMON_PARAMS, bean.getQuestionId(), Extras.COURSE_ID, mRowsHomeworkBean.getCourseId());
                /*     // *  非组题 主观题
                     toClass(OnlineNonGroupSubjectiveQuestionsActivity.class,false,Extras.COMMON_PARAMS,bean.getQuestionId());
                     // 组题 客观题
@@ -293,10 +298,10 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         //非选择题
                         toClass(OnlineNonMultipleChoiceActivity.class,false, Extras.COMMON_PARAMS, bean.getQuestionId());
                     }*/
-                   // toClass(QuestionExpandActivity.class, false, Extras.COMMON_PARAMS, bean.getQuestionId());
+                    // toClass(QuestionExpandActivity.class, false, Extras.COMMON_PARAMS, bean.getQuestionId());
                     break;
                 case R.id.btn_famousTeacherLecture:
-                    if("0".equals(bean.getIsFree())){
+                    if ("0".equals(bean.getIsFree())) {
                         showMsg("暂未开通此服务，请联系客服或代理商");
                         return;
                     }
@@ -329,6 +334,39 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     break;
             }
         });
+        mTvNum.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                AwPopupwindowUtil.showCommonTopListPopupWindowWithParentAndDismissNoAlphaWithIcon(mActivity, mMarkBeanList, mTvNum,
+                        () -> HomeworkDetailActivity.this.showView(mViewAlpha, false)
+                        , bean -> {
+                            showView(mViewAlpha, false);
+                            if (!AwDataUtil.isEmpty(mTvNum.getText().toString()) && mTvNum.getText().toString().equals(bean)
+                                    || AwDataUtil.isEmpty(mAnswerSheetDataDetailResultBeanList)) {
+                                return;
+                            }
+                            if ("按题号排序".equals(((MarkBean) bean).getTitle())) {
+                                mTvNum.setText("题号");
+                                setData(TAG_SORT_QUESTION_NUM);
+                            } else if ("得分率排序".equals(((MarkBean) bean).getTitle())) {
+                                mTvNum.setText("得分率");
+                                setData(TAG_SORT_QUESTION_RATIO_INCREASE);
+                            }
+                            //                        else if("得分率降序".equals(bean)) {
+                            //                            setData(mHomeworkDetailResultBean, TAG_SORT_QUESTION_RATIO_REDUCE);
+                            //                        }
+                        });
+
+            }
+        });
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     /**
@@ -426,16 +464,16 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mVideoPointResultBeanList = list;
         if (AwDataUtil.isEmpty(list)) {
             setText(mTvVideoPoint, "暂无对点微课");
-            showView(mTvVideoPoint,false);
-           // AwEffectiveRequestViewUtil.setTextViewEnableBlue(mActivity, mTvVideoPoint, false);
+            showView(mTvVideoPoint, false);
+            // AwEffectiveRequestViewUtil.setTextViewEnableBlue(mActivity, mTvVideoPoint, false);
         }
     }
 
     @Override
     public void getVideoPointListFail(String msg) {
         setText(mTvVideoPoint, "暂无对点微课");
-        showView(mTvVideoPoint,false);
-       // AwEffectiveRequestViewUtil.setTextViewEnableBlue(mActivity, mTvVideoPoint, false);
+        showView(mTvVideoPoint, false);
+        // AwEffectiveRequestViewUtil.setTextViewEnableBlue(mActivity, mTvVideoPoint, false);
     }
 
     @Override
@@ -443,18 +481,18 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
         mVideoPointResultBeanList = list;
         if (AwDataUtil.isEmpty(list)) {
             setText(mTvVideoPoint, "暂无对点微课");
-            showView(mTvVideoPoint,false);
+            showView(mTvVideoPoint, false);
 
             //AwEffectiveRequestViewUtil.setTextViewEnableBlue(mActivity, mTvVideoPoint, false);
-        }else{
-            showView(mTvVideoPoint,true);
+        } else {
+            showView(mTvVideoPoint, true);
         }
     }
 
     @Override
     public void getVideoPointListNewFail(String msg) {
         setText(mTvVideoPoint, "暂无对点微课");
-        showView(mTvVideoPoint,false);
+        showView(mTvVideoPoint, false);
         //AwEffectiveRequestViewUtil.setTextViewEnableBlue(mActivity, mTvVideoPoint, false);
     }
 
@@ -488,7 +526,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
 
     private void getData() {
         mPresenter.answerSheetsQuestion(sheetId);
-       // mPresenter.getClassScoreMaxScore(sheetId);
+        // mPresenter.getClassScoreMaxScore(sheetId);
 //        mPresenter.getVideoPointList(homeworkId);
         mPresenter.getVideoPointListNew(homeworkId);
 //        mPresenter.getVideoPointList("0301201902030303021890258a699734c48bd21a3c40c4c1c3d");
@@ -559,11 +597,11 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                 case TAG_SORT_QUESTION_RATIO_INCREASE:
 
                     Collections.sort(mAnswerSheetDataDetailResultBeanList, (o1, o2) -> {
-                        if(AwDataUtil.isEmpty(o1.getScore())||AwDataUtil.isEmpty(o1.getMaxScore())||AwDataUtil.isEmpty(o2.getScore())||AwDataUtil.isEmpty(o2.getMaxScore())){
+                        if (AwDataUtil.isEmpty(o1.getScore()) || AwDataUtil.isEmpty(o1.getMaxScore()) || AwDataUtil.isEmpty(o2.getScore()) || AwDataUtil.isEmpty(o2.getMaxScore())) {
                             return 1;
                         }
-                        float ratio1 = Float.parseFloat(o1.getScore())/Float.parseFloat(o1.getMaxScore());
-                        float ratio2 = Float.parseFloat(o2.getScore())/Float.parseFloat(o2.getMaxScore());
+                        float ratio1 = Float.parseFloat(o1.getScore()) / Float.parseFloat(o1.getMaxScore());
+                        float ratio2 = Float.parseFloat(o2.getScore()) / Float.parseFloat(o2.getMaxScore());
                         if (ratio1 >= ratio2) {
                             return 1;
                         } else {

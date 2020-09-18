@@ -71,8 +71,13 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     @Override
     protected void initView() {
         super.initView();
+<<<<<<< HEAD
+        //toClass(StudentAnalyseActivity.class,false);
+//        toClass(ViewStudentAnswerSheetActivity.class,false);
+=======
        // toClass(StudentAnalyseActivity.class,false);
         //toClass(ViewStudentAnswerSheetActivity.class,false);
+>>>>>>> a8760edee47a32e32f52fa4ef7a90d200921fe65
         mExamSearchAdapter = new ExamSearchAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mExamSearchAdapter, false);
 

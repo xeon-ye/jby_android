@@ -3,8 +3,11 @@ package com.jkrm.education.mvp.views;
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
 import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ColumnDataBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.LineDataBean;
+import com.jkrm.education.bean.exam.OverViewBean;
 
 import java.util.List;
 
@@ -17,15 +20,20 @@ import okhttp3.RequestBody;
 public interface StudentAnalysisView extends AwBaseView {
 
     interface Presenter extends AwBasePresenter {
-        void getColumnData(String examId,String studId);
-        void getLineData(String examId,String studId);
+        void getOverView(RequestBody requestBody);
+        void getColumnData(RequestBody requestBody);
+        void getLineData(RequestBody requestBody);
     }
 
     interface View extends AwBaseView {
-        void getColumnDataSuccess();
+
+        void getOverViewSuccess(OverViewBean overViewBean);
+        void getOverViewFail(String msg);
+
+        void getColumnDataSuccess(List<ColumnDataBean> data);
         void getColumnDataFail(String msg);
 
-        void getLineDataSuccess();
+        void getLineDataSuccess(List<LineDataBean> data);
         void getLineDataFail(String msg);
     }
 

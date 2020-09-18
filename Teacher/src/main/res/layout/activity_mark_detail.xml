@@ -103,7 +103,9 @@
                                 android:layout_height="35dp"
                                 android:layout_marginRight="@dimen/dimen_10"
                                 android:layout_toLeftOf="@id/btn_seeOriginal"
-                                android:text="回评" />
+                                android:text="回评"
+                                android:visibility="gone"
+                                />
                         </RelativeLayout>
                     </LinearLayout>
 

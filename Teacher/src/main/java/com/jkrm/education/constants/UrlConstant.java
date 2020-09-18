@@ -340,6 +340,8 @@ public class UrlConstant {
      */
     public static final String GET_ANALYSIS_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examAnalysisPage";
 
+
+    public static final String GET_OVER_VIEW=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem//pc/examCourse/results/overview";
     /**
      * 柱状图
      */

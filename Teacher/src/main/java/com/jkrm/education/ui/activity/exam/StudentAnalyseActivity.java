@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.BarChart;
@@ -14,7 +15,6 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -23,18 +23,21 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.hzw.baselib.base.AwMvpActivity;
-import com.hzw.baselib.mpchart.formatters.ValueFormatter;
 import com.hzw.baselib.project.student.bean.MarkBean;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.LevelAdapter;
 import com.jkrm.education.adapter.exam.LevelGridViewAdapter;
+import com.jkrm.education.bean.exam.ColumnDataBean;
+import com.jkrm.education.bean.exam.LineDataBean;
+import com.jkrm.education.bean.exam.OverViewBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.StudentAnalysisPresent;
 import com.jkrm.education.mvp.views.StudentAnalysisView;
+import com.jkrm.education.util.RequestUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,11 +62,25 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     LineChart lineChart;
     @BindView(R.id.barchart)
     BarChart barchart;
+    @BindView(R.id.tv_myScore)
+    TextView mTvMyScore;
+    @BindView(R.id.tv_gradeBeatNum)
+    TextView mTvGradeBeatNum;
+    @BindView(R.id.tv_gradeRank)
+    TextView mTvGradeRank;
+    @BindView(R.id.tv_classAvgScore)
+    TextView mTvClassAvgScore;
+    @BindView(R.id.tv_gradeMaxScore)
+    TextView mTvGradeMaxScore;
     private LevelAdapter levelAdapter;
     private List<MarkBean> markBeans = new ArrayList<>();
     private List<MarkBean> courseBeans = new ArrayList<>();
     private LevelGridViewAdapter levelGridViewAdapter = new LevelGridViewAdapter();
     private LevelGridViewAdapter courseGridViewAdapter = new LevelGridViewAdapter();
+    String EXAM_ID;
+    String STUDENT_ID;
+    private final int CLASS_TYPE = 0, SCHOOL_TYPE = 1;
+    private List<ColumnDataBean> mColumnDataBeans;
 
     @Override
     protected int getLayoutId() {
@@ -86,14 +103,14 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         levelGridViewAdapter.setMarkBeanList(markBeans);
         levelGridViewAdapter.setContext(StudentAnalyseActivity.this);
         courseBeans.add(new MarkBean(true, "总分"));
-        courseBeans.add(new MarkBean(false, "生物"));
+        /*courseBeans.add(new MarkBean(false, "生物"));
         courseBeans.add(new MarkBean(false, "化学"));
         courseBeans.add(new MarkBean(false, "语文"));
         courseBeans.add(new MarkBean(false, "数学"));
         courseBeans.add(new MarkBean(false, "政治"));
         courseBeans.add(new MarkBean(false, "历史"));
         courseBeans.add(new MarkBean(false, "英语"));
-        courseBeans.add(new MarkBean(false, "地理"));
+        courseBeans.add(new MarkBean(false, "地理"));*/
         gvLevel.setAdapter(levelGridViewAdapter);
         courseGridViewAdapter.setMarkBeanList(courseBeans);
         courseGridViewAdapter.setContext(StudentAnalyseActivity.this);
@@ -105,36 +122,48 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         super.initData();
         levelAdapter.addData(new MarkBean(true, "班级层次"));
         levelAdapter.addData(new MarkBean(false, "校级层次  "));
-        setData();
-        setBarChartData();
+        EXAM_ID = getIntent().getExtras().getString(Extras.EXAM_ID);
+        STUDENT_ID = getIntent().getExtras().getString(Extras.STUDENT_ID);
+        mPresenter.getColumnData(RequestUtil.getReportForm(EXAM_ID, STUDENT_ID));
+        mPresenter.getLineData(RequestUtil.getReportForm(EXAM_ID, STUDENT_ID));
+        mPresenter.getOverView(RequestUtil.getReportForm(EXAM_ID, STUDENT_ID));
     }
 
-    private void setBarChartData() {
+    private void setBarChartData(List<ColumnDataBean> columnDataBeans,int type) {
 
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
         ArrayList<BarEntry> values3 = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            values1.add(new BarEntry(i, (float) (Math.random() * 10)));
-            values2.add(new BarEntry(i, (float) (Math.random() * 20)));
-            values3.add(new BarEntry(i, (float) (Math.random() * 30)));
+        ArrayList<String> strings = new ArrayList<>();
+
+        for (int i = 0; i < columnDataBeans.size(); i++) {
+            if(type==CLASS_TYPE){
+                values1.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getMyScore())));
+                values2.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getClassMaxScore())));
+                values3.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getClassAvgScore())));
+            }else if(type==SCHOOL_TYPE){
+                values1.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getMyScore())));
+                values2.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getGradeMaxScore())));
+                values3.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getClassAvgScore())));
+            }
+
+            strings.add(columnDataBeans.get(i).getCourseName());
         }
 
         BarDataSet set1, set2, set3;
         set1 = new BarDataSet(values1, "我的成绩");
-        set1.setColor(Color.rgb(104, 241, 175));
+        set1.setColor(Color.rgb(10, 147, 252));
         set2 = new BarDataSet(values2, "最高分");
-        set2.setColor(Color.rgb(164, 228, 251));
+        set2.setColor(Color.rgb(255, 44, 21));
         set3 = new BarDataSet(values3, "平均分");
-        set3.setColor(Color.rgb(242, 247, 158));
+        set3.setColor(Color.rgb(109, 212, 0));
 
         BarData data = new BarData(set1, set2, set3);
         data.setValueFormatter(new LargeValueFormatter());
         barchart.getXAxis().setAxisMinimum(0);
         XAxis xAxis = barchart.getXAxis();
         xAxis.setGranularity(1f);
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("总分");
+       /* strings.add("总分");
         strings.add("生物");
         strings.add("化学");
         strings.add("语文");
@@ -142,7 +171,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         strings.add("政治");
         strings.add("历史");
         strings.add("英语");
-        strings.add("地理");
+        strings.add("地理");*/
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -151,7 +180,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         });
         barchart.setData(data);
         barchart.getBarData().setBarWidth(0.05f);
-        barchart.groupBars(0, 0.5f, 0);
+        barchart.groupBars(0, 0.8f, 0);
         barchart.invalidate();
     }
 
@@ -187,6 +216,11 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
                     } else {
                         markBeans.get(i).setSelect(false);
                     }
+                    if(position==0){
+                        setBarChartData(mColumnDataBeans,CLASS_TYPE);
+                    }else{
+                        setBarChartData(mColumnDataBeans,SCHOOL_TYPE);
+                    }
                     levelGridViewAdapter.notifyDataSetChanged();
                 }
             }
@@ -212,48 +246,65 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     }
 
     @Override
-    public void getColumnDataSuccess() {
+    public void getOverViewSuccess(OverViewBean overViewBean) {
+        mTvMyScore.setText(overViewBean.getMyScore());
+        mTvClassAvgScore.setText(overViewBean.getClassAvgScore());
+        mTvGradeMaxScore.setText(overViewBean.getGradeMaxScore());
+        mTvGradeBeatNum.setText(overViewBean.getClassBeatNum());
+        mTvGradeRank.setText("/" + overViewBean.getGradeRank());
+    }
+
+    @Override
+    public void getOverViewFail(String msg) {
+        showMsg(msg);
+    }
+
+    @Override
+    public void getColumnDataSuccess(List<ColumnDataBean> data) {
+        mColumnDataBeans = data;
+        setBarChartData(mColumnDataBeans,CLASS_TYPE);
 
     }
+
 
     @Override
     public void getColumnDataFail(String msg) {
-
+        showMsg(msg);
     }
 
     @Override
-    public void getLineDataSuccess() {
-
+    public void getLineDataSuccess(List<LineDataBean> data) {
+        setData(data);
     }
 
     @Override
     public void getLineDataFail(String msg) {
-
+        showMsg(msg);
     }
 
-    private void setData() {
+    private void setData(List<LineDataBean> lineDataBeans) {
         lineChart.getDescription().setEnabled(false);
         lineChart.setDrawGridBackground(false);
         //1.设置x轴和y轴的点
         List<Entry> entries = new ArrayList<>();
         List<Entry> entrie2 = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            entries.add(new Entry(i, new Random().nextInt(300)));
-            entrie2.add(new Entry(i, new Random().nextInt(500)));
-        }
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("1");
-        strings.add("3");
-        strings.add("4");
-        strings.add("3");
 
-        LineDataSet dataSet = new LineDataSet(entries, "类别"); // add entries to dataset
-        LineDataSet dataSet2 = new LineDataSet(entrie2, "2"); // add entries to dataset
-        dataSet.setColor(Color.parseColor("#ff5500"));//线条颜色
-        dataSet.setCircleColor(Color.parseColor("#ff5500"));//圆点颜色
+        for (int i = 0; i < lineDataBeans.size(); i++) {
+            entries.add(new Entry(i, Float.parseFloat(lineDataBeans.get(i).getClassAvgScore())));
+            entrie2.add(new Entry(i, Float.parseFloat(lineDataBeans.get(i).getMyScore())));
+            strings.add(lineDataBeans.get(i).getExamName());
+            //entrie2.add(new Entry(i, new Random().nextInt(500)));
+        }
+
+
+        LineDataSet dataSet = new LineDataSet(entries, "个人得分"); // add entries to dataset
+        LineDataSet dataSet2 = new LineDataSet(entrie2, "班级平均分"); // add entries to dataset
+        dataSet.setColor(Color.parseColor("#0C94FC"));//线条颜色
+        dataSet.setCircleColor(Color.parseColor("#0C94FC"));//圆点颜色
         dataSet.setLineWidth(1f);//线条宽度
-        dataSet2.setColor(Color.parseColor("#ff5500"));//线条颜色
-        dataSet2.setCircleColor(Color.parseColor("#ff5500"));//圆点颜色
+        dataSet2.setColor(Color.parseColor("#95E046"));//线条颜色
+        dataSet2.setCircleColor(Color.parseColor("#95E046"));//圆点颜色
         dataSet2.setLineWidth(1f);//线条宽度
 
 
