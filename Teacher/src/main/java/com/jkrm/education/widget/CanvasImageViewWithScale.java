@@ -424,11 +424,14 @@ public class CanvasImageViewWithScale extends ImageView implements OnScaleGestur
             } else { // 图片高大于控件高
                 scale = viewHeight * 1.0f / originHeight;
             }
+            // TODO: 2020/9/18 由原先的缩放改为左右铺满屏幕上下查阅
+            scale = viewWidth * 1.0f / originWidth;
             MIN_SCALE=scale;
             MAX_SCALE=scale*4;
             AwLog.e("onGlobalLayout" + scale);
             mMatrix.setScale(scale, scale, viewWidth / 2, viewHeight / 2);
-            mMatrix.preTranslate((viewWidth - originWidth) / 2, (viewHeight - originHeight) / 2);
+            //mMatrix.preTranslate((viewWidth - originWidth) / 2, (viewHeight - originHeight) / 2);
+            mMatrix.preTranslate(0, 0);
             setImageMatrix(mMatrix);
             isFristLoad = false;
 
