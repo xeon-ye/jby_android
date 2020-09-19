@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_60"
         android:layout_marginTop="@dimen/dimen_10"
-        android:text="@string/score_select_hint"
+        android:text="@string/class_score_title_hint"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toEndOf="@id/multiple_class_tv"
@@ -82,14 +82,14 @@
         app:layout_constraintTop_toBottomOf="@id/multiple_subject_tv">
 
         <include
-            android:id="@+id/score_achievement_top"
+            android:id="@+id/section_achievement_top"
             layout="@layout/item_section_scroll_layout" />
 
         <!--         代码动态设置不滑动-->
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/score_recyclerview"
+            android:id="@+id/section_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:scrollbars="none" />
 

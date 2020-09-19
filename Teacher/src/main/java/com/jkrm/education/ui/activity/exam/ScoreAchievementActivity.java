@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
-import com.jkrm.education.adapter.exam.TableClassAdapter;
 import com.jkrm.education.adapter.exam.TableScoreAdapter;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -133,10 +131,6 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
         List<ScoreAchievementBean.DataBean> titleList = scoreBean.getData();
 
-        int mSize = 0;
-        ArrayList<String> nameList = new ArrayList<>();
-
-
         for (int i = 0; i < titleList.size(); i++) {
             View inflate;
             if (titleList.get(i).getIsOption().equals("2")) {
@@ -149,7 +143,6 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 left_text.setText("得分");
                 right_text.setText("作答");
 
-                mSize = mSize + 1;
             } else {
                 inflate = View.inflate(this, R.layout.item_score_child_scroll_layout, null);  //主观题
                 TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
@@ -157,13 +150,13 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 title.setText("二." + titleList.get(i).getQuestionNum() + "(满分" +
                         titleList.get(i).getMaxScore() + "分，正确答案" + titleList.get(i).getNoSpanAnswer() + ")");
                 left_text.setText("得分");
+
+                //questionId作为表头标记的对应关系
+                left_text.setTag("2");
+                left_text.setId(Integer.parseInt(titleList.get(i).getQuestionId()));
             }
-            nameList.add(titleList.get(i).getQuestionId()); //questionId作为表头标记的对应关系
             childRoot.addView(inflate);
         }
-
-        //最大表头需要数据数量
-        int allSize = mSize * 2 + (titleList.size() - mSize) + 7;
 
         //传入adapter的数据形式
         Map<String, List<String>> listMap = new HashMap<>();
@@ -181,16 +174,56 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             strings.add(bean.getSubjectScore()); //主观题
             strings.add(bean.getJointRank() + "/" + bean.getGradeRank() + "/" + bean.getClassRank());
 
-            for (int i = 0; i < questList.size(); i++) {
-                //两种情况（）
-                ArrayList<String> answerList = new ArrayList<>();
-                if (questList.get(i).getIsOption().equals("2")) { //客观题
-//                    answerList.add(questList.get(i).getScore()); //得分
-                    answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-                    answerList.add(questList.get(i).getStudAnswer());//作答
-                } else
-                    answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-                strings.addAll(answerList);
+            //两种情况（内容与标题相等，内容小于标题）
+            if (titleList.size() == questList.size()) {
+                for (int i = 0; i < questList.size(); i++) {
+                    ArrayList<String> answerList = new ArrayList<>();
+                    if (questList.get(i).getIsOption().equals("2")) { //客观题
+                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+                        answerList.add(questList.get(i).getStudAnswer());//作答
+                    } else
+                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+                    strings.addAll(answerList);
+                }
+            } else {//内容小于标题
+                Map<String, Integer> map = new HashMap<>();
+                //查找缺失的题目
+                for (int i = 0; i < titleList.size(); i++) {
+                    map.put(titleList.get(i).getQuestionNum(), i);
+                }
+                for (int i = 0; i < questList.size(); i++) {
+                    Integer pos = map.get(questList.get(i).getQuestionNum());
+                    if (pos == null) {
+                        continue;
+                    }
+                    titleList.set(pos, null);
+                }
+                for (int i = titleList.size() - 1; i >= 0; i--) {
+                    if (titleList.get(i) == null) {
+                        titleList.remove(i);
+                    }
+                }
+                //补全缺失条目
+                for (int i = 0; i < titleList.size(); i++) {
+                    ScoreAchievementBean.RowsBean.QuestListBean r_bean = new ScoreAchievementBean.RowsBean.QuestListBean();
+                    r_bean.setIsOption(titleList.get(i).getIsOption());
+                    r_bean.setQuestionNum(titleList.get(i).getQuestionNum());
+                    r_bean.setQuestionId(titleList.get(i).getQuestionId());
+                    r_bean.setScore("-");
+                    r_bean.setStudAnswer("-");
+
+                    questList.add(Integer.parseInt(titleList.get(i).getQuestionNum()) - 1, r_bean);
+                }
+                //构造adapter数据
+                for (int i = 0; i < questList.size(); i++) {
+                    ArrayList<String> answerList = new ArrayList<>();
+                    if (questList.get(i).getIsOption().equals("2")) { //客观题
+                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+                        answerList.add(questList.get(i).getStudAnswer());//作答
+                    } else
+                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+                    strings.addAll(answerList);
+                }
             }
 
             listMap.put(bean.getStudName(), strings);
@@ -198,7 +231,6 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
         scoreRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-
         //可以通用adapter
         TableScoreAdapter adapter = new TableScoreAdapter(listMap, scoreSSL);
         scoreRV.setAdapter(adapter);
@@ -214,6 +246,24 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             }
         });
     }
+
+//    private void getListData() {
+//        for (int i = 0; i < questList.size(); i++) {
+//            //两种情况（）
+//            ArrayList<String> answerList = new ArrayList<>();
+//            if (questList.get(i).getIsOption().equals("2")) { //客观题
+//                if (questList.get(i).getQuestionId().equals(nameList.get(i))) {
+//                    answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+//                    answerList.add(questList.get(i).getStudAnswer());//作答
+//                } else {
+//                    answerList.add("-");//得分
+//                    answerList.add("-");//作答
+//                }
+//            } else
+//                answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
+//            strings.addAll(answerList);
+//        }
+//    }
 
     @Override
     public void getTableListSuccess(ScoreAchievementBean data) {

@@ -63,7 +63,6 @@
                 android:text="新教育号"
                 android1:textColor="#666666"
                 android:textSize="14sp" />
-            <!--            android:textAppearance="?android:attr/textAppearanceMedium"-->
 
             <View
                 android:layout_width="1dp"
@@ -92,11 +91,5 @@
 
         </LinearLayout>
     </com.jkrm.education.widget.SynScrollerLayout>
-
-    <!--    <View-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="1dp"-->
-    <!--        android:layout_below="@id/item_achievement_contain"-->
-    <!--        android:background="#e8e8e8" />-->
 
 </RelativeLayout>

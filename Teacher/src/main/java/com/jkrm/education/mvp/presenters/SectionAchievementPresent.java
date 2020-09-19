@@ -6,6 +6,7 @@ import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.mvp.views.SectionAchievementView;
 
@@ -40,7 +41,14 @@ public class SectionAchievementPresent extends AwCommonPresenter implements Sect
 
             @Override
             public void onNext(Object o) {
-
+                if (o != null) {
+                    SectionAchievementBean data = (SectionAchievementBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getTableListSuccess(data);
+                    else
+                        mView.getTableListFail(data.getMsg());
+                } else
+                    mView.getTableListFail("数据异常！！");
             }
         });
     }

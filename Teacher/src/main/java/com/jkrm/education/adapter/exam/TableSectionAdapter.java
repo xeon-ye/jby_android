@@ -1,6 +1,7 @@
 package com.jkrm.education.adapter.exam;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jkrm.education.R;
 import com.jkrm.education.widget.SynScrollerLayout;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Zhoujing
@@ -25,14 +29,16 @@ public class TableSectionAdapter extends RecyclerView.Adapter<TableSectionAdapte
 
 
     private final SynScrollerLayout mSynScrollerView;
-    private final List<String> mData;
+    private final Map<String, List<String>> mDataMap;
+    private List<String> mList;
 
-    public TableSectionAdapter(@Nullable List<String> data, SynScrollerLayout synScrollerView) {
+    public TableSectionAdapter(@Nullable Map<String, List<String>> data, SynScrollerLayout synScrollerView) {
         mSynScrollerView = synScrollerView;
-        mData = data;
-
+        mDataMap = data;
+        if (mDataMap != null) {
+            mList = new ArrayList<>(mDataMap.keySet());
+        }
     }
-
 
     @NonNull
     @Override
@@ -43,7 +49,6 @@ public class TableSectionAdapter extends RecyclerView.Adapter<TableSectionAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ScrollViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.mView.setText(mData != null ? mData.get(position) : "");
         mSynScrollerView.setOnScrollListener(new SynScrollerLayout.OnItemScrollView() {
             @Override
             public void OnScroll(int l, int t, int old1, int old2) {
@@ -65,11 +70,30 @@ public class TableSectionAdapter extends RecyclerView.Adapter<TableSectionAdapte
         else
             holder.itemView.setBackgroundColor(Color.parseColor("#F9FAFB"));
 
+        if (mDataMap != null && !mDataMap.isEmpty()) {
+            holder.mView.setText(mList.get(position));
+            List<String> values = mDataMap.get(mList.get(position));
+            if (values != null) {
+                for (int i = 0; i < values.size(); i++) {
+                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i));
+                }
+            }else {
+                Toast.makeText(holder.itemView.getContext(),"Map数据异常！",Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return mData != null ? mData.size() : 0;
+        return mList != null ? mList.size() : 0;
+    }
+
+    private void initText(Context context, LinearLayout linearLayout, String text) {
+        View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
+        TextView name = inflate.findViewById(R.id.item_table_child_tv);
+        name.setText(text);
+        linearLayout.addView(inflate);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -84,13 +108,6 @@ public class TableSectionAdapter extends RecyclerView.Adapter<TableSectionAdapte
             mView = itemView.findViewById(R.id.item_title_tv);
             mSynScrollerLayout = itemView.findViewById(R.id.item_ssl);
             mChildRoot = itemView.findViewById(R.id.item_ll_child_root);
-//            ll_view = itemView.findViewById(R.id.ll_view);
-            for (int i = 0; i < 18; i++) {
-                View inflate = View.inflate(itemView.getContext(), R.layout.item_table_child_layout, null);
-                TextView name = inflate.findViewById(R.id.item_table_child_tv);
-                name.setText("内容" + i);
-                mChildRoot.addView(inflate);
-            }
         }
     }
 }

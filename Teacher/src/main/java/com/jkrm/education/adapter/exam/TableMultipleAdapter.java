@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
@@ -18,6 +19,7 @@ import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Zhoujing
@@ -27,13 +29,15 @@ import java.util.List;
 public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdapter.ScrollViewHolder> {
 
     private final SynScrollerLayout mSynScrollerView;
-    private final List<MultipleAchievementBean.RowsBean> mData;
-    private final List<String> subjectList;
+    private final Map<String, List<String>> mDataMap;
+    private List<String> mList;
 
-    public TableMultipleAdapter(@Nullable List<MultipleAchievementBean.RowsBean> data, SynScrollerLayout synScrollerView, List<String> name) {
+    public TableMultipleAdapter(@Nullable Map<String, List<String>> data, SynScrollerLayout synScrollerView) {
         mSynScrollerView = synScrollerView;
-        mData = data;
-        subjectList = name;
+        mDataMap = data;
+        if (mDataMap != null) {
+            mList = new ArrayList<>(mDataMap.keySet());
+        }
     }
 
     @NonNull
@@ -46,7 +50,6 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
     @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull ScrollViewHolder holder, int position) {
-        holder.mView.setText(mData != null ? mData.get(position).getStudName() : "");
         mSynScrollerView.setOnScrollListener(new SynScrollerLayout.OnItemScrollView() {
             @Override
             public void OnScroll(int l, int t, int old1, int old2) {
@@ -68,31 +71,16 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
         else
             holder.itemView.setBackgroundColor(Color.parseColor("#F9FAFB"));
 
-        if (mData != null) {
-            List<String> mText = new ArrayList<>();
-            mText.add(mData.get(position).getStudCode());
-            mText.add(mData.get(position).getStudExamCode());
-            mText.add(mData.get(position).getClassName());
-
-            for (int i = 0; i < mData.get(position).getReaList().size(); i++) {
-//               initText(holder.itemView.getContext(),holder.mChildRoot,"");
-                String ss = mData.get(position).getReaList().get(i).getCourseName();
-                for (int k = 0; k < subjectList.size(); k++) {
-                    if (subjectList.get(k).equals(ss)) {
-                        mText.add(mData.get(position).getReaList().get(i).getScore());
-                        mText.add(mData.get(position).getReaList().get(i).getSchRank());
-                    } else {
-                        mText.add("-");
-                        mText.add("-");
-                    }
-
+        if (mDataMap != null && !mDataMap.isEmpty()) {
+            holder.mView.setText(mList.get(position));
+            List<String> values = mDataMap.get(mList.get(position));
+            if (values != null) {
+                for (int i = 0; i < values.size(); i++) {
+                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i));
                 }
+            }else {
+                Toast.makeText(holder.itemView.getContext(),"Map数据异常！", Toast.LENGTH_SHORT).show();
             }
-
-            for (int j = 0; j < mText.size(); j++) {
-                initText(holder.itemView.getContext(), holder.mChildRoot, mText.get(j));
-            }
-            mText.clear();
         }
 
     }
@@ -106,7 +94,7 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
 
     @Override
     public int getItemCount() {
-        return mData != null ? mData.size() : 0;
+        return mList != null ? mList.size() : 0;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -130,6 +118,5 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
 //            }
         }
     }
-
 
 }

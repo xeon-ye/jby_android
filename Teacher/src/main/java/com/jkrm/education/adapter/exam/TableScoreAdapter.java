@@ -72,7 +72,6 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
         else
             holder.itemView.setBackgroundColor(Color.parseColor("#F9FAFB"));
 
-
         if (mDataMap != null && !mDataMap.isEmpty()) {
             holder.mView.setText(mList.get(position));
             List<String> values = mDataMap.get(mList.get(position));
