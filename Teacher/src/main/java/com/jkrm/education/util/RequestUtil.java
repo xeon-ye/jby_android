@@ -638,4 +638,19 @@ public class RequestUtil {
         return getBody(hashMap);
     }
 
+    /**
+     * 获取课目
+     * @param examId
+     * @param studId
+     * @param couseId
+     * @return
+     */
+    public static RequestBody getCourseListBody(String examId,String studId,String couseId){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("examId", examId);
+        hashMap.put("studId", studId);
+        hashMap.put("couseId", couseId);
+        return getBody(hashMap);
+    }
+
 }

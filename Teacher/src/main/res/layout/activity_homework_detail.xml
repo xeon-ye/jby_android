@@ -33,6 +33,7 @@
                 android:scrollbars="none"
                 android:textColor="@color/black"
                 android:maxLines="1"
+                android:gravity="center"
                 />
 
         </RelativeLayout>

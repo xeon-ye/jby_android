@@ -289,7 +289,7 @@ public class HomeworkDetailPresent extends AwCommonPresenter implements Homework
     @Override
     public void getExplainClasses(String teacherId, String homeworkId) {
         Observable<ResponseBean<List<ClassesResponseBean>>> observable = RetrofitClient.builderRetrofit()
-                .create(APIService.class)
+              .create(APIService.class)
                 .getExplainClasses(teacherId,homeworkId);
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ClassesResponseBean>>() {
             @Override
