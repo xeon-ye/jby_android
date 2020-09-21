@@ -15,6 +15,7 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:background="@color/white"
+
             >
             <ImageView
                 android:id="@+id/iv_back"
@@ -33,7 +34,6 @@
                 android:scrollbars="none"
                 android:textColor="@color/black"
                 android:maxLines="1"
-                android:gravity="center"
                 />
 
         </RelativeLayout>

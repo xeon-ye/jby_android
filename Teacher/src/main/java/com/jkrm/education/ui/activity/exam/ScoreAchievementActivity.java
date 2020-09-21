@@ -17,6 +17,7 @@ import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableScoreAdapter;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
@@ -24,8 +25,10 @@ import com.jkrm.education.mvp.views.ScoreAchievementView;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.widget.SynScrollerLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +66,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
 
     private ScoreAchievementBean scoreBean;
+    private List<ExamCourseBean> mCourseBeanList;
 
 
     @Override
@@ -87,6 +91,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             }
         });
         setToolbarTitleColor(R.color.white);
+        mCourseBeanList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
     }
 
     @OnClick({R.id.multiple_top_tv, R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -161,7 +166,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         }
 
         //传入adapter的数据形式
-        Map<String, List<String>> listMap = new HashMap<>();
+        Map<String, List<String>> listMap = new LinkedHashMap<>();
 
         for (int k = 0; k < scoreBean.getRows().size(); k++) {
             ScoreAchievementBean.RowsBean bean = scoreBean.getRows().get(k);
@@ -248,7 +253,8 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 toClass(ViewStudentAnswerSheetActivity.class,false,
                         Extras.EXAM_ID,scoreBean.getRows().get(position).getExamId(),
                         Extras.STUDENT_ID,scoreBean.getRows().get(position).getStudId(),
-                        Extras.KEY_COURSE_ID,scoreBean.getRows().get(position).getCourseId());
+                        Extras.KEY_COURSE_ID,scoreBean.getRows().get(position).getCourseId(),
+                        Extras.KEY_EXAM_COURSE_LIST,mCourseBeanList);
             }
         });
     }

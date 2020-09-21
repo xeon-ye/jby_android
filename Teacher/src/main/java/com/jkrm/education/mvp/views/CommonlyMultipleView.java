@@ -3,6 +3,7 @@ package com.jkrm.education.mvp.views;
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
 import com.jkrm.education.bean.ReViewTaskBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 
 import java.util.List;
@@ -26,11 +27,15 @@ public interface CommonlyMultipleView extends AwBaseView {
 ////        成绩分段表
 //        void getAchievementSectionList(String teacherId,String examId,String paperId);//参数暂时不知道
 
+        void  getExamCourse(RequestBody requestBody);
     }
 
     interface View extends AwBaseView {
         void getMultipleAchievementSuccess(MultipleAchievementBean data);
         void getMultipleAchievementListFail(String msg);
+
+        void getExamCourseSuccess(List<ExamCourseBean> data);
+        void getExamCourseFail(String msg);
     }
 
 

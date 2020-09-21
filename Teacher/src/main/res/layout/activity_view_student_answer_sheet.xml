@@ -22,6 +22,7 @@
             android:layout_marginLeft="@dimen/dimen_10"
             />
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -34,9 +35,11 @@
         android:orientation="horizontal"
         >
         <android.support.v7.widget.RecyclerView
-            android:layout_width="50dp"
+            android:id="@+id/rcv_data"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dimen_10"
+
             ></android.support.v7.widget.RecyclerView>
 
         <FrameLayout
@@ -56,14 +59,29 @@
                 android:layout_gravity="center"
                 android:scaleType="matrix"/>
 
-            <TextView
-                android:id="@+id/tv_grades"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                android:layout_margin="@dimen/dimen_10"
-                android:text="我的成绩"
-                />
+                    android:layout_margin="@dimen/dimen_10"
+                    android:text="我的成绩"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_grades"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_10"
+                    android:textColor="@color/red"
+                    />
+            </LinearLayout>
+
+
 
             <ImageView
                 android:id="@+id/iv_lastQuestion"

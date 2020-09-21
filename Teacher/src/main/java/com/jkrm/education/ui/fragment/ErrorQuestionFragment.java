@@ -360,9 +360,9 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
             case R.id.tv_reset:
                 mLlOfSeekbar.removeView(mBidSeekbar);
                 mLlOfSeekbar.addView(mBidSeekbar);
-                mTvPro.setText("不限");
+                mTvPro.setText("0.0-60.0%");
                 mLeftVaule = 0;
-                mRightValue = 100;
+                mRightValue = 60;
 
                 break;
             case R.id.tv_sure:

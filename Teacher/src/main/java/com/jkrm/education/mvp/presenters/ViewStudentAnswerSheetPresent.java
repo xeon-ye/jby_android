@@ -7,6 +7,7 @@ import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.ColumnDataBean;
+import com.jkrm.education.bean.exam.ExamCompreBean;
 import com.jkrm.education.bean.exam.LineDataBean;
 import com.jkrm.education.bean.exam.OverViewBean;
 import com.jkrm.education.mvp.views.StudentAnalysisView;
@@ -38,17 +39,17 @@ public class ViewStudentAnswerSheetPresent extends AwCommonPresenter
 
     @Override
     public void getCourseList(RequestBody requestBody) {
-        Observable<ResponseBean<List<String>>> observable = RetrofitClient.builderRetrofit()
+        Observable<ResponseBean<ExamCompreBean>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getCourseList(requestBody);
-        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<String>>() {
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<ExamCompreBean>() {
             @Override
             public void onStart() {
                 mView.showLoadingDialog();
             }
 
             @Override
-            public void onSuccess(List<String> data) {
+            public void onSuccess(ExamCompreBean data) {
                 mView.getCourseListSuccess(data);
             }
 

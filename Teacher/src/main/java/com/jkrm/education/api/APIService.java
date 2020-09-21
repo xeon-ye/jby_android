@@ -21,6 +21,8 @@ import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ColumnDataBean;
+import com.jkrm.education.bean.exam.ExamCompreBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
@@ -929,5 +931,12 @@ public interface APIService {
      * @return
      */
     @POST(UrlConstant.GET_COURSE_LIST)
-    Observable<ResponseBean<List<String>>> getCourseList(@Body RequestBody requestBody);
+    Observable<ResponseBean<ExamCompreBean>> getCourseList(@Body RequestBody requestBody);
+
+    /**
+     * 获取考试下的课目
+     * @return
+     */
+    @POST(UrlConstant.GET_EXAM_COURSE)
+    Observable<ResponseBean<List<ExamCourseBean>>>  getExamCourse(@Body RequestBody requestBody);
 }

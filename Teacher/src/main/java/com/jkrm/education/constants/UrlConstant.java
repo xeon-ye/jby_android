@@ -386,4 +386,8 @@ public class UrlConstant {
      * 获取学生分析科目
      */
     public static final String GET_COURSE_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/clem/pc/examCompre/oneCourse";
+    /**
+     * 获取考试下学科
+     */
+    public static final String GET_EXAM_COURSE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/exam/new/exam/course";
 }

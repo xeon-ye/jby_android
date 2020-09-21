@@ -58,5 +58,5 @@ public class Extras {
     public final static String KEY_GRADE_LIST="key_grade_list";
     public final static String KEY_CLASS_LIST="key_class_list";
 
-
+    public final static String KEY_EXAM_COURSE_LIST="key_exam_course_list";
 }

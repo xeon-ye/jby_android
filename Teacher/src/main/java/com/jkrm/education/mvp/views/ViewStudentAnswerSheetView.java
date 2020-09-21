@@ -3,6 +3,7 @@ package com.jkrm.education.mvp.views;
 import com.hzw.baselib.base.AwBasePresenter;
 import com.hzw.baselib.base.AwBaseView;
 import com.jkrm.education.bean.exam.ColumnDataBean;
+import com.jkrm.education.bean.exam.ExamCompreBean;
 import com.jkrm.education.bean.exam.LineDataBean;
 import com.jkrm.education.bean.exam.OverViewBean;
 
@@ -22,7 +23,7 @@ public interface ViewStudentAnswerSheetView extends AwBaseView {
 
     interface View extends AwBaseView {
 
-        void getCourseListSuccess(List<String> data);
+        void getCourseListSuccess(ExamCompreBean data);
         void getCourseListFail(String msg);
 
 

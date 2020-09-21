@@ -149,6 +149,18 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
                 });
             }
         });
+        mExamSearchAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<ExamSearchBean.RowsBean> data = adapter.getData();
+                String classId = data.get(position).getClassId();
+                String courseId = data.get(position).getCourseId();
+                String id = data.get(position).getId();
+                toClass(CommonlyMultipleActivity.class,false,"class_list",mClassBeans,Extras.EXAM_ID,id);
+
+
+            }
+        });
     }
 
 

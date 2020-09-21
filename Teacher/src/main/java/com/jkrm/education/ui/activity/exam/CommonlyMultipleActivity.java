@@ -24,12 +24,14 @@ import com.jkrm.education.adapter.exam.TableScoreAdapter;
 import com.jkrm.education.adapter.exam.TableSectionAdapter;
 import com.jkrm.education.bean.ReViewTaskBean;
 import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.CommonlyMultiplePresent;
 import com.jkrm.education.mvp.views.CommonlyMultipleView;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
@@ -76,7 +78,8 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
 
     private MultipleAchievementBean achievementBean;
-
+    String EXAM_ID;
+    private List<ExamCourseBean> mExamCourseBeanList;
 
     @Override
     protected CommonlyMultiplePresent createPresenter() {
@@ -106,7 +109,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         findViewById(R.id.score_achievement_more_tv).setOnClickListener(this);
         findViewById(R.id.class_score_more_tv).setOnClickListener(this);
         findViewById(R.id.section_achievement_more_tv).setOnClickListener(this);
-
+         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
 
         //小题得分表：
         initScore();
@@ -411,7 +414,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
             }
             //小题得分表
             case R.id.score_achievement_more_tv: {
-                toClass(ScoreAchievementActivity.class, false);
+                toClass(ScoreAchievementActivity.class, false,Extras.KEY_EXAM_COURSE_LIST,mExamCourseBeanList);
                 break;
             }
             //班级成绩对比
@@ -431,6 +434,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
     protected void initData() {
         super.initData();
         mPresenter.getMultipleAchievementList(RequestUtil.MultipleAchievementBody("", "", ""));
+        mPresenter.getExamCourse(RequestUtil.getExamCourseBody(EXAM_ID, UserUtil.getRoleld()));
     }
 
     @Override
@@ -443,6 +447,16 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
     @Override
     public void getMultipleAchievementListFail(String msg) {
 
+    }
+
+    @Override
+    public void getExamCourseSuccess(List<ExamCourseBean> data) {
+        mExamCourseBeanList = data;
+    }
+
+    @Override
+    public void getExamCourseFail(String msg) {
+        showMsg(msg);
     }
 
     @SuppressLint("ClickableViewAccessibility")

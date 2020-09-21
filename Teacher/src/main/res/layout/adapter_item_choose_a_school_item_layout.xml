@@ -9,7 +9,7 @@
         android:textColor="@color/aw_school_choose_color"
         android:text="111"
         android:gravity="center"
-
+        android:layout_marginTop="@dimen/dimen_5"
         />
 
 </LinearLayout>

@@ -649,7 +649,20 @@ public class RequestUtil {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("examId", examId);
         hashMap.put("studId", studId);
-        hashMap.put("couseId", couseId);
+        hashMap.put("courseId", couseId);
+        return getBody(hashMap);
+    }
+
+    /**
+     * 考试学科
+     * @param examId
+     * @param roleId
+     * @return
+     */
+    public static RequestBody getExamCourseBody(String examId,String roleId){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("examId", examId);
+        hashMap.put("roleId", roleId);
         return getBody(hashMap);
     }
 
