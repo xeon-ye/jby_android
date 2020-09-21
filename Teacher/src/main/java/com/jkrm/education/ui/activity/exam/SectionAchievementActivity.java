@@ -83,7 +83,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
         super.initData();
 
         String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
-        //params 默认为10，我觉得太小，改为50
+        //params 默认为50
         mPresenter.getTableList(RequestUtil.SectionAchievementBody("", examId, "", "1", "1000", "50"));
     }
 

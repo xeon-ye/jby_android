@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -127,6 +128,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
     protected void initData() {
         super.initData();
 
+        //筛选测试
+        String ss = "A924CDD62B224233BDC459597EF6C26F";
         mPresenter.getTableList(RequestUtil.MultipleAchievementBody("", "", ""));
 
         //科目列表
@@ -142,15 +145,36 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         LinearLayout childRoot = findViewById(R.id.item_achievement_linear);
         achievement_relative.setClickable(true);
 
-       // 表头
-        List<MultipleAchievementBean.RowsBean.ReaListBean> titleList = new ArrayList<>();
+        // 表头
+        List<String> sList = new ArrayList<>();
+        //无重复表头数据
+        List<String> tList = new ArrayList<>();
+        for (int i = 0; i < achievementBean.getRows().size(); i++) {
 
+            for (int j = 0; j < achievementBean.getRows().get(i).getReaList().size(); j++) {
+                sList.add(achievementBean.getRows().get(i).getReaList().get(j).getCourseName());
+            }
+        }
+
+        //去除重复科目,设置表头
+        HashSet<String> hashSet = new LinkedHashSet<>(sList);
+        for (String name : hashSet) {
+            View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
+            TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
+            TextView score_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
+            title.setText(name);
+            score_text.setText("分数");
+            childRoot.addView(inflate);
+            tList.add(name);
+            Log.e("xxxxxxxxxx",name);
+        }
+
+//        List<MultipleAchievementBean.RowsBean.ReaListBean> titleList = new ArrayList<>();
         //传入adapter的数据形式
         Map<String, List<String>> listMap = new HashMap<>();
 
         for (int k = 0; k < achievementBean.getRows().size(); k++) {
-            //添加全部表头
-            titleList.addAll(achievementBean.getRows().get(k).getReaList());
+//            titleList.addAll(achievementBean.getRows().get(k).getReaList());
 
             MultipleAchievementBean.RowsBean rowsBean = achievementBean.getRows().get(k);
             List<MultipleAchievementBean.RowsBean.ReaListBean> reaList = rowsBean.getReaList();
@@ -161,9 +185,11 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             strings.add(rowsBean.getStudExamCode());//新教育好
             strings.add(rowsBean.getClassName());//班级
 
+            //添加全部表头
+            tList.clear();
+            tList.addAll(hashSet);
             //两种情况（内容与标题相等，内容小于标题）
-
-            if (titleList.size() == reaList.size()) { //内容与标题相等
+            if (tList.size() == reaList.size()) { //内容与标题相等
                 for (int i = 0; i < reaList.size(); i++) {
                     ArrayList<String> anList = new ArrayList<>();
 
@@ -183,30 +209,34 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             } else {//内容小于标题
                 Map<String, Integer> map = new HashMap<>();
                 //查找缺失的科目
-                for (int i = 0; i < titleList.size(); i++) {
-                    map.put(titleList.get(i).getCourseName(), i);
+                for (int i = 0; i < tList.size(); i++) {
+                    map.put(tList.get(i), i);
                 }
                 for (int i = 0; i < reaList.size(); i++) {
                     Integer pos = map.get(reaList.get(i).getCourseName());
                     if (pos == null) {
                         continue;
                     }
-                    titleList.set(pos, null);
+                    tList.set(pos, null);
                 }
-                for (int i = titleList.size() - 1; i >= 0; i--) {
-                    if (titleList.get(i) == null) {
-                        titleList.remove(i);
-                    }
+
+                map.clear();
+                for (int i = tList.size() - 1; i >= 0; i--) {
+                    if(tList.get(i) != null)
+                        map.put(tList.get(i),i);
+                    else
+                        tList.remove(i);
                 }
-                //补全缺失科目
-                for (int i = 0; i < titleList.size(); i++) {
+                //补全缺失科目(有bug)
+                for (int i = 0; i < tList.size(); i++) {
                     MultipleAchievementBean.RowsBean.ReaListBean r_bean = new MultipleAchievementBean.RowsBean.ReaListBean();
 //                    r_bean.setIsOption(titleList.get(i).get());
 //                    r_bean.setQuestionNum(titleList.get(i).getQuestionNum());
 //                    r_bean.setQuestionId(titleList.get(i).getQuestionId());
                     r_bean.setScore("-");
 
-                    reaList.add(Integer.parseInt(titleList.get(i).getCourseName()) - 1, r_bean);
+                    Integer num = map.get(tList.get(i));
+                    reaList.add(num, r_bean);
                 }
 
                 //构造adapter数据
@@ -216,8 +246,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
                         answerList.add("-"); //分数
                         answerList.add("-");//排名
                     } else {
-                        //接口无分数数据，默认显示0
-                        answerList.add(TextUtils.isEmpty(reaList.get(i).getScore()) ? "0" : reaList.get(i).getScore()); //分数
+                        //接口无分数数据，默认显示-
+                        answerList.add(TextUtils.isEmpty(reaList.get(i).getScore()) ? "-" : reaList.get(i).getScore()); //分数
                         //接口无排名数据，默认显示"-"
                         String s1 = TextUtils.isEmpty(reaList.get(i).getJointRank()) ? "-" :
                                 reaList.get(i).getJointRank();
@@ -231,18 +261,6 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
                 }
             }
             listMap.put(rowsBean.getStudName(), strings);
-        }
-        //去除重复科目,建立表头
-        HashSet<MultipleAchievementBean.RowsBean.ReaListBean> set = new LinkedHashSet<>(titleList);
-        for (MultipleAchievementBean.RowsBean.ReaListBean name : set) {
-            View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
-            TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
-            TextView score_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
-            title.setText(name.getCourseName());
-            score_text.setText("分数");
-            inflate.setTag(name.getCourseName());
-            childRoot.addView(inflate);
-            Log.e("xxxxxxxxxx", name.getCourseName());
         }
 
         achievementRV.setLayoutManager(new LinearLayoutManager(this));
@@ -258,7 +276,9 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             @Override
             public void onClick(View view, int position) {
                // Toast.makeText(MultipleAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(StudentAnalyseActivity.class,false, Extras.EXAM_ID,achievementBean.getRows().get(position).getExamId(),Extras.STUDENT_ID,achievementBean.getRows().get(position).getStudId());
+                toClass(StudentAnalyseActivity.class,false,
+                        Extras.EXAM_ID,achievementBean.getRows().get(position).getExamId(),
+                        Extras.STUDENT_ID,achievementBean.getRows().get(position).getStudId());
             }
         });
 

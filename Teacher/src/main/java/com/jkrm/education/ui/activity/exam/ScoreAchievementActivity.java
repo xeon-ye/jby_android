@@ -121,6 +121,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         super.initData();
 
         String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
+//        String examId = "";
         mPresenter.getTableList(RequestUtil.ScoreAchievementBody("", examId, ""));
     }
 
@@ -212,7 +213,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                     r_bean.setQuestionId(titleList.get(i).getQuestionId());
                     r_bean.setScore("-");
                     r_bean.setStudAnswer("-");
-
+                    //questionNum从1开始，这里下标减一插入
                     questList.add(Integer.parseInt(titleList.get(i).getQuestionNum()) - 1, r_bean);
                 }
                 //构造adapter数据
@@ -244,28 +245,13 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(ScoreAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(ViewStudentAnswerSheetActivity.class,false, Extras.EXAM_ID,scoreBean.getRows().get(position).getExamId(),Extras.STUDENT_ID,scoreBean.getRows().get(position).getStudId(),Extras.KEY_COURSE_ID,scoreBean.getRows().get(position).getCourseId());
+                toClass(ViewStudentAnswerSheetActivity.class,false,
+                        Extras.EXAM_ID,scoreBean.getRows().get(position).getExamId(),
+                        Extras.STUDENT_ID,scoreBean.getRows().get(position).getStudId(),
+                        Extras.KEY_COURSE_ID,scoreBean.getRows().get(position).getCourseId());
             }
         });
     }
-
-//    private void getListData() {
-//        for (int i = 0; i < questList.size(); i++) {
-//            //两种情况（）
-//            ArrayList<String> answerList = new ArrayList<>();
-//            if (questList.get(i).getIsOption().equals("2")) { //客观题
-//                if (questList.get(i).getQuestionId().equals(nameList.get(i))) {
-//                    answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-//                    answerList.add(questList.get(i).getStudAnswer());//作答
-//                } else {
-//                    answerList.add("-");//得分
-//                    answerList.add("-");//作答
-//                }
-//            } else
-//                answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-//            strings.addAll(answerList);
-//        }
-//    }
 
     @Override
     public void getTableListSuccess(ScoreAchievementBean data) {
@@ -277,7 +263,6 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     public void getTableListFail(String msg) {
         Toast.makeText(ScoreAchievementActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     @NonNull
