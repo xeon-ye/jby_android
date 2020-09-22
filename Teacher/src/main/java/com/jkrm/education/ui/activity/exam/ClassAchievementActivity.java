@@ -108,23 +108,14 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.multiple_subject_tv: //选择学科
-                getSubject();
+//                getSubject();
                 break;
             case R.id.multiple_class_tv: //选择班级
-                getClassName();
+//                getClassName();
                 break;
         }
     }
 
-    //获取班级
-    private void getClassName() {
-
-    }
-
-    //获取科目
-    private void getSubject() {
-
-    }
 
     @Override
     protected void initData() {
@@ -214,12 +205,12 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         class_relative.setOnTouchListener(getListener(classSSL));
 
         //item点击
-        classSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(ClassAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        classSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Toast.makeText(ClassAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override

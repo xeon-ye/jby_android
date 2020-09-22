@@ -2,10 +2,12 @@ package com.jkrm.education.adapter.exam;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jkrm.education.R;
+import com.jkrm.education.ui.activity.exam.ViewStudentAnswerSheetActivity;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
@@ -77,13 +80,12 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
             List<String> values = mDataMap.get(mList.get(position));
             if (values != null) {
                 for (int i = 0; i < values.size(); i++) {
-                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i));
+                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i),i);
                 }
             }else {
                 Toast.makeText(holder.itemView.getContext(),"Map数据异常！",Toast.LENGTH_SHORT).show();
             }
         }
-
 
     }
 
@@ -92,10 +94,23 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
         return mList != null ? mList.size() : 0;
     }
 
-    private void initText(Context context, LinearLayout linearLayout, String text) {
+    private void initText(Context context, LinearLayout linearLayout, String text,int num) {
         View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
         TextView name = inflate.findViewById(R.id.item_table_child_tv);
         name.setText(text);
+        if(num==3){
+            name.setTextColor(context.getResources().getColor(R.color.blue));
+//            name.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    toClass(ViewStudentAnswerSheetActivity.class,false);
+//                    Intent intent = new Intent();
+//                    intent.setClass(context,ViewStudentAnswerSheetActivity.class);
+//                    context.startActivity(intent);
+//                }
+//            });
+        }
+
         linearLayout.addView(inflate);
     }
 

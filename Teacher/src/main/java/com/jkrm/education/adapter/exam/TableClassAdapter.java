@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,10 +82,10 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
             List<String> values = mDataMap.get(mList.get(position));
             if (values != null) {
                 for (int i = 0; i < values.size(); i++) {
-                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i));
+                    initText(holder.itemView.getContext(), holder.mChildRoot, mDataMap.get(mList.get(position)).get(i), i);
                 }
-            }else {
-                Toast.makeText(holder.itemView.getContext(),"Map数据异常！",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(holder.itemView.getContext(), "Map数据异常！", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -96,10 +97,24 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
         return mList != null ? mList.size() : 0;
     }
 
-    private void initText(Context context, LinearLayout linearLayout, String text) {
+    private void initText(Context context, LinearLayout linearLayout, String text, int num) {
         View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
         TextView name = inflate.findViewById(R.id.item_table_child_tv);
         name.setText(text);
+        if (num == 6 || num == 9 || num == 12 || num == 15) {
+            name.setTextColor(context.getResources().getColor(R.color.blue));
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(text.equals("0"))
+                        Toast.makeText(context, "人数为0，无法查看！", Toast.LENGTH_SHORT).show();
+                    else{
+                        Log.e("","");
+                        //这里判断是否自己设置等级了，没有的话根据接口判断哪些优秀，哪些良好
+                    }
+                }
+            });
+        }
         linearLayout.addView(inflate);
     }
 
