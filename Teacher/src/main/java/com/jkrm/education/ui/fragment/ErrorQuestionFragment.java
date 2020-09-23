@@ -363,7 +363,7 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
                 mTvPro.setText("0.0-60.0%");
                 mLeftVaule = 0;
                 mRightValue = 60;
-
+                mRsb.setProgress(0,60);
                 break;
             case R.id.tv_sure:
                 showView(mLlOfSetting, false);

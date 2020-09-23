@@ -132,7 +132,7 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
             @Override
             public void onClick(View view) {
                 if(null!=mOnSortChickLister){
-                    mOnSortChickLister.onSortChick(view,tv_sort);
+                    mOnSortChickLister.onSortChick(view,tv_sort,tv_subTitle.getText().toString());
                 }
             }
         });
@@ -225,6 +225,6 @@ public class MarkHomeworkDetailAdapter extends BaseQuickAdapter<GradQusetionBean
     }
 
     public interface onSortChickLister{
-        void onSortChick(View view,TextView textView);
+        void onSortChick(View view,TextView textView,String title);
     }
 }

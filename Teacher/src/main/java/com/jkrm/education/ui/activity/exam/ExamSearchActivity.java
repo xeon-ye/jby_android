@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwBaseActivity;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
@@ -80,7 +81,16 @@ public class ExamSearchActivity extends AwMvpActivity<AnalysisPresent> implement
         }
     }
 
-
+    @Override
+    protected void initListener() {
+        super.initListener();
+        mExamSearchAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                toClass(CommonlyMultipleActivity.class,false);
+            }
+        });
+    }
 
     @Override
     public void getAnalysisListSuccess(ExamSearchBean data) {

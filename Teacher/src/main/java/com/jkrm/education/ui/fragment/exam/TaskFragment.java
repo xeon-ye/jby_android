@@ -15,6 +15,7 @@ import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.TaskPresent;
 import com.jkrm.education.mvp.views.TaskView;
+import com.jkrm.education.ui.activity.exam.CommonlyMultipleActivity;
 import com.jkrm.education.ui.activity.exam.ExamTaskActivity;
 import com.jkrm.education.util.UserUtil;
 
@@ -72,15 +73,15 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
                         }else if("2".equals(bean.getIsRead())){
                             showMsg("暂停阅卷");
                         }
-                        else{
+                        /*else{
                             toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
-                        }
-                       /* else if("3".equals(bean.getIsRead())){
+                        }*/
+                        else if("3".equals(bean.getIsRead())){
                             showMsg("批阅完成");
                             toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }else if("4".equals(bean.getIsRead())){
-
-                        }*/
+                            toClass(CommonlyMultipleActivity.class,false);
+                        }
                         break;
                 }
             }

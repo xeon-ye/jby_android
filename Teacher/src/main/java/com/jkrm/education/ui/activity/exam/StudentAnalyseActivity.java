@@ -163,6 +163,9 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         barchart.getXAxis().setAxisMinimum(0);
         XAxis xAxis = barchart.getXAxis();
         xAxis.setGranularity(1f);
+        barchart.getLegend().setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);//设置注解的位置在左上方
+        barchart.getXAxis().setDrawGridLines(false);//不显示网格
+        barchart.getAxisLeft().setDrawGridLines(false);//不设置Y轴网格
        /* strings.add("总分");
         strings.add("生物");
         strings.add("化学");
@@ -333,6 +336,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         lineChart.getLegend().setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);//设置注解的位置在左上方
         lineChart.getXAxis().setDrawGridLines(false);//不显示网格
         lineChart.getAxisLeft().setDrawGridLines(false);//不设置Y轴网格
+        lineChart.getAxisRight().setEnabled(false);
 
     }
 

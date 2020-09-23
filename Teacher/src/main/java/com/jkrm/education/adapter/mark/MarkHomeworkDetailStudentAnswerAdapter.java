@@ -46,9 +46,18 @@ public class MarkHomeworkDetailStudentAnswerAdapter extends BaseQuickAdapter<Hom
             return;
         }
         rightResult= Html.fromHtml(rightResult).toString();
-        if(rightResult.equals(MyDateUtil.replace(bean.getAnswerScore()))) {
+        int allRight = RegexUtil.isAllRight(rightResult,bean.getAnswerScore());
+        if(allRight==0){
+            helper.setTextColor(R.id.tv_score, mContext.getResources().getColor(R.color.black));
+        }else if(allRight==1){
+            helper.setTextColor(R.id.tv_score, mContext.getResources().getColor(R.color.color_F19F10));
+        }else if(allRight==2){
+            helper.setTextColor(R.id.tv_score, mContext.getResources().getColor(R.color.red));
+        }
+      /*  if(rightResult.equals(MyDateUtil.replace(bean.getAnswerScore()))) {
             helper.setTextColor(R.id.tv_score, mContext.getResources().getColor(R.color.black));
         } else {
+
             //非全是数字  并且长度不一样  为多选题  半对   橙色     2020/04/24
             if(!RegexUtil.isNumeric(bean.getAnswerScore())&&bean.getAnswerScore().length()<rightResult.length()){
                 char[] answerArr  = bean.getAnswerScore().toCharArray();
@@ -68,7 +77,7 @@ public class MarkHomeworkDetailStudentAnswerAdapter extends BaseQuickAdapter<Hom
                 }else{
                 helper.setTextColor(R.id.tv_score, mContext.getResources().getColor(R.color.red));
             }
-        }
+        }*/
 
     }
 

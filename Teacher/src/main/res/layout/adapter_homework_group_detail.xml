@@ -41,6 +41,7 @@
     </LinearLayout>
 
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_child_data"
         android:layout_width="match_parent"

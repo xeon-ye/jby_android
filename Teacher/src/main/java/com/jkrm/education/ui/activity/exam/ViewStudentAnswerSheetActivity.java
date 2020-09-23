@@ -46,6 +46,8 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
     FrameLayout mFlImgFlLayout;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.iv_back)
+    ImageView mIvBack;
     private List<ExamCourseBean> mExamCourseBeanList;
     private ChooseExamCourseAdapter mChooseExamCourseAdapter;
     private ExamCompreBean mBean;
@@ -76,6 +78,9 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
         EXAM_ID = getIntent().getExtras().getString(Extras.EXAM_ID);
         STUDENT_ID = getIntent().getExtras().getString(Extras.STUDENT_ID);
         mExamCourseBeanList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+        mExamCourseBeanList.get(0).setChecked(true);
+        COURSE_ID = mExamCourseBeanList.get(0).getCourseId();
+        getData();
         mChooseExamCourseAdapter.addAllData(mExamCourseBeanList);
     }
 
@@ -97,7 +102,7 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
     private void setGradeData() {
         Glide.with(mActivity).load(mStrFront).into(mIvQuestionImg);
         mTvGrades.setText(mBean.getGradeMaxScore() + "分");
-        mTvTitle.setText("姓名："+mBean.getStudName()+"考号："+mBean.getStudCode()+"班级："+mBean.getClassName());
+        mTvTitle.setText("姓名：" + mBean.getStudName() + "考号：" + mBean.getStudCode() + "班级：" + mBean.getClassName() + "联考/学校/班级：" + mBean.getGradeRank() + "/" + mBean.getClassRank());
     }
 
     @Override
@@ -135,7 +140,14 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
                 Glide.with(mActivity).load(mStrBack).into(mIvQuestionImg);
             }
         });
+        mIvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
