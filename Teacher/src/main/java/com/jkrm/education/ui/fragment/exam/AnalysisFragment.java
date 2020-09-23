@@ -96,7 +96,8 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     }
 
     private void getData() {
-        mPresenter.getAnalysisList(RequestUtil.getAnalysisRequestBody("1", "", mStrGradeId, UserUtil.getRoleld(), "100", mStrClassId, UserUtil.getAppUser().getTeacherId()));
+        mPresenter.getAnalysisList(RequestUtil.getAnalysisRequestBody("1", "",
+                mStrGradeId, UserUtil.getRoleld(), "100", mStrClassId, UserUtil.getAppUser().getTeacherId()));
     }
 
     @Override

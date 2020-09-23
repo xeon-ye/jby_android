@@ -1,7 +1,6 @@
 package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,27 +20,22 @@ import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableClassGridAdapter;
 import com.jkrm.education.adapter.exam.TableMultipleAdapter;
-import com.jkrm.education.bean.PeriodCourseBean;
 import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
-import com.jkrm.education.bean.exam.ScoreAchievementBean;
-import com.jkrm.education.bean.exam.TableClassBean;
 import com.jkrm.education.bean.result.error.ErrorCourseBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
-import com.jkrm.education.widget.CommonDialog;
-import com.jkrm.education.widget.SelectDialog;
 import com.jkrm.education.widget.SynScrollerLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -80,9 +74,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     private MultipleAchievementBean achievementBean;
 
-    private List<ClassBean> mClassList = new ArrayList<>();
-
-    private SelectDialog popView;
+    private List<ClassBean> mClassList;
+    private List<ExamCourseBean> mExamCourseList;
 
 
 
@@ -109,17 +102,18 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         });
         setToolbarTitleColor(R.color.white);
 
-        mClassList = (List<ClassBean>) getIntent().getSerializableExtra("class_list_0");
-
-        popView = new SelectDialog(this,R.layout.dialog_multiple_achievement_layout);
-        popView.setOutsideTouchable(true);
-        popView.setClippingEnabled(false);//不超出屏幕
-
-        GridView gridView =popView.getContentView().findViewById(R.id.dialog_class_name_gv);
-        if(mClassList.size()>0){
-            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this,mClassList);
-            gridView.setAdapter(gridAdapter);
-        }
+        mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
+        mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+//
+//        popView = new DropDownMenu(this,R.layout.dialog_multiple_achievement_layout);
+//        popView.setOutsideTouchable(true);
+//        popView.setClippingEnabled(false);//不超出屏幕
+//
+//        GridView gridView =popView.getContentView().findViewById(R.id.dialog_class_name_gv);
+//        if(mClassList.size()>0){
+//            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this,mClassList);
+//            gridView.setAdapter(gridAdapter);
+//        }
 
 //
     }
@@ -171,7 +165,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
 //        List<MultipleAchievementBean.RowsBean.ReaListBean> titleList = new ArrayList<>();
         //传入adapter的数据形式
-        Map<String, List<String>> listMap = new HashMap<>();
+        Map<String, List<String>> listMap = new LinkedHashMap<>();
 
         for (int k = 0; k < achievementBean.getRows().size(); k++) {
 //            titleList.addAll(achievementBean.getRows().get(k).getReaList());
@@ -301,7 +295,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
     }
 
     private void getClassName() {
-        popView.showAsDropDown(findViewById(R.id.multiple_class_tv));
+//        popView.showAsDropDown(findViewById(R.id.multiple_class_tv));
     }
 
     private void getSubject() {
@@ -321,7 +315,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     @Override
     public void getSubjectSuccess(List<ErrorCourseBean> data) {
-        //科目这有点奇怪
+
     }
 
     @Override

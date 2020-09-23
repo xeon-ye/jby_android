@@ -184,6 +184,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
             android:screenOrientation="landscape" /> <!-- 成绩分段表 -->
         <activity
+            android:name=".ui.activity.exam.StuInfoTableActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:screenOrientation="landscape" /> <!-- 学生名单详情表 -->
+        <activity
             android:name=".ui.activity.ClassesChoiceActiviity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
             android:screenOrientation="portrait" /> <!-- 人员 -->

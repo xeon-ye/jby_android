@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="420dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/aw_bg_white_radius_8">
+    android:background="@drawable/aw_bg_white_radius_10">
 
     <TextView
         android:id="@+id/dialog_class_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_10"
         android:text="设置等级"
         android:textColor="@color/black_3B3E42"
         android:textSize="@dimen/sp_16"
@@ -22,7 +21,7 @@
         android:id="@+id/dialog_excellent_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_25"
+        android:layout_marginTop="@dimen/dimen_15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_class_title_tv">
@@ -31,7 +30,6 @@
             android:id="@+id/dialog_class_excellent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_30"
             android:gravity="center_vertical"
             android:text="优秀："
             android:textColor="@color/black_3B3E42"
@@ -43,17 +41,22 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dp_4"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,24 +74,29 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dimen_24"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dialog_good_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_25"
+        android:layout_marginTop="@dimen/dimen_15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_excellent_linear">
@@ -97,7 +105,6 @@
             android:id="@+id/dialog_class_good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_30"
             android:gravity="center_vertical"
             android:text="良好："
             android:textColor="@color/black_3B3E42"
@@ -109,17 +116,22 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dp_4"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -137,24 +149,29 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dimen_24"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dialog_pass_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_25"
+        android:layout_marginTop="@dimen/dimen_15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_good_linear">
@@ -163,7 +180,6 @@
             android:id="@+id/dialog_class_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_30"
             android:gravity="center_vertical"
             android:text="及格："
             android:textColor="@color/black_3B3E42"
@@ -175,17 +191,22 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dp_4"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -203,24 +224,29 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dimen_24"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dialog_low_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_25"
+        android:layout_marginTop="@dimen/dimen_15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_pass_linear">
@@ -229,7 +255,6 @@
             android:id="@+id/dialog_class_low"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_30"
             android:gravity="center_vertical"
             android:text="低分："
             android:textColor="@color/black_3B3E42"
@@ -241,17 +266,22 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dp_4"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -269,17 +299,22 @@
             android:layout_height="36dp"
             android:layout_marginStart="@dimen/dimen_24"
             android:background="@drawable/aw_bg_gray_e8e8e8_radius_10"
-            android:gravity="center_vertical" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_12"
             android:gravity="center_vertical"
-            android:text="%"
+            android:inputType="number"
+            android:paddingStart="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_4"
             android:textColor="@color/black_3B3E42"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_14" />
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="@dimen/dimen_12"-->
+        <!--            android:gravity="center_vertical"-->
+        <!--            android:text="%"-->
+        <!--            android:textColor="@color/black_3B3E42"-->
+        <!--            android:textSize="@dimen/sp_14"-->
+        <!--            android:textStyle="bold" />-->
     </LinearLayout>
 
     <View

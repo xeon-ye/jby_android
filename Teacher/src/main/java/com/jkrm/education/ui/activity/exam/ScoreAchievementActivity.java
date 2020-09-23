@@ -126,7 +126,6 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         super.initData();
 
         String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
-//        String examId = "";
         mPresenter.getTableList(RequestUtil.ScoreAchievementBody("", examId, ""));
     }
 

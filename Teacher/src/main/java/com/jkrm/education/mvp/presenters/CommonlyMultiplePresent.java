@@ -6,9 +6,12 @@ import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
+import com.jkrm.education.bean.exam.ScoreAchievementBean;
+import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.mvp.views.CommonlyMultipleView;
 
 import java.util.List;
@@ -31,6 +34,7 @@ public class CommonlyMultiplePresent extends AwCommonPresenter implements Common
         this.mView = view;
     }
 
+    //综合成绩表
     @Override
     public void getMultipleAchievementList(RequestBody requestBody) {
         //接口访问逻辑
@@ -62,6 +66,98 @@ public class CommonlyMultiplePresent extends AwCommonPresenter implements Common
         });
     }
 
+    //小题得分表
+    @Override
+    public void getQuestionScoreList(RequestBody requestBody) {
+        Observable<ScoreAchievementBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getScoreTable(requestBody);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                if (o != null) {
+                    ScoreAchievementBean data = (ScoreAchievementBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getQuestionScoreListSuccess(data);
+                    else
+                        mView.getQuestionScoreListFail(data.getMsg());
+                } else
+                    mView.getQuestionScoreListFail("数据异常！！");
+            }
+        });
+    }
+
+    //班级成绩对比
+    @Override
+    public void getClassAchievementList(RequestBody requestBody) {
+        Observable<ClassAchievementBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getClassTable(requestBody);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                if (o != null) {
+                    ClassAchievementBean data = (ClassAchievementBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getClassAchievementListSuccess(data);
+                    else
+                        mView.getClassAchievementListFail(data.getMsg());
+                } else
+                    mView.getClassAchievementListFail("数据异常！！");
+            }
+        });
+    }
+
+    //成绩分段表
+    @Override
+    public void getAchievementSectionList(RequestBody requestBody) {
+        Observable<SectionAchievementBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getSectionTable(requestBody);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+                if (o != null) {
+                    SectionAchievementBean data = (SectionAchievementBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getAchievementSectionListSuccess(data);
+                    else
+                        mView.getAchievementSectionListFail(data.getMsg());
+                } else
+                    mView.getAchievementSectionListFail("数据异常！！");
+            }
+        });
+    }
 
 
     @Override
@@ -79,7 +175,6 @@ public class CommonlyMultiplePresent extends AwCommonPresenter implements Common
             public void onSuccess(List<ExamCourseBean> data) {
                 mView.getExamCourseSuccess(data);
             }
-
 
 
             @Override

@@ -68,6 +68,12 @@ public class CommonDialog  extends Dialog {
         }else if (type==2){
             lp.width = d.widthPixels; //宽度为屏幕
             lp.gravity = Gravity.TOP;     //顶部
+        }else if(type==4){
+            lp.width = (int) (d.widthPixels * 0.6); //宽度为屏幕60%
+            lp.gravity = Gravity.CENTER;     //中央居中
+        }else if(type==5){
+            lp.width = (int) (d.widthPixels * 0.7); //宽度为屏幕70%
+            lp.gravity = Gravity.CENTER;     //中央居中
         }
         dialogWindow.setAttributes(lp);
     }

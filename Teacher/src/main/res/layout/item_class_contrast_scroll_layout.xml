@@ -61,6 +61,7 @@
                 android:layout_height="@dimen/dimen_64"
                 android1:gravity="center"
                 android:text="缺考人数"
+                android:visibility="gone"
                 android1:textColor="#666666"
                 android:textSize="14sp" />
 

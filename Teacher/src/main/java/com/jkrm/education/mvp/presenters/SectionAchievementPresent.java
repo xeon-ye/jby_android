@@ -8,6 +8,7 @@ import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.ClassAchievementBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
+import com.jkrm.education.bean.exam.SectionScoreBean;
 import com.jkrm.education.mvp.views.SectionAchievementView;
 
 import okhttp3.RequestBody;
@@ -31,12 +32,10 @@ public class SectionAchievementPresent extends AwCommonPresenter implements Sect
         addIOSubscription(observable, new Subscriber() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
             public void onError(Throwable e) {
-
             }
 
             @Override
@@ -51,6 +50,24 @@ public class SectionAchievementPresent extends AwCommonPresenter implements Sect
                     mView.getTableListFail("数据异常！！");
             }
         });
+    }
+
+    @Override
+    public void getScore(RequestBody requestBody) {
+        Observable<ResponseBean<SectionScoreBean>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getSectionScore(requestBody);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<SectionScoreBean>() {
+            @Override
+            public void onSuccess(SectionScoreBean data) {
+                mView.getSectionScoreSuccess(data);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.getSectionScoreFail(msg);
+            }
+        }));
     }
 
 

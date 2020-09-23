@@ -624,6 +624,23 @@ public class RequestUtil {
         hashMap.put("params", params);
         return getBody(hashMap);
     }
+    /**
+     * 学生名单详情表
+     *
+     * @param classId
+     * @param examId
+     * @return
+     */
+    public static RequestBody StuInfoTableBody(String classId, String examId, String courseId,String current,String size,String params) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("classId", classId);
+        hashMap.put("examId", examId);
+        hashMap.put("courseId", courseId);
+        hashMap.put("current", current);
+        hashMap.put("size", size);
+        hashMap.put("params", params);
+        return getBody(hashMap);
+    }
 
     /**
      * 获取报表
@@ -663,6 +680,18 @@ public class RequestUtil {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("examId", examId);
         hashMap.put("roleId", roleId);
+        return getBody(hashMap);
+    }
+    /**
+     * 分段成绩表（分数）
+     * @param examId
+     * @param courseId
+     * @return
+     */
+    public static RequestBody getSectionScore(String examId,String courseId){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("examId", examId);
+        hashMap.put("roleId", courseId);
         return getBody(hashMap);
     }
 

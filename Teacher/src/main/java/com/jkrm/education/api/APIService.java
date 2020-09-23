@@ -32,6 +32,8 @@ import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.OverViewBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
+import com.jkrm.education.bean.exam.SectionScoreBean;
+import com.jkrm.education.bean.exam.StuInfoTableBean;
 import com.jkrm.education.bean.exam.TableClassBean;
 import com.jkrm.education.bean.request.RequestClassesBean;
 import com.jkrm.education.bean.result.AllStudentScoreResultBean;
@@ -916,6 +918,13 @@ public interface APIService {
      */
     @POST(UrlConstant.SECTION_TABLE)
     Observable<SectionAchievementBean> getSectionTable(@Body RequestBody requestBody);
+    /**
+     * 学生名单详情表
+     * @param requestBody
+     * @return
+     */
+    @POST(UrlConstant.STU_INFO_TABLE)
+    Observable<StuInfoTableBean> getStuInfoTable(@Body RequestBody requestBody);
 
     /**
      * 科目列表
@@ -939,4 +948,10 @@ public interface APIService {
      */
     @POST(UrlConstant.GET_EXAM_COURSE)
     Observable<ResponseBean<List<ExamCourseBean>>>  getExamCourse(@Body RequestBody requestBody);
+    /**
+     * 获取考试下的课目
+     * @return
+     */
+    @POST(UrlConstant.GET_EXAM_COURSE)
+    Observable<ResponseBean<SectionScoreBean>>  getSectionScore(@Body RequestBody requestBody);
 }

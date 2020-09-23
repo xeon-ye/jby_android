@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,15 +20,15 @@ import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableClassAdapter;
 import com.jkrm.education.bean.exam.ClassAchievementBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ClassAchievementPresent;
 import com.jkrm.education.mvp.views.ClassAchievementView;
 import com.jkrm.education.util.RequestUtil;
-import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +62,10 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     private String set_params;
 
     private ClassAchievementBean classAchievementBean;
+    private String examId;
+    private RelativeLayout class_relative;
+    private boolean isFirst = true;
+    private boolean isMiss = true;
 
 
     @Override
@@ -84,7 +90,11 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         });
         setToolbarTitleColor(R.color.white);
 
-        commonDialog = new CommonDialog(this, R.layout.dialog_class_achievement_set_layout, 0);
+        examId = getIntent().getStringExtra(Extras.EXAM_ID);
+        if (TextUtils.isEmpty(examId))
+            examId = "6bfe14f69ba949bb944cdb2c3e4d63be"; //示例数据
+
+        commonDialog = new CommonDialog(this, R.layout.dialog_class_achievement_set_layout, 4);
         commonDialog.setCanceledOnTouchOutside(true);
         commonDialog.findViewById(R.id.dialog_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +103,61 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
                 commonDialog.dismiss();
             }
         });
+
+        EditText editStart = commonDialog.findViewById(R.id.excellent_start_et);
+        EditText editSEnd = commonDialog.findViewById(R.id.excellent_end_et);
+
+        EditText editStart01 = commonDialog.findViewById(R.id.good_start_et);
+        EditText editSEnd01 = commonDialog.findViewById(R.id.good_end_et);
+
+        EditText editStart02 = commonDialog.findViewById(R.id.pass_start_et);
+        EditText editSEnd02 = commonDialog.findViewById(R.id.pass_end_et);
+
+        EditText editStart03 = commonDialog.findViewById(R.id.low_start_et);
+        EditText editSEnd03 = commonDialog.findViewById(R.id.low_end_et);
+
         commonDialog.findViewById(R.id.dialog_sure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //获取params
-//                set_params =
+                if (TextUtils.isEmpty(editStart.getText()) ||
+                        TextUtils.isEmpty(editSEnd.getText()) ||
+                        TextUtils.isEmpty(editStart01.getText()) ||
+                        TextUtils.isEmpty(editSEnd01.getText()) ||
+                        TextUtils.isEmpty(editStart02.getText()) ||
+                        TextUtils.isEmpty(editSEnd02.getText()) ||
+                        TextUtils.isEmpty(editStart03.getText()) ||
+                        TextUtils.isEmpty(editSEnd03.getText())) {
+                    Toast.makeText(ClassAchievementActivity.this, "分数设置请填写完整！", Toast.LENGTH_SHORT).show();
+                } else {
+                    //获取params
+                    String ss = editStart.getText() + "," +
+                            editSEnd.getText() + "_" + editStart01.getText() + "," +
+                            editSEnd01.getText() + "_" + editStart02.getText() + "," +
+                            editSEnd02.getText() + "_" + editStart03.getText() + "," +
+                            editSEnd03.getText();
+                    set_params = ss.trim();
+                    commonDialog.dismiss();
+                    initData();
+                }
             }
         });
 
+        //缺考title
+        TextView textView = findViewById(R.id.item_class_no_tv);
+        CheckBox checkBox = findViewById(R.id.class_score_one_cb); //是否包含缺考
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    textView.setVisibility(View.GONE);
+                    isMiss = true;
+                } else {
+                    textView.setVisibility(View.VISIBLE);
+                    isMiss = false;
+                }
+                getAdapterData();
+            }
+        });
 
     }
 
@@ -108,28 +165,38 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.multiple_subject_tv: //选择学科
-//                getSubject();
+                getSubject();
                 break;
             case R.id.multiple_class_tv: //选择班级
-//                getClassName();
+                getClassName();
                 break;
         }
     }
 
+    private void getClassName() {
+
+    }
+
+    private void getSubject() {
+    }
 
     @Override
     protected void initData() {
         super.initData();
-
-        String param = "100,90_80,80_60,60_30,0";
-        String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
+        //判断是否进行等级设置
+        if (!TextUtils.isEmpty(set_params))
+            isFirst = false;
+        String param = TextUtils.isEmpty(set_params) ? "100,90_80,80_60,60_30,0" : set_params;
         mPresenter.getTableList(RequestUtil.ClassAchievementBody("", examId, "", param));
     }
 
     @Override
     public void getTableListSuccess(ClassAchievementBean data) {
         classAchievementBean = data;
-        initTable();
+        if (isFirst)
+            initTable();
+        else
+            getAdapterData();
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
@@ -140,7 +207,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         mList.add("及格");
         mList.add("低分");
 
-        RelativeLayout class_relative = findViewById(R.id.class_achievement_top);
+        class_relative = findViewById(R.id.class_achievement_top);
         LinearLayout childRoot = findViewById(R.id.item_class_linear);
         class_relative.setClickable(true);
         //表头
@@ -162,15 +229,20 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         TextView right_tv = (TextView) findViewById(R.id.item_achievement_child_right_tv);
         right_tv.setText("排名");
 
-
         //传入adapter的数据形式
-        Map<String, List<String>> listMap = new HashMap<>();
+        getAdapterData();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void getAdapterData() {
+        Map<String, List<String>> listMap = new LinkedHashMap<>();
         List<ClassAchievementBean.DataBean> dataList = classAchievementBean.getData();
         for (int i = 0; i < dataList.size(); i++) {
             ArrayList<String> strings = new ArrayList<>();
             //设置每行数据
             strings.add(!isEmpty(dataList.get(i).getRealNum()) ? dataList.get(i).getRealNum() : "-");
-            strings.add(!isEmpty(dataList.get(i).getMissing()) ? dataList.get(i).getMissing() : "-");
+            if (!isMiss)
+                strings.add(!isEmpty(dataList.get(i).getMissing()) ? dataList.get(i).getMissing() : "-");
             strings.add(!isEmpty(dataList.get(i).getMaxScore()) ? dataList.get(i).getMaxScore() : "-");
             strings.add(!isEmpty(dataList.get(i).getMinScore()) ? dataList.get(i).getMinScore() : "-");
             //平均
@@ -195,7 +267,6 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
 
             listMap.put(dataList.get(i).getClassName(), strings);
         }
-
         classRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         TableClassAdapter adapter = new TableClassAdapter(listMap, classSSL);
@@ -203,19 +274,11 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
 
         classRV.setOnTouchListener(getListener(classSSL));
         class_relative.setOnTouchListener(getListener(classSSL));
-
-        //item点击
-//        classSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
-//            @Override
-//            public void onClick(View view, int position) {
-//                Toast.makeText(ClassAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override
     public void getTableListFail(String msg) {
-
+        Toast.makeText(ClassAchievementActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("ClickableViewAccessibility")
