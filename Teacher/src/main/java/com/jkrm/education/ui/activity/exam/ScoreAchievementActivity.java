@@ -23,6 +23,7 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
 import com.jkrm.education.mvp.views.ScoreAchievementView;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.io.Serializable;
@@ -67,6 +68,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
     private ScoreAchievementBean scoreBean;
     private List<ExamCourseBean> mCourseBeanList;
+    private String EXAM_ID;
 
 
     @Override
@@ -91,6 +93,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             }
         });
         setToolbarTitleColor(R.color.white);
+        EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
         mCourseBeanList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
     }
 
@@ -125,8 +128,8 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     protected void initData() {
         super.initData();
 
-        String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
-        mPresenter.getTableList(RequestUtil.ScoreAchievementBody("", examId, ""));
+        mPresenter.getTableList(RequestUtil.ScoreAchievementBody(
+                UserUtil.getRoleld(),"", EXAM_ID, ""));
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})

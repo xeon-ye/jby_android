@@ -1,21 +1,14 @@
 package com.jkrm.education.ui.fragment.exam;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hzw.baselib.base.AwMvpLazyFragment;
-import com.hzw.baselib.util.AwPopupwindowUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
-import com.hzw.baselib.util.AwSpUtil;
-import com.hzw.baselib.widgets.AwCommonTopListPopupWithIconWindow;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.ExamSearchAdapter;
 import com.jkrm.education.bean.exam.ClassBean;
@@ -26,8 +19,6 @@ import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
 import com.jkrm.education.ui.activity.exam.CommonlyMultipleActivity;
 import com.jkrm.education.ui.activity.exam.ExamSearchActivity;
-import com.jkrm.education.ui.activity.exam.StudentAnalyseActivity;
-import com.jkrm.education.ui.activity.exam.ViewStudentAnswerSheetActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.ClassListDialogFrament;
@@ -36,11 +27,8 @@ import com.jkrm.education.widget.GradeListDialogFrament;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @Description: 成绩分析
@@ -60,7 +48,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     TextView mTvClass;
     private List<GradeBean> mGradeBeans = new ArrayList<>();
     private List<ClassBean> mClassBeans = new ArrayList<>();
-    private String mStrGradeId="",mStrClassId="";
+    private String mStrGradeId = "", mStrClassId = "";
 
     @Override
     protected int getLayoutId() {
@@ -71,19 +59,10 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     @Override
     protected void initView() {
         super.initView();
-       // toClass(StudentAnalyseActivity.class,false);
+        // toClass(StudentAnalyseActivity.class,false);
         //toClass(ViewStudentAnswerSheetActivity.class,false);
         mExamSearchAdapter = new ExamSearchAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvData, mExamSearchAdapter, false);
-
-        Objects.requireNonNull(getActivity()).findViewById(R.id.example_tv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //测试表格入口
-//                toClass(CommonlyMultipleActivity.class,false);
-                toClass(CommonlyMultipleActivity.class,false,"class_list",mClassBeans);
-            }
-        });
 
     }
 
@@ -112,17 +91,17 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         mTvGrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GradeListDialogFrament gradeListDialogFrament=new GradeListDialogFrament();
-                Bundle bundle=new Bundle();
-                bundle.putSerializable(Extras.KEY_GRADE_LIST,(Serializable) mGradeBeans);
+                GradeListDialogFrament gradeListDialogFrament = new GradeListDialogFrament();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Extras.KEY_GRADE_LIST, (Serializable) mGradeBeans);
                 gradeListDialogFrament.setArguments(bundle
                 );
-                gradeListDialogFrament.show(getFragmentManager(),"");
+                gradeListDialogFrament.show(getFragmentManager(), "");
                 gradeListDialogFrament.setOnItemClickListener(new GradeListDialogFrament.OnItemClickListener() {
                     @Override
                     public void onItemChick(BaseQuickAdapter adapter, int position) {
                         GradeBean gradeBean = mGradeBeans.get(position);
-                        mStrGradeId=gradeBean.getGradeId();
+                        mStrGradeId = gradeBean.getGradeId();
                         mTvGrade.setText(gradeBean.getGradeName());
                         getData();
                     }
@@ -133,17 +112,17 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         mTvClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClassListDialogFrament classListDialogFrament=new ClassListDialogFrament();
-                Bundle bundle=new Bundle();
-                bundle.putSerializable(Extras.KEY_CLASS_LIST,(Serializable) mClassBeans);
+                ClassListDialogFrament classListDialogFrament = new ClassListDialogFrament();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Extras.KEY_CLASS_LIST, (Serializable) mClassBeans);
                 classListDialogFrament.setArguments(bundle
                 );
-                classListDialogFrament.show(getFragmentManager(),"");
+                classListDialogFrament.show(getFragmentManager(), "");
                 classListDialogFrament.setOnItemClickListener(new ClassListDialogFrament.OnItemClickListener() {
                     @Override
                     public void onItemChick(BaseQuickAdapter adapter, int position) {
                         ClassBean classBean = mClassBeans.get(position);
-                        mStrClassId=classBean.getClassId();
+                        mStrClassId = classBean.getClassId();
                         mTvClass.setText(classBean.getClassName());
                         getData();
                     }
@@ -157,7 +136,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
                 String classId = data.get(position).getClassId();
                 String courseId = data.get(position).getCourseId();
                 String id = data.get(position).getId();
-                toClass(CommonlyMultipleActivity.class,false,"class_list",mClassBeans,Extras.EXAM_ID,id);
+                toClass(CommonlyMultipleActivity.class, false, "class_list", mClassBeans, Extras.EXAM_ID, id);
 
 
             }
@@ -182,7 +161,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
         gradeBean.setGradeName("全部");
         gradeBean.setGradeId("");
         gradeBean.setSelect(true);
-        mGradeBeans.add(0,gradeBean);
+        mGradeBeans.add(0, gradeBean);
     }
 
 
@@ -194,12 +173,12 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     @Override
     public void getClassListSuccess(List<ClassBean> data) {
         mClassBeans = data;
-        ClassBean classBean=new ClassBean();
+        ClassBean classBean = new ClassBean();
         classBean.setClassName("全部");
         classBean.setClassId("");
         classBean.setSelect(true);
 
-        mClassBeans.add(0,classBean);
+        mClassBeans.add(0, classBean);
 
     }
 

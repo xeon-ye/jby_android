@@ -38,6 +38,7 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.StudentAnalysisPresent;
 import com.jkrm.education.mvp.views.StudentAnalysisView;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,12 +125,13 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         levelAdapter.addData(new MarkBean(false, "校级层次  "));
         EXAM_ID = getIntent().getExtras().getString(Extras.EXAM_ID);
         STUDENT_ID = getIntent().getExtras().getString(Extras.STUDENT_ID);
-        mPresenter.getColumnData(RequestUtil.getReportForm(EXAM_ID, STUDENT_ID));
+        //添加Roleld
+        mPresenter.getColumnData(RequestUtil.getReportFormColumnar(UserUtil.getRoleld(), EXAM_ID, STUDENT_ID));
         mPresenter.getLineData(RequestUtil.getReportForm(EXAM_ID, STUDENT_ID));
         mPresenter.getOverView(RequestUtil.getReportForm(EXAM_ID, STUDENT_ID));
     }
 
-    private void setBarChartData(List<ColumnDataBean> columnDataBeans,int type) {
+    private void setBarChartData(List<ColumnDataBean> columnDataBeans, int type) {
 
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
@@ -137,11 +139,11 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         ArrayList<String> strings = new ArrayList<>();
 
         for (int i = 0; i < columnDataBeans.size(); i++) {
-            if(type==CLASS_TYPE){
+            if (type == CLASS_TYPE) {
                 values1.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getMyScore())));
                 values2.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getClassMaxScore())));
                 values3.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getClassAvgScore())));
-            }else if(type==SCHOOL_TYPE){
+            } else if (type == SCHOOL_TYPE) {
                 values1.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getMyScore())));
                 values2.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getGradeMaxScore())));
                 values3.add(new BarEntry(i, Float.parseFloat(columnDataBeans.get(i).getClassAvgScore())));
@@ -219,10 +221,10 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
                     } else {
                         markBeans.get(i).setSelect(false);
                     }
-                    if(position==0){
-                        setBarChartData(mColumnDataBeans,CLASS_TYPE);
-                    }else{
-                        setBarChartData(mColumnDataBeans,SCHOOL_TYPE);
+                    if (position == 0) {
+                        setBarChartData(mColumnDataBeans, CLASS_TYPE);
+                    } else {
+                        setBarChartData(mColumnDataBeans, SCHOOL_TYPE);
                     }
                     levelGridViewAdapter.notifyDataSetChanged();
                 }
@@ -265,7 +267,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     @Override
     public void getColumnDataSuccess(List<ColumnDataBean> data) {
         mColumnDataBeans = data;
-        setBarChartData(mColumnDataBeans,CLASS_TYPE);
+        setBarChartData(mColumnDataBeans, CLASS_TYPE);
 
     }
 

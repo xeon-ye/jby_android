@@ -383,6 +383,10 @@ public class UrlConstant {
      */
     public static final String SECTION_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscalePage";
     /**
+     * 成绩分段表(获取成绩)
+     */
+    public static final String SECTION_TABLE_SCORE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscale/total";
+    /**
      * 学生名单详情表
      */
     public static final String STU_INFO_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscale/studPage";

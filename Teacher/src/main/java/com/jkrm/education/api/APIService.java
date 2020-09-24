@@ -952,6 +952,6 @@ public interface APIService {
      * 获取考试下的课目
      * @return
      */
-    @POST(UrlConstant.GET_EXAM_COURSE)
+    @POST(UrlConstant.SECTION_TABLE_SCORE)
     Observable<ResponseBean<SectionScoreBean>>  getSectionScore(@Body RequestBody requestBody);
 }

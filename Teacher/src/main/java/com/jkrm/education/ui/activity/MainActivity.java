@@ -82,9 +82,9 @@ public class MainActivity extends AwMvpActivity<MainPresent> implements MainView
     protected void initData() {
         super.initData();
         mMarkMainFragment = new MarkMainFragment();
-        mFragmentList.add(new MainFragment());
+       // mFragmentList.add(new MainFragment());
         mFragmentList.add(mMarkMainFragment);
-       // mFragmentList.add(new ExamFragment());
+        mFragmentList.add(new ExamFragment());
         mFragmentList.add(new ErrorQuestionFragment());
         mFragmentList.add(new StatisticsMainFragment());
 //        mFragmentList.add(new TestFragment());

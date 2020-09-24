@@ -27,11 +27,13 @@ import com.jkrm.education.adapter.exam.TableSectionAdapter;
 import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.bean.exam.SectionScoreBean;
+import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.SectionAchievementPresent;
 import com.jkrm.education.mvp.views.SectionAchievementView;
 import com.jkrm.education.ui.activity.me.MeAgreementActivity;
 import com.jkrm.education.ui.activity.me.PrivacyActivity;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
 import com.jkrm.education.widget.SynScrollerLayout;
 
@@ -70,6 +72,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
     private CommonDialog commonDialog;
     private String mParams = "";
     private String maxScore;
+    private String EXAM_ID;
 
 
     @Override
@@ -93,6 +96,8 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             }
         });
         setToolbarTitleColor(R.color.white);
+
+        EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
 
         commonDialog = new CommonDialog(this, R.layout.dialog_section_layout, 4);
         commonDialog.setCanceledOnTouchOutside(true);
@@ -133,15 +138,15 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
     protected void initData() {
         super.initData();
         getTableData();
-//        mPresenter.getScore(RequestUtil.getSectionScore( "",""));
+        mPresenter.getScore(RequestUtil.getSectionScore(EXAM_ID, ""));
     }
 
     private void getTableData() {
-        String examId = "6bfe14f69ba949bb944cdb2c3e4d63be";
         //params 默认为50
         if (TextUtils.isEmpty(mParams))
             mParams = "50";
-        mPresenter.getTableList(RequestUtil.SectionAchievementBody("", examId, "", "1", "10000", mParams));
+        mPresenter.getTableList(RequestUtil.SectionAchievementBody(
+                UserUtil.getRoleld(), "", EXAM_ID, "", "1", "10000", mParams));
     }
 
     @OnClick({R.id.multiple_subject_tv, R.id.multiple_class_tv})

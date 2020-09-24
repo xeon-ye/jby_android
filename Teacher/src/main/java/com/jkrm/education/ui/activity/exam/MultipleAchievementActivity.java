@@ -1,16 +1,20 @@
 package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +33,7 @@ import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
+import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
@@ -76,7 +81,9 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     private List<ClassBean> mClassList;
     private List<ExamCourseBean> mExamCourseList;
+    private Solve7PopupWindow mPopWindow;
 
+    private String EXAM_ID;
 
 
     @Override
@@ -102,10 +109,27 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         });
         setToolbarTitleColor(R.color.white);
 
+        EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
         mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
         mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+
+
+//        View contentView = LayoutInflater.from(MultipleAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+//        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//        mPopWindow.setContentView(contentView);
 //
-//        popView = new DropDownMenu(this,R.layout.dialog_multiple_achievement_layout);
+//        GridView gridView =contentView.findViewById(R.id.dialog_class_name_gv);
+//        if(mClassList.size()>0){
+//            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this,mClassList);
+//            gridView.setAdapter(gridAdapter);
+//        }
+//
+//        //解决5.0以下版本点击外部不消失问题
+//        mPopWindow.setOutsideTouchable(true);
+//        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        //显示方式
+
+//        popView = new PopupWindow(MultipleAchievementActivity.this,R.layout.item_table_drop_popup_layout);
 //        popView.setOutsideTouchable(true);
 //        popView.setClippingEnabled(false);//不超出屏幕
 //
@@ -123,8 +147,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         super.initData();
 
         //筛选测试
-        String ss = "A924CDD62B224233BDC459597EF6C26F";
-        mPresenter.getTableList(RequestUtil.MultipleAchievementBody("", "", ""));
+        mPresenter.getTableList(RequestUtil.MultipleAchievementBody(
+                UserUtil.getRoleld(),"", EXAM_ID, ""));
 
         //科目列表
         mPresenter.getSubjectList(UserUtil.getAppUser().getTeacherId());
@@ -295,11 +319,11 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
     }
 
     private void getClassName() {
-//        popView.showAsDropDown(findViewById(R.id.multiple_class_tv));
+//        mPopWindow.showAsDropDown(class_tv);
     }
 
     private void getSubject() {
-
+//        mPopWindow.showAsDropDown(subjectTv);
     }
 
     @Override

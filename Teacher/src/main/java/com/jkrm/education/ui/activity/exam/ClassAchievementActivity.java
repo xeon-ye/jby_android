@@ -24,6 +24,7 @@ import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ClassAchievementPresent;
 import com.jkrm.education.mvp.views.ClassAchievementView;
 import com.jkrm.education.util.RequestUtil;
+import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
 import com.jkrm.education.widget.SynScrollerLayout;
 
@@ -187,7 +188,8 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         if (!TextUtils.isEmpty(set_params))
             isFirst = false;
         String param = TextUtils.isEmpty(set_params) ? "100,90_80,80_60,60_30,0" : set_params;
-        mPresenter.getTableList(RequestUtil.ClassAchievementBody("", examId, "", param));
+        mPresenter.getTableList(RequestUtil.ClassAchievementBody(
+                UserUtil.getRoleld(),"", examId, "", param));
     }
 
     @Override

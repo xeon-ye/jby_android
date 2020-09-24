@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#96000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="2dp">
+
+        <!-- 悬浮按钮 -->
+
+        <!--        <ListView-->
+        <!--            android:id="@+id/lvRiskArea"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:divider="@null"-->
+        <!--            android:dividerHeight="1.0dip"-->
+        <!--            android:scrollbars="none"-->
+        <!--            android:listSelector="@android:color/transparent"-->
+        <!--            android:cacheColorHint="@android:color/transparent"-->
+        <!--            android:fadingEdge="none"-->
+        <!--            />-->
+        <GridView
+            android:id="@+id/dialog_class_name_gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:horizontalSpacing="@dimen/dimen_18"
+            android:numColumns="9"
+            android:paddingStart="@dimen/dimen_8"
+            android:paddingEnd="@dimen/dimen_8"
+            android:paddingBottom="@dimen/dimen_10"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dimen_10" />
+    </LinearLayout>
+
+</RelativeLayout>

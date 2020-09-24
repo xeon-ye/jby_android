@@ -1,60 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/dimen_10"
         android:background="#F5F5F5"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_10">
 
-        >
         <TextView
             android:id="@+id/tv_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全部"
-            android:drawableRight="@mipmap/sniper_normal"
             android:layout_marginLeft="@dimen/dimen_10"
+            android:drawableRight="@mipmap/sniper_normal"
             android:drawablePadding="@dimen/dimen_10"
+            android:text="全部" />
 
-            />
         <TextView
             android:id="@+id/tv_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全部"
-            android:drawableRight="@mipmap/sniper_normal"
             android:layout_marginLeft="@dimen/dimen_20"
+            android:drawableRight="@mipmap/sniper_normal"
             android:drawablePadding="@dimen/dimen_10"
+            android:text="全部" />
 
-            />
-
-        <TextView
-            android:id="@+id/example_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1111111"
-            />
         <View
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            ></View>
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/iv_search"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@mipmap/search_black"
             android:layout_marginRight="@dimen/dimen_20"
-
-            />
+            android:src="@mipmap/search_black" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent" />
 </LinearLayout>
