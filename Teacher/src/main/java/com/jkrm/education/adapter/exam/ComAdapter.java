@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hzw.baselib.util.AwDataUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
@@ -40,6 +41,9 @@ public class ComAdapter  extends BaseQuickAdapter<ExamQuestionsBean.reaListBean,
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.com_normal);
             ll_of_com.setBackground(drawable);
             helper.setTextColor(R.id.tv_com_title,mContext.getResources().getColor(R.color.colorPrimary));
+        }
+        if(!AwDataUtil.isEmpty(item.getRemarkScore())){
+            helper.setText(R.id.tv_com_content,item.getRemarkScore());
         }
         // helper.setTextColor(R.id.tv_title,item.isHandleModify()? mContext.getResources().getColor(R.color.colorPrimary): Color.BLACK);
     }

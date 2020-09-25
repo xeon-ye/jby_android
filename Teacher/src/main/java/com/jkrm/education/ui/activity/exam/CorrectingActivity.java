@@ -152,6 +152,8 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     LinearLayout mLlOfAll;
     private ReViewTaskBean.Bean mBean;
     private ExamQuestionsBean mExamQuestionsBean;
+    private List<ExamQuestionsBean.reaListBean> mReaList;
+    private ExamQuestionsBean.reaListBean mReaBean;
     /**
      * 是否已批阅
      */
@@ -528,6 +530,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
     private void setComList() {
         mComAdapter.addAllData(mExamQuestionsBean.getReaList());
+        mReaList=mExamQuestionsBean.getReaList();
         mComAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -535,11 +538,138 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 for (int i = 0; i < mList.size(); i++) {
                     if(i==position){
                         mList.get(i).setSelect(true);
+                        mReaBean=mList.get(i);
                     }else{
                         mList.get(i).setSelect(false);
                     }
                     KeyBoardDialogFragment keyBoardDialogFragment=new KeyBoardDialogFragment();
                     keyBoardDialogFragment.show(getSupportFragmentManager(),"");
+                    keyBoardDialogFragment.setOnItemClickListener(new KeyBoardDialogFragment.OnItemClickListener() {
+
+                        @Override
+                        public void onNum_1_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("1");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_2_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("2");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_3_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("3");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_4_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("4");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_5_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("5");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_6_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("6");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_7_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("7");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_8_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("8");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_9_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("9");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_05_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            double v = Double.parseDouble(remarkScore);
+                            v+=0.5;
+                            mReaBean.setRemarkScore(v+"");
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onNum_0_Chick() {
+                            String remarkScore = mReaBean.getRemarkScore();
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.append(remarkScore);
+                            stringBuilder.append("0");
+                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mComAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onDeleteChick() {
+
+                        }
+
+                        @Override
+                        public void onCancelChick() {
+
+                        }
+
+                        @Override
+                        public void onSureChick() {
+
+                        }
+                    });
                     adapter.notifyDataSetChanged();
                 }
             }

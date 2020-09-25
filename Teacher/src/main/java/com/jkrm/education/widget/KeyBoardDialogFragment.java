@@ -38,19 +38,19 @@ public class KeyBoardDialogFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_fragment_keyboard_layout, null);
         init(view);
-        final Dialog dialog = new Dialog(getActivity(), R.style.dialog_fragment_style);
+        final Dialog dialog = new Dialog(getActivity(), R.style.Dialog_FullScreen);
         dialog.setContentView(view);
         dialog.show();
 
         Window window = dialog.getWindow();
         window.setGravity(Gravity.END); //可设置dialog的位置
-        window.getDecorView().setPadding(0, 0, 200, 0); //消除边距
+        window.getDecorView().setPadding(200, 0, 200, 0); //消除边距
 
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.width = 1000;   //设置宽度充满屏幕
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 

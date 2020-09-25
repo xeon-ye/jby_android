@@ -241,6 +241,15 @@ public class ExamQuestionsBean {
         private String studentId;
         private String typical;
         private boolean isSelect;
+        private String remarkScore="";
+
+        public String getRemarkScore() {
+            return remarkScore;
+        }
+
+        public void setRemarkScore(String remarkScore) {
+            this.remarkScore = remarkScore;
+        }
 
         public boolean isSelect() {
             return isSelect;
