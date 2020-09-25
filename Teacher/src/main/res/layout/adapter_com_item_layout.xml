@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/ll_of_com"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="@dimen/dimen_80"
     android:layout_height="@dimen/dimen_80" android:background="@mipmap/com_normal" android:orientation="vertical">
 
@@ -7,7 +8,6 @@
         android:id="@+id/tv_com_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_40"
-        android:text="未批阅"
         android:gravity="center"
         />
     <TextView
@@ -16,6 +16,7 @@
         android:layout_height="@dimen/dimen_40"
         android:text="未批阅"
         android:gravity="center"
+        android:textColor="@color/color_666666"
         />
 
 </LinearLayout>

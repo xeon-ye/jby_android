@@ -45,6 +45,7 @@ import com.hzw.baselib.util.AwSystemIntentUtil;
 import com.hzw.baselib.util.MyDateUtil;
 import com.hzw.baselib.widgets.AwCommonBottomListPopupWindow;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.ComAdapter;
 import com.jkrm.education.adapter.mark.MarkCommonUseScoreAdapter;
 import com.jkrm.education.base.MyApp;
 import com.jkrm.education.bean.DaoMarkCommonScoreUseBean;
@@ -71,6 +72,7 @@ import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CanvasImageViewWithScale;
 import com.jkrm.education.widget.ChoseQuestionNumberDialogFragment;
 import com.jkrm.education.widget.IncommonUseDialogFrament;
+import com.jkrm.education.widget.KeyBoardDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -222,6 +224,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     private String KEY_READ_NUM, KEY_TO_BE_READ, READ_NUM;
     private int mReadNum, mToBeRead;
     private String mCurrentShowMarkScore;
+    private ComAdapter mComAdapter;
 
 
     @Override
@@ -268,7 +271,9 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             KEY_READ_NUM = (Integer.parseInt(KEY_READ_NUM) + 1) + "";
         }
         KEY_TO_BE_READ = getIntent().getExtras().getString(Extras.KEY_TO_BE_READ);
-
+        //填空题小题
+        mComAdapter=new ComAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity,mRcvCom,mComAdapter,false);
     }
 
     @Override
@@ -459,6 +464,16 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         if (isSelectReMark) {
             replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
         }
+        //填空题
+        if(null!=mExamQuestionsBean.getReaList()&&mExamQuestionsBean.getReaList().size()>0){
+            mRcvCom.setVisibility(View.VISIBLE);
+            mLlOfAll.setVisibility(View.VISIBLE);
+            setComList();
+        }else{
+            //非填空题
+            mRcvCom.setVisibility(View.GONE);
+            mLlOfAll.setVisibility(View.GONE);
+        }
         questionUrl = replace;
         //设置常用分数, 最大分数不存在, 取消展示常用分数
         maxScore = Float.parseFloat(MyDateUtil.replace(AwDataUtil.isEmpty(mExamQuestionsBean.getMaxScore()) ? "0" : (mExamQuestionsBean.getMaxScore())));
@@ -509,6 +524,26 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         if (!AwDataUtil.isEmpty(KEY_TO_BE_READ) && !AwDataUtil.isEmpty(READ_NUM)) {
             mTvTotalMarkPercent.setText("总批阅进度：" + (KEY_READ_NUM) + "/" + (Integer.parseInt(KEY_TO_BE_READ) + Integer.parseInt(READ_NUM)));
         }
+    }
+
+    private void setComList() {
+        mComAdapter.addAllData(mExamQuestionsBean.getReaList());
+        mComAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<ExamQuestionsBean.reaListBean> mList=adapter.getData();
+                for (int i = 0; i < mList.size(); i++) {
+                    if(i==position){
+                        mList.get(i).setSelect(true);
+                    }else{
+                        mList.get(i).setSelect(false);
+                    }
+                    KeyBoardDialogFragment keyBoardDialogFragment=new KeyBoardDialogFragment();
+                    keyBoardDialogFragment.show(getSupportFragmentManager(),"");
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
 
