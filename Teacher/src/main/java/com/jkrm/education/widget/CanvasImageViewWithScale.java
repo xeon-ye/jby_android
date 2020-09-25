@@ -430,8 +430,8 @@ public class CanvasImageViewWithScale extends ImageView implements OnScaleGestur
             MAX_SCALE=scale*4;
             AwLog.e("onGlobalLayout" + scale);
             mMatrix.setScale(scale, scale, viewWidth / 2, viewHeight / 2);
-            //mMatrix.preTranslate((viewWidth - originWidth) / 2, (viewHeight - originHeight) / 2);
-            mMatrix.preTranslate(0, 0);
+            mMatrix.preTranslate((viewWidth - originWidth) / 2, 0);
+            //mMatrix.preTranslate(0, 0);
             setImageMatrix(mMatrix);
             isFristLoad = false;
 

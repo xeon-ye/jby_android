@@ -118,7 +118,9 @@ public class MeMainFragment extends AwMvpLazyFragment<MeMainFragmentPresent> imp
         setText(mTvName, AwDataUtil.isEmpty(MyApp.getInstance().getAppUser().getRealName()) ? "暂无姓名" : MyApp.getInstance().getAppUser().getRealName());
         setText(mTvMobile, AwDataUtil.isEmpty(MyApp.getInstance().getAppUser().getPhone()) ? "暂无手机号" : MyApp.getInstance().getAppUser().getPhone());
         setText(mTvVersion, "版本号 " + AwAPPUtils.getAppVersionInfo(mActivity, AwAPPUtils.TYPE_VERSION.TYPE_VERSION_NAME));
-        setText(mTvSchool, AwDataUtil.isEmpty(MyApp.getInstance().getAppUser().getSchool().getName()) ? "" : MyApp.getInstance().getAppUser().getSchool().getName());
+        if(null!=MyApp.getInstance().getAppUser().getSchool()){
+            setText(mTvSchool, AwDataUtil.isEmpty(MyApp.getInstance().getAppUser().getSchool().getName()) ? "" : MyApp.getInstance().getAppUser().getSchool().getName());
+        }
         setText(mTvCourse, AwDataUtil.isEmpty(MyApp.getInstance().getAppUser().getCourse()) ? "" : MyApp.getInstance().getAppUser().getCourse());
         //https://randomuser.me/api/portraits/women/12.jpg
         AwImgUtil.setImgAvatar(mActivity, mCivAvatar, UserUtil.getAvatar());

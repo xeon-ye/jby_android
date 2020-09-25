@@ -101,13 +101,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_of_com"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_com"
+                android:layout_width="@dimen/dimen_80"
+                android:layout_height="match_parent"
+                ></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
 
         <FrameLayout
             android:id="@+id/fl_leftLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/ll_commonUse">
+            android:layout_toLeftOf="@id/ll_commonUse"
+            android:layout_toRightOf="@id/ll_of_com"
+            >
 
             <RelativeLayout
                 android:id="@+id/rv_leftLayout"
@@ -217,6 +235,33 @@
                         android:padding="@dimen/dimen_5"
                         android:src="@mipmap/piyue_btn_next" />
 
+                    <LinearLayout
+                        android:id="@+id/ll_of_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dimen_10">
+
+                        <ImageView
+                            android:id="@+id/iv_all_right"
+                            android:layout_width="@dimen/dimen_30"
+                            android:layout_height="@dimen/dimen_30"
+                            android:background="@drawable/aw_bg_circle_shape"
+                            android:baselineAligned="false"
+                            android:padding="@dimen/dimen_5"
+                            android:src="@mipmap/all_right" />
+
+                        <ImageView
+                            android:id="@+id/iv_all_wrong"
+                            android:layout_width="@dimen/dimen_30"
+                            android:layout_height="@dimen/dimen_30"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:background="@drawable/aw_bg_circle_shape"
+                            android:padding="@dimen/dimen_5"
+
+                            android:src="@mipmap/all_wrong" />
+                    </LinearLayout>
 
                 </FrameLayout>
             </RelativeLayout>
@@ -230,5 +275,7 @@
                 android:background="@color/black" />
 
         </FrameLayout>
+
+
     </RelativeLayout>
 </LinearLayout>

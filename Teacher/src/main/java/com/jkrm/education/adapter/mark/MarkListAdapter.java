@@ -13,6 +13,7 @@ import com.jkrm.education.bean.result.RowsHomeworkBean;
 import com.jkrm.education.bean.test.TestMarkBean;
 import com.jkrm.education.util.CustomFontStyleUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,14 +32,18 @@ public class MarkListAdapter extends BaseQuickAdapter<RowsHomeworkBean, BaseView
 
     @Override
     protected void convert(final BaseViewHolder helper, final RowsHomeworkBean bean) {
+        DecimalFormat df = new DecimalFormat("0.00%");
         helper.setText(R.id.tv_classes, bean.getClasses().getName() + " " + bean.getName())
                 .setTypeface(R.id.tv_classes, CustomFontStyleUtil.getNewRomenType())
                 .setText(R.id.tv_num, helper.getLayoutPosition() + 1 + "")
                 .setText(R.id.tv_date, AwDateUtils.dealDateFormat(bean.getCreateTime()))
 //                .setText(R.id.tv_date, AwDataUtil.isEmpty(bean.getCreateTime()) ? "未知时间" : AwDateUtils.formatDate16.format(new Date(Long.valueOf(bean.getCreateTime()))))
-                .setText(R.id.tv_markingProgress, "已批阅： " + MyDateUtil.getMarkRote(bean.getStatistics().getProgress(), bean.getStatistics().getSubmitted()))
                 .addOnClickListener(R.id.btn_markNextOperate);
         Button btn_markNextOperate = helper.getView(R.id.btn_markNextOperate);
+        if(null!=bean.getGradedRate()){
+            helper.setText(R.id.tv_markingProgress, "已批阅： " + df.format(Double.parseDouble(bean.getGradedRate())));
+
+        }
         if(bean.isHandle()) {
             if(bean.isMarkFinish()) {
                 btn_markNextOperate.setText("回评");

@@ -68,6 +68,7 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
 
     public ErrorMistakeAdapter() {
         super(R.layout.item_error_question_layout);
+
     }
 
     public void addAllData(List<MistakeBean> dataList) {
@@ -89,6 +90,7 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, MistakeBean item) {
+        helper.setIsRecyclable(false);
         DecimalFormat df = new DecimalFormat("0.00%");
         helper.setText(R.id.tv_num, "第" + item.getQuestionNum() + "题")
                 .setText(R.id.tv_aver, "班级得分率:" + df.format(Float.parseFloat(item.getClassRatio())))
@@ -105,8 +107,10 @@ public class ErrorMistakeAdapter extends BaseQuickAdapter<MistakeBean, BaseViewH
         MathView mathview_content = helper.getView(R.id.mathview_content);
         if(!AwDataUtil.isEmpty(item.getParentId())){
             helper.setVisible(R.id.tv_exPlat,true);
-            helper.setVisible(R.id.mathview_content,true);
+            helper.setGone(R.id.mathview_content,false);
             mathview_content.setText(item.getParentContent());
+            mathview_content.setInitialScale(180);
+
         }
         QuestionBasketOptionsAdapter questionBasketOptionsAdapter = new QuestionBasketOptionsAdapter();
         AwRecyclerViewUtil.setRecyclerViewLinearlayout((Activity) mContext, recyclerView, questionBasketOptionsAdapter, false);

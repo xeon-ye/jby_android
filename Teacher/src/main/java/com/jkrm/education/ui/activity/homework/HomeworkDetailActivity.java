@@ -161,6 +161,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     private GradQusetionBean mGradQusetionBean;
     private List<ClassesResponseBean> mClassesResponseBeanList = new ArrayList<>();
     private MarkHomeWordDetailGroupAdapter mMarkHomeWordDetailGroupAdapter;
+    private Map<String, List<GradQusetionBean>> mCollect;
 
     @Override
     protected HomeworkDetailPresent createPresenter() {
@@ -502,21 +503,27 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setData(HomeworkDetailResultBean bean, int sortTag,String sortTitle) {
         List<GradQusetionBean> list = bean.getGradQusetion();
-        Map<String, List<GradQusetionBean>> collect = new HashMap<>();
+        mCollect = new HashMap<>();
         for (GradQusetionBean gradQusetionBean : list) {
             String title = gradQusetionBean.getTitle();
-            if (collect.containsKey(title)) {
-                collect.get(title).add(gradQusetionBean);
+            if(AwDataUtil.isEmpty(title)){
+                title="答题详情";
+            }if(AwDataUtil.isEmpty(sortTitle)){
+                sortTitle="答题详情";
+            }
+            if (mCollect.containsKey(title)) {
+                mCollect.get(title).add(gradQusetionBean);
             } else {
                 ArrayList<GradQusetionBean> gradQusetionBeans = new ArrayList<>();
                 gradQusetionBeans.add(gradQusetionBean);
-                collect.put(title, gradQusetionBeans);
+
+                mCollect.put(title, gradQusetionBeans);
             }
         }
         list.clear();
-        Set<String> strings = collect.keySet();
+        Set<String> strings = mCollect.keySet();
         for (String string : strings) {
-            List<GradQusetionBean> gradQusetionBeans = collect.get(string);
+            List<GradQusetionBean> gradQusetionBeans = mCollect.get(string);
             list.addAll(gradQusetionBeans);
         }
         if (AwDataUtil.isEmpty(list)) {
@@ -529,7 +536,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                 list.remove(0);
             }
 
-
+            List<GradQusetionBean> gradQusetionBeans = mCollect.get(sortTitle);
             switch (sortTag) {
                 case TAG_SORT_QUESTION_NUM:
 
@@ -557,24 +564,25 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         });
                         list.addAll(gradQusetionBeans);
                     }*/
-                    Collections.sort(list, (o1, o2) -> {
-                        String questionNum1 = o1.getQuestionNum();
-                        String questionNum2 = o2.getQuestionNum();
-                        if(o1.getTitle().equals(o2.getTitle())&&o1.getTitle().equals(sortTitle)){
-                            if (AwDataUtil.isEmpty(questionNum1)) {
-                                questionNum1 = AwBaseConstant.COMMON_INVALID_VALUE;
-                            }
-                            if (AwDataUtil.isEmpty(questionNum2)) {
-                                questionNum2 = AwBaseConstant.COMMON_INVALID_VALUE;
-                            }
-                            if (Float.parseFloat(questionNum1) >= Float.parseFloat(questionNum2)) {
-                                return 1;
-                            } else {
-                                return -1;
-                            }
-                        }
-                      return -1;
-                    });
+                   if(null!=gradQusetionBeans){
+                       Collections.sort(gradQusetionBeans, (o1, o2) -> {
+                           String questionNum1 = o1.getQuestionNum();
+                           String questionNum2 = o2.getQuestionNum();
+                           if (AwDataUtil.isEmpty(questionNum1)) {
+                               questionNum1 = AwBaseConstant.COMMON_INVALID_VALUE;
+                           }
+                           if (AwDataUtil.isEmpty(questionNum2)) {
+                               questionNum2 = AwBaseConstant.COMMON_INVALID_VALUE;
+                           }
+                           if (Float.parseFloat(questionNum1) >= Float.parseFloat(questionNum2)) {
+                               return 1;
+                           } else {
+                               return -1;
+                           }
+
+                       });
+                   }
+
                     break;
                 case TAG_SORT_QUESTION_RATIO_INCREASE:
                 /*    Map<String, List<GradQusetionBean>> collect1 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
@@ -593,10 +601,9 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         });
                         list.addAll(gradQusetionBeans);
                     }*/
-                    Collections.sort(list, (o1, o2) -> {
+                    Collections.sort(gradQusetionBeans, (o1, o2) -> {
                         String ratio1 = o1.getRatio();
                         String ratio2 = o2.getRatio();
-                                if(o1.getTitle().equals(o2.getTitle())){
                                     if (AwDataUtil.isEmpty(ratio1)) {
                                         ratio1 = AwBaseConstant.COMMON_INVALID_VALUE;
                                     }
@@ -608,17 +615,15 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                                     } else {
                                         return -1;
                                     }
-                                }
-                        return -1;
+
 
                     });
 
                     break;
                 case TAG_SORT_QUESTION_RATIO_REDUCE:
-                    Collections.sort(list, (o1, o2) -> {
-                        String ratio1 = o1.getRatio();
+                    Collections.sort(gradQusetionBeans, (o1, o2) -> {
+                        /*String ratio1 = o1.getRatio();
                         String ratio2 = o2.getRatio();
-                                if(o1.getTitle().equals(o2.getTitle())) {
                                     if (AwDataUtil.isEmpty(ratio1)) {
                                         ratio1 = AwBaseConstant.COMMON_INVALID_VALUE;
                                     }
@@ -629,9 +634,26 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                                         return 1;
                                     } else {
                                         return -1;
-                                    }
-                                }
-                        return -1;
+                                    }*/
+                        if(o1 == null && o2 == null) {
+                            return 0;
+                        }
+                        if(o1 == null) {
+                            return -1;
+                        }
+                        if(o2 == null) {
+                            return 1;
+                        }
+                        if(!AwDataUtil.isEmpty(o1.getRatio())&&!AwDataUtil.isEmpty(o2.getRatio())){
+                            if(Float.parseFloat(o2.getRatio()) > Float.parseFloat(o1.getRatio())) {
+                                return 1;
+                            }
+                            if(Float.parseFloat(o2.getRatio()) < Float.parseFloat(o1.getRatio())) {
+                                return -1;
+                            }
+                        }
+
+                        return 0;
 
                     });
                     /*Map<String, List<GradQusetionBean>> collect3 = list.stream().collect(Collectors.groupingBy(GradQusetionBean::getTitle));
@@ -665,10 +687,9 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         });
                         list.addAll(gradQusetionBeans);
                     }*/
-                    Collections.sort(list, (o1, o2) -> {
+                    Collections.sort(gradQusetionBeans, (o1, o2) -> {
                         String ratio1 = o1.getExPlat();
                         String ratio2 = o2.getExPlat();
-                        if(o1.getTitle().equals(o2.getTitle())) {
                             if (AwDataUtil.isEmpty(ratio1)) {
                                 ratio1 = AwBaseConstant.COMMON_INVALID_VALUE;
                             }
@@ -680,8 +701,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                             } else {
                                 return -1;
                             }
-                        }
-                        return -1;
+
 
                     });
                    /* Collections.sort(list, new Comparator<GradQusetionBean>() {
@@ -691,6 +711,11 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                         }
                     });*/
                     break;
+            }
+            list.clear();
+            for (String string : strings) {
+                List<GradQusetionBean> beans = mCollect.get(string);
+                list.addAll(beans);
             }
             mDetailAdapter.addAllData(list);
             mDetailAdapter.loadMoreComplete();

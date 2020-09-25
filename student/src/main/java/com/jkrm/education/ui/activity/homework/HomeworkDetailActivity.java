@@ -546,7 +546,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                     Set<String> strings = collect.keySet();
                     for (String string : strings) {
                         List<AnswerSheetDataDetailResultBean> gradQusetionBeans = collect.get(string);
-                        Collections.sort(gradQusetionBeans, new Comparator<AnswerSheetDataDetailResultBean>() {
+                    /*    Collections.sort(gradQusetionBeans, new Comparator<AnswerSheetDataDetailResultBean>() {
                             @Override
                             public int compare(AnswerSheetDataDetailResultBean bean, AnswerSheetDataDetailResultBean t1) {
                                 if (Float.parseFloat(bean.getQuestionNum()) >= Float.parseFloat(t1.getQuestionNum())) {
@@ -554,7 +554,7 @@ public class HomeworkDetailActivity extends AwMvpActivity<HomeworkDetailPresent>
                                 }
                                 return -1;
                             }
-                        });
+                        });*/
                         mAnswerSheetDataDetailResultBeanList.addAll(gradQusetionBeans);
 
                     }

@@ -51,10 +51,7 @@ import com.jkrm.education.bean.DaoMarkCommonScoreUseBean;
 import com.jkrm.education.bean.ReViewTaskBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
-import com.jkrm.education.bean.result.AnswerSheetProgressResultBean;
-import com.jkrm.education.bean.result.HomeworkDetailResultBean;
 import com.jkrm.education.bean.result.OssResultBean;
-import com.jkrm.education.bean.result.RowsHomeworkBean;
 import com.jkrm.education.bean.rx.RxMarkImgOperateType;
 import com.jkrm.education.bean.rx.RxRefreshHomeworkDetailType;
 import com.jkrm.education.bean.rx.RxRefreshHomeworkListType;
@@ -141,6 +138,16 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     View mViewAlpha;
     @BindView(R.id.fl_leftLayout)
     FrameLayout mFlLeftLayout;
+    @BindView(R.id.rcv_com)
+    RecyclerView mRcvCom;
+    @BindView(R.id.ll_of_com)
+    LinearLayout mLlOfCom;
+    @BindView(R.id.iv_all_right)
+    ImageView mIvAllRight;
+    @BindView(R.id.iv_all_wrong)
+    ImageView mIvAllWrong;
+    @BindView(R.id.ll_of_all)
+    LinearLayout mLlOfAll;
     private ReViewTaskBean.Bean mBean;
     private ExamQuestionsBean mExamQuestionsBean;
     /**
@@ -399,7 +406,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     new Handler().postDelayed(() -> toSaveImg(true, totalMarkScore), 300);
                     //直接判分, 不用上传图片
 //                        mPresenter.markQuestion(true, mCurrentStudentSingleQuestionAnswerResultBean.getId(), RequestUtil.getMarkQuestionRequest("", totalMarkScore, "1"));
-                    mPresenter.examMark(true, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(),mExamQuestionsBean.getQuestionId()));
+                    mPresenter.examMark(true, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
 
                 }
             }
@@ -452,7 +459,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         if (isSelectReMark) {
             replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
         }
-        questionUrl=replace;
+        questionUrl = replace;
         //设置常用分数, 最大分数不存在, 取消展示常用分数
         maxScore = Float.parseFloat(MyDateUtil.replace(AwDataUtil.isEmpty(mExamQuestionsBean.getMaxScore()) ? "0" : (mExamQuestionsBean.getMaxScore())));
         Glide.with(mActivity).load(replace).into(mIvQuestionImg);
@@ -524,7 +531,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             e.printStackTrace();
         }
         questionUrl = bean.getAccessUrl();
-        mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(),mExamQuestionsBean.getQuestionId()));
+        mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
 
 
     }
@@ -778,7 +785,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 break;
             case R.id.tv_commonUse:
             case R.id.iv_commonUse:
-                isEditCommonUse=true;
+                isEditCommonUse = true;
                 IncommonUseDialogFrament incommonUseDialogFrament = new IncommonUseDialogFrament();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Extras.KEY_SCORE_LIST, (Serializable) mCommonUseScoreList);
@@ -1109,8 +1116,16 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         setQuestionInfo(false);
         AwLog.d("MarkActivity refreshByBus isMark: " + isMarked + ",totalMarkScore: " + totalMarkScore);
     }
+
     @Override
     protected void reLogin() {
         ReLoginUtil.reLogin(mActivity);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

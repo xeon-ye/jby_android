@@ -111,7 +111,6 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     TextView mTvNormal;
     @BindView(R.id.tv_inverted)
     TextView mTvInverted;
-    Unbinder unbinder1;
 
     private ErrorCourseAdapter mErrorCourseAdapter;
     private ErrorHomeWordAdapter mErrorHomeWordAdapter;
@@ -556,17 +555,5 @@ public class ErrorQuestionFragment extends AwMvpLazyFragment<ErrorQuestionFragme
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder1.unbind();
-    }
 }

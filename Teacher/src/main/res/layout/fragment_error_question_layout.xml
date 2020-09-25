@@ -153,9 +153,7 @@
                             android:layout_height="wrap_content"
                             app:rsb_gravity="bottom"
                             app:rsb_mode="range"
-                            app:rsb_thumb_drawable="@drawable/thumb_yellow_stroke"
                             app:rsb_progress_color="@color/colorPrimary"
-
                             />
 
                         <com.hzw.baselib.widgets.BidirectionalSeekBar

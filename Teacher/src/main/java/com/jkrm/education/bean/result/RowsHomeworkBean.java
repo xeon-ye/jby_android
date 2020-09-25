@@ -37,6 +37,17 @@ public class RowsHomeworkBean implements Serializable {
     private String studCode;
     private String effect;//1处理完毕, 0处理中
 
+    public String getGradedRate() {
+        return gradedRate;
+    }
+
+    public void setGradedRate(String gradedRate) {
+        this.gradedRate = gradedRate;
+    }
+
+    private String gradedRate
+            ;
+
     //自定义开始...........................................................
 
     public boolean isMarkFinish() {

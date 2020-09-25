@@ -93,7 +93,8 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.RowsBean, BaseViewH
             DecimalFormat decimalFormat=new DecimalFormat("#0.00");
             Date parse = simpleDateFormat.parse(item.getCreateTime());
             helper.setText(R.id.tv_time, "下单时间:" + AwDateUtils.getyyyyMMddHHmmssWithNo(parse.getTime()))
-                    .setText(R.id.tv_price, "￥" +  decimalFormat.format(Double.parseDouble(item.getGoodsPrice())))
+                    //.setText(R.id.tv_price, "￥" +  decimalFormat.format(Double.parseDouble(item.getGoodsPrice())))
+                    .setText(R.id.tv_price, "￥" + item.getGoodsPrice())
                     .setText(R.id.tv_content, "共" + item.getDetaiList().get(0).getComboNum() + "讲")
                     .setText(R.id.tv_course, item.getDetaiList().get(0).getCourseName())
                     .setText(R.id.tv_title, item.getDetaiList().get(0).getGoodsName())
