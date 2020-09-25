@@ -44,10 +44,10 @@ public class KeyBoardDialogFragment extends DialogFragment {
 
         Window window = dialog.getWindow();
         window.setGravity(Gravity.END); //可设置dialog的位置
-        window.getDecorView().setPadding(0, 0, 0, 0); //消除边距
+        window.getDecorView().setPadding(0, 0, 200, 0); //消除边距
 
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;   //设置宽度充满屏幕
+        lp.width = 1000;   //设置宽度充满屏幕
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
         dialog.setCanceledOnTouchOutside(true);
