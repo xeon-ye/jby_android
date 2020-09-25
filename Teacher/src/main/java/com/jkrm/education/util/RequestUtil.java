@@ -601,11 +601,12 @@ public class RequestUtil {
      * @param examId
      * @return
      */
-    public static RequestBody MultipleAchievementBody(String roleId, String classId, String examId, String keywords) {
+    public static RequestBody MultipleAchievementBody(String roleId, String classId, String courseId,String examId, String keywords) {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("classId", classId);
         hashMap.put("examId", examId);
         hashMap.put("roleId", roleId);
+        hashMap.put("courseId", courseId);
         hashMap.put("keywords", keywords);
         return getBody(hashMap);
     }

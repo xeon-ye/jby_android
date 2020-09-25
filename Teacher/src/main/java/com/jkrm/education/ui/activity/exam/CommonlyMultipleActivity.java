@@ -122,12 +122,6 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         findViewById(R.id.section_achievement_more_tv).setOnClickListener(this);
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
 
-//        //小题得分表：
-//        initScore();
-//        //班级成绩对比
-//        initClass();
-//        //成绩分段表
-//        initSection();
     }
 
 
@@ -559,28 +553,28 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
             case R.id.achievement_more_tv: {
                 toClass(MultipleAchievementActivity.class,
                         false, Extras.KEY_CLASS_LIST, mClassList,
-                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList,Extras.EXAM_ID,EXAM_ID);
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList, Extras.EXAM_ID, EXAM_ID);
                 break;
             }
             //小题得分表
             case R.id.score_achievement_more_tv: {
                 toClass(ScoreAchievementActivity.class, false,
                         Extras.KEY_CLASS_LIST, mClassList,
-                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList,Extras.EXAM_ID,EXAM_ID);
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList, Extras.EXAM_ID, EXAM_ID);
                 break;
             }
             //班级成绩对比
             case R.id.class_score_more_tv: {
                 toClass(ClassAchievementActivity.class, false,
                         Extras.KEY_CLASS_LIST, mClassList,
-                        Extras.KEY_EXAM_COURSE_LIST,mExamCourseBeanList,Extras.EXAM_ID,EXAM_ID);
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList, Extras.EXAM_ID, EXAM_ID);
                 break;
             }
             //成绩分段表
             case R.id.section_achievement_more_tv: {
                 toClass(SectionAchievementActivity.class, false,
                         Extras.KEY_CLASS_LIST, mClassList,
-                        Extras.KEY_EXAM_COURSE_LIST,mExamCourseBeanList,Extras.EXAM_ID,EXAM_ID);
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList, Extras.EXAM_ID, EXAM_ID);
                 break;
             }
         }
@@ -591,10 +585,10 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         super.initData();
         //综合成绩
         mPresenter.getMultipleAchievementList(RequestUtil.MultipleAchievementBody(
-                UserUtil.getRoleld(),"", EXAM_ID, ""));
+                UserUtil.getRoleld(), "","" ,EXAM_ID, ""));
         mPresenter.getExamCourse(RequestUtil.getExamCourseBody(EXAM_ID, UserUtil.getRoleld()));
         //小题得分
-        mPresenter.getQuestionScoreList(RequestUtil.ScoreAchievementBody(UserUtil.getRoleld(),"", EXAM_ID, ""));
+        mPresenter.getQuestionScoreList(RequestUtil.ScoreAchievementBody(UserUtil.getRoleld(), "", EXAM_ID, ""));
         //班级成绩对比
         String param = "100,90_90,80_80,60_60,0";
         mPresenter.getClassAchievementList(RequestUtil.ClassAchievementBody(UserUtil.getRoleld(),
@@ -602,7 +596,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         //成绩分段，params 先默认为50
         String mParams = "50";
         mPresenter.getAchievementSectionList(RequestUtil.SectionAchievementBody(
-                UserUtil.getRoleld(),"", EXAM_ID, "", "1", "1000", mParams));
+                UserUtil.getRoleld(), "", EXAM_ID, "", "1", "1000", mParams));
     }
 
     @Override
@@ -652,6 +646,11 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
     @Override
     public void getExamCourseSuccess(List<ExamCourseBean> data) {
+        ExamCourseBean bean = new ExamCourseBean();
+        bean.setCourseId("");
+        bean.setCourseName("全部");
+        bean.setChecked(true);
+        data.add(0, bean);
         mExamCourseBeanList = data;
     }
 

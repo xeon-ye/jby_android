@@ -1,9 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:id="@+id/item_table_drop_relative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#96000000">
 
     <LinearLayout
+        android:id="@+id/item_table_drop_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -11,23 +13,11 @@
         android:orientation="vertical"
         android:paddingBottom="2dp">
 
-        <!-- 悬浮按钮 -->
-
-        <!--        <ListView-->
-        <!--            android:id="@+id/lvRiskArea"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:divider="@null"-->
-        <!--            android:dividerHeight="1.0dip"-->
-        <!--            android:scrollbars="none"-->
-        <!--            android:listSelector="@android:color/transparent"-->
-        <!--            android:cacheColorHint="@android:color/transparent"-->
-        <!--            android:fadingEdge="none"-->
-        <!--            />-->
         <GridView
             android:id="@+id/dialog_class_name_gv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
             android:background="@color/white"
             android:horizontalSpacing="@dimen/dimen_18"
             android:numColumns="9"

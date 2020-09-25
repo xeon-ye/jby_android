@@ -170,6 +170,7 @@
         <activity
             android:name=".ui.activity.exam.MultipleAchievementActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape" /> <!-- 综合成绩表 -->
         <activity
             android:name=".ui.activity.exam.ClassAchievementActivity"
@@ -178,6 +179,7 @@
         <activity
             android:name=".ui.activity.exam.ScoreAchievementActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="landscape" /> <!-- 小题得分表 -->
         <activity
             android:name=".ui.activity.exam.SectionAchievementActivity"
