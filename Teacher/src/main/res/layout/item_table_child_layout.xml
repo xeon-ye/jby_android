@@ -23,5 +23,12 @@
         android:layout_toRightOf="@id/item_table_child_tv"
         android:background="#e8e8e8" />
 
+<!--    <View-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:layout_below="@id/item_table_child_tv"-->
+<!--        android:layout_alignStart="@id/item_table_child_tv"-->
+<!--        android:background="#e8e8e8" />-->
+
 
 </RelativeLayout>

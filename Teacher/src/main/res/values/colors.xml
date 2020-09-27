@@ -22,6 +22,8 @@
     <color name="color_FFC000">#FFC000</color>
     <color name="color_1995FB">#1995FB</color>
 
+    <color name="popup_main_background">#b0000000</color>
+
     <!--替换智齿状态栏 color-->
     <color name="sobot_status_bar_color">#0093FF</color>
 </resources>

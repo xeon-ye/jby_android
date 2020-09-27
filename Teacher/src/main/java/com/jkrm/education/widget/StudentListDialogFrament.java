@@ -66,7 +66,6 @@ public class StudentListDialogFrament extends DialogFragment {
         return dialog;
     }
 
-
     private void init(View view) {
         view.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,6 +2,7 @@ package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +12,12 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,9 +26,13 @@ import android.widget.Toast;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.TableClassGridAdapter;
+import com.jkrm.education.adapter.exam.TableCourseGridAdapter;
 import com.jkrm.education.adapter.exam.TableMultipleAdapter01;
 import com.jkrm.education.adapter.exam.TableSectionAdapter;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.bean.exam.SectionScoreBean;
 import com.jkrm.education.constants.Extras;
@@ -35,6 +43,7 @@ import com.jkrm.education.ui.activity.me.PrivacyActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
+import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
@@ -55,7 +64,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
 
     @BindView(R.id.multiple_subject_tv)
-    TextView subject_tv;
+    TextView course_tv;
     @BindView(R.id.multiple_class_tv)
     TextView class_tv;
 
@@ -69,11 +78,16 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
     private SectionAchievementBean sectionBean;
     private SectionScoreBean sectionScoreBean;
 
+    private List<ClassBean> mClassList;
+    private List<ExamCourseBean> mExamCourseList;
+    private Solve7PopupWindow mPopWindow;
+
     private CommonDialog commonDialog;
     private String mParams = "";
     private String maxScore;
     private String EXAM_ID;
 
+    private String classId, courseId;
 
     @Override
     protected int getLayoutId() {
@@ -98,6 +112,8 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
         setToolbarTitleColor(R.color.white);
 
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
+        mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
+        mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
 
         commonDialog = new CommonDialog(this, R.layout.dialog_section_layout, 4);
         commonDialog.setCanceledOnTouchOutside(true);
@@ -145,8 +161,11 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
         //params 默认为50
         if (TextUtils.isEmpty(mParams))
             mParams = "50";
+        String claId = TextUtils.isEmpty(classId) ? "" : classId;
+        String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
+
         mPresenter.getTableList(RequestUtil.SectionAchievementBody(
-                UserUtil.getRoleld(), "", EXAM_ID, "", "1", "10000", mParams));
+                UserUtil.getRoleld(), claId, EXAM_ID, couId, "1", "10000", mParams));
     }
 
     @OnClick({R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -216,7 +235,10 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             @Override
             public void onClick(View view, int position) {
 //                Toast.makeText(SectionAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(StuInfoTableActivity.class, false);
+                toClass(StuInfoTableActivity.class, false,
+                        Extras.EXAM_ID, EXAM_ID,
+                        Extras.KEY_COURSE_ID,sectionBean.getRows().get(position).getCourseId(),
+                        Extras.KEY_CLASS_ID,sectionBean.getRows().get(position).getClassId());//分数段字段 Extras.KEY_EXAM_STU_LIST
             }
         });
 
@@ -224,11 +246,83 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
     //获取班级
     private void getClassName() {
+        View contentView = LayoutInflater.from(SectionAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopWindow.setContentView(contentView);
 
+        RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
+
+        GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
+        if (mClassList.size() > 0) {
+            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this, mClassList);
+            gridView.setAdapter(gridAdapter);
+        }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                classId = mClassList.get(position).getClassId();
+                class_tv.setText(mClassList.get(position).getClassName());
+                mPopWindow.dismiss();
+                getTableData();
+            }
+        });
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setClippingEnabled(false);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(class_tv);
+        mPopWindow.showAsDropDown(class_tv, 0, -class_tv.getHeight());
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            }
+        });
     }
 
     //获取科目
     private void getSubject() {
+        View contentView = LayoutInflater.from(SectionAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopWindow.setContentView(contentView);
+
+
+        RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
+
+        GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
+        if (mExamCourseList.size() > 0) {
+            TableCourseGridAdapter gridAdapter = new TableCourseGridAdapter(this, mExamCourseList);
+            gridView.setAdapter(gridAdapter);
+        }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                courseId = mExamCourseList.get(position).getCourseId();
+                course_tv.setText(mExamCourseList.get(position).getCourseName());
+                mPopWindow.dismiss();
+                getTableData();
+            }
+        });
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setClippingEnabled(false);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(class_tv);
+        mPopWindow.showAsDropDown(class_tv, 0, -class_tv.getHeight());
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            }
+        });
 
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 
 import java.util.List;
 
@@ -19,17 +20,17 @@ import java.util.List;
  * Createdate: 2020/9/15 18:14
  * Description:
  */
-public class TableClassGridAdapter extends BaseAdapter {
+public class TableCourseGridAdapter extends BaseAdapter {
 
-    private List<ClassBean> data;
+    private List<ExamCourseBean> data;
     private Context mContext;
 
-    public TableClassGridAdapter(Context context,List<ClassBean> data) {
+    public TableCourseGridAdapter(Context context, List<ExamCourseBean> data) {
         this.data = data;
         this.mContext = context;
     }
 
-    public void setData(List<ClassBean> data) {
+    public void setData(List<ExamCourseBean> data) {
         this.data = data;
     }
 
@@ -53,10 +54,9 @@ public class TableClassGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_table_grade_item_layout, null);
         TextView text = view.findViewById(R.id.tv_title);
-        text.setText(data.get(position).getClassName());
+        text.setText(data.get(position).getCourseName());
         if(position==0)
             text.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
-//        ContextCompat.getColor(mContext, R.color.blue);
         return view;
     }
 

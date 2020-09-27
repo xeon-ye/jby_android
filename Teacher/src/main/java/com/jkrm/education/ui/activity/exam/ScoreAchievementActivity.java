@@ -1,13 +1,21 @@
 package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +24,10 @@ import android.widget.Toast;
 import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
+import com.jkrm.education.adapter.exam.TableClassGridAdapter;
+import com.jkrm.education.adapter.exam.TableCourseGridAdapter;
 import com.jkrm.education.adapter.exam.TableScoreAdapter;
+import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.constants.Extras;
@@ -24,12 +35,16 @@ import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
 import com.jkrm.education.mvp.views.ScoreAchievementView;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
+import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
+import com.smarttop.library.utils.LogUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +60,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
 
     @BindView(R.id.multiple_subject_tv)
-    TextView subject_tv;
+    TextView course_tv;
     @BindView(R.id.multiple_class_tv)
     TextView class_tv;
 
@@ -67,8 +82,16 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
 
 
     private ScoreAchievementBean scoreBean;
-    private List<ExamCourseBean> mCourseBeanList;
+    private List<ClassBean> mClassList;
+    private List<ExamCourseBean> mExamCourseList;
+    private Solve7PopupWindow mPopWindow;
+
+    private RelativeLayout score_relative;
+    private List<ScoreAchievementBean.DataBean> titleList;
+
     private String EXAM_ID;
+    private String classId, courseId;
+    private boolean isFirst = true;
 
 
     @Override
@@ -94,7 +117,37 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         });
         setToolbarTitleColor(R.color.white);
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
-        mCourseBeanList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+        mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
+        mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+
+        //搜索相关（参数和接口不对，缺少keywords，不知道是否要加）
+        EditText editText = findViewById(R.id.multiple_top_ed);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((actionId == 0 || actionId == 3) && event != null) {
+                    String ss = editText.getText().toString().trim();
+                    LogUtil.e("111111111", ss);
+                    getData(ss);
+                    editText.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(editText, 0);
+
+    }
+
+    private void getData(String search) {
+        String claId = TextUtils.isEmpty(classId) ? "" : classId;
+        String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
+
+        mPresenter.getTableList(RequestUtil.ScoreAchievementBody(
+                UserUtil.getRoleld(), claId, EXAM_ID, couId,search));
     }
 
     @OnClick({R.id.multiple_top_tv, R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -113,32 +166,20 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         }
     }
 
-    //获取班级
-    private void getClassName() {
-
-    }
-
-    //获取科目
-    private void getSubject() {
-
-    }
-
-
     @Override
     protected void initData() {
         super.initData();
 
-        mPresenter.getTableList(RequestUtil.ScoreAchievementBody(
-                UserUtil.getRoleld(),"", EXAM_ID, ""));
+       getData("");
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void initScore() {
-        RelativeLayout score_relative = findViewById(R.id.score_achievement_top);
+         score_relative = findViewById(R.id.score_achievement_top);
         LinearLayout childRoot = findViewById(R.id.item_score_linear);
         score_relative.setClickable(true);
 
-        List<ScoreAchievementBean.DataBean> titleList = scoreBean.getData();
+         titleList = scoreBean.getData();
 
         for (int i = 0; i < titleList.size(); i++) {
             View inflate;
@@ -165,8 +206,15 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 left_text.setId(Integer.parseInt(titleList.get(i).getQuestionId()));
             }
             childRoot.addView(inflate);
+
         }
 
+        isFirst = false;
+        getAdapterData();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void getAdapterData() {
         //传入adapter的数据形式
         Map<String, List<String>> listMap = new LinkedHashMap<>();
 
@@ -252,11 +300,93 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(ScoreAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(ViewStudentAnswerSheetActivity.class,false,
-                        Extras.EXAM_ID,scoreBean.getRows().get(position).getExamId(),
-                        Extras.STUDENT_ID,scoreBean.getRows().get(position).getStudId(),
-                        Extras.KEY_COURSE_ID,scoreBean.getRows().get(position).getCourseId(),
-                        Extras.KEY_EXAM_COURSE_LIST,mCourseBeanList);
+                toClass(ViewStudentAnswerSheetActivity.class, false,
+                        Extras.EXAM_ID, scoreBean.getRows().get(position).getExamId(),
+                        Extras.STUDENT_ID, scoreBean.getRows().get(position).getStudId(),
+                        Extras.KEY_COURSE_ID, scoreBean.getRows().get(position).getCourseId(),
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseList);
+            }
+        });
+    }
+
+    //获取班级
+    private void getClassName() {
+        View contentView = LayoutInflater.from(ScoreAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopWindow.setContentView(contentView);
+
+
+        RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
+
+        GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
+        if (mClassList.size() > 0) {
+            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this, mClassList);
+            gridView.setAdapter(gridAdapter);
+        }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                classId = mClassList.get(position).getClassId();
+                class_tv.setText(mClassList.get(position).getClassName());
+                mPopWindow.dismiss();
+                getData("");
+            }
+        });
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setClippingEnabled(false);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(class_tv);
+        mPopWindow.showAsDropDown(class_tv, 0, -class_tv.getHeight());
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            }
+        });
+
+    }
+
+    //获取科目
+    private void getSubject() {
+        View contentView = LayoutInflater.from(ScoreAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopWindow.setContentView(contentView);
+
+        RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
+
+        GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
+        if (mExamCourseList.size() > 0) {
+            TableCourseGridAdapter gridAdapter = new TableCourseGridAdapter(this, mExamCourseList);
+            gridView.setAdapter(gridAdapter);
+        }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                courseId = mExamCourseList.get(position).getCourseId();
+                course_tv.setText(mExamCourseList.get(position).getCourseName());
+                mPopWindow.dismiss();
+                getData("");
+            }
+        });
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setClippingEnabled(false);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(class_tv);
+        mPopWindow.showAsDropDown(class_tv, 0, -class_tv.getHeight());
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
             }
         });
     }
@@ -264,7 +394,11 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     @Override
     public void getTableListSuccess(ScoreAchievementBean data) {
         scoreBean = data;
-        initScore();
+        if (isFirst)
+            initScore();
+        else
+            getAdapterData();
+
     }
 
     @Override

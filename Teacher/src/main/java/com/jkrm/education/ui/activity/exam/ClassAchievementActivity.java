@@ -1,15 +1,19 @@
 package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,13 +23,18 @@ import com.hzw.baselib.base.AwMvpActivity;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableClassAdapter;
+import com.jkrm.education.adapter.exam.TableClassGridAdapter;
+import com.jkrm.education.adapter.exam.TableCourseGridAdapter;
 import com.jkrm.education.bean.exam.ClassAchievementBean;
+import com.jkrm.education.bean.exam.ClassBean;
+import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ClassAchievementPresent;
 import com.jkrm.education.mvp.views.ClassAchievementView;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
+import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
@@ -50,7 +59,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     LinearLayout common_toolbar;
 
     @BindView(R.id.multiple_subject_tv)
-    TextView subject_tv;
+    TextView course_tv;
     @BindView(R.id.multiple_class_tv)
     TextView class_tv;
 
@@ -67,6 +76,12 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     private RelativeLayout class_relative;
     private boolean isFirst = true;
     private boolean isMiss = true;
+
+    private List<ClassBean> mClassList;
+    private List<ExamCourseBean> mExamCourseList;
+    private Solve7PopupWindow mPopWindow;
+
+    private String classId, courseId;
 
 
     @Override
@@ -92,6 +107,9 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         setToolbarTitleColor(R.color.white);
 
         examId = getIntent().getStringExtra(Extras.EXAM_ID);
+        mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
+        mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+
         if (TextUtils.isEmpty(examId))
             examId = "6bfe14f69ba949bb944cdb2c3e4d63be"; //示例数据
 
@@ -175,21 +193,103 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     }
 
     private void getClassName() {
+        View contentView = LayoutInflater.from(ClassAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopWindow.setContentView(contentView);
+
+
+        RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
+
+        GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
+        if (mClassList.size() > 0) {
+            TableClassGridAdapter gridAdapter = new TableClassGridAdapter(this, mClassList);
+            gridView.setAdapter(gridAdapter);
+        }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                classId = mClassList.get(position).getClassId();
+                class_tv.setText(mClassList.get(position).getClassName());
+                mPopWindow.dismiss();
+                getData();
+            }
+        });
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setClippingEnabled(false);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(class_tv);
+        mPopWindow.showAsDropDown(class_tv, 0, -class_tv.getHeight());
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            }
+        });
 
     }
 
     private void getSubject() {
+        View contentView = LayoutInflater.from(ClassAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
+        mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        mPopWindow.setContentView(contentView);
+
+
+        RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
+
+        GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
+        if (mExamCourseList.size() > 0) {
+            TableCourseGridAdapter gridAdapter = new TableCourseGridAdapter(this, mExamCourseList);
+            gridView.setAdapter(gridAdapter);
+        }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                courseId = mExamCourseList.get(position).getCourseId();
+                course_tv.setText(mExamCourseList.get(position).getCourseName());
+                mPopWindow.dismiss();
+                getData();
+            }
+        });
+
+        //解决5.0以下版本点击外部不消失问题
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setClippingEnabled(false);
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.showAsDropDown(class_tv);
+        mPopWindow.showAsDropDown(class_tv, 0, -class_tv.getHeight());
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing()) {
+                    mPopWindow.dismiss();
+                }
+            }
+        });
+
     }
 
     @Override
     protected void initData() {
         super.initData();
         //判断是否进行等级设置
+        getData();
+    }
+
+    private void getData() {
         if (!TextUtils.isEmpty(set_params))
             isFirst = false;
+        String claId = TextUtils.isEmpty(classId) ? "" : classId;
+        String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
+
         String param = TextUtils.isEmpty(set_params) ? "100,90_80,80_60,60_30,0" : set_params;
         mPresenter.getTableList(RequestUtil.ClassAchievementBody(
-                UserUtil.getRoleld(),"", examId, "", param));
+                UserUtil.getRoleld(), claId, examId, couId, param));
     }
 
     @Override
