@@ -71,7 +71,7 @@ public class KeyBoardDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 if(null!=mOnItemClickListener){
                     mOnItemClickListener.onSureChick();
-                    dismiss();
+
                 }
             }
         });

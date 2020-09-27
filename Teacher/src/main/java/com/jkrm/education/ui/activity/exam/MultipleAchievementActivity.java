@@ -39,7 +39,6 @@ import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
-import com.smarttop.library.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,7 +128,6 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((actionId == 0 || actionId == 3) && event != null) {
                     String ss = editText.getText().toString().trim();
-                    LogUtil.e("111111111", ss);
                     getData(ss);
                     editText.clearFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

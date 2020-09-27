@@ -150,6 +150,36 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     ImageView mIvAllWrong;
     @BindView(R.id.ll_of_all)
     LinearLayout mLlOfAll;
+    @BindView(R.id.tv_num_1)
+    TextView mTvNum1;
+    @BindView(R.id.tv_num_2)
+    TextView mTvNum2;
+    @BindView(R.id.tv_num_3)
+    TextView mTvNum3;
+    @BindView(R.id.tv_num_4)
+    TextView mTvNum4;
+    @BindView(R.id.tv_num_5)
+    TextView mTvNum5;
+    @BindView(R.id.tv_num_6)
+    TextView mTvNum6;
+    @BindView(R.id.tv_num_7)
+    TextView mTvNum7;
+    @BindView(R.id.tv_num_8)
+    TextView mTvNum8;
+    @BindView(R.id.tv_num_9)
+    TextView mTvNum9;
+    @BindView(R.id.tv_num_05)
+    TextView mTvNum05;
+    @BindView(R.id.tv_num_0)
+    TextView mTvNum0;
+    @BindView(R.id.iv_delete)
+    ImageView mIvDelete;
+    @BindView(R.id.tv_cancel)
+    TextView mTvCancel;
+    @BindView(R.id.tv_sure)
+    TextView mTvSure;
+    @BindView(R.id.ll_of_keyboard)
+    LinearLayout mLlOfKeyboard;
     private ReViewTaskBean.Bean mBean;
     private ExamQuestionsBean mExamQuestionsBean;
     private List<ExamQuestionsBean.reaListBean> mReaList;
@@ -227,6 +257,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     private int mReadNum, mToBeRead;
     private String mCurrentShowMarkScore;
     private ComAdapter mComAdapter;
+    private int comIndex;
 
 
     @Override
@@ -274,8 +305,8 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         }
         KEY_TO_BE_READ = getIntent().getExtras().getString(Extras.KEY_TO_BE_READ);
         //填空题小题
-        mComAdapter=new ComAdapter();
-        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity,mRcvCom,mComAdapter,false);
+        mComAdapter = new ComAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity, mRcvCom, mComAdapter, false);
     }
 
     @Override
@@ -485,14 +516,16 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
         }
         //填空题
-        if(null!=mExamQuestionsBean.getReaList()&&mExamQuestionsBean.getReaList().size()>0){
+        if (null != mExamQuestionsBean.getReaList() && mExamQuestionsBean.getReaList().size() > 0) {
             mRcvCom.setVisibility(View.VISIBLE);
             mLlOfAll.setVisibility(View.VISIBLE);
+            mTvHandleSwitch.setVisibility(View.GONE);
             setComList();
-        }else{
+        } else {
             //非填空题
             mRcvCom.setVisibility(View.GONE);
             mLlOfAll.setVisibility(View.GONE);
+            mTvHandleSwitch.setVisibility(View.VISIBLE);
         }
         questionUrl = replace;
         //设置常用分数, 最大分数不存在, 取消展示常用分数
@@ -548,29 +581,26 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
     private void setComList() {
         mComAdapter.addAllData(mExamQuestionsBean.getReaList());
-        mReaList=mExamQuestionsBean.getReaList();
+        mReaList = mExamQuestionsBean.getReaList();
         mComAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                List<ExamQuestionsBean.reaListBean> mList=adapter.getData();
+                List<ExamQuestionsBean.reaListBean> mList = adapter.getData();
                 for (int i = 0; i < mList.size(); i++) {
-                    if(i==position){
+                    if (i == position) {
                         mList.get(i).setSelect(true);
-                        mReaBean=mList.get(i);
-                    }else{
+                        mReaBean = mList.get(i);
+                    } else {
                         mList.get(i).setSelect(false);
                     }
-                    KeyBoardDialogFragment keyBoardDialogFragment=new KeyBoardDialogFragment();
-                    keyBoardDialogFragment.show(getSupportFragmentManager(),"");
+                    showView(mLlOfKeyboard, true);
+                   /* KeyBoardDialogFragment keyBoardDialogFragment = new KeyBoardDialogFragment();
+                    keyBoardDialogFragment.show(getSupportFragmentManager(), "");
                     keyBoardDialogFragment.setOnItemClickListener(new KeyBoardDialogFragment.OnItemClickListener() {
 
                         @Override
                         public void onNum_1_Chick() {
-                            String remarkScore = mReaBean.getRemarkScore();
-                            StringBuilder stringBuilder = new StringBuilder();
-                            stringBuilder.append(remarkScore);
-                            stringBuilder.append("1");
-                            if(1>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (1 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -580,11 +610,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
                         @Override
                         public void onNum_2_Chick() {
-                            String remarkScore = mReaBean.getRemarkScore();
-                            StringBuilder stringBuilder = new StringBuilder();
-                            stringBuilder.append(remarkScore);
-                            stringBuilder.append("2");
-                            if(2>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (2 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -594,11 +620,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
                         @Override
                         public void onNum_3_Chick() {
-                            String remarkScore = mReaBean.getRemarkScore();
-                            StringBuilder stringBuilder = new StringBuilder();
-                            stringBuilder.append(remarkScore);
-                            stringBuilder.append("3");
-                            if(3>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (3 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -612,7 +634,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("4");
-                            if(4>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (4 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -626,7 +648,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("5");
-                            if(5>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (5 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -640,7 +662,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("6");
-                            if(6>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (6 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -654,7 +676,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("7");
-                            if(7>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (7 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -668,7 +690,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("8");
-                            if(8>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (8 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -682,7 +704,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("9");
-                            if(9>Double.parseDouble(mReaBean.getMaxScore())){
+                            if (9 > Double.parseDouble(mReaBean.getMaxScore())) {
                                 showMsg("超过批阅最大值");
                                 return;
                             }
@@ -693,12 +715,12 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                         @Override
                         public void onNum_05_Chick() {
                             String remarkScore = mReaBean.getRemarkScore();
-                            if(AwDataUtil.isEmpty(remarkScore)){
-                                remarkScore="0";
+                            if (AwDataUtil.isEmpty(remarkScore)) {
+                                remarkScore = "0";
                             }
                             double v = Double.parseDouble(remarkScore);
-                            v+=0.5;
-                            mReaBean.setRemarkScore(v+"");
+                            v += 0.5;
+                            mReaBean.setRemarkScore(v + "");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -715,12 +737,12 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                         @Override
                         public void onDeleteChick() {
                             String remarkScore = mReaBean.getRemarkScore();
-                            if(remarkScore.contains(".")){
+                            if (remarkScore.contains(".")) {
                                 String[] split = remarkScore.split(".");
                                 mReaBean.setRemarkScore(split[0]);
-                            }else{
-                                if(remarkScore.length()>0){
-                                    mReaBean.setRemarkScore(remarkScore.substring(0,remarkScore.length()-1));
+                            } else {
+                                if (remarkScore.length() > 0) {
+                                    mReaBean.setRemarkScore(remarkScore.substring(0, remarkScore.length() - 1));
                                 }
                             }
                             mComAdapter.notifyDataSetChanged();
@@ -728,14 +750,33 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
                         @Override
                         public void onCancelChick() {
-                            dismissDialog();
+                            keyBoardDialogFragment.dismiss();
                         }
 
                         @Override
                         public void onSureChick() {
-                            dismissDialog();
+                            for (int i1 = 0; i1 < mReaList.size(); i1++) {
+                                if (mReaList.get(i1).isSelect()) {
+                                    comIndex = i1;
+                                }
+                            }
+                            if (comIndex < mReaList.size() - 1) {
+                                comIndex++;
+                                for (int i1 = 0; i1 < mReaList.size(); i1++) {
+                                    if (comIndex == i1) {
+                                        mReaList.get(i1).setSelect(true);
+                                        mReaBean = mReaList.get(i1);
+                                        mRcvCom.scrollToPosition(comIndex);
+                                    } else {
+                                        mReaList.get(i1).setSelect(false);
+                                    }
+                                }
+                                mComAdapter.notifyDataSetChanged();
+                            } else {
+                                keyBoardDialogFragment.dismiss();
+                            }
                         }
-                    });
+                    });*/
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -762,7 +803,24 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             e.printStackTrace();
         }
         questionUrl = bean.getAccessUrl();
-        mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
+        // 填空题
+        if (null != mExamQuestionsBean.getReaList() && mExamQuestionsBean.getReaList().size() > 0) {
+            StringBuffer score = new StringBuffer();
+            StringBuffer ansId = new StringBuffer();
+            StringBuffer id = new StringBuffer();
+            for (ExamQuestionsBean.reaListBean reaListBean : mReaList) {
+                score.append(reaListBean.getRemarkScore() + ",");
+                ansId.append(reaListBean.getAnswerId() + ",");
+                id.append(reaListBean.getId() + ",");
+                if(AwDataUtil.isEmpty(reaListBean.getRemarkScore())){
+                    showMsg("请批阅");
+                    return;
+                }
+            }
+            mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(id.toString(), ansId.toString(), score.toString(), questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
+        } else {
+            mPresenter.examMark(isNext, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
+        }
 
 
     }
@@ -898,12 +956,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     }
                 });
                 break;
-            case R.id.iv_questionImg:
-                break;
-            case R.id.iv_lastQuestion:
-                break;
-            case R.id.iv_nextQuestion:
-                break;
+
         }
     }
 
@@ -960,8 +1013,8 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
      * @param score
      */
     private void toSaveImg(boolean isNext, String score) {
-        if (AwDataUtil.isEmpty(score)) {
-            //showDialog("请先判分后才可保存");
+        if (null==mExamQuestionsBean.getReaList()&&AwDataUtil.isEmpty(score)) {
+            showDialog("请先判分后才可保存");
             return;
         }
       /*  mCurrentShowMarkScore = "0";
@@ -1002,7 +1055,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         });
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_commonUse, R.id.tv_markByQuestion, R.id.tv_handleSwitch, R.id.btn_seeOriginalQuestion, R.id.btn_resetScore, R.id.btn_addSpecial, R.id.iv_lastQuestion, R.id.iv_nextQuestion, R.id.iv_commonUse})
+    @OnClick({R.id.iv_back, R.id.tv_commonUse, R.id.tv_markByQuestion, R.id.tv_handleSwitch, R.id.btn_seeOriginalQuestion, R.id.btn_resetScore, R.id.btn_addSpecial, R.id.iv_lastQuestion, R.id.iv_nextQuestion, R.id.iv_commonUse, R.id.tv_cancel, R.id.tv_num_1, R.id.tv_num_2, R.id.tv_num_3, R.id.tv_num_4, R.id.tv_num_5, R.id.tv_num_6, R.id.tv_num_7, R.id.tv_num_8, R.id.tv_num_9, R.id.tv_num_05, R.id.tv_num_0, R.id.iv_delete, R.id.tv_sure})
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -1203,11 +1256,136 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 if (isEditCommonUse) {
                     return;
                 }
-                if (!continueOperate(true)) {
+              /*  if (!continueOperate(true)) {
                     //不执行保存上传判分操作
                     return;
-                }
+                }*/
                 toSaveImg(true, totalMarkScore);
+                break;
+            case R.id.tv_cancel:
+                mLlOfKeyboard.setVisibility(View.GONE);
+                break;
+            case R.id.tv_num_1:
+                if (1 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("1");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_2:
+                if (2 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("2");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_3:
+                if (3 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("3");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_4:
+                if (4 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("4");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_5:
+                if (5 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("5");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_6:
+                if (6 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("6");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_7:
+                if (7 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("7");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_8:
+                if (8 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("8");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_9:
+                if (9 > Double.parseDouble(mReaBean.getMaxScore())) {
+                    showMsg("超过批阅最大值");
+                    return;
+                }
+                mReaBean.setRemarkScore("9");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_05:
+                String remarkScore = mReaBean.getRemarkScore();
+                if (AwDataUtil.isEmpty(remarkScore)) {
+                    remarkScore = "0";
+                }
+                double v1 = Double.parseDouble(remarkScore);
+                v1 += 0.5;
+                mReaBean.setRemarkScore(v1 + "");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_num_0:
+                mReaBean.setRemarkScore("0");
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.iv_delete:
+                String score = mReaBean.getRemarkScore();
+                if (score.contains(".")&&score.length()>0) {
+                    String[] split = score.split("\\.");
+                    if(split.length>0){
+                        mReaBean.setRemarkScore(split[0]);
+                    }
+                } else {
+                    if (score.length() > 0) {
+                        mReaBean.setRemarkScore(score.substring(0, score.length() - 1));
+                    }
+                }
+                mComAdapter.notifyDataSetChanged();
+                break;
+            case R.id.tv_sure:
+                for (int i1 = 0; i1 < mReaList.size(); i1++) {
+                    if (mReaList.get(i1).isSelect()) {
+                        comIndex = i1;
+                    }
+                }
+                if (comIndex < mReaList.size() - 1) {
+                    comIndex++;
+                    for (int i1 = 0; i1 < mReaList.size(); i1++) {
+                        if (comIndex == i1) {
+                            mReaList.get(i1).setSelect(true);
+                            mReaBean = mReaList.get(i1);
+                            mRcvCom.scrollToPosition(comIndex);
+                        } else {
+                            mReaList.get(i1).setSelect(false);
+                        }
+                    }
+                    mComAdapter.notifyDataSetChanged();
+                } else {
+                    mLlOfKeyboard.setVisibility(View.GONE);
+                }
                 break;
             default:
                 break;
@@ -1353,10 +1531,5 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         ReLoginUtil.reLogin(mActivity);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }
