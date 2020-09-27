@@ -418,6 +418,24 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 }
             }
         });
+        mIvAllRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (ExamQuestionsBean.reaListBean reaListBean : mReaList) {
+                    reaListBean.setRemarkScore(reaListBean.getMaxScore());
+                }
+                mComAdapter.notifyDataSetChanged();
+            }
+        });
+        mIvAllWrong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (ExamQuestionsBean.reaListBean reaListBean : mReaList) {
+                    reaListBean.setRemarkScore("0");
+                }
+                mComAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -552,7 +570,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("1");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(1>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("1");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -562,7 +584,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("2");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(2>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("2");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -572,7 +598,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("3");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(3>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("3");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -582,7 +612,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("4");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(4>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("4");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -592,7 +626,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("5");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(5>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("5");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -602,7 +640,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("6");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(6>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("6");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -612,7 +654,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("7");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(7>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("7");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -622,7 +668,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("8");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(8>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("8");
                             mComAdapter.notifyDataSetChanged();
                         }
 
@@ -632,13 +682,20 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("9");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            if(9>Double.parseDouble(mReaBean.getMaxScore())){
+                                showMsg("超过批阅最大值");
+                                return;
+                            }
+                            mReaBean.setRemarkScore("9");
                             mComAdapter.notifyDataSetChanged();
                         }
 
                         @Override
                         public void onNum_05_Chick() {
                             String remarkScore = mReaBean.getRemarkScore();
+                            if(AwDataUtil.isEmpty(remarkScore)){
+                                remarkScore="0";
+                            }
                             double v = Double.parseDouble(remarkScore);
                             v+=0.5;
                             mReaBean.setRemarkScore(v+"");
@@ -651,23 +708,32 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                             StringBuilder stringBuilder = new StringBuilder();
                             stringBuilder.append(remarkScore);
                             stringBuilder.append("0");
-                            mReaBean.setRemarkScore(stringBuilder.toString());
+                            mReaBean.setRemarkScore("0");
                             mComAdapter.notifyDataSetChanged();
                         }
 
                         @Override
                         public void onDeleteChick() {
-
+                            String remarkScore = mReaBean.getRemarkScore();
+                            if(remarkScore.contains(".")){
+                                String[] split = remarkScore.split(".");
+                                mReaBean.setRemarkScore(split[0]);
+                            }else{
+                                if(remarkScore.length()>0){
+                                    mReaBean.setRemarkScore(remarkScore.substring(0,remarkScore.length()-1));
+                                }
+                            }
+                            mComAdapter.notifyDataSetChanged();
                         }
 
                         @Override
                         public void onCancelChick() {
-
+                            dismissDialog();
                         }
 
                         @Override
                         public void onSureChick() {
-
+                            dismissDialog();
                         }
                     });
                     adapter.notifyDataSetChanged();

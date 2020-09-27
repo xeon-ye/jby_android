@@ -29,6 +29,7 @@ public class ComAdapter  extends BaseQuickAdapter<ExamQuestionsBean.reaListBean,
 
     @Override
     protected void convert(BaseViewHolder helper, ExamQuestionsBean.reaListBean item) {
+        helper.setIsRecyclable(false);
         helper.setText(R.id.tv_com_title,item.getQuestionNum()+"题").addOnClickListener(R.id.ll_of_com);
         LinearLayout ll_of_com = helper.getView(R.id.ll_of_com);
         TextView tv_com_title = helper.getView(R.id.tv_com_title);
