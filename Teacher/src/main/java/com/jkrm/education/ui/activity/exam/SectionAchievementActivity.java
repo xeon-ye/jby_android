@@ -235,7 +235,10 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             @Override
             public void onClick(View view, int position) {
 //                Toast.makeText(SectionAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(StuInfoTableActivity.class, false);
+                toClass(StuInfoTableActivity.class, false,
+                        Extras.EXAM_ID, EXAM_ID,
+                        Extras.KEY_COURSE_ID,sectionBean.getRows().get(position).getCourseId(),
+                        Extras.KEY_CLASS_ID,sectionBean.getRows().get(position).getClassId());//分数段字段 Extras.KEY_EXAM_STU_LIST
             }
         });
 
@@ -246,7 +249,6 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
         View contentView = LayoutInflater.from(SectionAchievementActivity.this).inflate(R.layout.item_table_drop_popup_layout, null);
         mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         mPopWindow.setContentView(contentView);
-
 
         RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
 

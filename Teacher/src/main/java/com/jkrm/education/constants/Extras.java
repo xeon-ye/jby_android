@@ -39,6 +39,7 @@ public class Extras {
 
     public final static String KEY_REGISTER_ID="key_register_id";
     public final static String KEY_COURSE_ID="key_course_id";
+    public final static String KEY_CLASS_ID="key_class_id";
     public final static String KEY_IS_VER_LOGIN="key_vercode_login";
 
     public final static String KEY_STUDENT_LIST="key_student_list";
@@ -59,4 +60,5 @@ public class Extras {
     public final static String KEY_CLASS_LIST="key_class_list";
 
     public final static String KEY_EXAM_COURSE_LIST="key_exam_course_list";
+    public final static String KEY_EXAM_STU_LIST="key_exam_stu_list";
 }

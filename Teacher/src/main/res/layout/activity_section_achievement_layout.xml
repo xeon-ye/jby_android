@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/dimen_10"
         android:drawableRight="@mipmap/sniper_normal"
         android:drawablePadding="@dimen/dimen_5"
-        android:text="高一1班语文"
+        android:text="全部"
         android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@id/multiple_subject_name_tv"
         app:layout_constraintTop_toBottomOf="@id/multiple_common_toolbar" />
@@ -56,7 +56,7 @@
         android:layout_marginTop="@dimen/dimen_10"
         android:drawableRight="@mipmap/sniper_normal"
         android:drawablePadding="@dimen/dimen_5"
-        android:text="高一1班语文"
+        android:text="全部"
         android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@id/multiple_class_name_tv"
         app:layout_constraintTop_toBottomOf="@id/multiple_common_toolbar" />

@@ -121,25 +121,33 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
 
         //搜索相关（参数和接口不对，缺少keywords，不知道是否要加）
-//        EditText editText = findViewById(R.id.multiple_top_ed);
-//        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if ((actionId == 0 || actionId == 3) && event != null) {
-//                    String ss = editText.getText().toString().trim();
-//                    LogUtil.e("111111111", ss);
-//                    getData(ss);
-//                    editText.clearFocus();
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        inputManager.showSoftInput(editText, 0);
+        EditText editText = findViewById(R.id.multiple_top_ed);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((actionId == 0 || actionId == 3) && event != null) {
+                    String ss = editText.getText().toString().trim();
+                    LogUtil.e("111111111", ss);
+                    getData(ss);
+                    editText.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+        InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(editText, 0);
 
+    }
+
+    private void getData(String search) {
+        String claId = TextUtils.isEmpty(classId) ? "" : classId;
+        String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
+
+        mPresenter.getTableList(RequestUtil.ScoreAchievementBody(
+                UserUtil.getRoleld(), claId, EXAM_ID, couId,search));
     }
 
     @OnClick({R.id.multiple_top_tv, R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -162,11 +170,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     protected void initData() {
         super.initData();
 
-        String claId = TextUtils.isEmpty(classId) ? "" : classId;
-        String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
-
-        mPresenter.getTableList(RequestUtil.ScoreAchievementBody(
-                UserUtil.getRoleld(), claId, EXAM_ID, couId));
+       getData("");
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
@@ -325,7 +329,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 classId = mClassList.get(position).getClassId();
                 class_tv.setText(mClassList.get(position).getClassName());
                 mPopWindow.dismiss();
-                initData();
+                getData("");
             }
         });
 
@@ -366,7 +370,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 courseId = mExamCourseList.get(position).getCourseId();
                 course_tv.setText(mExamCourseList.get(position).getCourseName());
                 mPopWindow.dismiss();
-                initData();
+                getData("");
             }
         });
 
