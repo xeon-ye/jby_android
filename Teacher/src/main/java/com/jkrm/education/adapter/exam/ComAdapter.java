@@ -46,6 +46,9 @@ public class ComAdapter  extends BaseQuickAdapter<ExamQuestionsBean.reaListBean,
         if(!AwDataUtil.isEmpty(item.getRemarkScore())){
             helper.setText(R.id.tv_com_content,item.getRemarkScore());
         }
+        if(!AwDataUtil.isEmpty(item.getScore())){
+            helper.setText(R.id.tv_com_content,item.getScore());
+        }
         // helper.setTextColor(R.id.tv_title,item.isHandleModify()? mContext.getResources().getColor(R.color.colorPrimary): Color.BLACK);
     }
     public void addAllData(List<ExamQuestionsBean.reaListBean> dataList) {

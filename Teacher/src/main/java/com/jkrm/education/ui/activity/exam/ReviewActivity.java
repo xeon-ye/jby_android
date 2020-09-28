@@ -94,11 +94,11 @@ public class ReviewActivity extends AwMvpActivity<ReviewPresent> implements Revi
         getData();
         mTvTitle.setText(mBean.getQuestionType() + ":" + mBean.getQuestionNum() + "题(" + mBean.getMaxScore() + ")分");
         if ("1".equals(mBean.getReadWay())) {
-            mTvType.setText("单评题号");
+            mTvType.setText("单评");
         } else if ("2".equals(mBean.getReadWay())) {
-            mTvType.setText("双评题号");
+            mTvType.setText("双评");
         } else if ("3".equals(mBean.getReadWay())) {
-            mTvType.setText("终评题号");
+            mTvType.setText("终评");
         }
         mScoreSortList.add(new MarkBean(true, "全部"));
         mSortList.add(new MarkBean(false, "时间降序"));

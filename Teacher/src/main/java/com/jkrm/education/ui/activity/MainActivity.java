@@ -134,12 +134,12 @@ public class MainActivity extends AwMvpActivity<MainPresent> implements MainView
 
 
     private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
-        private String[] tabNames = {"首页", "作业", "错题本","统计", "我的"};
+  /*      private String[] tabNames = {"首页", "作业", "错题本","统计", "我的"};
         private int[] tabIcons = {R.drawable.maintab_1_selector, R.drawable.maintab_2_selector, R.drawable.maintab_5_selector,R.drawable.maintab_3_selector,
-                R.drawable.maintab_4_selector};
-        /*private String[] tabNames = { "作业","考试", "错题本","统计", "我的"};
-        private int[] tabIcons = {R.drawable.maintab_2_selector, R.drawable.maintab_6_selector, R.drawable.maintab_5_selector,R.drawable.maintab_3_selector,
                 R.drawable.maintab_4_selector};*/
+        private String[] tabNames = { "作业","考试", "错题本","统计", "我的"};
+        private int[] tabIcons = {R.drawable.maintab_2_selector, R.drawable.maintab_6_selector, R.drawable.maintab_5_selector,R.drawable.maintab_3_selector,
+                R.drawable.maintab_4_selector};
         private LayoutInflater inflater;
 
         public MyAdapter(FragmentManager fragmentManager) {

@@ -58,11 +58,11 @@ public class ExamGroupAdapter extends BaseQuickAdapter<ReViewTaskBean, BaseViewH
         TextView tv_type = helper.getView(R.id.tv_type);
         RecyclerView rcv_child_data = helper.getView(R.id.rcv_child_data);
         if ("1".equals(item.getReadWay())) {
-            tv_type.setText("单评题号");
+            tv_type.setText("单评");
         } else if ("2".equals(item.getReadWay())) {
-            tv_type.setText("双评题号");
+            tv_type.setText("双评");
         } else if ("3".equals(item.getReadWay())) {
-            tv_type.setText("终评题号");
+            tv_type.setText("终评");
         }
         helper.setText(R.id.tv_done_num, item.getFinishRead() + "")
                 .setText(R.id.tv_not_done, item.getTotalRead() + "");
