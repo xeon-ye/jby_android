@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableClassGridAdapter;
@@ -85,9 +87,12 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
     private CommonDialog commonDialog;
     private String mParams = "";
     private String maxScore;
-    private String EXAM_ID;
+    private String EXAM_ID, CourseId;
 
     private String classId, courseId;
+    private List<String> titleList = new ArrayList<>();
+    private TextView scoreText;
+
 
     @Override
     protected int getLayoutId() {
@@ -107,18 +112,22 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             @Override
             public void onRightTextClick() {
                 commonDialog.show();
+                getAllScore();
             }
         });
         setToolbarTitleColor(R.color.white);
 
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
+        CourseId = getIntent().getStringExtra(Extras.COURSE_ID);
         mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
         mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+
+        AwSpUtil.saveString("TableString", Extras.EXAM_ID, EXAM_ID);
 
         commonDialog = new CommonDialog(this, R.layout.dialog_section_layout, 4);
         commonDialog.setCanceledOnTouchOutside(true);
 
-        TextView scoreText = commonDialog.findViewById(R.id.dialog_score_tv);
+        scoreText = commonDialog.findViewById(R.id.dialog_score_tv);
         TextView leftTv = commonDialog.findViewById(R.id.dialog_cancel_tv);
         TextView rightTv = commonDialog.findViewById(R.id.dialog_sure_tv);
         EditText editText = commonDialog.findViewById(R.id.dialog_score_et);
@@ -142,19 +151,12 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             }
         });
 
-        SpannableString spannableString = new SpannableString("满分为" + mParams + "分,您可以设置分数段：");
-        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.parseColor("#0A93FC"));
-        spannableString.setSpan(foregroundColorSpan, 3, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        scoreText.setMovementMethod(LinkMovementMethod.getInstance());
-        scoreText.setText(spannableString);
-
     }
 
     @Override
     protected void initData() {
         super.initData();
         getTableData();
-        mPresenter.getScore(RequestUtil.getSectionScore(EXAM_ID, ""));
     }
 
     private void getTableData() {
@@ -166,6 +168,13 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
         mPresenter.getTableList(RequestUtil.SectionAchievementBody(
                 UserUtil.getRoleld(), claId, EXAM_ID, couId, "1", "10000", mParams));
+    }
+
+    private void getAllScore() {
+        //获取总分
+        String couId = TextUtils.isEmpty(courseId) ? CourseId : courseId;
+        mPresenter.getScore(RequestUtil.getSectionScore(EXAM_ID, couId));
+
     }
 
     @OnClick({R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -189,8 +198,12 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
         section_relative.setClickable(true);
 
         String[] strTitle = sectionBean.getData().split("_");
-        String ss = "";
 
+        if (titleList.size() > 0) {//删除之前的子View
+            childRoot.removeAllViews();
+        }
+        View view = View.inflate(this, R.layout.item_section_child_layout, null);
+        childRoot.addView(view);
         //截取字符串，拼接标题
         for (String s : strTitle) {
             View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
@@ -200,6 +213,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
             left_text.setText("人数");
             right_text.setText("比例");
             title.setText("[" + s + "]");
+            titleList.add(s);
             childRoot.addView(inflate);
         }
 
@@ -224,23 +238,22 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
         sectionRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableSectionAdapter adapter = new TableSectionAdapter(listMap, sectionSSL);
+        TableSectionAdapter adapter = new TableSectionAdapter(listMap, sectionSSL, titleList, sectionBean);
         sectionRV.setAdapter(adapter);
 
         sectionRV.setOnTouchListener(getListener(sectionSSL));
         section_relative.setOnTouchListener(getListener(sectionSSL));
 
         //item点击
-        sectionSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-//                Toast.makeText(SectionAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(StuInfoTableActivity.class, false,
-                        Extras.EXAM_ID, EXAM_ID,
-                        Extras.KEY_COURSE_ID,sectionBean.getRows().get(position).getCourseId(),
-                        Extras.KEY_CLASS_ID,sectionBean.getRows().get(position).getClassId());//分数段字段 Extras.KEY_EXAM_STU_LIST
-            }
-        });
+//        sectionSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                toClass(StuInfoTableActivity.class, false,
+//                        Extras.EXAM_ID, EXAM_ID,
+//                        Extras.KEY_COURSE_ID,sectionBean.getRows().get(position).getCourseId(),
+//                        Extras.KEY_CLASS_ID,sectionBean.getRows().get(position).getClassId());//分数段字段 Extras.KEY_EXAM_STU_LIST
+//            }
+//        });
 
     }
 
@@ -340,6 +353,13 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
     @Override
     public void getSectionScoreSuccess(SectionScoreBean data) {
         sectionScoreBean = data;
+        if (TextUtils.isEmpty(data.getData())) {
+            SpannableString spannableString = new SpannableString("满分为" + data.getData());
+            ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.parseColor("#0A93FC"));
+            spannableString.setSpan(foregroundColorSpan, 3, data.getData().length() + 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            scoreText.setMovementMethod(LinkMovementMethod.getInstance());
+            scoreText.setText(spannableString);
+        }
     }
 
     @Override

@@ -99,7 +99,8 @@
                 android:background="#e8e8e8" />
 
             <!--总分，只有一科的话，不显示总分，科目条目需要动态添加-->
-            <include layout="@layout/item_achievement_child_scroll_layout" />
+            <include layout="@layout/item_class_child_scroll_layout"
+                />
 
             <!--             <include layout="@layout/item_class_contrast_child_layout" />-->
         </LinearLayout>

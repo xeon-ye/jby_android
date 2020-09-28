@@ -89,7 +89,7 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
         setToolbarTitleColor(R.color.white);
 
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
-        params = getIntent().getStringExtra(Extras.KEY_EXAM_STU_LIST);
+        params = getIntent().getStringExtra(Extras.KEY_EXAM_STU_PARAM);
         classId = getIntent().getStringExtra(Extras.KEY_CLASS_ID);
         courseId = getIntent().getStringExtra(Extras.KEY_COURSE_ID);
     }
@@ -101,9 +101,10 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
 
         String claId = TextUtils.isEmpty(classId) ? "" : classId;
         String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
+        String param = TextUtils.isEmpty(params) ? "" : params;
 
         mPresenter.getTableList(RequestUtil.StuInfoTableBody(
-                claId, EXAM_ID, couId,"1","10000","150,200"));
+                claId, EXAM_ID, couId,"1","10000",param));
     }
 
     @SuppressLint("SetTextI18n")

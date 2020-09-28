@@ -60,22 +60,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dimen_12"
+                    android:layout_marginStart="@dimen/dimen_10"
                     android:layout_toEndOf="@id/achievement_title_tv"
                     android:text="@string/achievement_title_hint"
                     android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_12"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dimen_24"
+                    android:layout_marginStart="@dimen/dimen_10"
                     android:layout_toEndOf="@id/achievement_title_hint_tv"
                     android:text="@string/achievement_title_hint01"
                     android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_12"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
@@ -157,7 +157,7 @@
                     android:layout_toEndOf="@id/score_achievement_title_tv"
                     android:text="@string/score_achievement_title_hint"
                     android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_12"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
@@ -239,18 +239,8 @@
                     android:layout_toEndOf="@id/class_score_title_tv"
                     android:text="@string/class_score_title_hint"
                     android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_12"
                     tools:ignore="MissingConstraints" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dimen_24"
-                    android:layout_toEndOf="@id/class_score_hint_tv"
-                    android:text="@string/class_score_title_hint01"
-                    android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     android:id="@+id/class_score_more_tv"
@@ -331,7 +321,7 @@
                     android:layout_toEndOf="@id/section_achievement_title_tv"
                     android:text="@string/section_achievement_title_hint"
                     android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_12"
                     tools:ignore="MissingConstraints" />
 
                 <TextView

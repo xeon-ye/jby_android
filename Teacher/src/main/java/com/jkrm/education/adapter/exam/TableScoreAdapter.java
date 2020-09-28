@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,8 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jkrm.education.R;
+import com.jkrm.education.receivers.event.MessageEvent;
 import com.jkrm.education.ui.activity.exam.ViewStudentAnswerSheetActivity;
 import com.jkrm.education.widget.SynScrollerLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +37,14 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
     private final SynScrollerLayout mSynScrollerView;
     private final Map<String, List<String>> mDataMap;
     private List<String> mList;
+    private int tag;
 
 
 
-    public TableScoreAdapter(@Nullable Map<String, List<String>> data, SynScrollerLayout synScrollerView) {
+    public TableScoreAdapter(@Nullable Map<String, List<String>> data, SynScrollerLayout synScrollerView,int tag) {
         mSynScrollerView = synScrollerView;
         mDataMap = data;
+        this.tag = tag;
         if (mDataMap != null) {
             mList = new ArrayList<>(mDataMap.keySet());
         }
@@ -77,10 +83,11 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
 
         if (mDataMap != null && !mDataMap.isEmpty()) {
             holder.mView.setText(mList.get(position));
+
             List<String> values = mDataMap.get(mList.get(position));
             if (values != null) {
                 for (int i = 0; i < values.size(); i++) {
-                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i),i);
+                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i),i,position);
                 }
             }else {
                 Toast.makeText(holder.itemView.getContext(),"Map数据异常！",Toast.LENGTH_SHORT).show();
@@ -94,21 +101,19 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
         return mList != null ? mList.size() : 0;
     }
 
-    private void initText(Context context, LinearLayout linearLayout, String text,int num) {
+    private void initText(Context context, LinearLayout linearLayout, String text,int num,int position) {
         View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
         TextView name = inflate.findViewById(R.id.item_table_child_tv);
         name.setText(text);
         if(num==3){
-            name.setTextColor(context.getResources().getColor(R.color.blue));
-//            name.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-////                    toClass(ViewStudentAnswerSheetActivity.class,false);
-//                    Intent intent = new Intent();
-//                    intent.setClass(context,ViewStudentAnswerSheetActivity.class);
-//                    context.startActivity(intent);
-//                }
-//            });
+            name.setTextColor(context.getResources().getColor(R.color.color_0A93FC));
+            name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    toClass(ViewStudentAnswerSheetActivity.class,false);
+                    EventBus.getDefault().post(new MessageEvent(1, "" + position,tag));
+                }
+            });
         }
 
         linearLayout.addView(inflate);

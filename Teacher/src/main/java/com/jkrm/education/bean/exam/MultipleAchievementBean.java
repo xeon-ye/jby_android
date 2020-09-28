@@ -14,33 +14,28 @@ public class MultipleAchievementBean implements Serializable {
     /**
      * code : 200
      * current : 1
-     * data : null
+     * data : [{"courseId":"-1","courseName":"","id":"","totalScore":"557.0"},{"courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"","id":"","totalScore":"100.0"},{"courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"","id":"","totalScore":"57.0"},{"courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"","id":"","totalScore":"150.0"},{"courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"","id":"","totalScore":"150.0"},{"courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"","id":"","totalScore":"100.0"}]
      * msg :
-     * pages : 11
-     * rows : [{"classId":"806fdcda96bf4ca69ea55882e907a327","className":"1班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"2847c09a054024b54a477d827a6a8b9c","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[{"classRank":"1","courseId":"-1","courseName":"总分","jointRank":"","schRank":"3","score":"180"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"2","score":"49"},{"classRank":"1","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"1","score":"48"},{"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"1","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"2","score":"83"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99951","studExamCode":"99951","studId":"fa54dea7aeee4913bb8ddaf1b85eb46c","studName":"学生51","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"1","sxwJoinRank":"","sxwSchRank":"2","sxwScore":"83","totalClassRank":"1","totalJoinRank":"","totalSchRank":"2","totalScore":"180","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"2","ywScore":"49","yyClassRank":"1","yyJoinRank":"","yySchRank":"1","yyScore":"48","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"67574d7db09c46088ed05fa5da312eb8","className":"3班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"ff4c9cf44915f354970f6bb7ffd98511","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[{"classRank":"2","courseId":"-1","courseName":"总分","jointRank":"","schRank":"2","score":"171"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"1","score":"50"},
-     * {"classRank":"1","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"2","score":"45"},{"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"2","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"4","score":"76"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99953","studExamCode":"99953","studId":"a83a7e4ab8db402b882c1dfe65134925","studName":"学生53","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"2","sxwJoinRank":"","sxwSchRank":"4","sxwScore":"76","totalClassRank":"1","totalJoinRank":"","totalSchRank":"4","totalScore":"171","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"1","ywScore":"50","yyClassRank":"1","yyJoinRank":"","yySchRank":"2","yyScore":"45","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},
-     * {"classId":"67574d7db09c46088ed05fa5da312eb8","className":"3班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"1b0ff4a51cce97a322ae34a7edf532f3","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[{"classRank":"1","courseId":"-1","courseName":"总分","jointRank":"","schRank":"1","score":"167"},{"classRank":"2","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"5","score":"43"},{"classRank":"2","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"4","score":"35"},{"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"1","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"1","score":"89"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99003","studExamCode":"99003","studId":"e6df6b59a14e468ca6049f57e08a6836","studName":"学生3","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"1","sxwJoinRank":"","sxwSchRank":"1","sxwScore":"89","totalClassRank":"2","totalJoinRank":"","totalSchRank":"5","totalScore":"167","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"2","ywJoinRank":"","ywSchRank":"5","ywScore":"43","yyClassRank":"2","yyJoinRank":"","yySchRank":"4","yyScore":"35","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"bf0b8650db11434195780f6f09946d71","className":"2班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"d7d8067f95d86d9b3e7112888d7d7c47","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[{"classRank":"1","courseId":"-1","courseName":"总分","jointRank":"","schRank":"5","score":"146"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"3","score":"44"},{"classRank":"1","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"3","score":"39"},{"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"1","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"5","score":"63"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99952","studExamCode":"99952","studId":"5914144896ff4ac5934c400f3969c146","studName":"学生52",
-     * "swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"1","sxwJoinRank":"","sxwSchRank":"5","sxwScore":"63","totalClassRank":"1","totalJoinRank":"","totalSchRank":"1","totalScore":"146","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"3","ywScore":"44","yyClassRank":"1","yyJoinRank":"","yySchRank":"3","yyScore":"39","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},
-     * {"classId":"bf0b8650db11434195780f6f09946d71","className":"2班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"",
-     * "hxSchRank":"","hxScore":"","id":"04fc1325cc446838a14070b12aeaca93","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[
-     * {"classRank":"2","courseId":"-1","courseName":"总分","jointRank":"","schRank":"6","score":"138"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"3","score":"44"},{"classRank":"2","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"5","score":"33"},
-     * {"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"2","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"6","score":"61"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99002","studExamCode":"99002","studId":"790c2d764b9c40a48ff73b8176110661","studName":"学生2","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"2","sxwJoinRank":"","sxwSchRank":"6","sxwScore":"61","totalClassRank":"2","totalJoinRank":"","totalSchRank":"3","totalScore":"138","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"3","ywScore":"44","yyClassRank":"2","yyJoinRank":"","yySchRank":"5","yyScore":"33","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"A924CDD62B224233BDC459597EF6C26F","className":"高一12班","createBy":"","createTime":"2020-09-18T15:35:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"b4cd290ec0874987a03eeaa7907c1fea","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"d8def91fcb819641d34c1651b52bbcc9","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"1b8ff9f37dd2425a8aa9c4226b61072c","reaList":[{"classRank":"5","courseId":"-1","courseName":"总分","jointRank":"","schRank":"8","score":"112"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"1","score":"112"},{"classRank":"","courseId":"2abad4627d44c059a599dcd55b40869b","courseName":"数学","jointRank":"","schRank":"","score":""},
-     * {"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""}],
-     * "remark":"","schId":"63cb1f8eae0deed1d19e72c92b2291fb","studCode":"91219","studExamCode":"370891219","studId":"1628155b8fb744e1a411debc766ca1a8","studName":"刘恒睿","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"","sxwJoinRank":"","sxwSchRank":"","sxwScore":"","totalClassRank":"20","totalJoinRank":"","totalSchRank":"41","totalScore":"112","updateBy":"","updateTime":"2020-09-18T15:35:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"1","ywScore":"112","yyClassRank":"","yyJoinRank":"","yySchRank":"","yyScore":"","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"12428B3CCBF741A3A1600511CA4C224D","className":"高一11班","createBy":"","createTime":"2020-09-18T15:35:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"b4cd290ec0874987a03eeaa7907c1fea","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"16a5e60e57e78b6fa43d77d817481f67","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"1b8ff9f37dd2425a8aa9c4226b61072c","reaList":[{"classRank":"11","courseId":"-1","courseName":"总分","jointRank":"","schRank":"26","score":"111"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"2","score":"111"},{"classRank":"","courseId":"2abad4627d44c059a599dcd55b40869b","courseName":"数学","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""}],"remark":"","schId":"63cb1f8eae0deed1d19e72c92b2291fb","studCode":"91108","studExamCode":"370891108","studId":"ff8bc4c81d174a4badf937386a17bbbb","studName":"张渝奥","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"","sxwJoinRank":"","sxwSchRank":"","sxwScore":"","totalClassRank":"22","totalJoinRank":"","totalSchRank":"42","totalScore":"111","updateBy":"","updateTime":"2020-09-18T15:35:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"2","ywScore":"111","yyClassRank":"","yyJoinRank":"","yySchRank":"","yyScore":"","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"12428B3CCBF741A3A1600511CA4C224D","className":"高一11班","createBy":"","createTime":"2020-09-18T15:35:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"b4cd290ec0874987a03eeaa7907c1fea","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"19302164cd2f5326639242e930b43775","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"1b8ff9f37dd2425a8aa9c4226b61072c","reaList":[{"classRank":"28","courseId":"-1","courseName":"总分","jointRank":"","schRank":"57","score":"15"},{"classRank":"26","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"56","score":"15"},{"classRank":"","courseId":"2abad4627d44c059a599dcd55b40869b","courseName":"数学","jointRank":"","schRank":"","score":""},
-     * {"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""}],"remark":"","schId":"63cb1f8eae0deed1d19e72c92b2291fb","studCode":"91103","studExamCode":"370891103","studId":"d545e7b6fe1c492a8d1d9b1ca5c9569a","studName":"高凌天","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"","sxwJoinRank":"","sxwSchRank":"","sxwScore":"","totalClassRank":"13","totalJoinRank":"","totalSchRank":"26","totalScore":"110","updateBy":"",
-     * "updateTime":"2020-09-18T15:35:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"26","ywJoinRank":"","ywSchRank":"56","ywScore":"15","yyClassRank":"","yyJoinRank":"","yySchRank":"","yyScore":"","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"A924CDD62B224233BDC459597EF6C26F","className":"高一12班","createBy":"","createTime":"2020-09-18T15:35:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"b4cd290ec0874987a03eeaa7907c1fea","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"22a4b104e373907fd0fa49d5a5f023d0","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"1b8ff9f37dd2425a8aa9c4226b61072c","reaList":[{"classRank":"29","courseId":"-1","courseName":"总分","jointRank":"","schRank":"55","score":"109"},{"classRank":"2","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"3","score":"109"},{"classRank":"","courseId":"2abad4627d44c059a599dcd55b40869b","courseName":"数学","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""}],"remark":"","schId":"63cb1f8eae0deed1d19e72c92b2291fb","studCode":"91205","studExamCode":"370891205","studId":"638d7b476d1c4253b53152bdf96ddf19","studName":"宋志豪","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"","sxwJoinRank":"","sxwSchRank":"","sxwScore":"","totalClassRank":"17","totalJoinRank":"","totalSchRank":"36","totalScore":"109","updateBy":"","updateTime":"2020-09-18T15:35:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"2","ywJoinRank":"","ywSchRank":"3","ywScore":"109","yyClassRank":"","yyJoinRank":"","yySchRank":"","yyScore":"","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},{"classId":"12428B3CCBF741A3A1600511CA4C224D","className":"高一11班","createBy":"","createTime":"2020-09-18T15:35:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"b4cd290ec0874987a03eeaa7907c1fea","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"b42ac011b065c74f62cb98a40ae49cce","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"1b8ff9f37dd2425a8aa9c4226b61072c","reaList":[{"classRank":"16","courseId":"-1","courseName":"总分","jointRank":"","schRank":"32","score":"109"},{"classRank":"2","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"3","score":"109"},{"classRank":"","courseId":"2abad4627d44c059a599dcd55b40869b","courseName":"数学","jointRank":"","schRank":"","score":""},
-     * {"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""}],"remark":"","schId":"63cb1f8eae0deed1d19e72c92b2291fb","studCode":"91117","studExamCode":"370891117","studId":"cd2ededaf59f4761b2af3ea58ba1f271","studName":"董东昊","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"","sxwJoinRank":"","sxwSchRank":"","sxwScore":"","totalClassRank":"5","totalJoinRank":"","totalSchRank":"10","totalScore":"109","updateBy":"","updateTime":"2020-09-18T15:35:00+0800","wlClassRank":"","wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"2","ywJoinRank":"","ywSchRank":"3","ywScore":"109","yyClassRank":"","yyJoinRank":"","yySchRank":"","yyScore":"","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""}]
+     * pages : 1
+     * rows : [{"classId":"67574d7db09c46088ed05fa5da312eb8","className":"3班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"1b0ff4a51cce97a322ae34a7edf532f3","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"",
+     * "lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"","lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[{"classRank":"1","courseId":"-1","courseName":"总分","jointRank":"","schRank":"2","score":"191"},{"classRank":"2","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"5","score":"43"},{"classRank":"2","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"4","score":"35"},
+     * {"classRank":"1","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"2","score":"24"},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"1","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"1","score":"89"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99003","studExamCode":"99003","studId":"e6df6b59a14e468ca6049f57e08a6836","studName":"学生3","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"",
+     * "sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"1","sxwJoinRank":"","sxwSchRank":"1","sxwScore":"89","totalClassRank":"1","totalJoinRank":"","totalSchRank":"2","totalScore":"191","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"1","wlJoinRank":"","wlSchRank":"2","wlScore":"24","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"2","ywJoinRank":"","ywSchRank":"5","ywScore":"43","yyClassRank":"2","yyJoinRank":"","yySchRank":"4","yyScore":"35","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""},
+     * {"classId":"67574d7db09c46088ed05fa5da312eb8","className":"3班","createBy":"","createTime":"2020-09-16T14:19:00+0800","ddfzClassRank":"","ddfzJoinRank":"","ddfzSchRank":"","ddfzScore":"","deleteStatus":"0","dlClassRank":"","dlJoinRank":"","dlSchRank":"","dlScore":"","examId":"6bfe14f69ba949bb944cdb2c3e4d63be","hxClassRank":"","hxJoinRank":"","hxSchRank":"","hxScore":"","id":"ff4c9cf44915f354970f6bb7ffd98511","jsClassRank":"","jsJoinRank":"","jsSchRank":"","jsScore":"","kxClassRank":"","kxJoinRank":"","kxSchRank":"","kxScore":"","lsClassRank":"","lsJoinRank":"","lsSchRank":"","lsScore":"","lsshClassRank":"","lsshJoinRank":"","lsshSchRank":"",
+     * "lsshScore":"","lzhClassRank":"","lzhJoinRank":"","lzhSchRank":"","lzhScore":"","paperId":"64781a1bd8cd474ebf31627b2b339c20","reaList":[{"classRank":"2","courseId":"-1","courseName":"总分","jointRank":"","schRank":"3","score":"171"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"1","score":"50"},{"classRank":"1","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"2","score":"45"},{"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},
+     * {"classRank":"2","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"4","score":"76"}],"remark":"","schId":"6a349f665db2496c9e48036d770c6e40","studCode":"99953","studExamCode":"99953","studId":"a83a7e4ab8db402b882c1dfe65134925","studName":"学生53","swClassRank":"","swJoinRank":"","swSchRank":"","swScore":"","sxClassRank":"","sxJoinRank":"","sxSchRank":"","sxScore":"","sxlClassRank":"","sxlJoinRank":"","sxlSchRank":"","sxlScore":"","sxwClassRank":"2","sxwJoinRank":"","sxwSchRank":"4","sxwScore":"76","totalClassRank":"2","totalJoinRank":"","totalSchRank":"3","totalScore":"171","updateBy":"","updateTime":"2020-09-16T14:19:00+0800","wlClassRank":"",
+     * "wlJoinRank":"","wlSchRank":"","wlScore":"","wzhClassRank":"","wzhJoinRank":"","wzhSchRank":"","wzhScore":"","ywClassRank":"1","ywJoinRank":"","ywSchRank":"1","ywScore":"50","yyClassRank":"1","yyJoinRank":"","yySchRank":"2","yyScore":"45","zzClassRank":"","zzJoinRank":"","zzSchRank":"","zzScore":""}]
      * size : 10
-     * total : 107
+     * total : 2
      */
 
     private String code;
     private String current;
-    private Object data;
     private String msg;
     private String pages;
     private String size;
     private String total;
+    private List<DataBean> data;
     private List<RowsBean> rows;
 
     public String getCode() {
@@ -57,14 +52,6 @@ public class MultipleAchievementBean implements Serializable {
 
     public void setCurrent(String current) {
         this.current = current;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 
     public String getMsg() {
@@ -99,6 +86,14 @@ public class MultipleAchievementBean implements Serializable {
         this.total = total;
     }
 
+    public List<DataBean> getData() {
+        return data;
+    }
+
+    public void setData(List<DataBean> data) {
+        this.data = data;
+    }
+
     public List<RowsBean> getRows() {
         return rows;
     }
@@ -107,10 +102,56 @@ public class MultipleAchievementBean implements Serializable {
         this.rows = rows;
     }
 
+    public static class DataBean {
+        /**
+         * courseId : -1
+         * courseName :
+         * id :
+         * totalScore : 557.0
+         */
+
+        private String courseId;
+        private String courseName;
+        private String id;
+        private String totalScore;
+
+        public String getCourseId() {
+            return courseId;
+        }
+
+        public void setCourseId(String courseId) {
+            this.courseId = courseId;
+        }
+
+        public String getCourseName() {
+            return courseName;
+        }
+
+        public void setCourseName(String courseName) {
+            this.courseName = courseName;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getTotalScore() {
+            return totalScore;
+        }
+
+        public void setTotalScore(String totalScore) {
+            this.totalScore = totalScore;
+        }
+    }
+
     public static class RowsBean {
         /**
-         * classId : 806fdcda96bf4ca69ea55882e907a327
-         * className : 1班
+         * classId : 67574d7db09c46088ed05fa5da312eb8
+         * className : 3班
          * createBy :
          * createTime : 2020-09-16T14:19:00+0800
          * ddfzClassRank :
@@ -127,7 +168,7 @@ public class MultipleAchievementBean implements Serializable {
          * hxJoinRank :
          * hxSchRank :
          * hxScore :
-         * id : 2847c09a054024b54a477d827a6a8b9c
+         * id : 1b0ff4a51cce97a322ae34a7edf532f3
          * jsClassRank :
          * jsJoinRank :
          * jsSchRank :
@@ -149,13 +190,13 @@ public class MultipleAchievementBean implements Serializable {
          * lzhSchRank :
          * lzhScore :
          * paperId : 64781a1bd8cd474ebf31627b2b339c20
-         * reaList : [{"classRank":"1","courseId":"-1","courseName":"总分","jointRank":"","schRank":"3","score":"180"},{"classRank":"1","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"2","score":"49"},{"classRank":"1","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"1","score":"48"},{"classRank":"","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"","score":""},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"1","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"2","score":"83"}]
+         * reaList : [{"classRank":"1","courseId":"-1","courseName":"总分","jointRank":"","schRank":"2","score":"191"},{"classRank":"2","courseId":"fab6c26483dd26d2dbf4995ece9acdb3","courseName":"语文","jointRank":"","schRank":"5","score":"43"},{"classRank":"2","courseId":"eb96a394615f679a562ef6acdf104dbe","courseName":"英语","jointRank":"","schRank":"4","score":"35"},{"classRank":"1","courseId":"cbbf06bb966eca984018ba4cb434afa2","courseName":"物理","jointRank":"","schRank":"2","score":"24"},{"classRank":"","courseId":"eea0aa1958f69dd3490eb37eca400444","courseName":"化学","jointRank":"","schRank":"","score":""},{"classRank":"1","courseId":"861fb3717ebd9889022980b5d99022b0","courseName":"数学(文)","jointRank":"","schRank":"1","score":"89"}]
          * remark :
          * schId : 6a349f665db2496c9e48036d770c6e40
-         * studCode : 99951
-         * studExamCode : 99951
-         * studId : fa54dea7aeee4913bb8ddaf1b85eb46c
-         * studName : 学生51
+         * studCode : 99003
+         * studExamCode : 99003
+         * studId : e6df6b59a14e468ca6049f57e08a6836
+         * studName : 学生3
          * swClassRank :
          * swJoinRank :
          * swSchRank :
@@ -170,30 +211,30 @@ public class MultipleAchievementBean implements Serializable {
          * sxlScore :
          * sxwClassRank : 1
          * sxwJoinRank :
-         * sxwSchRank : 2
-         * sxwScore : 83
+         * sxwSchRank : 1
+         * sxwScore : 89
          * totalClassRank : 1
          * totalJoinRank :
          * totalSchRank : 2
-         * totalScore : 180
+         * totalScore : 191
          * updateBy :
          * updateTime : 2020-09-16T14:19:00+0800
-         * wlClassRank :
+         * wlClassRank : 1
          * wlJoinRank :
-         * wlSchRank :
-         * wlScore :
+         * wlSchRank : 2
+         * wlScore : 24
          * wzhClassRank :
          * wzhJoinRank :
          * wzhSchRank :
          * wzhScore :
-         * ywClassRank : 1
+         * ywClassRank : 2
          * ywJoinRank :
-         * ywSchRank : 2
-         * ywScore : 49
-         * yyClassRank : 1
+         * ywSchRank : 5
+         * ywScore : 43
+         * yyClassRank : 2
          * yyJoinRank :
-         * yySchRank : 1
-         * yyScore : 48
+         * yySchRank : 4
+         * yyScore : 35
          * zzClassRank :
          * zzJoinRank :
          * zzSchRank :
@@ -1008,8 +1049,8 @@ public class MultipleAchievementBean implements Serializable {
              * courseId : -1
              * courseName : 总分
              * jointRank :
-             * schRank : 3
-             * score : 180
+             * schRank : 2
+             * score : 191
              */
 
             private String classRank;

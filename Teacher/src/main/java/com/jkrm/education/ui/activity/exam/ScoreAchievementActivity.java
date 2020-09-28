@@ -33,10 +33,16 @@ import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
 import com.jkrm.education.mvp.views.ScoreAchievementView;
+import com.jkrm.education.receivers.event.MessageEvent;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
+import com.jkrm.education.widget.CommonDialog;
 import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -91,6 +97,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
     private String EXAM_ID;
     private String classId, courseId;
     private boolean isFirst = true;
+    private CommonDialog answerDialog;
 
 
     @Override
@@ -138,6 +145,7 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         InputMethodManager inputManager = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.showSoftInput(editText, 0);
 
+//        answerDialog = new CommonDialog(this,R.layout.dialog_stu_answer_layout,4);
     }
 
     private void getData(String search) {
@@ -204,7 +212,6 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
                 left_text.setId(Integer.parseInt(titleList.get(i).getQuestionId()));
             }
             childRoot.addView(inflate);
-
         }
 
         isFirst = false;
@@ -287,24 +294,25 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
         scoreRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         //可以通用adapter
-        TableScoreAdapter adapter = new TableScoreAdapter(listMap, scoreSSL);
+        TableScoreAdapter adapter = new TableScoreAdapter(listMap, scoreSSL,22);
         scoreRV.setAdapter(adapter);
 
         scoreRV.setOnTouchListener(getListener(scoreSSL));
         score_relative.setOnTouchListener(getListener(scoreSSL));
 
         //item点击
-        scoreSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(ScoreAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(ViewStudentAnswerSheetActivity.class, false,
-                        Extras.EXAM_ID, scoreBean.getRows().get(position).getExamId(),
-                        Extras.STUDENT_ID, scoreBean.getRows().get(position).getStudId(),
-                        Extras.KEY_COURSE_ID, scoreBean.getRows().get(position).getCourseId(),
-                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseList);
-            }
-        });
+//        scoreSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                Toast.makeText(ScoreAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+//                toClass(ViewStudentAnswerSheetActivity.class, false,
+//                        Extras.EXAM_ID, scoreBean.getRows().get(position).getExamId(),
+//                        Extras.STUDENT_ID, scoreBean.getRows().get(position).getStudId(),
+//                        Extras.KEY_COURSE_ID, scoreBean.getRows().get(position).getCourseId(),
+//                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseList);
+//            }
+//        });
+
     }
 
     //获取班级
@@ -396,7 +404,28 @@ public class ScoreAchievementActivity extends AwMvpActivity<ScoreAchievementPres
             initScore();
         else
             getAdapterData();
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg(MessageEvent message) {
+        Log.e(TAG, "onReceiveMsg: " + message.toString());
+        if (message.getType() == 1) {
+            //小题得分表跳转
+            int position = Integer.parseInt(message.getMessage());
+            if (message.getTag() == 22) {
+                toClass(ViewStudentAnswerSheetActivity.class, false,
+                        Extras.EXAM_ID, scoreBean.getRows().get(position).getExamId(),
+                        Extras.STUDENT_ID, scoreBean.getRows().get(position).getStudId(),
+                        Extras.KEY_COURSE_ID, scoreBean.getRows().get(position).getCourseId(),
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseList);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <include
+        android:id="@+id/class_common_toolbar"
+        layout="@layout/common_title_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/stu_num_tv"
         android:layout_width="wrap_content"
@@ -15,7 +21,7 @@
         android:textColor="@color/black_3B3E42"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
 
     <TextView
         android:id="@+id/stu_avg_score_tv"
@@ -27,7 +33,7 @@
         android:textColor="@color/black_3B3E42"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toEndOf="@id/stu_num_tv"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
 
     <TextView
         android:id="@+id/stu_max_score_tv"
@@ -39,7 +45,7 @@
         android:textColor="@color/black_3B3E42"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toEndOf="@id/stu_avg_score_tv"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
 
     <TextView
         android:id="@+id/stu_min_score_tv"
@@ -51,7 +57,7 @@
         android:textColor="@color/black_3B3E42"
         android:textSize="@dimen/sp_12"
         app:layout_constraintStart_toEndOf="@id/stu_max_score_tv"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"

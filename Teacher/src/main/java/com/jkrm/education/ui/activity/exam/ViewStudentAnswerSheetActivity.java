@@ -78,6 +78,8 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
         EXAM_ID = getIntent().getExtras().getString(Extras.EXAM_ID);
         STUDENT_ID = getIntent().getExtras().getString(Extras.STUDENT_ID);
         mExamCourseBeanList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+        //不需要全部
+        mExamCourseBeanList.remove(0);
         mExamCourseBeanList.get(0).setChecked(true);
         COURSE_ID = mExamCourseBeanList.get(0).getCourseId();
         getData();

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.http.POST;
 
 /**
  * @Description: 成绩分析
@@ -49,6 +50,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     private List<GradeBean> mGradeBeans = new ArrayList<>();
     private List<ClassBean> mClassBeans = new ArrayList<>();
     private String mStrGradeId = "", mStrClassId = "";
+
 
     @Override
     protected int getLayoutId() {
@@ -135,9 +137,13 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
                 List<ExamSearchBean.RowsBean> data = adapter.getData();
                 String classId = data.get(position).getClassId();
                 String courseId = data.get(position).getCourseId();
+                String examCategory = data.get(position).getExamCategory();
                 String id = data.get(position).getId();
-                toClass(CommonlyMultipleActivity.class, false, "class_list", mClassBeans, Extras.EXAM_ID, id);
-
+                toClass(CommonlyMultipleActivity.class, false, "class_list",
+                        mClassBeans,
+                        Extras.EXAM_ID, id,
+                        Extras.KEY_EXAM_CATEGORY,examCategory,
+                        Extras.COURSE_ID,courseId);
 
             }
         });

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/item_section_exam_num_tv"
+        android:layout_width="@dimen/dimen_120"
+        android:layout_height="@dimen/dimen_64"
+        android:gravity="center"
+        android:text="参考人数"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="64dp"
+        android:background="#e8e8e8" />
+
+</LinearLayout>

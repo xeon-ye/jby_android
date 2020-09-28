@@ -111,7 +111,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
 
         if (TextUtils.isEmpty(examId))
-            examId = "6bfe14f69ba949bb944cdb2c3e4d63be"; //示例数据
+            examId = ""; //示例数据
 
         commonDialog = new CommonDialog(this, R.layout.dialog_class_achievement_set_layout, 4);
         commonDialog.setCanceledOnTouchOutside(true);

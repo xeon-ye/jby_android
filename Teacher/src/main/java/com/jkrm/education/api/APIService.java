@@ -953,5 +953,5 @@ public interface APIService {
      * @return
      */
     @POST(UrlConstant.SECTION_TABLE_SCORE)
-    Observable<ResponseBean<SectionScoreBean>>  getSectionScore(@Body RequestBody requestBody);
+    Observable<SectionScoreBean>  getSectionScore(@Body RequestBody requestBody);
 }

@@ -54,7 +54,7 @@ public class SectionAchievementPresent extends AwCommonPresenter implements Sect
 
     @Override
     public void getScore(RequestBody requestBody) {
-        Observable<ResponseBean<SectionScoreBean>> observable = RetrofitClient.builderRetrofit()
+        Observable<SectionScoreBean> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
                 .getSectionScore(requestBody);
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<SectionScoreBean>() {

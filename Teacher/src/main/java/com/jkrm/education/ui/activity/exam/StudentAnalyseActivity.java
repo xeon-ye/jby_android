@@ -91,6 +91,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     @Override
     protected void initView() {
         super.initView();
+        setStatusBlue();
         setToolbarWithBackImg("单个学生分析", new AwViewCustomToolbar.OnLeftClickListener() {
             @Override
             public void onLeftTextClick() {
@@ -256,7 +257,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         mTvClassAvgScore.setText(overViewBean.getClassAvgScore());
         mTvGradeMaxScore.setText(overViewBean.getGradeMaxScore());
         mTvGradeBeatNum.setText(overViewBean.getClassBeatNum());
-        mTvGradeRank.setText("/" + overViewBean.getGradeRank());
+//        mTvGradeRank.setText("/" + overViewBean.getGradeRank());
     }
 
     @Override

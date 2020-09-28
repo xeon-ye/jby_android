@@ -35,10 +35,15 @@ import com.jkrm.education.bean.result.error.ErrorCourseBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.views.MultipleAchievementView;
+import com.jkrm.education.receivers.event.MessageEvent;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,6 +97,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     private String classId, courseId;
     private boolean isFirst = true;
+    private String examCategory;
     private RelativeLayout achievement_relative;
 
 
@@ -119,6 +125,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         setToolbarTitleColor(R.color.white);
 
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
+        examCategory = getIntent().getStringExtra(Extras.KEY_EXAM_CATEGORY);
         mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
         mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
 
@@ -185,8 +192,11 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             View inflate = View.inflate(this, R.layout.item_achievement_child_scroll_layout, null);
             TextView title = inflate.findViewById(R.id.item_achievement_child_title_tv);
             TextView score_text = inflate.findViewById(R.id.item_achievement_child_left_tv);
+            TextView rightText = inflate.findViewById(R.id.item_achievement_child_right_tv);
             title.setText(name);
             score_text.setText("分数");
+            if (examCategory.equals("1"))
+                rightText.setText("学校/班级(排名)");
             childRoot.addView(inflate);
             tList.add(name);
             Log.e("xxxxxxxxxx", name);
@@ -212,6 +222,8 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             strings.add(rowsBean.getStudExamCode());//新教育好
             strings.add(rowsBean.getClassName());//班级
 
+//            String ss = achievementBean.getRows().get(0).getReaList().get(0).
+
             //两种情况（内容与标题相等，内容小于标题）
             if (tList.size() == reaList.size()) { //内容与标题相等
                 for (int i = 0; i < reaList.size(); i++) {
@@ -220,13 +232,17 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
                     anList.add(TextUtils.isEmpty(reaList.get(i).getScore()) ? "-" :
                             reaList.get(i).getScore());
 
-                    String s1 = TextUtils.isEmpty(reaList.get(i).getJointRank()) ? "-" :
-                            reaList.get(i).getJointRank();
                     String s2 = TextUtils.isEmpty(reaList.get(i).getSchRank()) ? "-" :
                             reaList.get(i).getSchRank();
                     String s3 = TextUtils.isEmpty(reaList.get(i).getClassRank()) ? "-" :
                             reaList.get(i).getClassRank();
-                    anList.add(s1 + "/" + s2 + "/" + s3);
+                    if (examCategory.equals("1")) { //等于1，没有联考，否则有
+                        anList.add(s2 + "/" + s3);
+                    } else {
+                        String s1 = TextUtils.isEmpty(reaList.get(i).getJointRank()) ? "-" :
+                                reaList.get(i).getJointRank();
+                        anList.add(s1 + "/" + s2 + "/" + s3);
+                    }
 
                     strings.addAll(anList);
                 }
@@ -273,13 +289,18 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
                         //接口无分数数据，默认显示-
                         answerList.add(TextUtils.isEmpty(reaList.get(i).getScore()) ? "-" : reaList.get(i).getScore()); //分数
                         //接口无排名数据，默认显示"-"
-                        String s1 = TextUtils.isEmpty(reaList.get(i).getJointRank()) ? "-" :
-                                reaList.get(i).getJointRank();
+
                         String s2 = TextUtils.isEmpty(reaList.get(i).getSchRank()) ? "-" :
                                 reaList.get(i).getSchRank();
                         String s3 = TextUtils.isEmpty(reaList.get(i).getClassRank()) ? "-" :
                                 reaList.get(i).getClassRank();
-                        answerList.add(s1 + "/" + s2 + "/" + s3);
+                        if (examCategory.equals("1")) { //等于1，没有联考，否则有
+                            answerList.add(s2 + "/" + s3);
+                        } else {
+                            String s1 = TextUtils.isEmpty(reaList.get(i).getJointRank()) ? "-" :
+                                    reaList.get(i).getJointRank();
+                            answerList.add(s1 + "/" + s2 + "/" + s3);
+                        }
                     }
                     strings.addAll(answerList);
                 }
@@ -289,22 +310,22 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
         achievementRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableMultipleAdapter adapter = new TableMultipleAdapter(listMap, achievementSSL);
+        TableMultipleAdapter adapter = new TableMultipleAdapter(listMap, achievementSSL,achievementBean,22);
         achievementRV.setAdapter(adapter);
 
         achievementRV.setOnTouchListener(getListener(achievementSSL));
         achievement_relative.setOnTouchListener(getListener(achievementSSL));
 
-        //item点击
-        achievementSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                // Toast.makeText(MultipleAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-                toClass(StudentAnalyseActivity.class, false,
-                        Extras.EXAM_ID, achievementBean.getRows().get(position).getExamId(),
-                        Extras.STUDENT_ID, achievementBean.getRows().get(position).getStudId());
-            }
-        });
+//        //item点击
+//        achievementSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                // Toast.makeText(MultipleAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
+//                toClass(StudentAnalyseActivity.class, false,
+//                        Extras.EXAM_ID, achievementBean.getRows().get(position).getExamId(),
+//                        Extras.STUDENT_ID, achievementBean.getRows().get(position).getStudId());
+//            }
+//        });
     }
 
     @OnClick({R.id.multiple_top_tv, R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -405,6 +426,23 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg(MessageEvent message) {
+        Log.e(TAG, "onReceiveMsg: " + message.toString());
+        if (message.getType() == 0) {
+            //综合成绩表跳转
+            int position = Integer.parseInt(message.getMessage());
+            if (message.getTag() == 22) {
+                toClass(ViewStudentAnswerSheetActivity.class, false,
+                        Extras.EXAM_ID, achievementBean.getRows().get(position).getExamId(),
+                        Extras.STUDENT_ID, achievementBean.getRows().get(position).getStudId(),
+//                                Extras.KEY_COURSE_ID, achievementBean.getRows().get(position).getCourseId(), //先不加
+                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseList);
+            }
+        }
+
+    }
+
     @Override
     public void getTableListSuccess(MultipleAchievementBean data) {
         achievementBean = data;
@@ -412,6 +450,12 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
             initMultiple();
         else
             getAdapterData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

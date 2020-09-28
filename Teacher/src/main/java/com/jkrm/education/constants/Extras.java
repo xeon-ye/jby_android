@@ -47,6 +47,7 @@ public class Extras {
 
     public final static String EXAM_ID="key_examid";
     public final static String PAPER_ID="key_paperid";
+    public final static String COURSE_ID="key_courseid";
     public final static String READ_WAY="key_read_way";
     public final static String REVIEW_TASK_BEAN="key_review_task";
 
@@ -59,6 +60,8 @@ public class Extras {
     public final static String KEY_GRADE_LIST="key_grade_list";
     public final static String KEY_CLASS_LIST="key_class_list";
 
+    public final static String KEY_EXAM_CATEGORY="key_exam_category";
+
     public final static String KEY_EXAM_COURSE_LIST="key_exam_course_list";
-    public final static String KEY_EXAM_STU_LIST="key_exam_stu_list";
+    public final static String KEY_EXAM_STU_PARAM="key_exam_stu_param";
 }
