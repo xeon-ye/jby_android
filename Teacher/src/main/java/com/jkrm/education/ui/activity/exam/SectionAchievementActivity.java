@@ -201,6 +201,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
         if (titleList.size() > 0) {//删除之前的子View
             childRoot.removeAllViews();
+            titleList.clear();
         }
         View view = View.inflate(this, R.layout.item_section_child_layout, null);
         childRoot.addView(view);
@@ -276,6 +277,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
                 classId = mClassList.get(position).getClassId();
                 class_tv.setText(mClassList.get(position).getClassName());
                 mPopWindow.dismiss();
+                mParams = "50";//默认分数段为50
                 getTableData();
             }
         });
@@ -317,6 +319,7 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
                 courseId = mExamCourseList.get(position).getCourseId();
                 course_tv.setText(mExamCourseList.get(position).getCourseName());
                 mPopWindow.dismiss();
+                mParams = "50";//默认分数段为50
                 getTableData();
             }
         });

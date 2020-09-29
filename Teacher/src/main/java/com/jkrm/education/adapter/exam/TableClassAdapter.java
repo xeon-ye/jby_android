@@ -2,6 +2,7 @@ package com.jkrm.education.adapter.exam;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +17,12 @@ import android.widget.Toast;
 
 import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.ClassAchievementBean;
+import com.jkrm.education.constants.Extras;
+import com.jkrm.education.receivers.event.MessageEvent;
+import com.jkrm.education.ui.activity.exam.StuInfoTableActivity;
 import com.jkrm.education.widget.SynScrollerLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -35,11 +41,15 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
     private final SynScrollerLayout mSynScrollerView;
     private final Map<String, List<String>> mDataMap;
     private List<String> mList;
+    private boolean isMiss;
+    private int index,tag;
 
 
-    public TableClassAdapter(@Nullable Map<String, List<String>> data, SynScrollerLayout synScrollerView) {
+    public TableClassAdapter(@Nullable Map<String, List<String>> data, SynScrollerLayout synScrollerView, int tag,boolean miss) {
         mSynScrollerView = synScrollerView;
         mDataMap = data;
+        isMiss = miss;
+        this.tag = tag;
         if (mDataMap != null) {
             mList = new ArrayList<>(mDataMap.keySet());
         }
@@ -76,6 +86,7 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
         else
             holder.itemView.setBackgroundColor(Color.parseColor("#F9FAFB"));
 
+        index = position;
         //表头固定，直接填数据
         if (mDataMap != null && !mDataMap.isEmpty()) {
             holder.mView.setText(mList.get(position));
@@ -101,21 +112,31 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
         View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
         TextView name = inflate.findViewById(R.id.item_table_child_tv);
         name.setText(text);
-        if (num == 6 || num == 9 || num == 12 || num == 15) {
-            name.setTextColor(context.getResources().getColor(R.color.blue));
-            name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(text.equals("0"))
-                        Toast.makeText(context, "人数为0，无法查看！", Toast.LENGTH_SHORT).show();
-                    else{
-                        Log.e("","");
-                        //这里判断是否自己设置等级了，没有的话根据接口判断哪些优秀，哪些良好
-                    }
-                }
-            });
+        if (!isMiss) {
+            if (num == 6 || num == 9 || num == 12 || num == 15) {
+                setTextTv(context, name);
+            }
+        } else {
+            if (num == 5 || num == 8 || num == 11 || num == 14) {
+                setTextTv(context, name);
+            }
         }
         linearLayout.addView(inflate);
+    }
+
+    private void setTextTv(Context context, TextView textTv) {
+        textTv.setTextColor(context.getResources().getColor(R.color.blue));
+        textTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textTv.getText().equals("0"))
+                    Toast.makeText(context, "人数为0，无法查看！", Toast.LENGTH_SHORT).show();
+                else {
+                    //进入学生名单
+                    EventBus.getDefault().post(new MessageEvent(2, index+"" ,tag));
+                }
+            }
+        });
     }
 
     @SuppressLint("ResourceAsColor")
@@ -143,3 +164,4 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
 
 
 }
+

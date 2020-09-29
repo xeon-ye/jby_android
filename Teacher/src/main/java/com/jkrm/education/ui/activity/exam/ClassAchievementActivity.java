@@ -75,7 +75,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     private String examId;
     private RelativeLayout class_relative;
     private boolean isFirst = true;
-    private boolean isMiss = true;
+    private boolean isMiss = false;
 
     private List<ClassBean> mClassList;
     private List<ExamCourseBean> mExamCourseList;
@@ -149,11 +149,11 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
                     Toast.makeText(ClassAchievementActivity.this, "分数设置请填写完整！", Toast.LENGTH_SHORT).show();
                 } else {
                     //获取params
-                    String ss = editStart.getText() + "," +
-                            editSEnd.getText() + "_" + editStart01.getText() + "," +
-                            editSEnd01.getText() + "_" + editStart02.getText() + "," +
-                            editSEnd02.getText() + "_" + editStart03.getText() + "," +
-                            editSEnd03.getText();
+                    String ss =
+                            editStart.getText() + "," + editSEnd.getText() + "_" +
+                                    editStart01.getText() + "," + editSEnd01.getText() + "_" +
+                                    editStart02.getText() + "," + editSEnd02.getText() + "_" +
+                                    editStart03.getText() + "," + editSEnd03.getText();
                     set_params = ss.trim();
                     commonDialog.dismiss();
                     initData();
@@ -163,15 +163,18 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
 
         //缺考title
         TextView textView = findViewById(R.id.item_class_no_tv);
+        View line = findViewById(R.id.item_class_no_line);
         CheckBox checkBox = findViewById(R.id.class_score_one_cb); //是否包含缺考
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     textView.setVisibility(View.GONE);
+                    line.setVisibility(View.GONE);
                     isMiss = true;
                 } else {
                     textView.setVisibility(View.VISIBLE);
+                    line.setVisibility(View.VISIBLE);
                     isMiss = false;
                 }
                 getAdapterData();
@@ -238,7 +241,6 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         mPopWindow = new Solve7PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         mPopWindow.setContentView(contentView);
 
-
         RelativeLayout relativeLayout = contentView.findViewById(R.id.item_table_drop_relative);
 
         GridView gridView = contentView.findViewById(R.id.dialog_class_name_gv);
@@ -287,7 +289,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         String claId = TextUtils.isEmpty(classId) ? "" : classId;
         String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
 
-        String param = TextUtils.isEmpty(set_params) ? "100,90_80,80_60,60_30,0" : set_params;
+        String param = TextUtils.isEmpty(set_params) ? "90,100_80,100_60,100_0,30" : set_params;
         mPresenter.getTableList(RequestUtil.ClassAchievementBody(
                 UserUtil.getRoleld(), claId, examId, couId, param));
     }
@@ -371,7 +373,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         }
         classRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableClassAdapter adapter = new TableClassAdapter(listMap, classSSL);
+        TableClassAdapter adapter = new TableClassAdapter(listMap, classSSL,22,isMiss);
         classRV.setAdapter(adapter);
 
         classRV.setOnTouchListener(getListener(classSSL));

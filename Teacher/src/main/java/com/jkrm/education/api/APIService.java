@@ -921,10 +921,17 @@ public interface APIService {
     /**
      * 学生名单详情表
      * @param requestBody
-     * @return
+     * @return (班级对比进入)
      */
     @POST(UrlConstant.STU_INFO_TABLE)
     Observable<StuInfoTableBean> getStuInfoTable(@Body RequestBody requestBody);
+    /**
+     * 学生名单详情表
+     * @param requestBody
+     * @return (成绩分段进入)
+     */
+    @POST(UrlConstant.STU_INFO_TABLE)
+    Observable<StuInfoTableBean> getStuSectionTable(@Body RequestBody requestBody);
 
     /**
      * 科目列表

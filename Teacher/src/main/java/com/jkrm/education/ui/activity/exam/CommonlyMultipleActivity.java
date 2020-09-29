@@ -25,6 +25,7 @@ import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
+import com.jkrm.education.bean.exam.ScoreQuestionBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.CommonlyMultiplePresent;
@@ -91,7 +92,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
     private SectionAchievementBean sectionBean;
 
 
-    private String EXAM_ID,CourseId;
+    private String EXAM_ID, CourseId;
     private String examCategory;
     private List<ExamCourseBean> mExamCourseBeanList;
 
@@ -239,7 +240,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
             ArrayList<String> strings = new ArrayList<>();
             //设置每行数据
             strings.add(!isEmpty(dataList.get(i).getRealNum()) ? dataList.get(i).getRealNum() : "-");
-//            strings.add(!isEmpty(dataList.get(i).getMissing()) ? dataList.get(i).getMissing() : "-"); //默认不显示缺考
+            strings.add(!isEmpty(dataList.get(i).getMissing()) ? dataList.get(i).getMissing() : "-"); //默认显示缺考
             strings.add(!isEmpty(dataList.get(i).getMaxScore()) ? dataList.get(i).getMaxScore() : "-");
             strings.add(!isEmpty(dataList.get(i).getMinScore()) ? dataList.get(i).getMinScore() : "-");
             //平均
@@ -280,7 +281,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
         classRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableClassAdapter adapter = new TableClassAdapter(dataMap, classSSL);
+        TableClassAdapter adapter = new TableClassAdapter(dataMap, classSSL, 11, false);
         classRV.setAdapter(adapter);
 
         classRV.setOnTouchListener(getListener(classSSL));
@@ -474,7 +475,14 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         LinearLayout childRoot = findViewById(R.id.item_score_linear);
         score_relative.setClickable(true);
 
+        List<ScoreAchievementBean.RowsBean.QuestListBean> realList = new ArrayList<>();
         List<ScoreAchievementBean.DataBean> titleList = scoreBean.getData();
+
+        TextView textView = findViewById(R.id.item_score_ranking_tv);
+        if (examCategory.equals("1"))
+            textView.setText("学校/班级(排名)");
+        else
+            textView.setText("联考/学校/班级排名");
 
         for (int i = 0; i < titleList.size(); i++) {
             View inflate;
@@ -504,31 +512,55 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         }
 
         //传入adapter的数据形式
-        Map<String, List<String>> listMap = new LinkedHashMap<>();
-
+        Map<String, List<ScoreQuestionBean>> listMap = new LinkedHashMap<>();
         for (int k = 0; k < scoreBean.getRows().size(); k++) {
             ScoreAchievementBean.RowsBean bean = scoreBean.getRows().get(k);
             List<ScoreAchievementBean.RowsBean.QuestListBean> questList = bean.getQuestList();
+            //
+            List<ScoreQuestionBean> scbList = new ArrayList<>();
 
-            ArrayList<String> strings = new ArrayList<>();
-            strings.add(bean.getStudCode()); //学号
-            strings.add(bean.getStudExamCode());//新教育好
-            strings.add(bean.getClassName());
-            strings.add(bean.getMyScore());
-            strings.add(bean.getObjectScore());//客观题
-            strings.add(bean.getSubjectScore()); //主观题
-            strings.add(bean.getJointRank() + "/" + bean.getGradeRank() + "/" + bean.getClassRank());
+            for (int i = 0; i < 7; i++) { //固定表头对应数据
+                ScoreQuestionBean scqBean = new ScoreQuestionBean();
+                scqBean.setStudCode(bean.getStudCode()); //学号
+                scqBean.setStudExamCode(bean.getStudExamCode());//新教育好
+                scqBean.setClassName(bean.getClassName());
+                scqBean.setMyScore(bean.getMyScore());
+                scqBean.setObjectScore(bean.getObjectScore());//客观题
+                scqBean.setSubjectScore(bean.getSubjectScore()); //主观题
+                scqBean.setExamCategory(examCategory);
+
+                scqBean.setClassRank(bean.getClassRank());
+                scqBean.setGradeRank(bean.getGradeRank());
+                scqBean.setJointRank(bean.getJointRank());
+
+                scbList.add(scqBean);
+            }
 
             //两种情况（内容与标题相等，内容小于标题）
-            if (titleList.size() == questList.size()) {
+            if (titleList.size() == questList.size()) {//内容等于标题
                 for (int i = 0; i < questList.size(); i++) {
-                    ArrayList<String> answerList = new ArrayList<>();
-                    if (questList.get(i).getIsOption().equals("2")) { //客观题
-                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-                        answerList.add(questList.get(i).getStudAnswer());//作答
-                    } else
-                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-                    strings.addAll(answerList);
+//                    ArrayList<String> answerList = new ArrayList<>();
+                    ScoreQuestionBean scqBean = new ScoreQuestionBean();
+                    scqBean.setStudCode(bean.getStudCode()); //学号
+                    scqBean.setStudExamCode(bean.getStudExamCode());//新教育好
+                    scqBean.setClassName(bean.getClassName());
+                    scqBean.setMyScore(bean.getMyScore());
+                    scqBean.setCourseId(bean.getCourseId());
+                    scqBean.setClassId(bean.getClassId());
+                    scqBean.setObjectScore(bean.getObjectScore());//客观题
+                    scqBean.setSubjectScore(bean.getSubjectScore()); //主观题
+                    scqBean.setExamCategory(examCategory);
+
+                    scqBean.setClassRank(bean.getClassRank());
+                    scqBean.setGradeRank(bean.getGradeRank());
+                    scqBean.setJointRank(bean.getJointRank());
+
+                    scqBean.setIsOption(questList.get(i).getIsOption());
+                    scqBean.setNoSpanAnswer(questList.get(i).getNoSpanAnswer());
+
+                    scqBean.setScore(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore());
+                    scqBean.setStudAnswer(TextUtils.isEmpty(questList.get(i).getStudAnswer()) ? "-" : questList.get(i).getStudAnswer());
+                    scbList.add(scqBean);
                 }
             } else {//内容小于标题
                 Map<String, Integer> map = new HashMap<>();
@@ -537,6 +569,31 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
                     map.put(titleList.get(i).getQuestionNum(), i);
                 }
                 for (int i = 0; i < questList.size(); i++) {
+                    ScoreQuestionBean scqBean = new ScoreQuestionBean();
+                    scqBean.setStudCode(bean.getStudCode()); //学号
+                    scqBean.setStudExamCode(bean.getStudExamCode());//新教育好
+                    scqBean.setClassName(bean.getClassName());
+                    scqBean.setMyScore(bean.getMyScore());
+                    scqBean.setObjectScore(bean.getObjectScore());//客观题
+                    scqBean.setSubjectScore(bean.getSubjectScore()); //主观题
+                    scqBean.setCourseId(bean.getCourseId());
+                    scqBean.setClassId(bean.getClassId());
+                    scqBean.setExamCategory(examCategory);
+
+                    scqBean.setClassRank(bean.getClassRank());
+                    scqBean.setGradeRank(bean.getGradeRank());
+                    scqBean.setJointRank(bean.getJointRank());
+                    scqBean.setIsOption(questList.get(i).getIsOption());
+
+                    scqBean.setStudAnswer(questList.get(i).getStudAnswer());
+                    scqBean.setAnswer(questList.get(i).getAnswer());
+                    scqBean.setMaxScore(questList.get(i).getMaxScore());
+                    scqBean.setNoSpanAnswer(questList.get(i).getNoSpanAnswer());
+                    scqBean.setQuestionId(questList.get(i).getQuestionId());
+                    scqBean.setQuestionNum(questList.get(i).getQuestionNum());
+                    scqBean.setScore(questList.get(i).getScore());
+                    scbList.add(scqBean);
+
                     Integer pos = map.get(questList.get(i).getQuestionNum());
                     if (pos == null) {
                         continue;
@@ -550,34 +607,23 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
                 }
                 //补全缺失条目
                 for (int i = 0; i < titleList.size(); i++) {
-                    ScoreAchievementBean.RowsBean.QuestListBean r_bean = new ScoreAchievementBean.RowsBean.QuestListBean();
-                    r_bean.setIsOption(titleList.get(i).getIsOption());
-                    r_bean.setQuestionNum(titleList.get(i).getQuestionNum());
-                    r_bean.setQuestionId(titleList.get(i).getQuestionId());
-                    r_bean.setScore("-");
-                    r_bean.setStudAnswer("-");
-                    //questionNum从1开始，这里下标减一插入
-                    questList.add(Integer.parseInt(titleList.get(i).getQuestionNum()) - 1, r_bean);
-                }
-                //构造adapter数据
-                for (int i = 0; i < questList.size(); i++) {
-                    ArrayList<String> answerList = new ArrayList<>();
-                    if (questList.get(i).getIsOption().equals("2")) { //客观题
-                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-                        answerList.add(questList.get(i).getStudAnswer());//作答
-                    } else
-                        answerList.add(TextUtils.isEmpty(questList.get(i).getScore()) ? "-" : questList.get(i).getScore()); //得分
-                    strings.addAll(answerList);
+                    ScoreQuestionBean s_bean = new ScoreQuestionBean();
+                    s_bean.setIsOption(titleList.get(i).getIsOption());
+                    s_bean.setQuestionNum(titleList.get(i).getQuestionNum());
+                    s_bean.setQuestionId(titleList.get(i).getQuestionId());
+                    s_bean.setScore("-");
+                    s_bean.setStudAnswer("-");
+
+                    scbList.add(Integer.parseInt(titleList.get(i).getQuestionNum()) - 1, s_bean);
                 }
             }
-
-            listMap.put(bean.getStudName(), strings);
+            listMap.put(bean.getStudName(), scbList);
         }
 
         scoreRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         //仅展示三条数据
-        Map<String, List<String>> dataMap = new LinkedHashMap<>();
+        Map<String, List<ScoreQuestionBean>> dataMap = new LinkedHashMap<>();
         if (listMap.keySet().size() > 3) {
             List<String> aList = new ArrayList<>(listMap.keySet());
             for (int i = 0; i < aList.size(); i++) {
@@ -592,22 +638,9 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         //可以通用adapter
         TableScoreAdapter adapter = new TableScoreAdapter(dataMap, scoreSSL, 11);
         scoreRV.setAdapter(adapter);
-
         scoreRV.setOnTouchListener(getListener(scoreSSL));
         score_relative.setOnTouchListener(getListener(scoreSSL));
 
-        //item点击
-//        scoreSSL.setOnItemClickListener(new SynScrollerLayout.OnItemClickListener() {
-//            @Override
-//            public void onClick(View view, int position) {
-////                Toast.makeText(ScoreAchievementActivity.this, "*****" + position, Toast.LENGTH_SHORT).show();
-//                toClass(ViewStudentAnswerSheetActivity.class, false,
-//                        Extras.EXAM_ID, scoreBean.getRows().get(position).getExamId(),
-//                        Extras.STUDENT_ID, scoreBean.getRows().get(position).getStudId(),
-//                        Extras.KEY_COURSE_ID, scoreBean.getRows().get(position).getCourseId(),
-//                        Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList);
-//            }
-//        });
     }
 
     @Override
@@ -627,7 +660,8 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
                 toClass(ScoreAchievementActivity.class, false,
                         Extras.KEY_CLASS_LIST, mClassList,
                         Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList,
-                        Extras.EXAM_ID, EXAM_ID);
+                        Extras.EXAM_ID, EXAM_ID,
+                        Extras.KEY_EXAM_CATEGORY, examCategory);
                 break;
             }
             //班级成绩对比
@@ -644,7 +678,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
                         Extras.KEY_CLASS_LIST, mClassList,
                         Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList,
                         Extras.EXAM_ID, EXAM_ID,
-                        Extras.COURSE_ID,CourseId);
+                        Extras.COURSE_ID, CourseId);
                 break;
             }
         }
@@ -690,6 +724,22 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
                         Extras.STUDENT_ID, scoreBean.getRows().get(position).getStudId(),
                         Extras.KEY_COURSE_ID, scoreBean.getRows().get(position).getCourseId(),
                         Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList);
+            }
+        } else if (message.getType() == 2) {
+            //班级成绩对比跳转
+            if (message.getTag() == 11) {
+//                Intent intent = new Intent();
+//                    intent.putExtra(Extras.EXAM_ID, examId);
+//                    intent.putExtra(Extras.KEY_COURSE_ID, courseId);
+//                    intent.putExtra(Extras.KEY_CLASS_ID, classId);
+//                    intent.putExtra(Extras.KEY_EXAM_STU_PARAM, titleList.get(num - 1));
+//                    intent.setClass(context, StuInfoTableActivity.class);
+//                    context.startActivity(intent);
+                toClass(StuInfoTableActivity.class, false,
+                        Extras.EXAM_ID, classAchievementBean.getData().get(position).getExamId(),
+                        Extras.KEY_COURSE_ID, classAchievementBean.getData().get(position).getCourseId(),
+                        Extras.KEY_CLASS_ID, classAchievementBean.getData().get(position).getClassId());
+//                        Extras.KEY_EXAM_STU_PARAM, );
             }
         }
 

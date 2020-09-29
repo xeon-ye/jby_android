@@ -39,7 +39,7 @@ import butterknife.BindView;
 /**
  * @Author: Zhoujing
  * Createdate: 2020/9/22 9:45
- * Description: 学生名单详情列表
+ * Description: 学生名单详情列表(班级成绩对比跳转)
  */
 public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> implements StuInfoTableView.View{
 
@@ -112,17 +112,16 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
     public void getTableListSuccess(StuInfoTableBean data) {
         tableBean = data;
         numTv.setText("人数："+data.getTotal());
-//        avgTv.setText("平均分："+data.getTotal());
-//        maxTv.setText("最高分："+data.getTotal());
-//        minTv.setText("最低分："+data.getTotal());
         initTable();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     private void initTable() {
         RelativeLayout stu_relative = findViewById(R.id.stu_table_top);
 //        LinearLayout childRoot = findViewById(R.id.item_section_linear);
         stu_relative.setClickable(true);
+
+//        String avgText,maxText,minText;
 
         Map<String, List<String>> listMap = new LinkedHashMap<>();
         for (int k = 0; k < tableBean.getRows().size(); k++) {
@@ -131,7 +130,7 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
 //            strings.add(rowsBean.getStudName());
             strings.add(rowsBean.getStudCode());
             strings.add(rowsBean.getClassName());
-            strings.add(rowsBean.getClassMaxScore());
+            strings.add(rowsBean.getMyScore());
             listMap.put(rowsBean.getStudName(),strings);
         }
 
@@ -142,6 +141,10 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
 
         stuRV.setOnTouchListener(getListener(stuSSL));
         stu_relative.setOnTouchListener(getListener(stuSSL));
+
+        avgTv.setText("平均分："+tableBean.getRows().get(0).getClassAvgScore());
+        maxTv.setText("最高分："+tableBean.getRows().get(0).getClassMaxScore());
+        minTv.setText("最低分："+tableBean.getRows().get(0).getClassMinScore());
 
     }
 
