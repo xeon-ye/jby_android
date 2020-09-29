@@ -43,8 +43,10 @@ public class Extras {
 
     /**
      * 下载路径
+     * change from external to internal for security. 0929 getExternalCacheDir
      */
-    public final static String FILE_PATH = MyApp.getInstance().getExternalCacheDir() + "";
+    public final static String FILE_PATH = MyApp.getInstance().getCacheDir() + "";
+
     //public final static String FILE_PATH=Environment.getExternalStorageDirectory().getPath();//获取跟目录
 
     /**

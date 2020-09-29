@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.hzw.baselib.util.AwDataUtil;
+import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.util.FileUtils;
 import com.jkrm.education.constants.Extras;
@@ -34,9 +35,20 @@ public class CoutomDownloadThread extends Thread {
     public void run() {
         try {
             File file = new File(Extras.FILE_PATH, daoVideoBean.getFileName());
+            long filelen = Long.parseLong(daoVideoBean.getSize());
             //下载进度文件保存的路径和文件名
             URL url = new URL(daoVideoBean.getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            long contentLength = conn.getContentLength();
+            conn.disconnect();
+            conn = (HttpURLConnection) url.openConnection();
+            if (contentLength > filelen) {
+                filelen = contentLength;
+                daoVideoBean.setSize(String.valueOf(filelen));
+                AwLog.d(" Size wrong, fix it : " + contentLength);
+            }
+
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(500000);
             conn.setReadTimeout(500000);
@@ -48,13 +60,13 @@ public class CoutomDownloadThread extends Thread {
 
             //设置connection打开链接资源
             long downloadLength = FileUtils.getFileLength(file);//已经下载好的长度
-            if (downloadLength == Long.parseLong(daoVideoBean.getSize())) {
+            if (downloadLength >= filelen) {
                 DownloadThreadManager.getInstance().downFinish(daoVideoBean);
                 return;
             }
 
             //设置请求数据的范围
-            conn.setRequestProperty("Range", "bytes=" + downloadLength + "-" + Long.parseLong(daoVideoBean.getSize()));
+            conn.setRequestProperty("Range", "bytes=" + downloadLength + "-" + filelen);
             conn.connect();
             Log.e(TAG, "run: " + conn.getResponseCode() + "");
             //建立连接，状态码206表示请求部分数据成功，此时开始下载任务
@@ -85,7 +97,7 @@ public class CoutomDownloadThread extends Thread {
                 } finally {
                     //关闭IO流
                     DownloadIO.closeAll(is, fileOutputStream);
-                    if (fileLength == Long.parseLong(daoVideoBean.getSize())) {
+                    if (fileLength >= Long.parseLong(daoVideoBean.getSize())) {
                         DownloadThreadManager.getInstance().downFinish(daoVideoBean);
                     } else {
                         //DownloadThreadManager.getInstance().doNext();
