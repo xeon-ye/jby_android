@@ -530,4 +530,5 @@ public class CanvasImageViewWithScale extends ImageView implements OnScaleGestur
     }
 
 
+
 }

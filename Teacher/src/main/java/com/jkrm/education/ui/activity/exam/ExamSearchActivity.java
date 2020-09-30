@@ -16,6 +16,7 @@ import com.jkrm.education.adapter.exam.ExamSearchAdapter;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.RoleBean;
 import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
 import com.jkrm.education.util.RequestUtil;
@@ -121,6 +122,17 @@ public class ExamSearchActivity extends AwMvpActivity<AnalysisPresent> implement
 
     @Override
     public void getClassListFail(String msg) {
+
+    }
+
+    @Override
+    public void getRoleListSuccess(List<RoleBean> data) {
+
+    }
+
+
+    @Override
+    public void getRoleListFail(String msg) {
 
     }
 }

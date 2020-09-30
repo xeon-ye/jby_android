@@ -10,7 +10,14 @@
         android:background="#F5F5F5"
         android:orientation="horizontal"
         android:padding="@dimen/dimen_10">
-
+        <TextView
+            android:id="@+id/tv_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:drawableRight="@mipmap/sniper_normal"
+            android:drawablePadding="@dimen/dimen_10"
+            android:text="全部" />
         <TextView
             android:id="@+id/tv_grade"
             android:layout_width="wrap_content"
@@ -18,7 +25,7 @@
             android:layout_marginLeft="@dimen/dimen_10"
             android:drawableRight="@mipmap/sniper_normal"
             android:drawablePadding="@dimen/dimen_10"
-            android:text="全部" />
+            android:text="全部年级" />
 
         <TextView
             android:id="@+id/tv_class"
@@ -27,7 +34,7 @@
             android:layout_marginLeft="@dimen/dimen_20"
             android:drawableRight="@mipmap/sniper_normal"
             android:drawablePadding="@dimen/dimen_10"
-            android:text="全部" />
+            android:text="全部班级" />
 
         <View
             android:layout_width="wrap_content"

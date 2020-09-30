@@ -27,6 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.exam.SeeExamQuestionActivity"
+
+            ></activity>
         <activity android:name=".ui.activity.exam.ViewStudentAnswerSheetActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation"
             android:screenOrientation="landscape"

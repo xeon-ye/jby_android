@@ -426,5 +426,34 @@ public class ExamQuestionsBean {
         public void setTypical(String typical) {
             this.typical = typical;
         }
+
+        @Override
+        public String toString() {
+            return "reaListBean{" +
+                    "answerId='" + answerId + '\'' +
+                    ", classId='" + classId + '\'' +
+                    ", finishTime='" + finishTime + '\'' +
+                    ", gradedScan='" + gradedScan + '\'' +
+                    ", homeworkId='" + homeworkId + '\'' +
+                    ", id='" + id + '\'' +
+                    ", maxScore='" + maxScore + '\'' +
+                    ", missingStatus='" + missingStatus + '\'' +
+                    ", optStatus='" + optStatus + '\'' +
+                    ", progress='" + progress + '\'' +
+                    ", questioType='" + questioType + '\'' +
+                    ", questionId='" + questionId + '\'' +
+                    ", questionNum='" + questionNum + '\'' +
+                    ", rawScan='" + rawScan + '\'' +
+                    ", score='" + score + '\'' +
+                    ", scores='" + scores + '\'' +
+                    ", sheetId='" + sheetId + '\'' +
+                    ", sheetRawScan='" + sheetRawScan + '\'' +
+                    ", studCode='" + studCode + '\'' +
+                    ", studentId='" + studentId + '\'' +
+                    ", typical='" + typical + '\'' +
+                    ", isSelect=" + isSelect +
+                    ", remarkScore='" + remarkScore + '\'' +
+                    '}';
+        }
     }
 }

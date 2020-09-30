@@ -259,6 +259,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     private String mCurrentShowMarkScore;
     private ComAdapter mComAdapter;
     private int comIndex;
+    String KEY_SHEET_ID;
 
 
     @Override
@@ -278,6 +279,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         //回评
         isSelectReMark = getIntent().getExtras().getBoolean(Extras.KEY_IS_RE_MARK, false);
         mMarkPos = getIntent().getExtras().getInt(Extras.KEY_MACK_POS);
+         KEY_SHEET_ID = getIntent().getExtras().getString(Extras.KEY_SHEET_ID);
         mMarkPos = 0;
         //mTvQuestionInfo.setText(mBean.getQuestionNum() + "");
         setStatusTxtDark();
@@ -291,10 +293,10 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         mHandleSwitchList.add(new MarkBean(false, "一键赋分"));
         if (isSelectReMark) {
             mPresenter.getExamReviewHeader(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay());
-            mPresenter.getExamReviewQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId());
+            mPresenter.getExamReviewQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId(), mBean.getReadDist());
         } else {
             mPresenter.getExamReadHeader(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay());
-            mPresenter.getExamQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId());
+            mPresenter.getExamQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), mBean.getQuestionId(), mBean.getReadDist());
 
         }
 
@@ -424,6 +426,36 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     return;
                 }
                 mIvQuestionImg.setStuatus(CanvasImageViewWithScale.STUATUS_NORMAL);
+                //填空题批分
+                if (null != mExamQuestionsBean.getReaList() && mExamQuestionsBean.getReaList().size() > 0) {
+                    if (Float.parseFloat(bean.getScore()) > Float.parseFloat(mReaBean.getMaxScore())) {
+                        showMsg("当前分数超过最大批阅分数");
+                        return;
+                    } else {
+                        mReaBean.setScore(bean.getScore());
+                        mComAdapter.notifyDataSetChanged();
+                        for (int i1 = 0; i1 < mReaList.size(); i1++) {
+                            if (mReaList.get(i1).isSelect()) {
+                                comIndex = i1;
+                            }
+                        }
+                        if (comIndex < mReaList.size() - 1) {
+                            comIndex++;
+                            for (int i1 = 0; i1 < mReaList.size(); i1++) {
+                                if (comIndex == i1) {
+                                    mReaList.get(i1).setSelect(true);
+                                    mReaBean = mReaList.get(i1);
+                                    mRcvCom.scrollToPosition(comIndex);
+                                } else {
+                                    mReaList.get(i1).setSelect(false);
+                                }
+                            }
+                            mComAdapter.notifyDataSetChanged();
+                        } else {
+                            mLlOfKeyboard.setVisibility(View.GONE);
+                        }
+                    }
+                }
                 //给题目赋值分数....
                 if (isHandleSwitch) {
                     if (bean.isSelect()) {
@@ -445,7 +477,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     new Handler().postDelayed(() -> toSaveImg(true, totalMarkScore), 300);
                     //直接判分, 不用上传图片
 //                        mPresenter.markQuestion(true, mCurrentStudentSingleQuestionAnswerResultBean.getId(), RequestUtil.getMarkQuestionRequest("", totalMarkScore, "1"));
-                    mPresenter.examMark(true, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
+                    // mPresenter.examMark(true, RequestUtil.getExamMarkRequest(mExamQuestionsBean.getId(), mExamQuestionsBean.getAnswerId(), totalMarkScore, questionUrl, mExamQuestionsBean.getOptStatus() + "", mBean.getReadWay(), mExamQuestionsBean.getQuestionId()));
 
                 }
             }
@@ -453,6 +485,12 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         mIvAllRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isSelectReMark) {
+                    if (needResetScore) {
+                        showDialog("该题已线上批阅过，再次赋分前请先清空评分");
+                        return;
+                    }
+                }
                 for (ExamQuestionsBean.reaListBean reaListBean : mReaList) {
                     reaListBean.setScore(reaListBean.getMaxScore());
                 }
@@ -462,6 +500,12 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         mIvAllWrong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isSelectReMark) {
+                    if (needResetScore) {
+                        showDialog("该题已线上批阅过，再次赋分前请先清空评分");
+                        return;
+                    }
+                }
                 for (ExamQuestionsBean.reaListBean reaListBean : mReaList) {
                     reaListBean.setScore("0");
                 }
@@ -500,11 +544,6 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             mCurrentQuestion = mMarkPos;
             mExamQuestionsBean = mExamQuestionsBeansxamList.get(mMarkPos);
             questionId = mExamQuestionsBean.getQuestionId();
-            if (AwDataUtil.isEmpty(mExamQuestionsBean.getGradedScan())) {
-                needResetScore = false;
-            } else {
-                needResetScore = true;
-            }
         }
         setExamPaperAndNum();
 
@@ -512,6 +551,11 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
 
     private void setExamPaperAndNum() {
         resetScoreImg(true);
+        if (AwDataUtil.isEmpty(mExamQuestionsBean.getGradedScan())) {
+            needResetScore = false;
+        } else {
+            needResetScore = true;
+        }
         String replace = mExamQuestionsBean.getRawScan().replace("\\", "/");
         if (isSelectReMark) {
             replace = mExamQuestionsBean.getGradedScan().replace("\\", "/");
@@ -521,12 +565,14 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             mRcvCom.setVisibility(View.VISIBLE);
             mLlOfAll.setVisibility(View.VISIBLE);
             mTvHandleSwitch.setVisibility(View.GONE);
+            mIvQuestionImg.setEnableTouch(false);
             setComList();
         } else {
             //非填空题
             mRcvCom.setVisibility(View.GONE);
             mLlOfAll.setVisibility(View.GONE);
             mTvHandleSwitch.setVisibility(View.VISIBLE);
+            mIvQuestionImg.setEnableTouch(true);
         }
         questionUrl = replace;
         //设置常用分数, 最大分数不存在, 取消展示常用分数
@@ -555,7 +601,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
             setCommonUseScoreData();
 
         } else {
-            if (maxScore != 0 && !AwDataUtil.isEmpty(questionId)) {
+            if (maxScore != 0) {
                 List<DaoMarkCommonScoreUseBean> list = DaoScoreCommonUseUtil.getInstance().queryBeanByQueryBuilderOfName("");
                 if (AwDataUtil.isEmpty(list) || TextUtils.isEmpty(list.get(0).getList().get(0))) {
                     AwLog.d("常用分数不存在");
@@ -581,8 +627,12 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     }
 
     private void setComList() {
+        mExamQuestionsBean.getReaList().get(0).setSelect(true);
+        mReaBean = mExamQuestionsBean.getReaList().get(0);
         mComAdapter.addAllData(mExamQuestionsBean.getReaList());
         mReaList = mExamQuestionsBean.getReaList();
+        mRcvCom.scrollToPosition(0);
+
         mComAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -813,7 +863,7 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 score.append(reaListBean.getScore() + ",");
                 ansId.append(reaListBean.getAnswerId() + ",");
                 id.append(reaListBean.getId() + ",");
-                if(AwDataUtil.isEmpty(reaListBean.getScore())){
+                if (AwDataUtil.isEmpty(reaListBean.getScore())) {
                     showMsg("请批阅");
                     return;
                 }
@@ -894,20 +944,16 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     @Override
     public void getExamReviewQuestionsSuccess(List<ExamQuestionsBean> data) {
         mExamQuestionsBeansxamList = data;
+        mCurrentQuestion = mMarkPos;
+        mExamQuestionsBean = mExamQuestionsBeansxamList.get(mMarkPos);
         for (int i = 0; i < data.size(); i++) {
-            /*if (mBean.getQuestionId().equals(data.get(i).getQuestionId())) {
+            if (KEY_SHEET_ID.equals(data.get(i).getSheetId())) {
                 mExamQuestionsBean = mExamQuestionsBeansxamList.get(i);
-                questionId = mExamQuestionsBean.getId();
+                questionId = mExamQuestionsBean.getQuestionId();
                 mCurrentQuestion = i;
-            }*/
-            mCurrentQuestion = mMarkPos;
-            mExamQuestionsBean = mExamQuestionsBeansxamList.get(mMarkPos);
-            questionId = mExamQuestionsBean.getId();
-            if (AwDataUtil.isEmpty(mExamQuestionsBean.getGradedScan())) {
-                needResetScore = false;
-            } else {
-                needResetScore = true;
+                break;
             }
+
         }
         setExamPaperAndNum();
     }
@@ -948,9 +994,9 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     public void onItemChickListener(ExamReadHeaderBean bean) {
                         mTvStudentName.setText("第（" + bean.getQuestionNum() + ")题");
                         if (isSelectReMark) {
-                            mPresenter.getExamReviewQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), bean.getQuestionId());
+                            mPresenter.getExamReviewQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), bean.getQuestionId(), mBean.getReadDist());
                         } else {
-                            mPresenter.getExamQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), bean.getQuestionId());
+                            mPresenter.getExamQuestions(UserUtil.getAppUser().getTeacherId(), mBean.getExamId(), mBean.getPaperId(), mBean.getReadWay(), bean.getQuestionId(), mBean.getReadDist());
                         }
                         setText(mTvQuestionInfo, "【" + mExamQuestionsBean.getQuestionNum() + "】得分：" + 0 + "/" + MyDateUtil.replace(mExamQuestionsBean.getMaxScore()));
 
@@ -1214,7 +1260,8 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 if (isEditCommonUse) {
                     return;
                 }
-                toClass(SeeTargetQuestionActivity.class, false, Extras.COMMON_PARAMS, questionId);
+               // toClass(SeeTargetQuestionActivity.class, false, Extras.COMMON_PARAMS, questionId);
+                toClass(SeeExamQuestionActivity.class,false,Extras.COMMON_PARAMS,questionId);
                 break;
             case R.id.btn_resetScore:
                 if (isEditCommonUse || mCommonUseScoreList == null) {
@@ -1272,20 +1319,25 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                     //不执行保存上传判分操作
                     return;
                 }*/
-              if(null!=mExamQuestionsBean.getReaList()&&mExamQuestionsBean.getReaList().size()>0){
-                  float total=0;
-                  for (int i = 0; i < mExamQuestionsBean.getReaList().size(); i++) {
-                      String score = mExamQuestionsBean.getReaList().get(i).getScore();
-                      float v1 = Float.parseFloat(score);
-                      total+=v1;
-                  }
-                  totalMarkScore=total+"";
-                  mIvQuestionImg.setScore(total, maxScore);
-                  mIvQuestionImg.drawAutoMarkResult(getCanvasImgCenterXY());
+                if (null != mExamQuestionsBean.getReaList() && mExamQuestionsBean.getReaList().size() > 0) {
+                    float total = 0;
+                    for (int i = 0; i < mExamQuestionsBean.getReaList().size(); i++) {
+                        String score = mExamQuestionsBean.getReaList().get(i).getScore();
+                        if (!AwDataUtil.isEmpty(score)) {
+                            float v1 = Float.parseFloat(score);
+                            total += v1;
+                        } else {
+                            showMsg("请批阅");
+                            return;
+                        }
+                    }
+                    totalMarkScore = total + "";
+                    mIvQuestionImg.setScore(total, maxScore);
+                    mIvQuestionImg.drawAutoMarkResult(getCanvasImgCenterXY());
 
-              }
+                }
                 new Handler().postDelayed(() -> toSaveImg(true, totalMarkScore), 300);
-               // toSaveImg(true, totalMarkScore);
+                // toSaveImg(true, totalMarkScore);
                 break;
             case R.id.tv_cancel:
                 mLlOfKeyboard.setVisibility(View.GONE);
@@ -1373,14 +1425,14 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
                 mComAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_num_0:
-                mReaBean.setRemarkScore("0");
+                mReaBean.setScore("0");
                 mComAdapter.notifyDataSetChanged();
                 break;
             case R.id.iv_delete:
                 String score = mReaBean.getScore();
-                if (score.contains(".")&&score.length()>0) {
+                if (score.contains(".") && score.length() > 0) {
                     String[] split = score.split("\\.");
-                    if(split.length>0){
+                    if (split.length > 0) {
                         mReaBean.setScore(split[0]);
                     }
                 } else {
@@ -1433,7 +1485,6 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
         }
 
 
-
     }
 
     private boolean continueOperate(boolean isNext) {
@@ -1480,6 +1531,17 @@ public class CorrectingActivity extends AwMvpActivity<CorrectingPresent> impleme
     private void setQuestionInfo(boolean isReset) {
         String currentShowMarkScore = "未批阅";
         if (isReset) {
+            if (null != mExamQuestionsBean.getReaList() && mExamQuestionsBean.getReaList().size() > 0) {
+                float total = 0;
+                for (int i = 0; i < mExamQuestionsBean.getReaList().size(); i++) {
+                    String score = mExamQuestionsBean.getReaList().get(i).getScore();
+                    if (!AwDataUtil.isEmpty(score)) {
+                        float v1 = Float.parseFloat(score);
+                        total += v1;
+                    }
+                }
+                mExamQuestionsBean.setScore(total+"");
+            }
             currentShowMarkScore = MyDateUtil.replace(mExamQuestionsBean.getScore());
         } else {
             currentShowMarkScore = String.valueOf(totalMarkScore);

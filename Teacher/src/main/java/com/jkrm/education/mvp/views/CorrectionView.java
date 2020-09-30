@@ -23,7 +23,7 @@ public interface CorrectionView extends AwBaseView {
     interface Presenter extends AwBasePresenter {
         void getExamReadHeader(String teacherId, String examId, String paperId, String readWay);
 
-        void getExamQuestions(String teacherId, String examId, String paperId, String readWay, String questionId);
+        void getExamQuestions(String teacherId, String examId, String paperId, String readWay, String questionId,String readDist);
 
         void uploadOss(boolean isNext, String model, String filePath);
         void addSpecial(RequestBody body);
@@ -33,7 +33,7 @@ public interface CorrectionView extends AwBaseView {
 
         void getExamReviewHeader(String teacherId, String examId, String paperId, String readWay);
 
-        void getExamReviewQuestions(String teacherId, String examId, String paperId, String readWay, String questionId);
+        void getExamReviewQuestions(String teacherId, String examId, String paperId, String readWay, String questionId,String readDist);
 
 
     }

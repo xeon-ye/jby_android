@@ -23,6 +23,7 @@ import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ColumnDataBean;
 import com.jkrm.education.bean.exam.ExamCompreBean;
 import com.jkrm.education.bean.exam.ExamCourseBean;
+import com.jkrm.education.bean.exam.ExamQuestionBean;
 import com.jkrm.education.bean.exam.ExamQuestionsBean;
 import com.jkrm.education.bean.exam.ExamReadHeaderBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
@@ -30,6 +31,7 @@ import com.jkrm.education.bean.exam.GradeBean;
 import com.jkrm.education.bean.exam.LineDataBean;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.OverViewBean;
+import com.jkrm.education.bean.exam.RoleBean;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.bean.exam.SectionScoreBean;
@@ -809,7 +811,7 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_EXAM_READ_QUESTIONS)
-    Observable<ResponseBean<List<ExamQuestionsBean>>> getExamQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
+    Observable<ResponseBean<List<ExamQuestionsBean>>> getExamQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId,@Query("readDist") String readDist);
 
 
     /**
@@ -843,7 +845,7 @@ public interface APIService {
      * @return
      */
     @GET(UrlConstant.GET_EXAM_REVIEW_QUESTIONS)
-    Observable<ResponseBean<List<ExamQuestionsBean>>> getExamReviewQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId);
+    Observable<ResponseBean<List<ExamQuestionsBean>>> getExamReviewQuestions(@Path("teacherId") String teacherId, @Query("examId")String examId, @Query("paperId") String paperId, @Query("readWay")String readWay, @Query("questionId")String questionId,@Query("readDist") String readDist);
 
     /**
      * 成绩分析列表
@@ -961,4 +963,23 @@ public interface APIService {
      */
     @POST(UrlConstant.SECTION_TABLE_SCORE)
     Observable<SectionScoreBean>  getSectionScore(@Body RequestBody requestBody);
+
+    /**
+     * 获取考试试卷
+     * @param questionId
+     * @return
+     */
+    @GET(UrlConstant.GET_EXAM_QUESTION)
+    Observable<ResponseBean<List<ExamQuestionBean>>> getExamQuesiton(@Path("questionId")String questionId);
+
+    /**
+     * 获取角色列表
+     * @param userId
+     * @return
+     */
+    @GET(UrlConstant.GET_ROLE_LIST)
+    Observable<ResponseBean<List<RoleBean>>> getRoleList(@Query("userId")String userId);
+
+
+
 }

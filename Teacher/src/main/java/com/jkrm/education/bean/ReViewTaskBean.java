@@ -69,6 +69,24 @@ public class ReViewTaskBean implements Serializable {
         private String readNum;
         private String readWay;
         private String toBeRead;
+        private String readDist;
+        private String sheetId;
+
+        public String getSheetId() {
+            return sheetId;
+        }
+
+        public void setSheetId(String sheetId) {
+            this.sheetId = sheetId;
+        }
+
+        public String getReadDist() {
+            return readDist;
+        }
+
+        public void setReadDist(String readDist) {
+            this.readDist = readDist;
+        }
 
         public String getExamId() {
             return examId;

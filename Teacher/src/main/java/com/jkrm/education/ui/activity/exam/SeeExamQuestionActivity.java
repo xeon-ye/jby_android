@@ -1,23 +1,19 @@
-package com.jkrm.education.ui.activity;
+package com.jkrm.education.ui.activity.exam;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.hzw.baselib.base.AwMvpActivity;
-import com.hzw.baselib.presenters.AwCommonPresenter;
 import com.hzw.baselib.util.AwDataUtil;
-import com.hzw.baselib.util.AwImgUtil;
-import com.hzw.baselib.util.AwLog;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
-import com.hzw.baselib.util.MyDateUtil;
-import com.hzw.baselib.util.RandomValueUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.QuestionBasketOptionsAdapter;
+import com.jkrm.education.adapter.exam.SeeExamQuestionAdapter;
 import com.jkrm.education.bean.QuestionOptionBean;
 import com.jkrm.education.bean.exam.ExamQuestionBean;
 import com.jkrm.education.bean.result.QuestionResultBean;
@@ -26,23 +22,21 @@ import com.jkrm.education.constants.MyConstant;
 import com.jkrm.education.mvp.presenters.SeeTargetQuestionPresent;
 import com.jkrm.education.mvp.views.SeeTargetQuestionView;
 import com.jkrm.education.ui.activity.ImgActivity;
-import com.jkrm.education.util.TestDataUtil;
-import com.zzhoujay.richtext.ImageHolder;
 import com.zzhoujay.richtext.RichText;
-import com.zzhoujay.richtext.callback.ImageFixCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.github.kexanie.library.MathView;
 
 /**
  * Created by hzw on 2019/5/19.
  */
 
-public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPresent> implements SeeTargetQuestionView.View  {
+public class SeeExamQuestionActivity extends AwMvpActivity<SeeTargetQuestionPresent> implements SeeTargetQuestionView.View {
 
     @BindView(R.id.iv_img)
     ImageView mIvImg;
@@ -62,9 +56,12 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
     RecyclerView mRcvData;
     @BindView(R.id.view_noData)
     RelativeLayout mViewNoData;
+    @BindView(R.id.rcv_exam_data)
+    RecyclerView mRcvExamData;
 
     private String imgUrl = "";
     private String questionId = "";
+    private SeeExamQuestionAdapter mSeeExamQuestionAdapter;
 
     @Override
     protected SeeTargetQuestionPresent createPresenter() {
@@ -85,6 +82,8 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
         //默认打开
         showView(mLlBottomLayout, true);
         showView(mIvOpen, false);
+        mSeeExamQuestionAdapter=new SeeExamQuestionAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(mActivity,mRcvExamData,mSeeExamQuestionAdapter,false);
     }
 
     @Override
@@ -94,10 +93,9 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
 //        AwImgUtil.setImg(mActivity, mIvImg, imgUrl);
 
         questionId = getIntent().getStringExtra(Extras.COMMON_PARAMS);
-        if(AwDataUtil.isEmpty(questionId)) {
+        if (AwDataUtil.isEmpty(questionId)) {
             showDialogToFinish("题目id获取失败");
         }
-        mPresenter.getQuestion(questionId);
         mPresenter.getExamQuestion(questionId);
     }
 
@@ -117,27 +115,27 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
 
     @Override
     public void getQuestionSuccess(QuestionResultBean resultBean) {
-        if(resultBean != null) {
+        if (resultBean != null) {
             showView(mViewNoData, false);
-            if(!AwDataUtil.isEmpty(resultBean.getContent())) {
+            if (!AwDataUtil.isEmpty(resultBean.getContent())) {
                 mMvQuestionTxt.setText(resultBean.getContent());
             } else {
                 mMvQuestionTxt.setText("");
             }
 
-            if(!AwDataUtil.isEmpty(resultBean.getAnswer())) {
+            if (!AwDataUtil.isEmpty(resultBean.getAnswer())) {
                 mMvAnswerContent.setText(resultBean.getAnswer());
             } else {
                 mMvAnswerContent.setText("");
             }
 
-            if(!AwDataUtil.isEmpty(resultBean.getAnswerExplanation())) {
+            if (!AwDataUtil.isEmpty(resultBean.getAnswerExplanation())) {
                 mMvResolveContent.setText(resultBean.getAnswerExplanation());
             } else {
                 mMvResolveContent.setText("");
             }
 
-            if(resultBean.getType() != null && resultBean.getType().isChoiceQuestion() && null != resultBean.getOptions()) {
+            if (resultBean.getType() != null && resultBean.getType().isChoiceQuestion() && null != resultBean.getOptions()) {
                 mRcvData.setVisibility(View.VISIBLE);
                 QuestionBasketOptionsAdapter questionBasketOptionsAdapter = new QuestionBasketOptionsAdapter();
                 AwRecyclerViewUtil.setRecyclerViewLinearlayout((Activity) mActivity, mRcvData, questionBasketOptionsAdapter, false);
@@ -158,14 +156,12 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
 
     @Override
     public void getExamQuestionSuccess(List<ExamQuestionBean> data) {
-
+        mSeeExamQuestionAdapter.addAllData(data);
     }
-
-
 
     @Override
     public void getExamQuestionFail(String msg) {
-
+        showMsg(msg);
     }
 
     /**
@@ -177,7 +173,7 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
         int index = 0;
         for (Map.Entry<String, String> entry : mOptionsMap.entrySet()) {
             System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-            if(AwDataUtil.isEmpty(entry.getValue())) {
+            if (AwDataUtil.isEmpty(entry.getValue())) {
                 continue;
             }
             mQuestionOptionBeanList.add(new QuestionOptionBean(QuestionOptionBean.SERIAL_NUMS[index], entry.getValue(), false));
@@ -200,5 +196,12 @@ public class SeeTargetQuestionActivity extends AwMvpActivity<SeeTargetQuestionPr
     protected void onDestroy() {
         RichText.recycle();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

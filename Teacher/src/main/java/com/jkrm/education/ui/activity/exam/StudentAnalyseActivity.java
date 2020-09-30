@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -42,7 +43,6 @@ import com.jkrm.education.util.UserUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +73,8 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     TextView mTvClassAvgScore;
     @BindView(R.id.tv_gradeMaxScore)
     TextView mTvGradeMaxScore;
+    @BindView(R.id.combinedChart)
+    CombinedChart mCombinedChart;
     private LevelAdapter levelAdapter;
     private List<MarkBean> markBeans = new ArrayList<>();
     private List<MarkBean> courseBeans = new ArrayList<>();
@@ -134,6 +136,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
 
     private void setBarChartData(List<ColumnDataBean> columnDataBeans, int type) {
 
+
         ArrayList<BarEntry> values1 = new ArrayList<>();
         ArrayList<BarEntry> values2 = new ArrayList<>();
         ArrayList<BarEntry> values3 = new ArrayList<>();
@@ -169,6 +172,9 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         barchart.getLegend().setPosition(Legend.LegendPosition.ABOVE_CHART_RIGHT);//设置注解的位置在左上方
         barchart.getXAxis().setDrawGridLines(false);//不显示网格
         barchart.getAxisLeft().setDrawGridLines(false);//不设置Y轴网格
+        barchart.getAxisRight().setEnabled(false);
+        barchart.getDescription().setEnabled(false);
+
        /* strings.add("总分");
         strings.add("生物");
         strings.add("化学");
@@ -188,6 +194,7 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         barchart.getBarData().setBarWidth(0.05f);
         barchart.groupBars(0, 0.8f, 0);
         barchart.invalidate();
+
     }
 
     @Override

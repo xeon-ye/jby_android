@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
 import com.jkrm.education.R;
 import com.jkrm.education.bean.ExamReviewBean;
@@ -54,6 +55,18 @@ public class ReviewAdapter extends BaseQuickAdapter<ExamReviewBean, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, ExamReviewBean item) {
+        if(null!=item.getReaList()&&item.getReaList().size()>0){
+            float totalScore=0;
+            for (ExamReviewBean.reaListBean reaListBean : item.getReaList()) {
+                if(!AwDataUtil.isEmpty(reaListBean.getScore())){
+                    float v = Float.parseFloat(reaListBean.getScore());
+                    totalScore+=v;
+                }
+
+            }
+            item.setScore(totalScore+"");
+        }
+
         ImageView img = helper.getView(R.id.img);
         Glide.with(mContext).load(item.getGradedScan()).into(img);
         helper.setText(R.id.tv_title, "得分: " + item.getScore())

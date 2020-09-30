@@ -43,9 +43,6 @@ public class ComAdapter  extends BaseQuickAdapter<ExamQuestionsBean.reaListBean,
             ll_of_com.setBackground(drawable);
             helper.setTextColor(R.id.tv_com_title,mContext.getResources().getColor(R.color.colorPrimary));
         }
-        if(!AwDataUtil.isEmpty(item.getRemarkScore())){
-            helper.setText(R.id.tv_com_content,item.getRemarkScore());
-        }
         if(!AwDataUtil.isEmpty(item.getScore())){
             helper.setText(R.id.tv_com_content,item.getScore());
         }

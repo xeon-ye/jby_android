@@ -69,10 +69,10 @@ public class CorrectingPresent extends AwCommonPresenter implements CorrectionVi
     }
 
     @Override
-    public void getExamQuestions(String teacherId, String examId, String paperId, String readWay, String questionId) {
+    public void getExamQuestions(String teacherId, String examId, String paperId, String readWay, String questionId,String readDist) {
         Observable<ResponseBean<List<ExamQuestionsBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
-                .getExamQuestions(teacherId,examId,paperId,readWay,questionId);
+                .getExamQuestions(teacherId,examId,paperId,readWay,questionId,readDist);
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamQuestionsBean>>() {
             @Override
             public void onStart() {
@@ -320,10 +320,10 @@ public class CorrectingPresent extends AwCommonPresenter implements CorrectionVi
     }
 
     @Override
-    public void getExamReviewQuestions(String teacherId, String examId, String paperId, String readWay, String questionId) {
+    public void getExamReviewQuestions(String teacherId, String examId, String paperId, String readWay, String questionId,String readDist) {
         Observable<ResponseBean<List<ExamQuestionsBean>>> observable = RetrofitClient.builderRetrofit()
                 .create(APIService.class)
-                .getExamReviewQuestions(teacherId,examId,paperId,readWay,questionId);
+                .getExamReviewQuestions(teacherId,examId,paperId,readWay,questionId,readDist);
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamQuestionsBean>>() {
             @Override
             public void onStart() {

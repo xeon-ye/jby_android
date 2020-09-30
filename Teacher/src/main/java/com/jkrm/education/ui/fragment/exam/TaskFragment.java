@@ -48,8 +48,8 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
     @Override
     protected void initView() {
         super.initView();
-        mTaskBeanAdapter=new TaskBeanAdapter();
-        AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(),mRcvData,mTaskBeanAdapter,false);
+        mTaskBeanAdapter = new TaskBeanAdapter();
+        AwRecyclerViewUtil.setRecyclerViewLinearlayout(getActivity(), mRcvData, mTaskBeanAdapter, false);
     }
 
     @Override
@@ -65,23 +65,21 @@ public class TaskFragment extends AwMvpLazyFragment<TaskPresent> implements Task
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TaskBean.Bean bean = mBeanList.get(position);
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.tv_step:
-                        if("1".equals(bean.getIsRead())){
-                            showMsg("开始阅卷");
-                            toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
-                        }else if("2".equals(bean.getIsRead())){
+                        if ("1".equals(bean.getIsRead())) {
+                            toClass(ExamTaskActivity.class, false, Extras.EXAM_ID, bean.getExamId(), Extras.PAPER_ID, bean.getPaperManageId());
+                        } else if ("2".equals(bean.getIsRead())) {
                             showMsg("暂停阅卷");
+                        } else {
+                            showMsg("阅卷已经完成");
+                            //toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }
-                        /*else{
-                            toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
-                        }*/
-                        else if("3".equals(bean.getIsRead())){
-                            showMsg("批阅完成");
+                     /*   else if("3".equals(bean.getIsRead())){
                             toClass(ExamTaskActivity.class,false, Extras.EXAM_ID,bean.getExamId(),Extras.PAPER_ID,bean.getPaperManageId());
                         }else if("4".equals(bean.getIsRead())){
                             toClass(CommonlyMultipleActivity.class,false);
-                        }
+                        }*/
                         break;
                 }
             }

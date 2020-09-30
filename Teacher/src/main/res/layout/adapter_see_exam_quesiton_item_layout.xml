@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:orientation="vertical">
+
+    <io.github.kexanie.library.MathView
+        android:id="@+id/mathview_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        ></io.github.kexanie.library.MathView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/dimen_10"
+            android:background="@color/colorPrimary"
+            ></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="答案"
+            />
+    </LinearLayout>
+    <io.github.kexanie.library.MathView
+        android:id="@+id/mathview_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></io.github.kexanie.library.MathView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/dimen_10"
+            android:background="@color/colorPrimary"
+            ></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="解析"
+            />
+    </LinearLayout>
+
+    <io.github.kexanie.library.MathView
+        android:id="@+id/mathview_answerExplanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></io.github.kexanie.library.MathView>
+</LinearLayout>

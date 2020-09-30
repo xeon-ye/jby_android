@@ -67,6 +67,7 @@ public class ReviewPresent extends AwCommonPresenter implements ReviewView.Prese
         addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamReviewBean>>() {
             @Override
             public void onStart() {
+                mView.showLoadingDialog();
             }
 
             @Override
@@ -82,6 +83,7 @@ public class ReviewPresent extends AwCommonPresenter implements ReviewView.Prese
 
             @Override
             public void onCompleted() {
+                mView.dismissLoadingDialog();
             }
         }));
     }

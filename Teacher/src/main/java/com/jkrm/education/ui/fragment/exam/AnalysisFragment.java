@@ -2,7 +2,9 @@ package com.jkrm.education.ui.fragment.exam;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +16,7 @@ import com.jkrm.education.adapter.exam.ExamSearchAdapter;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.RoleBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.AnalysisPresent;
 import com.jkrm.education.mvp.views.AnalysisView;
@@ -23,13 +26,15 @@ import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.ClassListDialogFrament;
 import com.jkrm.education.widget.GradeListDialogFrament;
+import com.jkrm.education.widget.RoleListDialogFrament;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import retrofit2.http.POST;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @Description: 成绩分析
@@ -47,9 +52,13 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     TextView mTvGrade;
     @BindView(R.id.tv_class)
     TextView mTvClass;
+    @BindView(R.id.tv_role)
+    TextView mTvRole;
+    Unbinder unbinder;
     private List<GradeBean> mGradeBeans = new ArrayList<>();
     private List<ClassBean> mClassBeans = new ArrayList<>();
-    private String mStrGradeId = "", mStrClassId = "";
+    private List<RoleBean> mRoleBeans = new ArrayList<>();
+    private String mStrGradeId = "", mStrClassId = "", mStrRoleId = "";
 
 
     @Override
@@ -71,14 +80,14 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     @Override
     protected void initData() {
         super.initData();
-        getData();
         mPresenter.getClassList(UserUtil.getAppUser().getTeacherId());
         mPresenter.getGradeList(RequestUtil.getGradeList("1", UserUtil.getAppUser().getSchoolId(), "10"));
+        mPresenter.getRoleList(UserUtil.getUserId());
     }
 
     private void getData() {
         mPresenter.getAnalysisList(RequestUtil.getAnalysisRequestBody("1", "",
-                mStrGradeId, UserUtil.getRoleld(), "100", mStrClassId, UserUtil.getAppUser().getTeacherId()));
+                mStrGradeId, mStrRoleId, "100", mStrClassId, UserUtil.getAppUser().getTeacherId()));
     }
 
     @Override
@@ -131,6 +140,27 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
                 });
             }
         });
+        mTvRole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RoleListDialogFrament classListDialogFrament = new RoleListDialogFrament();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Extras.KEY_ROLE_LIST, (Serializable) mRoleBeans);
+                classListDialogFrament.setArguments(bundle
+                );
+                classListDialogFrament.show(getFragmentManager(), "");
+                classListDialogFrament.setOnItemClickListener(new RoleListDialogFrament.OnItemClickListener() {
+                    @Override
+                    public void onItemChick(BaseQuickAdapter adapter, int position) {
+                        RoleBean roleBean = mRoleBeans.get(position);
+                        mStrRoleId=roleBean.getId();
+                        mTvRole.setText(roleBean.getRoleName());
+                        getData();
+                    }
+                });
+
+            }
+        });
         mExamSearchAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -142,8 +172,8 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
                 toClass(CommonlyMultipleActivity.class, false, "class_list",
                         mClassBeans,
                         Extras.EXAM_ID, id,
-                        Extras.KEY_EXAM_CATEGORY,examCategory,
-                        Extras.COURSE_ID,courseId);
+                        Extras.KEY_EXAM_CATEGORY, examCategory,
+                        Extras.COURSE_ID, courseId);
 
             }
         });
@@ -164,7 +194,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     public void getGradeListSuccess(List<GradeBean> data) {
         mGradeBeans = data;
         GradeBean gradeBean = new GradeBean();
-        gradeBean.setGradeName("全部");
+        gradeBean.setGradeName("全部年级");
         gradeBean.setGradeId("");
         gradeBean.setSelect(true);
         mGradeBeans.add(0, gradeBean);
@@ -180,7 +210,7 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     public void getClassListSuccess(List<ClassBean> data) {
         mClassBeans = data;
         ClassBean classBean = new ClassBean();
-        classBean.setClassName("全部");
+        classBean.setClassName("全部班级");
         classBean.setClassId("");
         classBean.setSelect(true);
 
@@ -196,9 +226,39 @@ public class AnalysisFragment extends AwMvpLazyFragment<AnalysisPresent> impleme
     }
 
     @Override
+    public void getRoleListSuccess(List<RoleBean> data) {
+        mRoleBeans=data;
+        if(null!=data&&data.size()>0){
+            mStrRoleId=data.get(0).getId();
+            mTvRole.setText(data.get(0).getRoleName());
+            mRoleBeans.get(0).setSelect(true);
+        }
+        getData();
+    }
+
+
+    @Override
+    public void getRoleListFail(String msg) {
+
+    }
+
+    @Override
     protected AnalysisPresent createPresenter() {
         return new AnalysisPresent(this);
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

@@ -7,8 +7,11 @@ import com.hzw.baselib.util.AwDataUtil;
 import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.common.ResponseBean;
+import com.jkrm.education.bean.exam.ExamQuestionBean;
 import com.jkrm.education.bean.result.QuestionResultBean;
 import com.jkrm.education.mvp.views.SeeTargetQuestionView;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -46,6 +49,43 @@ public class SeeTargetQuestionPresent extends AwCommonPresenter implements SeeTa
                     getQuestion(questionId);
                 } else {
                     mView.getQuestionFail(msg);
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
+    @Override
+    public void getExamQuestion(String questionId) {
+        Observable<ResponseBean<List<ExamQuestionBean>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getExamQuesiton(questionId);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<ExamQuestionBean>>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(List<ExamQuestionBean> data) {
+                mView.getExamQuestionSuccess(data);
+
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                if(AwDataUtil.isEmpty(msg)) {
+                    return;
+                }
+                if(msg.contains("Unterminated string at line") || msg.contains("Unexpected status")) {
+                    getExamQuestion(questionId);
+                } else {
+                    mView.getExamQuestionFail(msg);
                 }
             }
 

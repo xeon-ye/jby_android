@@ -398,4 +398,14 @@ public class UrlConstant {
      * 获取考试下学科
      */
     public static final String GET_EXAM_COURSE=MOCK_API_PREFIX+COMMON_URL_PREFIX+"testPaper_server/exam/new/exam/course";
+
+    /**
+     * 获取考试试卷
+     */
+    public static final String GET_EXAM_QUESTION=MOCK_API_PREFIX+COMMON_URL_PREFIX+"product_server/questions/exam/{questionId}";
+
+    /**
+     * 获取角色列表
+     */
+    public static final String GET_ROLE_LIST=MOCK_API_PREFIX+COMMON_URL_PREFIX+"user_server/role/sys/role/getUserRolesById";
 }

@@ -13,6 +13,7 @@ import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.RoleBean;
 import com.jkrm.education.bean.result.StatisticsHomeworkSubmitTableResultBeanNew;
 import com.jkrm.education.mvp.views.AnalysisView;
 import com.jkrm.education.mvp.views.TaskView;
@@ -128,6 +129,35 @@ public class AnalysisPresent extends AwCommonPresenter implements AnalysisView.P
             @Override
             public void onFailure(int code, String msg) {
                 mView.getClassListFail(msg);
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.dismissLoadingDialog();
+            }
+        }));
+    }
+
+    @Override
+    public void getRoleList(String userId) {
+        Observable<ResponseBean<List<RoleBean>>> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getRoleList(userId);
+        addIOSubscription(observable, new AwApiSubscriber(new AwApiCallback<List<RoleBean>>() {
+            @Override
+            public void onStart() {
+                mView.showLoadingDialog();
+            }
+
+            @Override
+            public void onSuccess(List<RoleBean> data) {
+                mView.getRoleListSuccess(data);
+            }
+
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mView.getRoleListFail(msg);
             }
 
             @Override

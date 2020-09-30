@@ -47,13 +47,13 @@ public class TaskBeanAdapter extends BaseQuickAdapter<TaskBean.Bean, BaseViewHol
             tv_step.setTextColor(Color.parseColor("#FFA900"));
             tv_step.setBackground(null);
 
-        }/* else{
+        } else{
             tv_step.setText("阅卷完成");
             tv_step.setTextColor(Color.parseColor("#3DC823"));
             tv_step.setBackground(null);
-        }*/
+        }
 
-        else if ("3".equals(item.getIsRead())) {
+       /* else if ("3".equals(item.getIsRead())) {
             tv_step.setText("阅卷完成");
             tv_step.setTextColor(Color.parseColor("#3DC823"));
             tv_step.setBackground(null);
@@ -63,7 +63,7 @@ public class TaskBeanAdapter extends BaseQuickAdapter<TaskBean.Bean, BaseViewHol
             tv_step.setTextColor(Color.parseColor("#FF0000"));
             tv_step.setBackground(null);
 
-        }
+        }*/
 
 
     }

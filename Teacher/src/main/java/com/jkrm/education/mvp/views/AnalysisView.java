@@ -6,6 +6,7 @@ import com.jkrm.education.bean.TaskBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamSearchBean;
 import com.jkrm.education.bean.exam.GradeBean;
+import com.jkrm.education.bean.exam.RoleBean;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface AnalysisView extends AwBaseView {
         void getGradeList(RequestBody requestBody);
 
         void getClassList(String teacherId);
+
+        void getRoleList(String userId);
     }
 
     interface View extends AwBaseView {
@@ -34,6 +37,10 @@ public interface AnalysisView extends AwBaseView {
 
         void getClassListSuccess(List<ClassBean> data);
         void getClassListFail(String msg);
+
+
+        void getRoleListSuccess(List<RoleBean> data);
+        void getRoleListFail(String msg);
     }
 
 }
