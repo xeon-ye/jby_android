@@ -1,6 +1,7 @@
 package com.jkrm.education.adapter.exam;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,31 +11,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jkrm.education.R;
 import com.jkrm.education.widget.SynScrollerLayout;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: Zhoujing
- * Createdate: 2020/9/3 19:02
- * Description: 综合成绩表adapter
+ * Createdate: 2020/9/30 11:52
+ * Description:
  */
-public class TableMultipleAdapter01 extends RecyclerView.Adapter<TableMultipleAdapter01.ScrollViewHolder> {
+public class TableStuSectionAdapter extends RecyclerView.Adapter<TableStuSectionAdapter.ScrollViewHolder>  {
 
     private final SynScrollerLayout mSynScrollerView;
-//    private final List<MultipleAchievementBean.RowsBean> mData;
-    private final List<String> mData;
+    private final Map<String, List<String>> mDataMap;
+    private List<String> mList;
 
-    public TableMultipleAdapter01(@Nullable List<String> data, SynScrollerLayout synScrollerView) {
+
+    public TableStuSectionAdapter(@Nullable Map<String, List<String>> data,
+                                SynScrollerLayout synScrollerView) {
         mSynScrollerView = synScrollerView;
-        mData = data;
+        mDataMap = data;
+        if (mDataMap != null) {
+            mList = new ArrayList<>(mDataMap.keySet());
+        }
     }
-//    public TableMultipleAdapter(@Nullable List<MultipleAchievementBean.RowsBean> data, SynScrollerLayout synScrollerView) {
-//        mSynScrollerView = synScrollerView;
-//        mData = data;
-//    }
 
     @NonNull
     @Override
@@ -43,10 +48,8 @@ public class TableMultipleAdapter01 extends RecyclerView.Adapter<TableMultipleAd
         return new ScrollViewHolder(inflate);
     }
 
-    @SuppressLint("RecyclerView")
     @Override
-    public void onBindViewHolder(@NonNull ScrollViewHolder holder, int position) {
-        holder.mView.setText("张三学校"+position);
+    public void onBindViewHolder(@NonNull ScrollViewHolder holder, @SuppressLint("RecyclerView") int position) {
         mSynScrollerView.setOnScrollListener(new SynScrollerLayout.OnItemScrollView() {
             @Override
             public void OnScroll(int l, int t, int old1, int old2) {
@@ -68,11 +71,30 @@ public class TableMultipleAdapter01 extends RecyclerView.Adapter<TableMultipleAd
         else
             holder.itemView.setBackgroundColor(Color.parseColor("#F9FAFB"));
 
+        if (mDataMap != null && !mDataMap.isEmpty()) {
+            holder.mView.setText(mList.get(position));
+            List<String> values = mDataMap.get(mList.get(position));
+            if (values != null) {
+                for (int i = 0; i < values.size(); i++) {
+                    initText(holder.itemView.getContext(), holder.mChildRoot,mDataMap.get(mList.get(position)).get(i),i);
+                }
+            }else {
+                Toast.makeText(holder.itemView.getContext(),"Map数据异常！",Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return mData != null ? mData.size() : 0;
+        return mList != null ? mList.size() : 0;
+    }
+
+    private void initText(Context context, LinearLayout linearLayout, String text, int num) {
+        View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
+        TextView name = inflate.findViewById(R.id.item_table_child_tv);
+        name.setText(text);
+        linearLayout.addView(inflate);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -87,15 +109,6 @@ public class TableMultipleAdapter01 extends RecyclerView.Adapter<TableMultipleAd
             mView = itemView.findViewById(R.id.item_title_tv);
             mSynScrollerLayout = itemView.findViewById(R.id.item_ssl);
             mChildRoot = itemView.findViewById(R.id.item_ll_child_root);
-//            ll_view = itemView.findViewById(R.id.ll_view);
-            for (int i = 0; i < 15; i++) {
-                View inflate = View.inflate(itemView.getContext(), R.layout.item_table_child_layout, null);
-                TextView name = inflate.findViewById(R.id.item_table_child_tv);
-                name.setText("内容" + i);
-                mChildRoot.addView(inflate);
-            }
         }
     }
-
-
 }

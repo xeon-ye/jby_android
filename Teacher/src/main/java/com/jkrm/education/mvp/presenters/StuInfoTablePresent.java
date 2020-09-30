@@ -5,6 +5,7 @@ import com.jkrm.education.api.APIService;
 import com.jkrm.education.api.RetrofitClient;
 import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.bean.exam.StuInfoTableBean;
+import com.jkrm.education.bean.exam.StuTableTitleBean;
 import com.jkrm.education.mvp.views.ScoreAchievementView;
 import com.jkrm.education.mvp.views.StuInfoTableView;
 
@@ -29,14 +30,10 @@ public class StuInfoTablePresent extends AwCommonPresenter implements StuInfoTab
         addIOSubscription(observable, new Subscriber() {
             @Override
             public void onCompleted() {
-
             }
-
             @Override
             public void onError(Throwable e) {
-
             }
-
             @Override
             public void onNext(Object o) {
                 if (o != null) {
@@ -45,6 +42,32 @@ public class StuInfoTablePresent extends AwCommonPresenter implements StuInfoTab
                         mView.getTableListSuccess(data);
                     else
                         mView.getTableListFail(data.getMsg());
+                } else
+                    mView.getTableListFail("数据异常！！");
+            }
+        });
+    }
+
+    @Override
+    public void getTableTitle(RequestBody requestBody) {
+        Observable<StuTableTitleBean> observable = RetrofitClient.builderRetrofit()
+                .create(APIService.class)
+                .getStuInfoTableTitle(requestBody);
+        addIOSubscription(observable, new Subscriber() {
+            @Override
+            public void onCompleted() {
+            }
+            @Override
+            public void onError(Throwable e) {
+            }
+            @Override
+            public void onNext(Object o) {
+                if (o != null) {
+                    StuTableTitleBean data = (StuTableTitleBean) o;
+                    if (data.getCode().equals("200"))
+                        mView.getTableTitleSuccess(data);
+                    else
+                        mView.getTableTitleFail(data.getMsg());
                 } else
                     mView.getTableListFail("数据异常！！");
             }

@@ -1,11 +1,13 @@
 package com.jkrm.education.ui.activity.exam;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,11 +33,15 @@ import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.ClassAchievementPresent;
 import com.jkrm.education.mvp.views.ClassAchievementView;
+import com.jkrm.education.receivers.event.MessageEvent;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
 import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -82,6 +88,7 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
     private Solve7PopupWindow mPopWindow;
 
     private String classId, courseId;
+    private String mParamSet;
 
 
     @Override
@@ -289,7 +296,8 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         String claId = TextUtils.isEmpty(classId) ? "" : classId;
         String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
 
-        String param = TextUtils.isEmpty(set_params) ? "90,100_80,100_60,100_0,30" : set_params;
+        mParamSet = "90,100_80,100_60,100_0,30";
+        String param = TextUtils.isEmpty(set_params) ? mParamSet : set_params;
         mPresenter.getTableList(RequestUtil.ClassAchievementBody(
                 UserUtil.getRoleld(), claId, examId, couId, param));
     }
@@ -373,11 +381,58 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
         }
         classRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableClassAdapter adapter = new TableClassAdapter(listMap, classSSL,22,isMiss);
+        TableClassAdapter adapter = new TableClassAdapter(listMap, classSSL, 22, isMiss);
         classRV.setAdapter(adapter);
 
         classRV.setOnTouchListener(getListener(classSSL));
         class_relative.setOnTouchListener(getListener(classSSL));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg(MessageEvent message) {
+        Log.e(TAG, "onReceiveMsg: " + message.getMessage());
+        if (message.getType() == 2) {
+            //班级成绩对比跳转
+            int position = Integer.parseInt(message.getMessage());
+            String param;
+            if (isMiss)
+                param = setNum(position + 1);
+            else
+                param = setNum(position);
+
+            if (message.getTag() == 22) {
+                toClass(StuInfoTableActivity.class, false,
+                        Extras.EXAM_ID, examId,
+                        Extras.KEY_COURSE_ID, courseId,
+                        Extras.KEY_CLASS_ID, classId,
+                        Extras.KEY_EXAM_STU_PARAM, param);
+            }
+        }
+    }
+
+    private String setNum(int num) {
+        String param = "";
+        String[] strings;
+        if (TextUtils.isEmpty(set_params))
+            strings = mParamSet.split("_");//分为四段，对应优秀，良好等
+        else
+            strings = set_params.split("_");
+
+        switch (num) {
+            case 6:
+                param = strings[0];
+                break;
+            case 9:
+                param = strings[1];
+                break;
+            case 12:
+                param = strings[2];
+                break;
+            case 15:
+                param = strings[3];
+                break;
+        }
+        return param;
     }
 
     @Override

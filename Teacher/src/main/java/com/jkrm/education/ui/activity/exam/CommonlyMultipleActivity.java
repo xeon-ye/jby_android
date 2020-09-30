@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.util.AwSpUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableClassAdapter;
@@ -130,6 +131,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
 
     }
 
+    private  List<String> nameList = new ArrayList<>();
     //成绩分段表
     @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     private void initSection() {
@@ -186,6 +188,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         } else
             dataMap.putAll(listMap);
 
+        nameList = titleList;
         sectionRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         TableSectionAdapter adapter = new TableSectionAdapter(dataMap, sectionSSL, titleList, sectionBean);
@@ -678,7 +681,8 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
                         Extras.KEY_CLASS_LIST, mClassList,
                         Extras.KEY_EXAM_COURSE_LIST, mExamCourseBeanList,
                         Extras.EXAM_ID, EXAM_ID,
-                        Extras.COURSE_ID, CourseId);
+                        Extras.COURSE_ID, CourseId,
+                        Extras.KEY_EXAM_CATEGORY, examCategory);
                 break;
             }
         }
@@ -728,21 +732,36 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         } else if (message.getType() == 2) {
             //班级成绩对比跳转
             if (message.getTag() == 11) {
-//                Intent intent = new Intent();
-//                    intent.putExtra(Extras.EXAM_ID, examId);
-//                    intent.putExtra(Extras.KEY_COURSE_ID, courseId);
-//                    intent.putExtra(Extras.KEY_CLASS_ID, classId);
-//                    intent.putExtra(Extras.KEY_EXAM_STU_PARAM, titleList.get(num - 1));
-//                    intent.setClass(context, StuInfoTableActivity.class);
-//                    context.startActivity(intent);
+                String param = setNum(position);
                 toClass(StuInfoTableActivity.class, false,
                         Extras.EXAM_ID, classAchievementBean.getData().get(position).getExamId(),
                         Extras.KEY_COURSE_ID, classAchievementBean.getData().get(position).getCourseId(),
-                        Extras.KEY_CLASS_ID, classAchievementBean.getData().get(position).getClassId());
-//                        Extras.KEY_EXAM_STU_PARAM, );
+                        Extras.KEY_CLASS_ID, classAchievementBean.getData().get(position).getClassId(),
+                        Extras.KEY_EXAM_STU_PARAM,param );
             }
         }
 
+    }
+
+    private String setNum(int num) {
+        String param = "";
+        String ss = "90,100_80,100_60,100_0,30";
+        String[] strings = ss.split("_");
+        switch (num) {
+            case 6:
+                param = strings[0];
+                break;
+            case 9:
+                param = strings[1];
+                break;
+            case 12:
+                param = strings[2];
+                break;
+            case 15:
+                param = strings[3];
+                break;
+        }
+        return param;
     }
 
     @Override

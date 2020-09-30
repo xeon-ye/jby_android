@@ -19,6 +19,7 @@ import com.jkrm.education.adapter.exam.TableMultipleAdapter;
 import com.jkrm.education.adapter.exam.TableStuInfoAdapter;
 import com.jkrm.education.bean.exam.MultipleAchievementBean;
 import com.jkrm.education.bean.exam.StuInfoTableBean;
+import com.jkrm.education.bean.exam.StuTableTitleBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.MultipleAchievementPresent;
 import com.jkrm.education.mvp.presenters.ScoreAchievementPresent;
@@ -44,7 +45,6 @@ import butterknife.BindView;
 public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> implements StuInfoTableView.View{
 
 
-
     @BindView(R.id.item_stu_contain)
     SynScrollerLayout stuSSL;
     @BindView(R.id.stu_recyclerview)
@@ -63,7 +63,6 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
     private String EXAM_ID;
     private String params;
     private String classId, courseId;
-
 
 
     @Override
@@ -94,7 +93,6 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
         courseId = getIntent().getStringExtra(Extras.KEY_COURSE_ID);
     }
 
-
     @Override
     protected void initData() {
         super.initData();
@@ -105,13 +103,15 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
 
         mPresenter.getTableList(RequestUtil.StuInfoTableBody(
                 claId, EXAM_ID, couId,"1","10000",param));
+
+        mPresenter.getTableTitle(RequestUtil.StuInfoTableBody(
+                claId, EXAM_ID, couId,"1","10000",param));
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void getTableListSuccess(StuInfoTableBean data) {
         tableBean = data;
-        numTv.setText("人数："+data.getTotal());
         initTable();
     }
 
@@ -120,8 +120,6 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
         RelativeLayout stu_relative = findViewById(R.id.stu_table_top);
 //        LinearLayout childRoot = findViewById(R.id.item_section_linear);
         stu_relative.setClickable(true);
-
-//        String avgText,maxText,minText;
 
         Map<String, List<String>> listMap = new LinkedHashMap<>();
         for (int k = 0; k < tableBean.getRows().size(); k++) {
@@ -142,14 +140,24 @@ public class StuInfoTableActivity extends AwMvpActivity<StuInfoTablePresent> imp
         stuRV.setOnTouchListener(getListener(stuSSL));
         stu_relative.setOnTouchListener(getListener(stuSSL));
 
-        avgTv.setText("平均分："+tableBean.getRows().get(0).getClassAvgScore());
-        maxTv.setText("最高分："+tableBean.getRows().get(0).getClassMaxScore());
-        minTv.setText("最低分："+tableBean.getRows().get(0).getClassMinScore());
-
     }
 
     @Override
     public void getTableListFail(String msg) {
+        Toast.makeText(StuInfoTableActivity.this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void getTableTitleSuccess(StuTableTitleBean data) {
+        numTv.setText("人数："+data.getData().getStudNum());
+        avgTv.setText("平均分："+data.getData().getClassAvgScore());
+        maxTv.setText("最高分："+data.getData().getClassMaxScore());
+        minTv.setText("最低分："+data.getData().getClassMinScore());
+    }
+
+    @Override
+    public void getTableTitleFail(String msg) {
         Toast.makeText(StuInfoTableActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 

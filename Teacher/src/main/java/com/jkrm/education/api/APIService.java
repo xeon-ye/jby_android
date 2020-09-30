@@ -36,6 +36,8 @@ import com.jkrm.education.bean.exam.ScoreAchievementBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.bean.exam.SectionScoreBean;
 import com.jkrm.education.bean.exam.StuInfoTableBean;
+import com.jkrm.education.bean.exam.StuSectionTableBean;
+import com.jkrm.education.bean.exam.StuTableTitleBean;
 import com.jkrm.education.bean.exam.TableClassBean;
 import com.jkrm.education.bean.request.RequestClassesBean;
 import com.jkrm.education.bean.result.AllStudentScoreResultBean;
@@ -928,12 +930,26 @@ public interface APIService {
     @POST(UrlConstant.STU_INFO_TABLE)
     Observable<StuInfoTableBean> getStuInfoTable(@Body RequestBody requestBody);
     /**
+     * 学生名单详情表(表格之上数据)
+     * @param requestBody
+     * @return (班级对比进入)
+     */
+    @POST(UrlConstant.STU_INFO_TABLE_TITLE)
+    Observable<StuTableTitleBean> getStuInfoTableTitle(@Body RequestBody requestBody);
+    /**
      * 学生名单详情表
      * @param requestBody
      * @return (成绩分段进入)
      */
-    @POST(UrlConstant.STU_INFO_TABLE)
-    Observable<StuInfoTableBean> getStuSectionTable(@Body RequestBody requestBody);
+    @POST(UrlConstant.STU_SECTION_TABLE)
+    Observable<StuSectionTableBean> getStuSectionTable(@Body RequestBody requestBody);
+    /**
+     * 学生名单详情表(表格之上数据)
+     * @param requestBody
+     * @return (成绩分段进入)
+     */
+    @POST(UrlConstant.STU_SECTION_TITLE)
+    Observable<StuTableTitleBean> getStuSectionTitle(@Body RequestBody requestBody);
 
     /**
      * 科目列表

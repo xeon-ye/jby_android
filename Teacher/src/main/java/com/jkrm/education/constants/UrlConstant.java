@@ -387,9 +387,21 @@ public class UrlConstant {
      */
     public static final String SECTION_TABLE_SCORE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscale/total";
     /**
-     * 学生名单详情表
+     * 学生名单详情表（成绩分段进入）
      */
-    public static final String STU_INFO_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscale/studPage";
+    public static final String STU_SECTION_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscale/studPage";
+    /**
+     * 学生名单详情表（成绩分段进入-表格之上数据）
+     */
+    public static final String STU_SECTION_TITLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/onAscale/studPage/title";
+    /**
+     * 学生名单详情表（班级成绩对比进入）
+     */
+    public static final String STU_INFO_TABLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/contrast/studPage";
+    /**
+     * 学生名单详情表（班级成绩对比进入-表格之上数据）
+     */
+    public static final String STU_INFO_TABLE_TITLE = MOCK_API_PREFIX + COMMON_URL_PREFIX + "testPaper_server/clem/pc/examClass/results/contrast/studPage/title";
     /**
      * 获取学生分析科目
      */

@@ -10,9 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,9 +28,7 @@ import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.TableClassGridAdapter;
 import com.jkrm.education.adapter.exam.TableCourseGridAdapter;
-import com.jkrm.education.adapter.exam.TableMultipleAdapter01;
 import com.jkrm.education.adapter.exam.TableSectionAdapter;
-import com.jkrm.education.bean.common.ResponseBean;
 import com.jkrm.education.bean.exam.ClassBean;
 import com.jkrm.education.bean.exam.ExamCourseBean;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
@@ -40,8 +36,6 @@ import com.jkrm.education.bean.exam.SectionScoreBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.SectionAchievementPresent;
 import com.jkrm.education.mvp.views.SectionAchievementView;
-import com.jkrm.education.ui.activity.me.MeAgreementActivity;
-import com.jkrm.education.ui.activity.me.PrivacyActivity;
 import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 import com.jkrm.education.widget.CommonDialog;
@@ -49,7 +43,6 @@ import com.jkrm.education.widget.Solve7PopupWindow;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,8 +79,8 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
     private CommonDialog commonDialog;
     private String mParams = "";
-    private String maxScore;
     private String EXAM_ID, CourseId;
+    private String examCategory;
 
     private String classId, courseId;
     private List<String> titleList = new ArrayList<>();
@@ -119,10 +112,12 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
         EXAM_ID = getIntent().getStringExtra(Extras.EXAM_ID);
         CourseId = getIntent().getStringExtra(Extras.COURSE_ID);
+        examCategory = getIntent().getStringExtra(Extras.KEY_EXAM_CATEGORY);
         mClassList = (List<ClassBean>) getIntent().getSerializableExtra(Extras.KEY_CLASS_LIST);
         mExamCourseList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
 
         AwSpUtil.saveString("TableString", Extras.EXAM_ID, EXAM_ID);
+        AwSpUtil.saveString("examCategory", Extras.KEY_EXAM_CATEGORY, examCategory);
 
         commonDialog = new CommonDialog(this, R.layout.dialog_section_layout, 4);
         commonDialog.setCanceledOnTouchOutside(true);
@@ -172,9 +167,8 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
 
     private void getAllScore() {
         //获取总分
-        String couId = TextUtils.isEmpty(courseId) ? CourseId : courseId;
-        mPresenter.getScore(RequestUtil.getSectionScore(EXAM_ID, couId));
-
+//        String couId = TextUtils.isEmpty(courseId) ? CourseId : courseId;
+//        mPresenter.getScore(RequestUtil.getSectionScore(EXAM_ID, couId));
     }
 
     @OnClick({R.id.multiple_subject_tv, R.id.multiple_class_tv})
@@ -198,6 +192,8 @@ public class SectionAchievementActivity extends AwMvpActivity<SectionAchievement
         section_relative.setClickable(true);
 
         String[] strTitle = sectionBean.getData().split("_");
+        String[] score = strTitle[strTitle.length - 1].split(",");
+        scoreText.setText("总分：" + score[1] + "分,");
 
         if (titleList.size() > 0) {//删除之前的子View
             childRoot.removeAllViews();

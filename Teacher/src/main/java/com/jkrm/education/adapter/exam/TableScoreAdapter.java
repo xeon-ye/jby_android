@@ -198,7 +198,7 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
         View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
         TextView textView = inflate.findViewById(R.id.item_table_child_tv);
         textView.setText(bean.getScore());
-        textView.setTextColor(context.getResources().getColor(R.color.color_0A93FC));
+//        textView.setTextColor(context.getResources().getColor(R.color.color_0A93FC));
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,13 +226,6 @@ public class TableScoreAdapter extends RecyclerView.Adapter<TableScoreAdapter.Sc
             mView = itemView.findViewById(R.id.item_title_tv);
             mSynScrollerLayout = itemView.findViewById(R.id.item_ssl);
             mChildRoot = itemView.findViewById(R.id.item_ll_child_root);
-////            ll_view = itemView.findViewById(R.id.ll_view);
-//            for (int i = 0; i < 18; i++) {
-//                View inflate = View.inflate(itemView.getContext(), R.layout.item_table_child_layout, null);
-//                TextView name = inflate.findViewById(R.id.item_table_child_tv);
-//                name.setText("内容" + i);
-//                mChildRoot.addView(inflate);
-//            }
 
         }
     }

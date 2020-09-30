@@ -112,19 +112,19 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
         View inflate = View.inflate(context, R.layout.item_table_child_layout, null);
         TextView name = inflate.findViewById(R.id.item_table_child_tv);
         name.setText(text);
-        if (!isMiss) {
+        if (!isMiss) {//未选缺考
             if (num == 6 || num == 9 || num == 12 || num == 15) {
-                setTextTv(context, name);
+                setTextTv(context, name,num);
             }
         } else {
             if (num == 5 || num == 8 || num == 11 || num == 14) {
-                setTextTv(context, name);
+                setTextTv(context, name,num);
             }
         }
         linearLayout.addView(inflate);
     }
 
-    private void setTextTv(Context context, TextView textTv) {
+    private void setTextTv(Context context, TextView textTv,int num) {
         textTv.setTextColor(context.getResources().getColor(R.color.blue));
         textTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +133,7 @@ public class TableClassAdapter extends RecyclerView.Adapter<TableClassAdapter.Sc
                     Toast.makeText(context, "人数为0，无法查看！", Toast.LENGTH_SHORT).show();
                 else {
                     //进入学生名单
-                    EventBus.getDefault().post(new MessageEvent(2, index+"" ,tag));
+                    EventBus.getDefault().post(new MessageEvent(2, num+"" ,tag));
                 }
             }
         });

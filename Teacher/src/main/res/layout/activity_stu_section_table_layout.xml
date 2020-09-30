@@ -1,77 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
     <include
-        android:id="@+id/class_common_toolbar"
+        android:id="@+id/multiple_common_toolbar"
         layout="@layout/common_title_blue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/stu_num_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_common_toolbar"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="@dimen/dimen_30"
         android:layout_marginTop="@dimen/dimen_12"
         android:text=""
         android:textColor="@color/black_3B3E42"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        android:textSize="@dimen/sp_12" />
 
     <TextView
         android:id="@+id/stu_avg_score_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_common_toolbar"
         android:layout_marginStart="@dimen/dimen_24"
         android:layout_marginTop="@dimen/dimen_12"
+        android:layout_toEndOf="@id/stu_num_tv"
         android:text=""
         android:textColor="@color/black_3B3E42"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/stu_num_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        android:textSize="@dimen/sp_12" />
 
     <TextView
         android:id="@+id/stu_max_score_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_common_toolbar"
         android:layout_marginStart="@dimen/dimen_24"
         android:layout_marginTop="@dimen/dimen_12"
+        android:layout_toEndOf="@id/stu_avg_score_tv"
         android:text=""
         android:textColor="@color/black_3B3E42"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/stu_avg_score_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        android:textSize="@dimen/sp_12" />
 
     <TextView
         android:id="@+id/stu_min_score_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_common_toolbar"
         android:layout_marginStart="@dimen/dimen_24"
         android:layout_marginTop="@dimen/dimen_12"
+        android:layout_toEndOf="@id/stu_max_score_tv"
         android:text=""
         android:textColor="@color/black_3B3E42"
-        android:textSize="@dimen/sp_12"
-        app:layout_constraintStart_toEndOf="@id/stu_max_score_tv"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar" />
+        android:textSize="@dimen/sp_12" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/stu_num_tv"
         android:layout_marginStart="@dimen/dimen_30"
-        android:layout_marginTop="@dimen/dimen_84"
+        android:layout_marginTop="@dimen/dimen_12"
         android:layout_marginEnd="@dimen/dimen_30"
-        android:layout_marginBottom="@dimen/dimen_15"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/class_common_toolbar">
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:orientation="vertical">
 
         <include
-            android:id="@+id/stu_table_top"
-            layout="@layout/item_stu_info_scroll_layout" />
+            android:id="@+id/achievement_top"
+            layout="@layout/item_stu_section_scroll_layout" />
 
         <!--         代码动态设置不滑动-->
         <android.support.v7.widget.RecyclerView
@@ -81,11 +79,15 @@
             android:orientation="vertical"
             android:scrollbars="none" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e8e8e8" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dimen_30"
+        android:layout_marginEnd="@dimen/dimen_30"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:background="#e8e8e8" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

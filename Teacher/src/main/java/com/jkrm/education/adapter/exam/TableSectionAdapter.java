@@ -19,6 +19,7 @@ import com.jkrm.education.R;
 import com.jkrm.education.bean.exam.SectionAchievementBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.ui.activity.exam.StuInfoTableActivity;
+import com.jkrm.education.ui.activity.exam.StuSectionTableActivity;
 import com.jkrm.education.widget.SynScrollerLayout;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class TableSectionAdapter extends RecyclerView.Adapter<TableSectionAdapte
     private List<String> titleList;
     private String classId, courseId, examId;
     private SectionAchievementBean sectionBean;
+
 
     public TableSectionAdapter(@Nullable Map<String, List<String>> data,
                                SynScrollerLayout synScrollerView,
@@ -123,20 +125,14 @@ public class TableSectionAdapter extends RecyclerView.Adapter<TableSectionAdapte
                         Toast.makeText(context, "人数为0，无法查看！", Toast.LENGTH_SHORT).show();
                     else {
                         int num = (index + 1) / 2;
-//                        toClass(StuInfoTableActivity.class, false,
-//                                Extras.EXAM_ID, examId,
-//                            Extras.KEY_COURSE_ID,courseId,
-//                            Extras.KEY_CLASS_ID,classId,
-//                                Extras.KEY_EXAM_STU_PARAM,titleList.get(num - 1));
                         Intent intent = new Intent();
                         intent.putExtra(Extras.EXAM_ID, examId);
                         intent.putExtra(Extras.KEY_COURSE_ID, courseId);
                         intent.putExtra(Extras.KEY_CLASS_ID, classId);
                         intent.putExtra(Extras.KEY_EXAM_STU_PARAM, titleList.get(num - 1));
-                        intent.setClass(context,StuInfoTableActivity.class);
+                        intent.setClass(context, StuSectionTableActivity.class);
                         context.startActivity(intent);
                     }
-
                 }
             });
         }
