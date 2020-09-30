@@ -73,8 +73,8 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     TextView mTvClassAvgScore;
     @BindView(R.id.tv_gradeMaxScore)
     TextView mTvGradeMaxScore;
-    @BindView(R.id.combinedChart)
-    CombinedChart mCombinedChart;
+//    @BindView(R.id.combinedChart)
+//    CombinedChart mCombinedChart;
     private LevelAdapter levelAdapter;
     private List<MarkBean> markBeans = new ArrayList<>();
     private List<MarkBean> courseBeans = new ArrayList<>();

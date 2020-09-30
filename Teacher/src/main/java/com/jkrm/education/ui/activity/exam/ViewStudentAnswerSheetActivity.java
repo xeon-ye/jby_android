@@ -1,5 +1,6 @@
 package com.jkrm.education.ui.activity.exam;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -72,12 +73,15 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initData() {
         super.initData();
         EXAM_ID = getIntent().getExtras().getString(Extras.EXAM_ID);
         STUDENT_ID = getIntent().getExtras().getString(Extras.STUDENT_ID);
         mExamCourseBeanList = (List<ExamCourseBean>) getIntent().getSerializableExtra(Extras.KEY_EXAM_COURSE_LIST);
+        String score = getIntent().getExtras().getString(Extras.KEY_EXAM_SCORE);
+        mTvGrades.setText(score + "分");
         //不需要全部
         mExamCourseBeanList.remove(0);
         mExamCourseBeanList.get(0).setChecked(true);
@@ -103,7 +107,7 @@ public class ViewStudentAnswerSheetActivity extends AwMvpActivity<ViewStudentAns
 
     private void setGradeData() {
         Glide.with(mActivity).load(mStrFront).into(mIvQuestionImg);
-        mTvGrades.setText(mBean.getGradeMaxScore() + "分");
+//        mTvGrades.setText(mBean.getGradeMaxScore() + "分");
         mTvTitle.setText("姓名：" + mBean.getStudName() + "考号：" + mBean.getStudCode() + "班级：" + mBean.getClassName() + "联考/学校/班级：" + mBean.getGradeRank() + "/" + mBean.getClassRank());
     }
 

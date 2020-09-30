@@ -743,6 +743,13 @@ public abstract class AwBaseActivity extends TakePhotoFragmentActivity implement
                 .init();
     }
 
+    protected void setStatusGone() {
+        ImmersionBar.with(mActivity).fitsSystemWindows(true)
+                .statusBarDarkFont(false)
+                .statusBarColor(R.color.colorPrimary)
+                .keyboardEnable(true)
+                .init();
+    }
 
     /** 针对8.0设备, 透明Activity会导致Only fullscreen opaque activities can request orientation, 参考https://blog.csdn.net/starry_eve/article/details/82777160解决如下 */
     private boolean fixOrientation(){

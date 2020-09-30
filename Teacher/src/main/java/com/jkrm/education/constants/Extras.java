@@ -62,6 +62,7 @@ public class Extras {
     public final static String KEY_ROLE_LIST="key_role_list";
 
     public final static String KEY_EXAM_CATEGORY="key_exam_category";
+    public final static String KEY_EXAM_SCORE="key_exam_score";
 
     public final static String KEY_EXAM_COURSE_LIST="key_exam_course_list";
     public final static String KEY_EXAM_STU_PARAM="key_exam_stu_param";

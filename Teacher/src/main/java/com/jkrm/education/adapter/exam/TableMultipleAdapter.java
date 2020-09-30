@@ -136,7 +136,7 @@ public class TableMultipleAdapter extends RecyclerView.Adapter<TableMultipleAdap
                     if (name.getText().equals("-"))
                         Toast.makeText(context, "成绩未发布！", Toast.LENGTH_SHORT).show();
                     else {
-                        EventBus.getDefault().post(new MessageEvent(0, "" + position,tag));
+                        EventBus.getDefault().post(new MessageEvent(0, text+"," + position,tag));
                     }
                 }
             });

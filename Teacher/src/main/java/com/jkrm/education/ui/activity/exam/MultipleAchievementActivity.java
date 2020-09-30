@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,6 +15,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -164,7 +168,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         String claId = TextUtils.isEmpty(classId) ? "" : classId;
         String couId = TextUtils.isEmpty(courseId) ? "" : courseId;
         mPresenter.getTableList(RequestUtil.MultipleAchievementBody(
-                UserUtil.getRoleld(), claId, couId, EXAM_ID, serText));
+                UserUtil.getRoleld(), claId, couId, EXAM_ID, "1000", serText));
     }
 
     //综合成绩表：根据接口的科目数据，动态添加科目
@@ -310,7 +314,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
         achievementRV.setLayoutManager(new LinearLayoutManager(this));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        TableMultipleAdapter adapter = new TableMultipleAdapter(listMap, achievementSSL,achievementBean,22);
+        TableMultipleAdapter adapter = new TableMultipleAdapter(listMap, achievementSSL, achievementBean, 22);
         achievementRV.setAdapter(adapter);
 
         achievementRV.setOnTouchListener(getListener(achievementSSL));
@@ -431,12 +435,18 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
         Log.e(TAG, "onReceiveMsg: " + message.toString());
         if (message.getType() == 0) {
             //综合成绩表跳转
-            int position = Integer.parseInt(message.getMessage());
+            String[] strings = message.getMessage().split(",");
+            int position = -1;
+            if (strings.length > 0) {
+                position = Integer.parseInt(strings[1]);
+            } else
+                Toast.makeText(MultipleAchievementActivity.this, "数据异常！", Toast.LENGTH_SHORT).show();
             if (message.getTag() == 22) {
                 toClass(ViewStudentAnswerSheetActivity.class, false,
                         Extras.EXAM_ID, achievementBean.getRows().get(position).getExamId(),
                         Extras.STUDENT_ID, achievementBean.getRows().get(position).getStudId(),
 //                                Extras.KEY_COURSE_ID, achievementBean.getRows().get(position).getCourseId(), //先不加
+                        Extras.KEY_EXAM_SCORE, strings[0],
                         Extras.KEY_EXAM_COURSE_LIST, mExamCourseList);
             }
         }
@@ -470,7 +480,7 @@ public class MultipleAchievementActivity extends AwMvpActivity<MultipleAchieveme
 
     @Override
     public void getSubjectListFail(String msg) {
-
+        Toast.makeText(MultipleAchievementActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("ClickableViewAccessibility")

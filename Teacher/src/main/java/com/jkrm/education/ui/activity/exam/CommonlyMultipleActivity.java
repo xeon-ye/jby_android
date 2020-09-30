@@ -693,7 +693,7 @@ public class CommonlyMultipleActivity extends AwMvpActivity<CommonlyMultiplePres
         super.initData();
         //综合成绩
         mPresenter.getMultipleAchievementList(RequestUtil.MultipleAchievementBody(
-                UserUtil.getRoleld(), "", "", EXAM_ID, ""));
+                UserUtil.getRoleld(), "", "", EXAM_ID, "5",""));
         mPresenter.getExamCourse(RequestUtil.getExamCourseBody(EXAM_ID, UserUtil.getRoleld()));
         //小题得分
         mPresenter.getQuestionScoreList(RequestUtil.ScoreAchievementBody(UserUtil.getRoleld(), "", EXAM_ID, "", ""));

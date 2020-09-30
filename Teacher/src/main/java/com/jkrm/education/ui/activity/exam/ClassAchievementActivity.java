@@ -155,6 +155,23 @@ public class ClassAchievementActivity extends AwMvpActivity<ClassAchievementPres
                         TextUtils.isEmpty(editSEnd03.getText())) {
                     Toast.makeText(ClassAchievementActivity.this, "分数设置请填写完整！", Toast.LENGTH_SHORT).show();
                 } else {
+                    int input = Integer.parseInt(editStart.getText().toString());
+                    int input01 = Integer.parseInt(editStart01.getText().toString());
+                    int input02 = Integer.parseInt(editStart02.getText().toString());
+                    int input03 = Integer.parseInt(editStart03.getText().toString());
+                    if (input01 > input) {
+                        Toast.makeText(ClassAchievementActivity.this, "良好百分比不能高于优秀！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (input02 > input01) {
+                        Toast.makeText(ClassAchievementActivity.this, "及格百分比不能高于良好！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (input03 > input02) {
+                        Toast.makeText(ClassAchievementActivity.this, "低分百分比不能高于及格！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     //获取params
                     String ss =
                             editStart.getText() + "," + editSEnd.getText() + "_" +
