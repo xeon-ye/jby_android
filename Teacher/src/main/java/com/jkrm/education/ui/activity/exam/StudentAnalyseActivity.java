@@ -24,10 +24,18 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.hzw.baselib.base.AwMvpActivity;
+import com.hzw.baselib.constants.AwBaseConstant;
+import com.hzw.baselib.mpchart.ChartNoDataUtil;
+import com.hzw.baselib.mpchart.helpers.CombineChartCommonMoreYCustomSpaceHelper;
 import com.hzw.baselib.project.student.bean.MarkBean;
+import com.hzw.baselib.util.AwConvertUtil;
+import com.hzw.baselib.util.AwDataUtil;
 import com.hzw.baselib.util.AwRecyclerViewUtil;
+import com.hzw.baselib.util.MyDateUtil;
 import com.hzw.baselib.widgets.AwViewCustomToolbar;
 import com.jkrm.education.R;
 import com.jkrm.education.adapter.exam.LevelAdapter;
@@ -35,6 +43,7 @@ import com.jkrm.education.adapter.exam.LevelGridViewAdapter;
 import com.jkrm.education.bean.exam.ColumnDataBean;
 import com.jkrm.education.bean.exam.LineDataBean;
 import com.jkrm.education.bean.exam.OverViewBean;
+import com.jkrm.education.bean.result.StatisticsScorePositionRankResultBean;
 import com.jkrm.education.constants.Extras;
 import com.jkrm.education.mvp.presenters.StudentAnalysisPresent;
 import com.jkrm.education.mvp.views.StudentAnalysisView;
@@ -42,6 +51,8 @@ import com.jkrm.education.util.RequestUtil;
 import com.jkrm.education.util.UserUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,8 +84,8 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
     TextView mTvClassAvgScore;
     @BindView(R.id.tv_gradeMaxScore)
     TextView mTvGradeMaxScore;
-//    @BindView(R.id.combinedChart)
-//    CombinedChart mCombinedChart;
+    @BindView(R.id.combinedChart)
+    CombinedChart mCombinedChart;
     private LevelAdapter levelAdapter;
     private List<MarkBean> markBeans = new ArrayList<>();
     private List<MarkBean> courseBeans = new ArrayList<>();
@@ -195,6 +206,80 @@ public class StudentAnalyseActivity extends AwMvpActivity<StudentAnalysisPresent
         barchart.groupBars(0, 0.8f, 0);
         barchart.invalidate();
 
+        //重置表格缩放等数据
+        mCombinedChart.fitScreen();
+
+        if (AwDataUtil.isEmpty(columnDataBeans)) {
+            ChartNoDataUtil.setCombinedChartNoDataStatus(mCombinedChart, getString(com.hzw.baselib.R.string.common_no_data));
+            return;
+        }
+        List<Float> leftList = new ArrayList<>();
+        for (ColumnDataBean temp : columnDataBeans) {
+            if (Float.parseFloat(temp.getClassMaxScore()) <= Float.parseFloat(temp.getGradeMaxScore())) {
+                leftList.add(Float.valueOf(temp.getClassMaxScore()));
+            } else {
+                leftList.add(Float.valueOf(temp.getGradeMaxScore()));
+            }
+        }
+        float maxLeftValue = Collections.max(leftList);
+        float maxRightValue = 0;
+        List<String> xAxisValues = new ArrayList<>();
+        List<Float> yAxisValues1 = new ArrayList<>();
+        List<Float> yAxisValues2 = new ArrayList<>();
+        List<Float> yAxisValues3 = new ArrayList<>();
+        List<Float> yAxisValuesLine1 = new ArrayList<>();
+        List<Float> yAxisValuesLine2 = new ArrayList<>();
+        LinkedHashMap<String, List<Float>> map = new LinkedHashMap<>();
+        LinkedHashMap<String, List<Float>> mapLine = new LinkedHashMap<>();
+        for (ColumnDataBean temp : columnDataBeans) {
+            xAxisValues.add(temp.getCourseName());
+            if (type == CLASS_TYPE) {
+                yAxisValues1.add(Float.valueOf(temp.getMyScore()));
+                yAxisValues2.add(Float.valueOf(temp.getClassMaxScore()));
+                yAxisValues3.add(Float.valueOf(temp.getClassAvgScore()));
+            }else if(type==SCHOOL_TYPE){
+                yAxisValues1.add(Float.valueOf(temp.getMyScore()));
+                yAxisValues2.add(Float.valueOf(temp.getGradeMaxScore()));
+                yAxisValues3.add(Float.valueOf(temp.getClassAvgScore()));
+            }
+
+            // yAxisValuesLine1.add(Float.valueOf(temp.getDurationRate()) * 100);
+            //    yAxisValuesLine2.add(Float.valueOf(temp.getDurationTotalRate()) * 100);
+        }
+        map.put("我的成绩", yAxisValues1);
+        map.put("最高分", yAxisValues2);
+        map.put("平均分", yAxisValues3);
+        mapLine.put("本段占比", yAxisValuesLine1);
+        mapLine.put("累计占比", yAxisValuesLine2);
+        CombineChartCommonMoreYCustomSpaceHelper.setMoreBarChart(mCombinedChart, xAxisValues, map, mapLine,
+                MyDateUtil.getAnalyseChartColorsList2(mActivity), MyDateUtil.getChartLineColorsList(mActivity),
+                false, true, "", 8, false, maxLeftValue, maxRightValue);
+
+        mCombinedChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                int x = (int) Math.floor(e.getX());
+                ColumnDataBean bean = columnDataBeans.get(x);
+                if(type==CLASS_TYPE){
+                    showToastDialog2(bean.getCourseName() +
+                            "\n我的成绩：" + bean.getMyScore() + AwBaseConstant.COMMON_SUFFIX_SCORE
+                            + "\n最高分：" + bean.getClassMaxScore() + AwBaseConstant.COMMON_SUFFIX_SCORE
+                            + "\n平均分: " + bean.getClassAvgScore()+AwBaseConstant.COMMON_SUFFIX_SCORE);
+                }else if(type==SCHOOL_TYPE){
+                    showToastDialog2(bean.getCourseName() +
+                            "\n我的成绩：" + bean.getMyScore() + AwBaseConstant.COMMON_SUFFIX_SCORE
+                            + "\n最高分：" + bean.getGradeMaxScore() + AwBaseConstant.COMMON_SUFFIX_SCORE
+                            + "\n平均分: " + bean.getClassAvgScore()+AwBaseConstant.COMMON_SUFFIX_SCORE);
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
     }
 
     @Override

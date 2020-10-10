@@ -228,6 +228,12 @@
                     android:id="@+id/barchart"
                     android:layout_width="match_parent"
                     android:layout_height="300dp" />
+
+                <com.github.mikephil.charting.charts.CombinedChart
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:id="@+id/combinedChart"
+                    ></com.github.mikephil.charting.charts.CombinedChart>
             </LinearLayout>
 
             <GridView

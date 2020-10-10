@@ -316,6 +316,17 @@ public class MyDateUtil {
     }
 
     /**
+     * 获取表单填充颜色集合
+     * @param context
+     * @return
+     */
+    public static List<Integer> getAnalyseChartColorsList2(Context context) {
+        return Arrays.asList(
+                context.getResources().getColor(R.color.color_40A0FF),
+                context.getResources().getColor(R.color.color_chart_FF0000), context.getResources().getColor(R.color.color_chart_669900)
+        );
+    }
+    /**
      * 标准答案移动到第一行
      * @param list
      * @param <E>
